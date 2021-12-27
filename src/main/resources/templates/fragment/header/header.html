@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header"
+     class="h-24 w-full border-b border-gray-200 flex justify-between items-center bg-gray-100 px-10 z-50">
+    <div class="bg-blue-300 rounded-full h-16 w-16 flex justify-center items-center ml-40">logo</div>
+    <div class=" rounded-full h-16 w-16 relative menu2 flex justify-center items-center mr-5">
+
+        <img th:src="@{/images/GVUMY7xKt.png}" class=" mt-3"
+             style="margin-top: 25px;margin-bottom: 20px;width: 170px">
+
+        <div class="w-52 border absolute right-0 top-16 menu2Child bg-white">
+            <div class="w-full bg-blue-300 h-12 flex items-center pl-2 mt-1">Thông tin cá nhân</div>
+            <div class="w-full bg-blue-300 h-12 flex items-center pl-2 mt-1">Đăng xuất</div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

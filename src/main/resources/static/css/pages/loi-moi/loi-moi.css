@@ -1,0 +1,6 @@
+#getChild div:nth-last-child(1) .horizontal-line{
+    display: none !important;
+}
+.loiMoiNoiBat{
+    display: block !important;
+}

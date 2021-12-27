@@ -1,0 +1,22 @@
+#footer {
+    width: 1919px;
+    height: 340px;
+    background-color: aquamarine;
+    text-align: center;
+}
+
+.triangleBottom{
+    --tw-border-opacity: 1;
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid rgba(245, 158, 11, var(--tw-border-opacity));
+    border-left: 40px solid transparent;
+    border-right: 40px solid rgba(245, 158, 11, var(--tw-border-opacity));
+}
+
+.triangleTop{
+    --tw-border-opacity: 1;
+    border-top: 20px solid rgba(245, 158, 11, var(--tw-border-opacity));
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid rgba(245, 158, 11, var(--tw-border-opacity));
+    border-right: 20px solid transparent;
+}
