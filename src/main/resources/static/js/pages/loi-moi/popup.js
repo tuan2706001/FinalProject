@@ -23,3 +23,4 @@ $(window).click(function (e){
         $('body,html').css('overflow','auto');
     }
 })
+})
