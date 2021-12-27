@@ -1,0 +1,19 @@
+.splide3 .prev svg{
+    transform: scaleX(1);
+}
+.splide3 .arrow svg{
+    fill: none !important;
+    height: auto;
+    width: auto;
+}
+.splide3 .pagination .splide__pagination__page {
+    display: inline-block;
+    width: 20px;
+    height: 3px;
+    border-radius: 0%;
+    background: #d6d6d6;
+    margin-right: 8px;
+}
+.splide3 .pagination .splide__pagination__page.is-active {
+     background: #007DC5 !important;
+ }

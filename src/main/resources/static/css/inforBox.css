@@ -1,0 +1,16 @@
+.box{
+    position: relative;
+}
+.inforbox{
+    opacity: 0;
+    transition-duration: 300ms;
+    transform-origin: bottom;
+    color: white;
+    background: black;
+    position: absolute;
+    bottom: 0;
+}
+.box:hover .inforbox{
+    opacity: 60%;
+    transform-origin: bottom;
+}
