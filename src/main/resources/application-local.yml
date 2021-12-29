@@ -55,12 +55,12 @@ spring:
   messages:
     basename: i18n/messages
 server:
-  port: 8080
+  port: 7000
   tomcat:
     max-swallow-size: -1
     max-http-form-post-size: -1
 external:
-  port: 8080
+  port: 7000
 file:
   upload_dir: ./upload
 service:
