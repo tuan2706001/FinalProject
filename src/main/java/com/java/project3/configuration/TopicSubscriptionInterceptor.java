@@ -1,5 +1,7 @@
 //package com.java.project3.configuration;
 //
+//import com.java.project3.domain.Ministry;
+//import com.java.project3.dto.RequestContext;
 //import lombok.SneakyThrows;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.messaging.Message;
@@ -42,16 +44,16 @@
 //            principal1 = ((RememberMeAuthenticationToken) principal).getPrincipal();
 //        }
 //
-//        User user = null;
-//        if (principal1 instanceof User) {
-//            user = (User) principal1;
+//        Ministry user = null;
+//        if (principal1 instanceof Ministry) {
+//            user = (Ministry) principal1;
 //        } else if (principal1 instanceof RequestContext) {
 //            RequestContext requestContext = (RequestContext) principal1;
-//            user = requestContext.getUser();
+//            user = requestContext.getMinistry();
 //        }
 //        if(user != null){
 //            if(conversationId != null){
-//                List<LinkedHashMap<String, Object>> conversationHandleDTOList = (List<LinkedHashMap<String, Object>>) messengerService.getConversationByUserId(user.getId()).getObject();
+////                List<LinkedHashMap<String, Object>> conversationHandleDTOList = (List<LinkedHashMap<String, Object>>) messengerService.getConversationByUserId(user.getId()).getObject();
 //                Long finalConversationId1 = conversationId;
 //                Boolean check = conversationHandleDTOList.stream().anyMatch(u -> u.get("id").equals(finalConversationId1));
 //                if(check == true){

@@ -1,13 +1,13 @@
 package com.java.project3.dto.base;
 
-import com.bkh.vnoip.domain.user.Organization;
-import com.bkh.vnoip.domain.user.Role;
-import com.bkh.vnoip.domain.user.User;
+import liquibase.hub.model.Organization;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.catalina.User;
 
+import javax.management.relation.Role;
 import java.util.List;
 
 @Setter

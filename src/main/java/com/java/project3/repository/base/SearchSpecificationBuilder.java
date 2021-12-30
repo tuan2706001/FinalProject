@@ -1,5 +1,6 @@
 package com.java.project3.repository.base;
 
+import com.java.project3.dto.base.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;

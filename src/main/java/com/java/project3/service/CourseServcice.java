@@ -5,7 +5,7 @@ import com.java.project3.domain.Coursse;
 import com.java.project3.dto.CourseDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
-import com.java.project3.repository.KhoaRepository;
+import com.java.project3.repository.CourseRepository;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,20 +15,21 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.java.project3.utils.SearchUtil.getOrders;
+import static com.java.project3.constant.Constants.DEFAULT_PROP;
+import static com.java.project3.utils.SearchUtil.*;
 import static org.springframework.data.domain.Sort.by;
 
 @Service
-public class KhoaServcice {
+public class CourseServcice {
     @Autowired
-    KhoaRepository khoaRepository;
+    CourseRepository courseRepository;
 
 
     JMapper<CourseDTO, Coursse> toKhoaDto;
     JMapper<Coursse, CourseDTO> toKhoa;
 
 
-    public KhoaServcice() {
+    public CourseServcice() {
         this.toKhoaDto = new JMapper<>(CourseDTO.class, Coursse.class);
         this.toKhoa = new JMapper<>(Coursse.class, CourseDTO.class);
     }
@@ -39,7 +40,7 @@ public class KhoaServcice {
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<Coursse> khoas = khoaRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<Coursse> khoas = courseRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
         List<CourseDTO> courseDTOS = new ArrayList<>();
         for (var khoa : khoas) {

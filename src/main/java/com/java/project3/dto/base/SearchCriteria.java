@@ -1,6 +1,6 @@
 package com.java.project3.dto.base;
 
-import com.bkh.vnoip.enums.SearchParamTypeEnum;
+import com.java.project3.enums.SearchParamTypeEnum;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 

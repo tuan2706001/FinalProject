@@ -39,10 +39,6 @@
 #    hibernate:
 #      ddl-auto: none
 #      open-in-view: false
-#    properties:
-#      hibernate:
-#        metadata_builder_contributor: com.java.project3.configuration.SqlFunctionsMetadataBuilderContributor
-#        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://${dbhost}:${dbport}/${dbname}
