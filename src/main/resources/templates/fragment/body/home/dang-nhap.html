@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="dang-nhap" style="min-height: 600px"
+     class="w-12/12 mx-auto min-h-screen flex justify-center items-center bg-scroll">
+    <div class="w-full md:h-auto min-h-screen md:min-h-full md:w-2/3 lg:w-1/2 pb-12 pt-5 sm:my-12 bg-white rounded-xl sm:mx-20 body">
+        <div class="pt-4 pb-6">
+            <div class="sm:flex text-center items-center justify-center px-6 sm:relative ">
+                <a href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sm:absolute top-2 left-5 h-7 w-7" viewBox="0 0 20 20"
+                         fill="currentColor">
+                        <path fill-rule="evenodd"
+                              d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </a>
+                <a href="/" class=" sm:absolute top-0 right-6">
+                    <img class="w-28 mx-auto" th:src="@{/images/logoVinet2.svg}" alt="">
+                </a>
+                <div class="font-bold text-4xl flex  justify-center" style="color: #15587E">
+                    <span>Đăng nhập</span>
+                </div>
+            </div>
+        </div>
+        <div class="w-11/12 sm:w-4/5 px-7 mx-auto mt-14 mb-1">
+            <form>
+                <div class="pb-0.5">
+                    <div class="font-semibold  text-xl pb-2">
+                        <label>Username</label>
+                    </div>
+                    <input class=" mt-px border-black border outline-none w-full h-9 p-3 rounded-md focus:ring bg-opacity-25 bg-gray-100"
+                           id="usName"
+                           type="text"
+                           placeholder="Email"
+                           name="username">
+                </div>
+                <div class="mt-5 pt-px ">
+                    <div class="font-semibold  text-xl pb-2">
+                        <label>Password</label>
+                    </div>
+                    <input class="mt-px border-black border outline-none w-full h-9 p-3 rounded-md focus:ring bg-opacity-25 bg-gray-100"
+                           id="pass"
+                           type="password"
+                           placeholder="Password"
+                           name="password"> <br>
+                </div>
+                <div class="flex justify-end mt-2 mx-2">
+                    <div class=" text-sm flex items-center hidden">
+                        <input id="remember" class="outline-none bg-opacity-25 w-4 h-4" type="checkbox"
+                               name="remember-me" checked>
+                        <label class="pl-2" for="remember">Duy trì đăng nhập</label>
+                    </div>
+                    <div class=" text-sm">
+                        <a href="/user/forgot-password">Quên mật khẩu ?</a>
+                    </div>
+                </div>
+                <!--                    <div class="h-3 mt-4 mb-1 font-semibold text-sm flex justify-center items-center text-red-500 mx-auto">-->
+                <!--                        <span class="error">alo</span>-->
+                <!--                    </div>-->
+                <div class="w-full flex justify-center items-center">
+                    <button
+                            class=" signInBTN w-2/3 text-white text-2xl rounded-lg h-12
+                                    transition duration-300 font-bold
+                                    mb-5 bg-blue-500" style="margin-top: 26px"
+                            type="submit">
+                        <a href="/trang-chu">Đăng nhập</a>
+                    </button>
+
+                </div>
+                <div class="text-center mt-0.5 pt-px">
+                    <span class="">Hoặc đăng nhập bằng</span>
+                    <div class=" flex justify-center items-center mx-auto mt-3.5">
+                        <img th:src="@{/images/downnload.png}" class=" bg-white bg-opacity-25 flex items-center justify-center"
+                             style="height: 50px;width: 50px">
+
+                        <img th:src="@{/images/downnload(1).png}" class="mx-5  bg-white bg-opacity-25 flex items-center justify-center"
+                             style="height: 50px;width: 50px">
+                    </div>
+                </div>
+                <div class="mt-6 pt-0.5 text-sm text-center md:flex md:text-left justify-center pb-2">
+                    <div>
+                        <span class="text-lg">Bạn chưa có tài khoản ?</span>
+                    </div>
+                    <div>
+                        <span style="color: #007DC5" class="text-lg"> Đăng ký</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

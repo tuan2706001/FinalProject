@@ -8,10 +8,10 @@
 
 <body>
     <div th:fragment="header"
-        class="h-24 w-full border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-10 z-auto">
-        <div class="rounded-full h-50 w-50 flex justify-center items-center ml-40">
-            <img th:src="@{/images/logo_1591255072.png}" class=" mt-10"
-                style="margin-top: 25px;margin-bottom: 20px;width: 250px">
+        class="h-20 w-full border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-10 z-auto">
+        <div class="rounded-full h-46 w-46 flex justify-center items-center ml-40">
+            <img th:src="@{/images/logo_1591255072.png}" class="mt-10"
+                style="margin-top: 25px;margin-bottom: 20px;width: 220px">
         </div>
         <div class="text-white text-2xl font-bold italic hover:not-italic">Website quản lý điểm học viện công nghệ BKACAD</div>
         <div class=" rounded-full h-14 w-14 relative menu2 flex justify-center items-center mr-5">
@@ -20,13 +20,17 @@
                 style="margin-top: 25px;margin-bottom: 20px;width: 170px">
 
             <div class="w-52 absolute right-0 top-16 menu2Child">
-                <a th:classappend="${#httpServletRequest.requestURI.contains('/thong-tin-ca-nhan') ? 'bg-gray-500' : 'bg-blue-400 '}"
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/thong-tin-ca-nhan') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
                    href="/thong-tin-ca-nhan"
-                    class="w-full h-12 flex items-center pl-2 mt-1 rounded-lg text-white transition duration-300 hover:bg-gray-400">Thông
-                    tin cá nhân</a>
-                <div
-                    class="w-full bg-blue-300 h-12 flex items-center pl-2 mt-1 rounded-lg text-white transition duration-300 hover:bg-gray-400">
-                    Đăng xuất</div>
+                    class="w-full h-12 flex items-center font-bold pl-2 mt-1 rounded-lg text-white transition duration-300 hover:bg-gray-400">
+                    Thông tin cá nhân
+                </a>
+
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/dang-nhap') ? 'bg-gradient-to-r from-indigo-800' : 'bg-blue-400 '}"
+                   href="/dang-nhap"
+                   class="w-full h-12 flex items-center font-bold pl-2 mt-1 rounded-lg text-white transition duration-300 hover:bg-gray-400">
+                    Đăng nhập
+                </a>
 
             </div>
         </div>

@@ -54,6 +54,11 @@ public class HomeController {
         return "thong-tin-ca-nhan";
     }
 
+    @GetMapping("dang-nhap")
+    public String login() {
+        return "dang-nhap";
+    }
+
 
 
 
