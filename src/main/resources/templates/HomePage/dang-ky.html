@@ -16,16 +16,15 @@
 <div class="z-50 sticky">
     <div th:replace="~{fragment/header/header :: header}"></div>
 </div>
-<div class="flex justify-end">
-    <div class="w-2/12">
-        <div th:replace="~{fragment/common/home/menu-left :: menuLeft}"></div>
-    </div>
-    <div class="w-10/12">
-        <div th:replace="~{fragment/body/home/quan-ly-khoa :: quan-ly-khoa}"></div>
-        <div th:replace="~{fragment/footer/footer :: footer}"></div>
-    </div>
+
+<div class="w-12/12">
+    <div th:replace="~{fragment/body/home/dang-ky :: dang-ky}"></div>
+    <div th:replace="~{fragment/footer/footer :: footer}"></div>
 </div>
+
+<script th:src="@{/js/pages/loi-moi/quan-tri-danh-sach.js}"></script>
 <script th:src="@{/js/pages/loi-moi/popup.js}"></script>
-<!--<script th:src="@{/js/edit.js}"></script>-->
+<script th:src="@{/js/edit.js}"></script>
+<script th:src="@{/js/pages/loi-moi/uploadFile.js}"></script>
 </body>
 </html>

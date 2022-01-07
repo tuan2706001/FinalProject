@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="w-11/12 sm:w-4/5 px-7 mx-auto mt-14 mb-1">
-            <form>
+            <form th:action="@{/dang-nhap}" method="post">
                 <div class="pb-0.5">
                     <div class="font-semibold  text-xl pb-2">
                         <label>Username</label>
@@ -74,10 +74,12 @@
                 <div class="text-center mt-0.5 pt-px">
                     <span class="">Hoặc đăng nhập bằng</span>
                     <div class=" flex justify-center items-center mx-auto mt-3.5">
-                        <img th:src="@{/images/downnload.png}" class=" bg-white bg-opacity-25 flex items-center justify-center"
+                        <img th:src="@{/images/downnload.png}"
+                             class="bg-white bg-opacity-25 flex items-center justify-center"
                              style="height: 50px;width: 50px">
 
-                        <img th:src="@{/images/downnload(1).png}" class="mx-5  bg-white bg-opacity-25 flex items-center justify-center"
+                        <img th:src="@{/images/downnload(1).png}"
+                             class="mx-5  bg-white bg-opacity-25 flex items-center justify-center"
                              style="height: 50px;width: 50px">
                     </div>
                 </div>
@@ -86,7 +88,9 @@
                         <span class="text-lg">Bạn chưa có tài khoản ?</span>
                     </div>
                     <div>
-                        <span style="color: #007DC5" class="text-lg"> Đăng ký</span>
+                        <a th:classappend="${#httpServletRequest.requestURI.contains('/dang-ky')}" href="/dang-ky">
+                            <span style="color: #007DC5" class="text-lg"> Đăng ký</span>
+                        </a>
                     </div>
                 </div>
             </form>

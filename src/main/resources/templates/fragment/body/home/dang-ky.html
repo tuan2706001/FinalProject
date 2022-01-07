@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="dang-ky">
+    <div class="w-full" style="background: #F3F2EF;">
+        <!--            <div class="flex mt-3 ml-28">-->
+        <!--                <div th:text="#{user.menu.home}"></div>-->
+        <!--                <div class="mx-3">-->
+        <!--                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"-->
+        <!--                         xmlns="http://www.w3.org/2000/svg">-->
+        <!--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>-->
+        <!--                    </svg>-->
+        <!--                </div>-->
+        <!--                <div class="text-blue-500" th:text="#{public.event.register}"></div>-->
+        <!--            </div>-->
+        <div class="h-12"></div>
+        <div class="w-7/12 mx-auto bg-white rounded-lg">
+            <div class="py-10">
+                <div class="w-10/12 flex mx-auto mt-10">
+                    <div class="w-1/12">
+                        <a >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="w-9/12 text-center text-3xl">
+                        <div class="ml-28 font-bold" style="color: #15587E">
+                            Cá Nhân
+                        </div>
+                    </div>
+                    <div class="w-3/12 flex justify-end -mt-1">
+                        <a >
+                            <img alt="logo" class="w-11/12">
+                        </a>
+                    </div>
+                </div>
+                <div class="w-10/12 mx-auto my-10">
+                    <form id="formSignUp" method="post">
+                        <div class="w-full mb-8">
+                            <div class="w-full px-4 border-l-4 border-yellow-500">
+                                <span class="block font-bold text-lg">Thông tin tài khoản</span>
+                            </div>
+                        </div>
+                        <div class="md:flex w-full mb-8">
+                            <div class="w-full md:pr-16">
+                                <span class="block mb-2 font-medium text-base">Họ và tên</span>
+                                <span class="block efname text-red-600 text-xs"></span>
+                                <input type="text" id="fullName"
+                                       class="w-full mb-5 py-1 px-3 border-gray-300" name="fullname"
+                                       placeholder="Họ và tên của bạn">
+                                <span class="block mb-2 font-medium text-base">Lĩnh vực hoạt động </span>
+                                <span class="block text-red-600 text-xs"></span>
+                                <input type="text" class="w-full mb-5 border rounded py-1 px-3 border-gray-300"
+                                       name="email" placeholder="">
+                                <span class="block mb-2 font-medium text-base">Nhu cầu </span>
+                                <span class="block text-red-600 text-xs"></span>
+                                <input type="text" class="w-full mb-5 border rounded py-1 px-3 border-gray-300"
+                                       name="email" placeholder="">
+                            </div>
+                            <div class="w-full md:pl-16">
+                                <span class="block font-medium text-base mb-2"> Tài khoản đăng nhập</span>
+                                <span class="block eemail text-red-600 text-xs"></span>
+                                <input type="email" id="email" class="w-full mb-5 border rounded py-1 px-3 border-gray-300" name="email" placeholder="Email">
+                                <span class="block mb-2 font-medium text-base">Mật khẩu</span>
+                                <span class="block epassword text-red-600 text-xs"></span>
+                                <input type="password" id="password"
+                                       class="w-full mb-5 border rounded py-1 px-3 border-gray-300" name="password"
+                                       placeholder="Mật khẩu">
+                                <span class="block mb-2 font-medium text-base">Mật khẩu xác nhận </span>
+                                <span class="block erepassword text-red-600 text-xs"></span>
+                                <input type="password" id="repassword"
+                                       class="w-full mb-5 border rounded py-1 px-3 border-gray-300" name="repassword"
+                                       placeholder="Xác nhận mật khẩu">
+                            </div>
+
+                        </div>
+                        <div class="w-full mb-8">
+                            <div class="w-full px-4 border-l-4 border-yellow-500 flex">
+                                <div class="block font-bold text-lg">Thông tin tổ chức</div>
+                                <div class="text-sm pl-1 my-auto" style="color: rgba(71, 75, 79, 0.69);">(Có thể điền nếu bạn là cá nhân của một đơn vị, tổ chức)</div>
+                            </div>
+                        </div>
+                        <div class="md:flex w-full mb-8">
+                            <div class="w-full md:pr-16">
+                                <span class="block mb-2 font-medium text-base">Tên tổ chức</span>
+                                <span class="block efname text-red-600 text-xs"></span>
+                                <input type="text"
+                                       class="w-full mb-5 border rounded py-1 px-3 border-gray-300"
+                                       placeholder="">
+                            </div>
+                            <div class="w-full md:pl-16">
+                                <span class="block font-medium text-base mb-2"> Vị trí</span>
+                                <span class="block eemail text-red-600 text-xs"></span>
+                                <input type="text" class="w-full mb-5 border rounded py-1 px-3 border-gray-300"  placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="w-full flex justify-center mb-4">
+                            <button class="px-20 py-2 rounded text-white" id="btnRegister" style="background: #007DC5">
+                                Đăng ký
+                            </button>
+                        </div>
+                        <div class="text-center mt-0.5 pt-14">
+                            <span class="">Hoặc đăng nhập tài khoản cá nhân bằng</span>
+                            <div class=" flex justify-center items-center mx-auto mt-3.5">
+                                <a th:href="@{/user/google/login}" class=" bg-white bg-opacity-25 flex items-center justify-center" style="height: 50px;width: 50px">
+                                    <img style="width: 50px;height: 50px;" th:src="@{/images/pages/home/google.png}" alt="google login">
+                                </a>
+                                <a th:href="@{/user/google/login}" class="mx-5  bg-white bg-opacity-25 flex items-center justify-center" style="height: 50px;width: 50px">
+                                    <img style="width: 50px;height: 50px;" th:src="@{/images/pages/home/facebooklogin.png}" alt="facebook login">
+                                </a>
+                                <a th:href="@{/user/google/login}" class="bg-white bg-opacity-25 flex items-center justify-center" style="height: 50px;width: 50px">
+                                    <img style="width: 50px;height: 50px;" th:src="@{/images/pages/home/intagramlogin.png}" alt="intagram login">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex w-full justify-center pt-10">
+                            <span class="text-sm">Bạn đã có tài khoản ? <a href="/user/login" class="text-blue-600 ">Nhấn vào đây để đăng nhập</a></span>
+                        </div>
+                    </form>
+                    <script th:src="@{/jsl/select2/js/select2.min.js}"></script>
+                    <script th:src="@{/js/pages/dang-ky.js}"></script>
+                </div>
+            </div>
+        </div>
+        <div class="h-12"></div>
+    </div>
+    <div>
+        <input type="hidden" id="language" th:value="${#locale}">
+    </div>
+    <img th:src="@{/images/loading.gif}" class="loading" alt="loading" style="width:0;height:0">
+    <div class="loader"></div>
+</div>
+</body>
+</html>

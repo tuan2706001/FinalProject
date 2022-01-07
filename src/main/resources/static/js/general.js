@@ -53,7 +53,8 @@ function toastr() {
 }
 function closeModal() {
     var modalClose = document.getElementById("myModal");
-    modalClose.style.display = null;
+    console.log(123)
+    modalClose.style.display = "none";
 }
 
 function diennhanh(id) {

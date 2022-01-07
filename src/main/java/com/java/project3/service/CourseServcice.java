@@ -1,7 +1,8 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.Coursse;
+import com.java.project3.domain.Course;
+import com.java.project3.domain.Major;
 import com.java.project3.dto.CourseDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -25,28 +26,36 @@ public class CourseServcice {
     CourseRepository courseRepository;
 
 
-    JMapper<CourseDTO, Coursse> toKhoaDto;
-    JMapper<Coursse, CourseDTO> toKhoa;
+    JMapper<CourseDTO, Course> toCourseDto;
+    JMapper<Course, CourseDTO> toCourse;
 
 
     public CourseServcice() {
-        this.toKhoaDto = new JMapper<>(CourseDTO.class, Coursse.class);
-        this.toKhoa = new JMapper<>(Coursse.class, CourseDTO.class);
+        this.toCourseDto = new JMapper<>(CourseDTO.class, Course.class);
+        this.toCourse = new JMapper<>(Course.class, CourseDTO.class);
     }
 
+    public ResponseDto create(CourseDTO courseDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Course course = toCourse.getDestination(courseDTO);
+        Course result = courseRepository.save(course);
+        var temp = toCourseDto.getDestination(result);
+        responseDto.setObject(temp);
+        return responseDto;
+    }
 
     public ResponseDto search(SearchReqDto reqDto) {
         ResponseDto responseDto = new ResponseDto();
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<Coursse> khoas = courseRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<Course> courses = courseRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
         List<CourseDTO> courseDTOS = new ArrayList<>();
-        for (var khoa : khoas) {
-            courseDTOS.add(toKhoaDto.getDestination(khoa));
+        for (var khoa : courses) {
+            courseDTOS.add(toCourseDto.getDestination(khoa));
         }
-        responseDto.setObject(prepareResponseForSearch(khoas.getTotalPages(), khoas.getNumber(), khoas.getTotalElements(), courseDTOS));
+        responseDto.setObject(prepareResponseForSearch(courses.getTotalPages(), courses.getNumber(), courses.getTotalElements(), courseDTOS));
         return responseDto;
     }
 

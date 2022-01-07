@@ -9,9 +9,13 @@
 <body>
     <div th:fragment="header"
         class="h-20 w-full border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-10 z-auto">
-        <div class="rounded-full h-46 w-46 flex justify-center items-center ml-40">
-            <img th:src="@{/images/logo_1591255072.png}" class="mt-10"
-                style="margin-top: 25px;margin-bottom: 20px;width: 220px">
+<!--        <div class="rounded-full h-46 w-46 flex justify-center items-center">-->
+<!--            <img th:src="@{/images/logo.jpg}" class="mt-10"-->
+<!--                 style="margin-top: 25px;margin-bottom: 20px;width: 220px">-->
+<!--        </div>-->
+        <div class="rounded-full h-46 w-46 flex justify-center items-center ml-10 ">
+            <img th:src="@{/images/logo_1591255072.png}" class=""
+                style="margin-top: 20px;margin-bottom: 20px;width: 230px">
         </div>
         <div class="text-white text-2xl font-bold italic hover:not-italic">Website quản lý điểm học viện công nghệ BKACAD</div>
         <div class=" rounded-full h-14 w-14 relative menu2 flex justify-center items-center mr-5">
@@ -29,12 +33,10 @@
                 <a th:classappend="${#httpServletRequest.requestURI.contains('/dang-nhap') ? 'bg-gradient-to-r from-indigo-800' : 'bg-blue-400 '}"
                    href="/dang-nhap"
                    class="w-full h-12 flex items-center font-bold pl-2 mt-1 rounded-lg text-white transition duration-300 hover:bg-gray-400">
-                    Đăng nhập
+                    Đăng xuất
                 </a>
-
             </div>
         </div>
     </div>
 </body>
-
 </html>

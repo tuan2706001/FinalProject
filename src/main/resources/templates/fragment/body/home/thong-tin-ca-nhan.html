@@ -11,7 +11,7 @@
 <!--    </div>-->
     <div class="flex">
         <div class="w-2/12">
-            <div class="w-9/12 mt-10 mx-auto h-32 flex justify-center items-center rounded-md bg-white font-medium">
+            <div class="w-9/12 mt-10 mx-auto text-1xl h-32 flex justify-center items-center rounded-md bg-white font-medium">
                 Thông tin tài khoản
             </div>
         </div>
@@ -19,7 +19,7 @@
             <form method="post" enctype="multipart/form-data" id="fileUploadForm">
                 <input type="file" name="upload" id="inputUpload" onchange="changePhoto(this)" class="hidden">
             </form>
-            <form class="formInfo" th:object="${user}" enctype="multipart/form-data" th:method="PUT"
+            <form class="formInfo"  enctype="multipart/form-data" th:method="PUT"
                   onsubmit="return checkValidate()">
                 <div class="w-10/12 mx-auto">
                     <div class="flex justify-center pt-5">
@@ -27,11 +27,11 @@
 <!--                            <th:block th:if="*{avatar == null}">-->
                                 <img th:src="@{/images/userDefault.png}" id="avatar"
                                      class="w-full h-full rounded-full object-cover avatarEdit" alt="">
-                            </th:block>
-<!--                            <th:block th:unless="*{avatar == null}">-->
-<!--                                <img th:src="*{avatar}" id="avatar"-->
-                                     class="w-full h-full rounded-full object-cover avatarEdit" alt="">
-                            </th:block>
+<!--                            </th:block>-->
+<!--&lt;!&ndash;                            <th:block th:unless="*{avatar == null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <img th:src="*{avatar}" id="avatar"&ndash;&gt;-->
+<!--&lt;!&ndash;                                     class="w-full h-full rounded-full object-cover avatarEdit" alt="">&ndash;&gt;-->
+<!--                            </th:block>-->
                         </div>
                         <div class="cursor-pointer pl-4 pt-2">
                             <input type="text" id="inputAvatarUrl" class="hidden">
@@ -55,10 +55,11 @@
                                 <div class="text-sm text-red-600 h-3 err" id="errName"></div>
                             </div>
                             <div class="mt-4">
-                                <div>Email</div>
-                                <div class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500 cursor-not-allowed"
-                                     >
-                                </div>
+                                <label for="email">Email</label>
+                                <input id="email" type="text"
+                                       class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
+                                       placeholder="Email của bạn" >
+                                <div class="text-sm text-red-600 h-3 err" id="errEmail"></div>
                             </div>
                             <div class="mt-4">
                                 <label for="phone">Số điện thoại</label>
@@ -91,7 +92,7 @@
                             <div class="mt-2">
                                 <div>Giới tính</div>
                                 <div class="flex mt-2">
-                                    <div class="">
+                                    <div class="pl-20">
                                         <label>
                                             <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
                                                    value="1">Nam
@@ -125,9 +126,10 @@
                         <div class="flex">
                             <div class="w-1/2 left pr-6">
                                 <div class="mt-4">
-                                    <div>Tên tài khoản</div>
-                                    <div class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500 cursor-not-allowed"
-                                         ></div>
+                                    <label>Tên tài khoản</label>
+                                    <input id="" type="text"
+                                           class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
+                                           placeholder="Tên tài khoản của bạn" >
                                     <div class="flex justify-end mt-1 cursor-pointer doiMk" id="doiMk">Đổi mật khẩu
                                     </div>
                                 </div>

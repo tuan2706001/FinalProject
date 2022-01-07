@@ -7,175 +7,177 @@
 </head>
 
 <body>
-    <div th:fragment="quan-ly-sinh-vien" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
-        <div class="w-11/12 mx-auto">
-            <button id="myBtn" class=" rounded font-bold w-44 h-9 mr-4 text-white transition duration-300">
-                Thêm sinh viên
-            </button>
-            <table class="w-full tableRounded mt-5">
-                <thead>
-                    <tr class=" text-white " style="background: #4A96CA">
-                        <th>STT</th>
-                        <th>Họ và tên</th>
-                        <th>Lớp</th>
-                        <th>Ngày sinh</th>
-                        <th>giới tínhhhhh</th>
-                        <th>Sửa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>BKD08K11</td>
-                        <td>01-01-2001</td>
-                        <td>Nam</td>
-                        <td><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="myModal" class="modal pt-20 z-50">
+<div th:fragment="quan-ly-sinh-vien" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+    <div class="w-11/12 mx-auto">
+        <button id="myBtn" class=" rounded font-bold w-44 h-9 mr-4 text-white transition duration-300">
+            Thêm sinh viên
+        </button>
+        <table class="w-full tableRounded mt-5">
+            <thead>
+            <tr class=" text-white " style="background: #4A96CA">
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Lớp</th>
+                <th>Ngày sinh</th>
+                <th>giới tínhhhhh</th>
+                <th>Sửa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Nguyễn Văn A</td>
+                <td>BKD08K11</td>
+                <td>01-01-2001</td>
+                <td>Nam</td>
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Nguyễn Văn A</td>
+                <td>BKD08K11</td>
+                <td>01-01-2001</td>
+                <td>Nam</td>
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Nguyễn Văn A</td>
+                <td>BKD08K11</td>
+                <td>01-01-2001</td>
+                <td>Nam</td>
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+            </tr>
+            </tbody>
+        </table>
+        <div id="myModal" class="modal pt-20 z-50">
 
-                <!-- Modal content -->
-                <div class="modal-content w-10/12 mx-auto my-10">
-                    <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                        <div class="text-xl ">Thêm sinh viên</div>
-                        <span class="close  transition duration-300">&times;</span>
-                    </div>
+            <!-- Modal content -->
+            <div class="modal-content w-6/12 mx-auto my-10">
+                <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+                    <div class="text-xl ">Thêm sinh viên</div>
+                    <span class="close  transition duration-300">&times;</span>
+                </div>
 
-                    <form method="POST" enctype="multipart/form-data">
-                        <div class="modal-body p-10">
-                            <div class="flex w-full justify-between">
-                                <div class="flex relative w-52 h-26 border border-gray-300 rounded">
-                                    <img id="image" src="/images/loiMoiDefault.svg"
-                                        class="rounded border absolute w-full h-full">
-                                    <div class="rounded cursor-pointer absolute w-full h-full" id="uploadImage">
-                                        <div id="textUpfile" class="hover:bg-opacity-75 transition duration-300 text-opacity-0 hover:text-opacity-100 text-black text-xl w-full h-full flex hover:block justify-center items-center hover:bg-gray-300
-                                        "></div>
-                                        <input type="text" class="hidden" id="urlImage">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex mb-4 justify-end">
-                                        <div class="leading-10 font-medium mr-3"></div>
-                                        <select class="border rounded-lg w-44  ml-2 pr-6" name="status">
-                                            <option value="4"></option>
-                                            <option value="5"></option>
-                                        </select>
-                                    </div>
-                                    <div class="flex mb-4 justify-end">
-                                        <div class="leading-10 font-medium mr-3"></div>
-                                        <select class="border rounded-lg w-44 ml-6">
-                                            <!--                                    <th:block th:each="item : ${tinhThanh}">-->
-                                            <!--                                        <option th:value="${item.id}" th:text="${item.tenTinh}"></option>-->
-                                            <!--                                    </th:block>-->
-                                            <option>Hà Nội</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-end">
-                                        <div class="leading-10 font-medium mr-3">
-                                        </div>
-                                        <div>
-                                            <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                        leading-tight focus:outline-none focus:shadow-outline" name="timeStart" />
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-end">
-                                        <div class="leading-10 font-medium mr-3">
-                                        </div>
-                                        <div>
-                                            <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                        leading-tight focus:outline-none focus:shadow-outline" name="timeEnd" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex my-5">
-                                <div style="color: #007DC5" class="font-medium"></div>
-                                <div class="ml-10">
-                                    <label>
-                                        <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
-                                            value="15" checked>
-                                    </label>
-                                </div>
-                                <div class="ml-10">
-                                    <label>
-                                        <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
-                                            value="20">
-                                    </label>
-                                </div>
-                            </div>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="modal-body p-10">
+
+                        <!--                        //Tên-->
+                        <div>
+                            <label for="ten_loi_moi" class="font-medium mr-28">Tên sinh viên</label>
                             <div>
-                                <div>
-                                    <label for="ten_loi_moi" class="font-medium mr-4"></label>
-                                    <div>
-                                        <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <div class="mb-4 mt-10">
-                                            <div class="leading-10 font-medium"></div>
-                                            <select id="linh-vuc" type="number" name="callName" class="mb-4 w-4/6 shadow appearance-none border rounded py-2 px-3 text-gray-700
-                                            leading-tight focus:outline-none focus:shadow-outline">
-                                                <!--                                            <th:block th:each="item,index : ${field}">-->
-                                                <!--                                                <option th:value="${item.id}" th:text="${item.name}"></option>-->
-                                                <!--                                            </th:block>-->
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-between w-2/3">
-                                        <div class="mb-4 mt-10 w-2/3">
-                                            <div class="leading-10 font-medium value"></div>
-                                            <input id="gia-tri" type="number" name="callName" class="mb-4 w-full shadow appearance-none border rounded py-2 px-3 text-gray-700
-                                            leading-tight focus:outline-none focus:shadow-outline" />
-                                        </div>
-                                        <div class="mb-4 mt-10 w-1/4">
-                                            <div class="leading-10 font-medium unit"></div>
-                                            <input id="menh-gia" type="text" placeholder="VND, USD,..." name="callName"
-                                                class="mb-4 w-full shadow appearance-none border rounded py-2 px-3 text-gray-700
-                                            leading-tight focus:outline-none focus:shadow-outline phunit" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="noi_dung" class="font-medium mr-4"></label>
-                                    <div>
-                                        <textarea id="noi_dung"
-                                            class="ckeditor mb-4 shadow appearance-none border rounded w-full
-                                py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <label for="dieuKhoan" class="font-medium mr-4"></label>
-                                    <div>
-                                        <input id="dieuKhoan" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" />
-                                    </div>
-                                </div>
+                                <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-8/12 text-center py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                            </div>
+                        </div>
 
-                                <div class="flex justify-end mt-10">
-                                    <div id="closeModalCreate" class="closeModalCreate flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Đóng
+                        <!--                        //Email-->
+                        <div>
+                            <label for="ten_loi_moi" class="font-medium mr-28">Email</label>
+                            <div>
+                                <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                            </div>
+                        </div>
+
+                        <!--                        //Sdt-->
+                        <div>
+                            <label for="ten_loi_moi" class="font-medium mr-28">Số điện thoại</label>
+                            <div>
+                                <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                            </div>
+                        </div>
+
+                        <!--                        //Lớp-->
+                        <div class="flex my-5">
+                            <div>
+                                <label for="ten_loi_moi" class="font-medium mr-6">Lớp</label>
+                                <div class="font-medium mr-48 ml-4">
+                                    <select class="border rounded-lg w-56 h-10">
+                                        <option>BKD08K11</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--                        //Ngày sinh-->
+                            <div>
+                                <label for="ten_loi_moi" class="font-medium mr-6">Ngày sinh</label>
+                                <div class="leading-10 font-medium mr-3">
+
+                                    <div>
+                                        <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                        leading-tight focus:outline-none focus:shadow-outline" name="timeEnd"/>
                                     </div>
-                                    <button
-                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                        id="submit">gửi
-                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <!--                        //Giới tính-->
+                        <div class="flex my-5">
+                            <label for="ten_loi_moi" class="font-medium mr-6">Giới tính</label>
+                            <div style="color: #007DC5"></div>
+                            <div class="ml-10 flex my-5">
+                                <label>Nam
+                                    <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
+                                           value="15" checked>
+                                </label>
+                            </div>
+                            <div class="ml-10 flex my-5">
+                                <label>Nữ
+                                    <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
+                                           value="20">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--                        //địa chỉ-->
+
+                        <div class="mt-3">
+                            <label for="dieuKhoan" class="font-medium mr-4">Địa chỉ</label>
+                            <div>
+                                <input id="dieuKhoan" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-10">
+                            <div id="closeModalCreate"
+                                 class="closeModalCreate flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300">
+                                Đóng
+                            </div>
+
+                            <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                    id="submit">
+                                gửi
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

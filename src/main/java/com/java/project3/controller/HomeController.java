@@ -1,21 +1,32 @@
 package com.java.project3.controller;
 
+import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.base.ResponseDto;
+import com.java.project3.service.MajorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    // lúc đầu vào thì nó luôn tìm file index trong template để vào đầu tiên, mặc dừ k có đường dẫn đến đó
+    @Autowired
+    MajorService majorService;
 
-    @GetMapping(value = {"/", "/trang-chu"})
+    @GetMapping(value = {"/trang-chu"})
     public String home() {
         return "trang-chu";
     }
 
     @GetMapping("quan-ly-nganh")
     public String major() {
+//        @PathVariable("name") String name,
+//        @RequestParam(value = "currentPage", required = false) Integer currentPage,
+//        @RequestParam(value = "pageSize", required = false) Integer pageSize,
+//        @RequestParam(value = "search", required = false) String search,
+//        @RequestParam(value = "call_id", required = false) Long callId
+//        Model model)
         return "quan-ly-nganh";
     }
 
@@ -54,10 +65,22 @@ public class HomeController {
         return "thong-tin-ca-nhan";
     }
 
-    @GetMapping("dang-nhap")
+    @GetMapping(value = {"/","/dang-nhap"})
     public String login() {
         return "dang-nhap";
     }
+
+    @GetMapping("dang-ky")
+    public String signUp() {
+        return "dang-ky";
+    }
+
+
+
+
+
+
+
 
 
 
