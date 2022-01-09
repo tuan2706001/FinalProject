@@ -15,11 +15,5 @@ public class MajorController {
     @Autowired
     MajorService majorService;
 
-    @PostMapping("")
-    public String createMajor(
-            @ModelAttribute MajorDTO majorDTO
-    ) {
-        ResponseDto responseDto = majorService.create(majorDTO);
-        return "quan-ly-nganh";
-    }
+
 }

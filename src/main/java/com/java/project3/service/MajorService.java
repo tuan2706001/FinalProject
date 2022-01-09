@@ -7,6 +7,7 @@ import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.MajorRepository;
 import com.java.project3.service.base.GenIdService;
+import com.java.project3.utils.PageUltil;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,12 +69,16 @@ public class MajorService {
     public ResponseDto searchCallBy(Integer pageIndex, Integer pageSize, String name) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
+        com.java.project3.dto.Page page = new com.java.project3.dto.Page();
+        page = PageUltil.setDefault(pageIndex, pageSize);
+        searchReqDto.setPageIndex(page.getCurrentPage()-1);
+        searchReqDto.setPageSize(page.getPageSize());
         List<String> sort = new ArrayList<>();
-        sort.add("createdAt");
+        sort.add("id");
         searchReqDto.setSorts(sort);
         String sql = "";
         if (name != null) {
-            sql = "S-name=\"" + name + "\"";
+            sql = "S-name=L\"" + name + "\"";
         }
 
         searchReqDto.setQuery(sql);
