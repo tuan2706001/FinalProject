@@ -1,7 +1,7 @@
 //package com.java.project3.service.base;
 //
 //import com.java.project3.domain.Ministry;
-//import com.java.project3.dto.RequestContext;
+//import com.java.project3.dto.base.RequestContext;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.authentication.AnonymousAuthenticationToken;
 //import org.springframework.security.authentication.RememberMeAuthenticationToken;

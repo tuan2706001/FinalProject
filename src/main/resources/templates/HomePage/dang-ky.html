@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/tailwind.css}">
+    <link rel="stylesheet" th:href="@{/templates/fragment/css/tailwind.css}">
 
-    <link th:href="@{/css/pages/common/modal.css}" th:rel="stylesheet"/>
-    <link th:href="@{/css/menu.css}" th:rel="stylesheet"/>
-    <link rel="stylesheet" th:href="@{/css/pages/home/index.css}">
-    <link th:href="@{/css/pages/common/cutText.css}" th:rel="stylesheet"/>
-    <link th:href="@{/css/tableMode.css}" th:rel="stylesheet"/>
-    <link th:href="@{/css/pages/common/modal.css}" th:rel="stylesheet"/>
+    <link th:href="@{/templates/fragment/css/pages/common/modal.css}" th:rel="stylesheet"/>
+    <link th:href="@{/templates/fragment/css/menu.css}" th:rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/templates/fragment/css/pages/home/index.css}">
+    <link th:href="@{/templates/fragment/css/pages/common/cutText.css}" th:rel="stylesheet"/>
+    <link th:href="@{/templates/fragment/css/tableMode.css}" th:rel="stylesheet"/>
+    <link th:href="@{/templates/fragment/css/pages/common/modal.css}" th:rel="stylesheet"/>
 </head>
 <body>
 <div class="z-50 sticky">
@@ -22,9 +22,9 @@
     <div th:replace="~{fragment/footer/footer :: footer}"></div>
 </div>
 
-<script th:src="@{/js/pages/loi-moi/quan-tri-danh-sach.js}"></script>
-<script th:src="@{/js/pages/loi-moi/popup.js}"></script>
-<script th:src="@{/js/edit.js}"></script>
-<script th:src="@{/js/pages/loi-moi/uploadFile.js}"></script>
+<script th:src="@{/templates/fragment/js/pages/loi-moi/quan-tri-danh-sach.js}"></script>
+<script th:src="@{/templates/fragment/js/pages/loi-moi/popup.js}"></script>
+<script th:src="@{/templates/fragment/js/edit.js}"></script>
+<script th:src="@{/templates/fragment/js/pages/loi-moi/uploadFile.js}"></script>
 </body>
 </html>

@@ -15,9 +15,9 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = EntityName.COURSE)
-@Table(name = EntityName.COURSE)
-public class Course extends AbstractBaseEntity {
+@Entity(name = EntityName.ROLE)
+@Table(name = EntityName.ROLE)
+public class Role extends AbstractBaseEntity {
 
     @Column(name = "name")
     private String name;

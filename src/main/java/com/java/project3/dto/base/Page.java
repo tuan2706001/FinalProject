@@ -1,4 +1,4 @@
-package com.java.project3.dto;
+package com.java.project3.dto.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

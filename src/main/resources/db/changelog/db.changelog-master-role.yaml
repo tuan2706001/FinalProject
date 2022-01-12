@@ -1,34 +1,22 @@
 databaseChangeLog:
 
-#Ministry
+  #Role
   - changeSet:
-      id: ministry
+      id: role
       author: dat
       changes:
         - createTable:
-            tableName: tbl_ministry
+            tableName: tbl_role
             columns:
               - column:
                   name: id
                   type: bigint
                   constraints:
                     primaryKey: true
-                    primaryKeyName: ministry_pkey
+                    primaryKeyName: role_pkey
               - column:
-                  name: full_name
+                  name: name
                   type: NVARCHAR(255)
-              - column:
-                  name: username
-                  type: NVARCHAR(255)
-              - column:
-                  name: email
-                  type: NVARCHAR(255)
-              - column:
-                  name: phone
-                  type: NVARCHAR(30)
-              - column:
-                  name: password
-                  type: NVARCHAR(50)
               - column:
                   name: is_deleted
                   type: boolean

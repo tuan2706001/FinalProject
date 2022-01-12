@@ -1,7 +1,7 @@
 //package com.java.project3.configuration;
 //
 //import com.java.project3.domain.Ministry;
-//import com.java.project3.dto.RequestContext;
+//import com.java.project3.dto.base.RequestContext;
 //import lombok.SneakyThrows;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.messaging.Message;

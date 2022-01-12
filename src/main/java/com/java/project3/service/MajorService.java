@@ -66,10 +66,10 @@ public class MajorService {
         return responseDto;
     }
 
-    public ResponseDto searchCallBy(Integer pageIndex, Integer pageSize, String name) {
+    public ResponseDto searchMajorBy(Integer pageIndex, Integer pageSize, String name) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
-        com.java.project3.dto.Page page = new com.java.project3.dto.Page();
+        com.java.project3.dto.base.Page
         page = PageUltil.setDefault(pageIndex, pageSize);
         searchReqDto.setPageIndex(page.getCurrentPage()-1);
         searchReqDto.setPageSize(page.getPageSize());

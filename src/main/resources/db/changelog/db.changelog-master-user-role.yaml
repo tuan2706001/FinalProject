@@ -1,27 +1,24 @@
 databaseChangeLog:
 
-  #Lớp
+  #user-role
   - changeSet:
-      id: grade
+      id: user-role
       author: dat
       changes:
         - createTable:
-            tableName: tbl_grade
+            tableName: tbl_user_role
             columns:
               - column:
                   name: id
                   type: bigint
                   constraints:
                     primaryKey: true
-                    primaryKeyName: grade_pkey
+                    primaryKeyName: user_role_pkey
               - column:
-                  name: name
-                  type: NVARCHAR(255)
-              - column:
-                  name: major_id
+                  name: user_id
                   type: bigint
               - column:
-                  name: course_id
+                  name: role_id
                   type: bigint
               - column:
                   name: is_deleted

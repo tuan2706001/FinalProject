@@ -13,7 +13,7 @@ databaseChangeLog:
                 type: bigint
                 constraints:
                   primaryKey: true
-                  primaryKeyName: coursecourse_pkey
+                  primaryKeyName: grade_pkey
             - column:
                 name: name
                 type: NVARCHAR(255)

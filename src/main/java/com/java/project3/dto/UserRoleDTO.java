@@ -12,13 +12,19 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseDTO {
+public class UserRoleDTO {
 
     @JMap
     private Long id;
 
     @JMap
-    private String name;
+    private Long userId;
+
+    @JMap
+    private Long roleId;
+
+    @JMap
+    private Long courseId;
 
     @JMap
     private LocalDateTime createdAt;

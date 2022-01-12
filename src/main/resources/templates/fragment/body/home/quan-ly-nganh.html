@@ -10,12 +10,13 @@
 <body>
 <div th:fragment="quan-ly-nganh" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
-        <div>
-            <button id="myBtn" class="content-left rounded font-bold w-44 h-9 mr-4 text-white transition duration-300">
+        <div class="flex justify-center mt-10">
+            <button id="myBtn" class="content-left rounded font-bold w-44 h-9 mr-96  text-white transition duration-300">
                 Thêm ngành
             </button>
             <form>
-                <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-10 rounded-md w-full h-7 lg:rounded-lg flex ">
+                <div class="justify-self-end">
+                <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96">
                     <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                            name="search"
                            th:value="${search}">
@@ -29,9 +30,10 @@
                         </svg>
                     </button>
                 </div>
+                </div>
             </form>
         </div>
-        <table class="w-full tableRounded mt-5">
+        <table class="w-full tableRounded mt-1">
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>

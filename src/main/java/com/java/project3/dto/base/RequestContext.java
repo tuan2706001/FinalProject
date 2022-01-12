@@ -1,7 +1,7 @@
-package com.java.project3.dto;
+package com.java.project3.dto.base;
 
 
-import com.java.project3.domain.Ministry;
+import com.java.project3.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +12,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestContext {
-    private Ministry ministry;
+    private User user;
     private Long masterUnitId;
     private boolean isDomain;
     private boolean isGuest;
 
-    public RequestContext(Ministry ministry) {
-        this.ministry = ministry;
+    public RequestContext(User user) {
+        this.user = user;
     }
 }

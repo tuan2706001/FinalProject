@@ -1,7 +1,7 @@
 package com.java.project3.utils;
 
 
-import com.java.project3.dto.Page;
+import com.java.project3.dto.base.Page;
 
 public class PageUltil {
     public static Page setDefault(Integer currentPage, Integer pageSize) {
