@@ -75,7 +75,6 @@ public class CourseServcice {
         if (name != null) {
             sql = "S-name=L\"" + name + "\"";
         }
-
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
