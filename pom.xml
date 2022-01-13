@@ -80,10 +80,9 @@
             <version>1.6.1.CR2</version>
         </dependency>
         <dependency>
-            <!-- Automated JSON API documentation for API's built with Spring -->
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <!-- Generate beautiful documentation from a Swagger-compliant API. -->
