@@ -46,10 +46,10 @@ public class HomeController {
 //        return "quan-ly-khoa";
 //    }
 
-    @GetMapping("quan-ly-lop")
-    public String grade() {
-        return "quan-ly-lop";
-    }
+//    @GetMapping("quan-ly-lop")
+//    public String grade() {
+//        return "quan-ly-lop";
+//    }
 
     @GetMapping("quan-ly-sinh-vien")
     public String student() {

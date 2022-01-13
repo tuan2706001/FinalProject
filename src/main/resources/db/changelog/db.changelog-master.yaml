@@ -5,5 +5,11 @@ databaseChangeLog:
       file: db/changelog/db.changelog-master-major.yaml
   - include:
       file: db/changelog/db.changelog-master-course.yaml
+  - include:
+      file: db/changelog/db.changelog-master-grade.yaml
+  - include:
+      file: db/changelog/db.changelog-master-role.yaml
+  - include:
+      file: db/changelog/db.changelog-master-user-role.yaml
 
 

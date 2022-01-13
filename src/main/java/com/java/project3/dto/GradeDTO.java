@@ -24,7 +24,13 @@ public class GradeDTO {
     private Long majorId;
 
     @JMap
+    private String majorName;
+
+    @JMap
     private Long courseId;
+
+    @JMap
+    private String courseName;
 
     @JMap
     private LocalDateTime createdAt;
