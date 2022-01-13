@@ -9,4 +9,5 @@ public class EntityName {
     public final static String USER_ROLE = "tbl_user_role";
     public final static String ROLE = "tbl_role";
     public final static String GRADE = "tbl_grade";
+    public final static String STUDENT = "tbl_student";
 }

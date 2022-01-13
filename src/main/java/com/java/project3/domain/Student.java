@@ -10,20 +10,19 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = EntityName.MINISTRY)
-@Table(name = EntityName.MINISTRY)
-public class Ministry extends AbstractBaseEntity {
+@Entity(name = EntityName.STUDENT)
+@Table(name = EntityName.STUDENT)
+public class Student extends AbstractBaseEntity {
 
     @Column(name = "full_name")
     private String fullName;
-
-    @Column(name = "username")
-    private String username;
 
     @Column(name = "email")
     private String email;
@@ -34,4 +33,18 @@ public class Ministry extends AbstractBaseEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "gender")
+    private Short gender;
+
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "grade_id")
+    private Long gradeId;
+
+    @Column(name = "grade_name")
+    private String gradeName;
 }

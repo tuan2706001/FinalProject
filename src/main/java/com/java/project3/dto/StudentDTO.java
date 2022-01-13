@@ -15,7 +15,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class StudentDTO {
 
     @JMap
     private Long id;
@@ -43,6 +43,12 @@ public class UserDTO {
     private String address;
 
     @JMap
+    private Long gradeId;
+
+    @JMap
+    private String gradeName;
+
+    @JMap
     private LocalDateTime createdAt;
 
     @JMap
@@ -59,4 +65,7 @@ public class UserDTO {
 
     @JMap
     private String updatedByName;
+
+    @JMap
+    private Boolean isDeleted = false;
 }

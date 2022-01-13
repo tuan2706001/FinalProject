@@ -1,13 +1,9 @@
 //package com.java.project3.domain.base;
 //
-//import com.bkh.vnoip.domain.Call;
-//import com.bkh.vnoip.domain.FullTextSearch;
-//import com.bkh.vnoip.domain.user.User;
-//import com.bkh.vnoip.service.FullTextSearchService;
-//import com.bkh.vnoip.service.base.ContextService;
-//import com.bkh.vnoip.service.base.GenIdService;
-//import com.bkh.vnoip.utils.BeanUtil;
-//import com.bkh.vnoip.utils.fulltextsearch.FullTextSearchUtil;
+//import com.java.project3.domain.user.User;
+//import com.java.project3.service.base.ContextService;
+//import com.java.project3.service.base.GenIdService;
+//import com.java.project3.utils.BeanUtil;
 //import com.java.project3.utils.BeanUtil;
 //import org.apache.tomcat.util.descriptor.web.ContextService;
 //import org.springframework.stereotype.Service;
@@ -18,7 +14,6 @@
 //import java.io.IOException;
 //import java.time.LocalDateTime;
 //
-//import static com.bkh.vnoip.constant.STATUS.NHAP;
 //
 //@Service
 //public class AuditListener {
@@ -55,48 +50,48 @@
 //
 //
 //    }
-//
-//    @PostPersist
-//    @PostUpdate
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    public void InsertFTS(Object object) throws IllegalAccessException, IOException {
-//        ContextService contextService = BeanUtil.getBean(ContextService.class);
-//        FullTextSearchUtil fullTextSearchUtil = BeanUtil.getBean(FullTextSearchUtil.class);
-//        if (fullTextSearchUtil.checkFTSAble(object)){
-//            FullTextSearchService fullTextSearchService = BeanUtil.getBean(FullTextSearchService.class);
-//            FullTextSearch fullTextSearch = fullTextSearchUtil.getFTS(object);
-//            if((contextService.getCurrentOrg() == null ? null : contextService.getCurrentOrg().getId()) == null){
-//                if(object instanceof Call){
-//                    Call ftsCall = (Call) object;
-//                    if(!ftsCall.getStatus().equals(NHAP.value)){
-//                        fullTextSearchService.create(fullTextSearch, contextService.getCurrentUser().getId());
-//                    }
-//                }
-//            }else{
-//                if(object instanceof Call){
-//                    Call ftsCall = (Call) object;
-//                    if(!ftsCall.getStatus().equals(NHAP.value)){
-//                        fullTextSearchService.create(fullTextSearch, (contextService.getCurrentOrg() == null ? null : contextService.getCurrentOrg().getId()));
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    @PostRemove
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    public void DeleteFTS(Object object) throws IllegalAccessException {
-//        FullTextSearchUtil fullTextSearchUtil = BeanUtil.getBean(FullTextSearchUtil.class);
-//        if (fullTextSearchUtil.checkFTSAble(object)){
-//            FullTextSearchService fullTextSearchService = BeanUtil.getBean(FullTextSearchService.class);
-//            FullTextSearch fullTextSearch = fullTextSearchUtil.getFTS(object);
-//            if(object instanceof Call){
-//                Call ftsCall = (Call) object;
-//                if(!ftsCall.getStatus().equals(NHAP.value)){
-//                    fullTextSearchService.delete(fullTextSearch);
-//                }
-//            }
-//        }
-//    }
-//
-//}
+////
+////    @PostPersist
+////    @PostUpdate
+////    @Transactional(propagation = Propagation.REQUIRES_NEW)
+////    public void InsertFTS(Object object) throws IllegalAccessException, IOException {
+////        ContextService contextService = BeanUtil.getBean(ContextService.class);
+////        FullTextSearchUtil fullTextSearchUtil = BeanUtil.getBean(FullTextSearchUtil.class);
+////        if (fullTextSearchUtil.checkFTSAble(object)){
+////            FullTextSearchService fullTextSearchService = BeanUtil.getBean(FullTextSearchService.class);
+////            FullTextSearch fullTextSearch = fullTextSearchUtil.getFTS(object);
+////            if((contextService.getCurrentOrg() == null ? null : contextService.getCurrentOrg().getId()) == null){
+////                if(object instanceof Call){
+////                    Call ftsCall = (Call) object;
+////                    if(!ftsCall.getStatus().equals(NHAP.value)){
+////                        fullTextSearchService.create(fullTextSearch, contextService.getCurrentUser().getId());
+////                    }
+////                }
+////            }else{
+////                if(object instanceof Call){
+////                    Call ftsCall = (Call) object;
+////                    if(!ftsCall.getStatus().equals(NHAP.value)){
+////                        fullTextSearchService.create(fullTextSearch, (contextService.getCurrentOrg() == null ? null : contextService.getCurrentOrg().getId()));
+////                    }
+////                }
+////            }
+////        }
+////    }
+////
+////    @PostRemove
+////    @Transactional(propagation = Propagation.REQUIRES_NEW)
+////    public void DeleteFTS(Object object) throws IllegalAccessException {
+////        FullTextSearchUtil fullTextSearchUtil = BeanUtil.getBean(FullTextSearchUtil.class);
+////        if (fullTextSearchUtil.checkFTSAble(object)){
+////            FullTextSearchService fullTextSearchService = BeanUtil.getBean(FullTextSearchService.class);
+////            FullTextSearch fullTextSearch = fullTextSearchUtil.getFTS(object);
+////            if(object instanceof Call){
+////                Call ftsCall = (Call) object;
+////                if(!ftsCall.getStatus().equals(NHAP.value)){
+////                    fullTextSearchService.delete(fullTextSearch);
+////                }
+////            }
+////        }
+////    }
+////
+////}

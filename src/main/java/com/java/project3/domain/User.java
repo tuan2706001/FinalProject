@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -36,7 +37,7 @@ public class User extends AbstractBaseEntity {
     private Short gender;
 
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name = "address")
     private String address;

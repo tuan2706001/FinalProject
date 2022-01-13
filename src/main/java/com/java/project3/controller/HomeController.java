@@ -5,6 +5,7 @@ import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
 import com.java.project3.service.MajorService;
+import com.java.project3.service.StudentService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,24 @@ import org.springframework.web.bind.annotation.*;
 public class HomeController {
     @Autowired
     MajorService majorService;
+    @Autowired
+    StudentService studentService;
 
     @GetMapping(value = {"/trang-chu"})
-    public String home() {
+    public String home(
+            Model model,
+            @RequestParam(value = "currentPage", required = false) Integer currentPage,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @RequestParam(value = "search", required = false) String search
+    ) {
+        Page page = new Page();
+        page = PageUltil.setDefault(currentPage, pageSize);
+        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search);
+        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
+        model.addAttribute("findAll", searchResDto.getData());
+        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
+        model.addAttribute("page", page);
+        model.addAttribute("search", search);
         return "trang-chu";
     }
 
@@ -51,10 +67,10 @@ public class HomeController {
 //        return "quan-ly-lop";
 //    }
 
-    @GetMapping("quan-ly-sinh-vien")
-    public String student() {
-        return "quan-ly-sinh-vien";
-    }
+//    @GetMapping("quan-ly-sinh-vien")
+//    public String student() {
+//        return "quan-ly-sinh-vien";
+//    }
 
     @GetMapping("quan-ly-mon-hoc")
     public String subject() {

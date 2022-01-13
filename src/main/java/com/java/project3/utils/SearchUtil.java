@@ -27,7 +27,7 @@ public final class SearchUtil {
 		List<Sort.Order> orders = new ArrayList<Sort.Order>(sorts.size());
 		for (String sort : sorts) {
 			String[] split = sort.split(COLON);
-			orders.add(new Sort.Order(split.length > 1 ? ASC : DESC, split[0]));
+			orders.add(new Sort.Order(split.length > 1 ? ASC : ASC, split[0]));
 		}
 		return orders;
 	}

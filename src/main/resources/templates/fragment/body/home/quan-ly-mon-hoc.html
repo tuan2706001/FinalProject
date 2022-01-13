@@ -8,12 +8,21 @@
 <div th:fragment="quan-ly-mon-hoc" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
-            <button id="myBtn" class="content-left rounded font-bold w-44 h-9 mr-96  text-white transition duration-300">
+            <button id="myBtn" class="content-left rounded font-bold w-44 h-9 mr-24  text-white transition duration-300">
                 Thêm môn học
             </button>
+            <div class="mr-6 lg:flex text-center xl:text-base lg:text-sm text-base">
+                <div class="lg:mt-1 mt-4 mr-1 text-bold">Loại môn học: </div>
+                <input  hidden>
+                <input  hidden>
+                <select name="type" class="xl:text-sm lg:text-xs text-sm border border-gray-300 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                    <option value="1" class="text-bold justify-center" >chung</option>
+                    <option value="2" class="text-bold justify-center" >riêng</option>
+                </select>
+            </div>
             <form>
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-12">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -37,6 +46,7 @@
                 <th>Tên môn</th>
                 <th>Lý thuyết</th>
                 <th>Thực hành</th>
+                <th>Số giờ</th>
                 <th>Sửa</th>
             </tr>
             </thead>
@@ -46,10 +56,16 @@
                 <td>php</td>
                 <td>php</td>
                 <td>php</td>
-                <td><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg></td>
+                <td>60</td>
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24" viewBox="0 0 24 24"
+                         style="fill: rgba(0, 0, 0, 1);">
+                        <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                    </svg>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(findAll)}">
+                <td colspan="6">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
