@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -56,9 +57,26 @@ public class GradeServcie {
         grade.setId(genIdService.nextId());
         grade.setMajorName(major.getName());
         grade.setCourseName(course.getName());
+        grade.setIsDeleted(false);
         Grade result = gradeRepository.save(grade);
         var temp = toGradeDto.getDestination(result);
         responseDto.setObject(temp);
+        return responseDto;
+    }
+
+    public ResponseDto update(GradeDTO gradeDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Major major = majorRepository.findById(gradeDTO.getMajorId()).get();
+        Course course = courseRepository.findById(gradeDTO.getCourseId()).get();
+        Optional<Grade> grade = gradeRepository.findById(gradeDTO.getId());
+        if (grade.isPresent()) {
+            Grade grade1 = toGrade.getDestination(grade.get(), gradeDTO);
+            grade1.setMajorName(major.getName());
+            grade1.setCourseName(course.getName());
+            Grade result = gradeRepository.save(grade1);
+            GradeDTO gradeDTO1 = toGradeDto.getDestination(result);
+            responseDto.setObject(gradeDTO1);
+        }
         return responseDto;
     }
 
@@ -82,7 +100,7 @@ public class GradeServcie {
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
                 page = PageUltil.setDefault(pageIndex, pageSize);
-        searchReqDto.setPageIndex(page.getCurrentPage()-1);
+        searchReqDto.setPageIndex(page.getCurrentPage() - 1);
         searchReqDto.setPageSize(page.getPageSize());
         List<String> sort = new ArrayList<>();
         sort.add("id");

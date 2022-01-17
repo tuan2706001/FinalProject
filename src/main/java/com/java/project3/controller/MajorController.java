@@ -36,13 +36,23 @@ public class MajorController {
         return "quan-ly-nganh";
     }
 
-    @PostMapping("create")
+    @PostMapping("createMajor")
     public String createMajor(
             @ModelAttribute MajorDTO majorDTO
     ) {
         ResponseDto responseDto = majorService.create(majorDTO);
         return "redirect:/quan-ly-nganh";
     }
+
+    @PostMapping("updateMajor")
+    public String updateMajor(
+            @ModelAttribute MajorDTO majorDTO
+    ) {
+        ResponseDto responseDto = majorService.update(majorDTO);
+        return "redirect:/quan-ly-nganh";
+    }
+
+
 
 
 }

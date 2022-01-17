@@ -46,7 +46,10 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
                 <td>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24" viewBox="0 0 24 24"
+                    <svg
+                        th:data-namenganh="${item.name}"
+                        th:data-idnganh="${item.id}"
+                        xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24" viewBox="0 0 24 24"
                          style="fill: rgba(0, 0, 0, 1);">
                         <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                     </svg>
@@ -63,10 +66,10 @@
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
                     <div class="text-xl ">Thêm ngành</div>
-                    <span class="closeModal  transition duration-300">&times;</span>
+                    <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/create">
+                <form method="POST" action="/createMajor">
                     <div class="modal-body p-10">
                         <div>
                             <div>
@@ -81,11 +84,11 @@
                                 <div
                                         onclick="closeModal()"
                                         class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Đóng
+                                        ">Hủy
                                 </div>
                                 <button
                                         class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                        id="submit">gửi
+                                        id="submit">Gửi
                                 </button>
                             </div>
                         </div>
@@ -99,18 +102,19 @@
             <!-- Modal content -->
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Sửa ngành</div>
+                    <div class="text-xl ">Sửa Ngành</div>
                     <span class="closeModal  transition duration-300">&times;</span>
                 </div>
 
-                <form method="POST" action="/create">
+                <form method="POST" action="/updateMajor">
                     <div class="modal-body p-10">
                         <div>
                             <div>
                                 <label class="font-medium mr-4">Tên Ngành</label>
                                 <div>
-                                    <input id="ten_nganh" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                    <input id="updateNganh" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"/>
+                                    <input type="hidden" id="idNganh" name="id">
                                 </div>
                             </div>
 
@@ -118,11 +122,11 @@
                                 <div
                                         onclick="closeModal()"
                                         class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Đóng
+                                        ">Hủy
                                 </div>
                                 <button
                                         class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                        >gửi
+                                        >Gửi
                                 </button>
                             </div>
                         </div>
@@ -132,6 +136,10 @@
         </div>
     </div>
     <script>
+        $('.edit').click(function (){
+            $('#updateNganh').val($(this).data('namenganh'))
+            $('#idNganh').val($(this).data('idnganh'))
+        })
         function closeModal() {
             var modalClose = document.getElementById("myModal");
             console.log(123)

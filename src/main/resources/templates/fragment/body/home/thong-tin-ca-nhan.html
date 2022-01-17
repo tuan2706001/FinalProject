@@ -5,69 +5,46 @@
     <title>Title</title>
 </head>
 <body>
-<div class="w-11/12 mx-auto text-center"  th:fragment="thong-tin-ca-nhan" style="min-height: 600px">
-<!--    <div class="text-red-600 text-1xl font-bold justify-center">-->
-<!--        Thông tin cá nhân-->
-<!--    </div>-->
+<div class="w-11/12 mx-auto text-center" th:fragment="thong-tin-ca-nhan" style="min-height: 600px">
     <div class="flex">
         <div class="w-2/12">
-            <div class="w-9/12 mt-10 mx-auto text-1xl h-32 flex justify-center items-center rounded-md bg-white font-medium">
-                Thông tin tài khoản
-            </div>
+
         </div>
-        <div class="h-full w-8/12 rounded-lg bg-white mx-auto mt-4">
-            <form method="post" enctype="multipart/form-data" id="fileUploadForm">
-                <input type="file" name="upload" id="inputUpload" onchange="changePhoto(this)" class="hidden">
-            </form>
-            <form class="formInfo"  enctype="multipart/form-data" th:method="PUT"
+        <div class="h-full w-8/12 rounded-lg bg-white mx-auto mt-10">
+
+            <form class="formInfo" enctype="multipart/form-data" th:method="PUT"
                   onsubmit="return checkValidate()">
                 <div class="w-10/12 mx-auto">
-                    <div class="flex justify-center pt-5">
-                        <div class="w-24 h-24 rounded-full">
-<!--                            <th:block th:if="*{avatar == null}">-->
-                                <img th:src="@{/images/userDefault.png}" id="avatar"
-                                     class="w-full h-full rounded-full object-cover avatarEdit" alt="">
-<!--                            </th:block>-->
-<!--&lt;!&ndash;                            <th:block th:unless="*{avatar == null}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <img th:src="*{avatar}" id="avatar"&ndash;&gt;-->
-<!--&lt;!&ndash;                                     class="w-full h-full rounded-full object-cover avatarEdit" alt="">&ndash;&gt;-->
-<!--                            </th:block>-->
-                        </div>
-                        <div class="cursor-pointer pl-4 pt-2">
-                            <input type="text" id="inputAvatarUrl" class="hidden">
-                            <span class="font-medium text-lg mb-2">Ảnh</span>
-                            <div class="border-2 border-gray-300 rounded px-3 text-sm py-1 mt-2 btnUpload"> Tải ảnh
-                                lên
-                            </div>
-                            <script>$(".btnUpload").click(function () {
-                                $("#inputUpload").click();
-                            });</script>
-                        </div>
-                    </div>
                     <div class="text-xl font-medium" style="color: #15597E">Thông tin cá nhân</div>
+
                     <div class="flex">
                         <div class="w-1/2 left pr-6">
                             <div class="mt-4">
                                 <label for="name">Họ và tên</label>
                                 <input id="name" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                       placeholder="Họ và tên của bạn" >
+                                       placeholder="Họ và tên của bạn">
                                 <div class="text-sm text-red-600 h-3 err" id="errName"></div>
                             </div>
+
                             <div class="mt-4">
                                 <label for="email">Email</label>
                                 <input id="email" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                       placeholder="Email của bạn" >
+                                       placeholder="Email của bạn">
                                 <div class="text-sm text-red-600 h-3 err" id="errEmail"></div>
                             </div>
+
                             <div class="mt-4">
                                 <label for="phone">Số điện thoại</label>
                                 <input id="phone" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                       placeholder="Số điện thoại" >
+                                       placeholder="Số điện thoại">
                                 <div class="text-sm text-red-600 h-3" id="errPhone"></div>
                             </div>
+                        </div>
+
+                        <div class="w-1/2 right pl-6">
                             <div class="mt-4">
                                 <label for="diaChi">Địa chỉ</label>
                                 <input id="diaChi" type="text"
@@ -75,51 +52,32 @@
                                        placeholder="Địa chỉ">
                                 <div class="text-sm text-red-600 h-3" id="errDc"></div>
                             </div>
-                        </div>
-                        <div class="w-1/2 right pl-6">
-                            <div class="mt-4">
-                                <label for="hocVaLv">Học hoặc làm việc tại</label>
-                                <input id="hocVaLv" type="text"
-                                       class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500">
-                                <div class="text-sm text-red-600 h-3" id="errHocVaLv"></div>
-                            </div>
+
                             <div class="mt-4">
                                 <label for="hocVan">Học vấn</label>
                                 <input id="hocVan" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500">
                                 <div class="text-sm text-red-600 h-3" id="errHocVan"></div>
                             </div>
-                            <div class="mt-2">
-                                <div>Giới tính</div>
-                                <div class="flex mt-2">
-                                    <div class="pl-20">
-                                        <label>
-                                            <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
-                                                   value="1">Nam
-                                        </label>
+                            <div class="mt-4">
+                                <label for="hocVan">Giới tính</label>
+                                <div class="flex mt-2 ml-16">
+                                    <div class="mr-5">
+                                        <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
+                                               value="1">Nam
                                     </div>
-                                    <div class="ml-10">
-                                        <label>
-                                            <input  type="radio" name="type" class="mr-3 mt-1 outline-none callType"
-                                                   value="0">Nữ
-                                        </label>
+                                    <div class="ml-5">
+                                        <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
+                                               value="0">Nữ
                                     </div>
                                 </div>
+                                <div class="text-sm text-red-600 h-3" id="errHocVan"></div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-2 w-full">
                         <span class="font-medium block">Giới thiệu</span>
-                        <textarea class="border w-full ckeditor" id="gioithieu" ></textarea>
-                    </div>
-                    <div class="mt-4 flex justify-start">
-                        <span class="font-medium text-base mr-2">Sao chép thông tin trường</span>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.5443 10.456C12.7252 9.6372 11.6144 9.17725 10.4563 9.17725C9.29815 9.17725 8.18741 9.6372 7.3683 10.456L4.2793 13.544C3.46018 14.3631 3 15.474 3 16.6325C3 17.7909 3.46018 18.9018 4.2793 19.721C5.09842 20.5401 6.20939 21.0003 7.3678 21.0003C8.52621 21.0003 9.63718 20.5401 10.4563 19.721L12.0003 18.177"
-                                  stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M10.457 13.5438C11.2761 14.3626 12.3869 14.8225 13.545 14.8225C14.7032 14.8225 15.8139 14.3626 16.633 13.5438L19.722 10.4558C20.5412 9.63669 21.0013 8.52572 21.0013 7.36731C21.0013 6.2089 20.5412 5.09793 19.722 4.27881C18.9029 3.45969 17.7919 2.99951 16.6335 2.99951C15.4751 2.99951 14.3642 3.45969 13.545 4.27881L12.001 5.82281"
-                                  stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <textarea class="border border-gray-500 w-full ckeditor" id="gioithieu"></textarea>
                     </div>
                     <div class="mt-4">
                         <div class="text-xl font-medium" style="color: #15597E">Thông tin tài khoản</div>
@@ -129,7 +87,7 @@
                                     <label>Tên tài khoản</label>
                                     <input id="" type="text"
                                            class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                           placeholder="Tên tài khoản của bạn" >
+                                           placeholder="Tên tài khoản của bạn">
                                     <div class="flex justify-end mt-1 cursor-pointer doiMk" id="doiMk">Đổi mật khẩu
                                     </div>
                                 </div>
@@ -139,28 +97,8 @@
                                         <input id="mk" type="password" name="oldPassword"
                                                class="w-5/12 w-full py-1 px-2 rounded focus:outline-none"
                                                placeholder="Mật khẩu">
-                                        <div class="mt-1 mr-3">
-                                            <svg id='show' xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                 style="color: #979797" fill="none"
-                                                 onclick="$('#mk').attr('type','text'); $(this).addClass('hidden'); $('#hidden').removeClass('hidden')"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 id="hidden"
-                                                 onclick="$('#mk').attr('type','password'); $(this).addClass('hidden'); $('#show').removeClass('hidden')"
-                                                 class="h-6 w-6 hidden" style="color: #979797"
-                                                 fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
-                                            </svg>
-                                        </div>
                                     </div>
-                                    <div class="text-sm text-red-600 h-3 err" id="errPass" >
+                                    <div class="text-sm text-red-600 h-3 err" id="errPass">
                                     </div>
                                 </div>
                             </div>
@@ -171,63 +109,8 @@
                                         <input id="mkm" type="password" name="newPassword"
                                                class="w-5/12 w-full py-1 px-2 rounded focus:outline-none"
                                                placeholder="Mật khẩu mới">
-                                        <div class="mt-1 mr-3">
-                                            <svg id='show1' xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                 fill="none" style="color: #979797"
-                                                 onclick="$('#mkm').attr('type','text'); $(this).addClass('hidden'); $('#hidden1').removeClass('hidden')"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 id="hidden1" style="color: #979797"
-                                                 onclick="$('#mkm').attr('type','password'); $(this).addClass('hidden'); $('#show1').removeClass('hidden')"
-                                                 class="h-6 w-6 hidden"
-                                                 fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
-                                            </svg>
-                                        </div>
                                     </div>
-                                    <!--                                    <input id="mkm" type="password" name="newPassword"-->
-                                    <!--                                           class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"-->
-                                    <!--                                           placeholder="Mật khẩu mới">-->
                                     <div class="text-sm text-red-600 h-3 err" id="errPassm"></div>
-                                </div>
-                                <div class="mt-4">
-                                    <label for="nlmkm">Nhập lại mật khẩu mới</label>
-                                    <div class="mt-2 flex border rounded border-gray-500">
-                                        <input id="nlmkm" type="password"
-                                               class="w-5/12 w-full py-1 px-2 rounded focus:outline-none"
-                                               placeholder="Nhập lại mật khẩu mới">
-                                        <div class="mt-1 mr-3">
-                                            <svg id='show2' xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                 fill="none" style="color: #979797"
-                                                 onclick="$('#nlmkm').attr('type','text'); $(this).addClass('hidden'); $('#hidden2').removeClass('hidden')"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 id="hidden2" style="color: #979797"
-                                                 onclick="$('#nlmkm').attr('type','password'); $(this).addClass('hidden'); $('#show2').removeClass('hidden')"
-                                                 class="h-6 w-6 hidden"
-                                                 fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <!--                                    <input id="nlmkm" type="password"-->
-                                    <!--                                           class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"-->
-                                    <!--                                           placeholder="Nhập lại mật khẩu mới">-->
-                                    <div class="errNewPass text-sm text-red-600 h-3" id="errPassnl"></div>
                                 </div>
                             </div>
                         </div>

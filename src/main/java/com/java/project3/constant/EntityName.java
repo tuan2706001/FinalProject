@@ -10,4 +10,7 @@ public class EntityName {
     public final static String ROLE = "tbl_role";
     public final static String GRADE = "tbl_grade";
     public final static String STUDENT = "tbl_student";
+    public final static String SUBJECT = "tbl_subject";
+    public final static String SUBJECT_DETAIL = "tbl_subject_detail";
+    public final static String MARK = "tbl_mark";
 }

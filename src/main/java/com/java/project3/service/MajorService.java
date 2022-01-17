@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -45,9 +46,22 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         Major major = toMajor.getDestination(majorDTO);
         major.setId(genIdService.nextId());
+        major.setIsDeleted(false);
         Major result = majorRepository.save(major);
         var temp = toMajorDto.getDestination(result);
         responseDto.setObject(temp);
+        return responseDto;
+    }
+
+    public ResponseDto update(MajorDTO majorDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Major> major = majorRepository.findById(majorDTO.getId());
+        if (major.isPresent()) {
+            Major major1 = toMajor.getDestination(major.get(), majorDTO);
+            Major result = majorRepository.save(major1);
+            MajorDTO majorDTO1 = toMajorDto.getDestination(result);
+            responseDto.setObject(majorDTO1);
+        }
         return responseDto;
     }
 
@@ -70,8 +84,8 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
-        page = PageUltil.setDefault(pageIndex, pageSize);
-        searchReqDto.setPageIndex(page.getCurrentPage()-1);
+                page = PageUltil.setDefault(pageIndex, pageSize);
+        searchReqDto.setPageIndex(page.getCurrentPage() - 1);
         searchReqDto.setPageSize(page.getPageSize());
         List<String> sort = new ArrayList<>();
         sort.add("id");

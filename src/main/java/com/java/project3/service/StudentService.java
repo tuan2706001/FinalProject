@@ -49,6 +49,8 @@ public class StudentService {
         Student student = toStudent.getDestination(studentDTO);
         student.setId(genIdService.nextId());
         student.setGradeName(grade.getName());
+        student.setPassword("123456");
+        student.setIsDeleted(false);
         Student result = studentRepository.save(student);
         var temp = toStudentDto.getDestination(result);
         responseDto.setObject(temp);

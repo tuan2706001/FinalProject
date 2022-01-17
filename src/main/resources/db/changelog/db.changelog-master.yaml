@@ -13,5 +13,11 @@ databaseChangeLog:
       file: db/changelog/db.changelog-master-user-role.yaml
   - include:
       file: db/changelog/db.changelog-master-student.yaml
+  - include:
+      file: db/changelog/db.changelog-master-subject.yaml
+  - include:
+      file: db/changelog/db.changelog-master-subject-detail.yaml
+  - include:
+      file: db/changelog/db.changelog-master-mark.yaml
 
 

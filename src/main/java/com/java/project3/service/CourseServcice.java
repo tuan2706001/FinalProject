@@ -2,10 +2,13 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Course;
+import com.java.project3.domain.Major;
 import com.java.project3.dto.CourseDTO;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
+import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -26,6 +30,8 @@ public class CourseServcice {
     CourseRepository courseRepository;
     @Autowired
     CourseServcice courseServcice;
+    @Autowired
+    GenIdService genIdService;
 
 
     JMapper<CourseDTO, Course> toCourseDto;
@@ -40,9 +46,23 @@ public class CourseServcice {
     public ResponseDto create(CourseDTO courseDTO) {
         ResponseDto responseDto = new ResponseDto();
         Course course = toCourse.getDestination(courseDTO);
+        course.setId(genIdService.nextId());
+        course.setIsDeleted(false);
         Course result = courseRepository.save(course);
         var temp = toCourseDto.getDestination(result);
         responseDto.setObject(temp);
+        return responseDto;
+    }
+
+    public ResponseDto update(CourseDTO courseDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Course> course = courseRepository.findById(courseDTO.getId());
+        if (course.isPresent()) {
+            Course course1 = toCourse.getDestination(course.get(), courseDTO);
+            Course result = courseRepository.save(course1);
+            CourseDTO courseDTO1 = toCourseDto.getDestination(result);
+            responseDto.setObject(courseDTO1);
+        }
         return responseDto;
     }
 

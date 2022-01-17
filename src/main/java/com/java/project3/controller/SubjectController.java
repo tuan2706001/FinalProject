@@ -1,25 +1,25 @@
 package com.java.project3.controller;
 
-import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
-import com.java.project3.service.MajorService;
-import com.java.project3.service.StudentService;
+import com.java.project3.service.SubjectService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class SubjectController {
     @Autowired
-    StudentService studentService;
+    SubjectService subjectService;
 
-    @GetMapping(value = {"/trang-chu"})
-    public String home(
+    @GetMapping("quan-ly-mon-hoc")
+    public String major(
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
@@ -27,36 +27,13 @@ public class HomeController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search);
+        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
-        return "trang-chu";
+
+        return "quan-ly-mon-hoc";
     }
-
-    @GetMapping("thong-ke")
-    public String statistical() {
-        return "thong-ke";
-    }
-
-    @GetMapping("thong-tin-ca-nhan")
-    public String info() {
-        return "thong-tin-ca-nhan";
-    }
-
-    @GetMapping(value = {"/","/dang-nhap"})
-    public String login() {
-        return "dang-nhap";
-    }
-
-    @GetMapping("dang-ky")
-    public String signUp() {
-        return "dang-ky";
-    }
-
-
-
-
 }

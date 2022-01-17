@@ -44,8 +44,11 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
                 <td>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24" viewBox="0 0 24 24"
-                         style="fill: rgba(0, 0, 0, 1);">
+                    <svg
+                        th:data-namekhoa="${item.name}"
+                        th:data-idkhoa="${item.id}"
+                        xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24" viewBox="0 0 24 24"
+                        style="fill: rgba(0, 0, 0, 1);">
                         <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                     </svg>
                 </td>
@@ -55,20 +58,20 @@
             </tr>
             </tbody>
         </table>
-        <div id="myModal" class="modal pt-20 z-50">
+        <div id="modalCreate" class="modal pt-20 z-50">
 
             <!-- Modal content -->
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Thêm khóa</div>
-                    <span class="close  transition duration-300">&times;</span>
+                    <div class="text-xl ">Thêm Khóa</div>
+                    <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/quan-ly-khoa">
+                <form method="POST" action="/createCourse">
                     <div class="modal-body p-10">
                         <div>
                             <div>
-                                <label class="font-medium mr-4">Tên khoa</label>
+                                <label class="font-medium mr-4">Tên Khóa</label>
                                 <div>
                                     <input id="ten_khoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"/>
@@ -77,12 +80,49 @@
                             <div class="flex justify-end mt-10">
                                 <div
                                         onclick="closeModal()"
-                                        id="closeModalCreate" class="closeModalCreate flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Đóng
+                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
                                 </div>
                                 <button
                                         class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                        id="submit">gửi
+                                        id="submit">Gửi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="modalEdit" class="modal pt-20 z-50">
+
+            <!-- Modal content -->
+            <div class="modal-content w-6/12 mx-auto my-10">
+                <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+                    <div class="text-xl ">Sửa Khóa</div>
+                    <button><span class="closeModal  transition duration-300">&times;</span></button>
+                </div>
+
+                <form method="POST" action="/updateCourse">
+                    <div class="modal-body p-10">
+                        <div>
+                            <div>
+                                <label class="font-medium mr-4">Tên Khóa</label>
+                                <div>
+                                    <input id="updateKhoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
+                                    <input type="hidden" id="idKhoa" name="id">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end mt-10">
+                                <div
+                                        onclick="closeModal()"
+                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                                </div>
+                                <button
+                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                >Gửi
                                 </button>
                             </div>
                         </div>
@@ -92,6 +132,10 @@
         </div>
     </div>
     <script>
+        $('.edit').click(function (){
+            $('#updateKhoa').val($(this).data('namekhoa'))
+            $('#idKhoa').val($(this).data('idkhoa'))
+        })
         function closeModal() {
             var modalClose = document.getElementById("myModal");
             console.log(123)
