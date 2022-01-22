@@ -27,6 +27,12 @@ databaseChangeLog:
                   name: subject_name
                   type: NVARCHAR(255)
               - column:
+                  name: grade_id
+                  type: bigint
+              - column:
+                  name: grade_name
+                  type: NVARCHAR(255)
+              - column:
                   name: theory1
                   type: smallint
               - column:

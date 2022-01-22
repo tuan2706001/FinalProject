@@ -3,6 +3,7 @@ package com.java.project3.service;
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Grade;
 import com.java.project3.domain.Student;
+import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -42,6 +43,16 @@ public class StudentService {
     public StudentService() {
         this.toStudentDto = new JMapper<>(StudentDTO.class, Student.class);
         this.toStudent = new JMapper<>(Student.class, StudentDTO.class);
+    }
+
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
+            StudentDTO studentDTO = toStudentDto.getDestination(student.get());
+            responseDto.setObject(studentDTO);
+        }
+        return responseDto;
     }
 
     public ResponseDto create(StudentDTO studentDTO) {
@@ -88,7 +99,7 @@ public class StudentService {
         return responseDto;
     }
 
-    public ResponseDto searchStudentBy(Integer pageIndex, Integer pageSize, String search) {
+    public ResponseDto searchStudentBy(Integer pageIndex, Integer pageSize, String search, Long gradeId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -100,7 +111,10 @@ public class StudentService {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql = "S-fullName=L\"" + search + "\", OR-S-gradeName=L\"" + search + "\"";
+            sql += "S-fullName=L\"" + search + "\", OR-S-gradeName=L\"" + search + "\"";
+        }
+        if (gradeId != null) {
+            sql += ",N-gradeId=\"" + gradeId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

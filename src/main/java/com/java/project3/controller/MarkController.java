@@ -1,5 +1,7 @@
 package com.java.project3.controller;
 
+import com.java.project3.dto.GradeDTO;
+import com.java.project3.dto.MarkDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
@@ -8,9 +10,7 @@ import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
@@ -36,6 +36,22 @@ public class MarkController {
 
         return "quan-ly-diem";
     }
+
+    @PostMapping("createMark")
+    public String createMark(
+            @ModelAttribute MarkDTO markDTO
+    ) {
+        ResponseDto responseDto = markService.create(markDTO);
+        return "redirect:/quan-ly-diem";
+    }
+
+//    @PostMapping("updateMark")
+//    public String updateMark(
+//            @ModelAttribute MarkDTO markDTO
+//    ) {
+//        ResponseDto responseDto = markService.update(markDTO);
+//        return "redirect:/quan-ly-diem";
+//    }
 
 
 }

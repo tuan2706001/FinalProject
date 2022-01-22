@@ -48,6 +48,16 @@ public class GradeServcie {
         this.toGrade = new JMapper<>(Grade.class, GradeDTO.class);
     }
 
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Grade> grade = gradeRepository.findById(id);
+        if (grade.isPresent()) {
+            GradeDTO gradeDTO = toGradeDto.getDestination(grade.get());
+            responseDto.setObject(gradeDTO);
+        }
+        return responseDto;
+    }
+
     public ResponseDto create(GradeDTO gradeDTO) {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(gradeDTO.getMajorId());
@@ -95,7 +105,7 @@ public class GradeServcie {
         return responseDto;
     }
 
-    public ResponseDto searchGradeBy(Integer pageIndex, Integer pageSize, String search) {
+    public ResponseDto searchGradeBy(Integer pageIndex, Integer pageSize, String search, Long courseId, Long majorId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -107,7 +117,13 @@ public class GradeServcie {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql = "S-name=L\"" + search + "\", OR-S-majorName=L\"" + search + "\", OR-S-courseName=L\"" + search + "\"";
+            sql += "S-name=L\"" + search + "\", OR-S-majorName=L\"" + search + "\", OR-S-courseName=L\"" + search + "\"";
+        }
+        if (courseId != null) {
+            sql += ",N-courseId=\"" + courseId + "\"";
+        }
+        if (majorId != null) {
+            sql += ",N-majorId=\"" + majorId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

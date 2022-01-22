@@ -27,11 +27,15 @@ public class StudentController {
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
-            @RequestParam(value = "search", required = false) String search
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "gradeId", required = false) Long gradeId
     ) {
+        if ( gradeId == null || gradeId == 0 ) {
+            gradeId = null;
+        }
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search);
+        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -45,6 +49,7 @@ public class StudentController {
         ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
         SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
         model.addAttribute("lop", searchResDtoLop.getData());
+        model.addAttribute("gradeId", gradeId);
 
         return "quan-ly-sinh-vien";
     }
@@ -57,7 +62,25 @@ public class StudentController {
         return "redirect:/quan-ly-sinh-vien";
     }
 
-    @PostMapping("updateStudent")
+    @GetMapping("quan-ly-sien-vien/{id}")
+    public  String suaSinhVien (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        //get lớp
+        SearchReqDto searchReqDtoLop = new SearchReqDto();
+        searchReqDtoLop.setPageSize(100);
+        searchReqDtoLop.setPageIndex(0);
+        ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
+        SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
+        model.addAttribute("lop", searchResDtoLop.getData());
+
+        ResponseDto responseDto =  studentService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/edit-student";
+    }
+
+    @PutMapping("updateStudent")
     public String updateStudent(
             @ModelAttribute StudentDTO studentDTO
     ) {

@@ -29,6 +29,12 @@ public class MarkDTO {
     private String subjectName;
 
     @JMap
+    private Long gradeId;
+
+    @JMap
+    private String gradeName;
+
+    @JMap
     private Short theory1;
 
     @JMap

@@ -9,30 +9,39 @@
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-48  text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-28 text-white transition duration-300">
                 Thêm lớp
             </button>
-            <div class="mr-8 lg:flex text-center xl:text-base  ">
-                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-                <select name="type"
-                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="" hidden>--Chọn khóa--</option>
-                    <th:block th:each="item,index : ${khoas}">
-                        <option th:value="${item.id}" th:text="${item.name}"></option>
-                    </th:block>
-                </select>
-            </div>
-            <div class="mr-8 lg:flex text-center xl:text-base  ">
-                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-                <select name="type"
-                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="" hidden>--Chọn ngành--</option>
-                    <th:block th:each="item,index : ${nganh}">
-                        <option th:value="${item.id}" th:text="${item.name}"></option>
-                    </th:block>
-                </select>
-            </div>
-            <form>
+            <form class="flex">
+                <div class="mr-8 lg:flex text-center xl:text-base  ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
+
+                    <select name="courseId"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                            onchange="this.form.submit()">
+                        <option value="0" hidden>--Tất cả--</option>
+                        <th:block th:each="item,index : ${khoas}">
+                            <option th:value="${item.id}" th:text="${item.name}"
+                                    th:selected="${courseId == item.id ? true : false}"></option>
+                        </th:block>
+                    </select>
+
+                </div>
+                <div class="mr-8 lg:flex text-center xl:text-base  ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
+
+                    <select name="majorId"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                            onchange="this.form.submit()">
+                        <option value="0" hidden>--Chọn ngành--</option>
+                        <th:block th:each="item,index : ${nganh}">
+                            <option th:value="${item.id}" th:text="${item.name}"
+                                    th:selected="${majorId == item.id ? true : false}"></option>
+                        </th:block>
+                    </select>
+
+                </div>
+
                 <div class="justify-self-end">
                     <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-60 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
@@ -77,6 +86,7 @@
                             th:data-idnganh="${item.majorId}"
                             th:data-namekhoa="${item.courseName}"
                             th:data-idkhoa="${item.courseId}"
+                            th:data-url="${'/quan-ly-lop/' + item.id}"
                             xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                             viewBox="0 0 24 24"
                             style="fill: rgba(0, 0, 0, 1);">
@@ -154,86 +164,24 @@
             </div>
         </div>
 
-        <div id="modalEdit" class="modal pt-20 z-50">
-
-            <!-- Modal content -->
-            <div class="modal-content w-6/12 mx-auto my-10">
-                <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Sửa lớp</div>
-                    <button><span class="closeModal  transition duration-300">&times;</span></button>
-                </div>
-
-                <form method="POST" action="/updateGrade">
-                    <div class="modal-body p-10">
-
-                        <div class="flex justify-between">
-                            <div class="w-2/3">
-                                <label class="font-medium mr-28">Tên Ngành</label>
-                                <div>
-                                    <select id="nameNganh" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
-                                        <th:block th:each="item,index : ${nganh}">
-                                            <option th:value="${item.id}" th:text="${item.name}" ></option>
-                                        </th:block>
-                                    </select>
-                                    <input type="hidden" id="idNganh" name="majorId">
-                                </div>
-                            </div>
-
-                            <div class="w-1/3">
-                                <label class="font-medium mr-28">Tên khóa</label>
-                                <div>
-                                    <select id="nameKhoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
-                                        <th:block th:each="item,index : ${khoas}">
-                                            <option th:value="${item.id}" th:text="${item.name}" ></option>
-                                        </th:block>
-                                    </select>
-                                    <input type="hidden" id="idKhoa" name="courseId">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="font-medium mr-28">Tên lớp</label>
-                            <div>
-                                <input id="nameLop" type="text" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
-                                <input type="hidden" id="idLop" name="id">
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end mt-10">
-                            <div
-                                    onclick="closeModal()"
-                                    class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Hủy
-                            </div>
-
-                            <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                    id="submit">Gửi
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
+    <section aria-label="modalEdit" class="">
+        <div id="modalEdit"
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-500 overflow-y-scroll">
+        </div>
+    </section>
     <script>
         $('.edit').click(function () {
-            $('#nameLop').val($(this).data('namelop'))
-            $('#idLop').val($(this).data('idlop'))
-            $('#nameKhoa').val($(this).data('namekhoa'))
-            $('#idKhoa').val($(this).data('idkhoa'))
-            $('#nameNganh').val($(this).data('namenganh'))
-            $('#idNganh').val($(this).data('idnganh'))
-        })
+            $.ajax({
+                url: $(this).data('url'),
+                method: 'GET',
+                success: function (p) {
+                    $('#modalEdit').html('')
+                    $('#modalEdit').html(p)
+                }
+            })
 
-        function closeModal() {
-            var modalClose = document.getElementById("myModal");
-            console.log(123)
-            modalClose.style.display = "none";
-        }
+        })
     </script>
 </div>
 </body>
