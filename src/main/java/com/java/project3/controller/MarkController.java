@@ -3,7 +3,6 @@ package com.java.project3.controller;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
-import com.java.project3.service.MajorService;
 import com.java.project3.service.MarkService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +36,6 @@ public class MarkController {
 
         return "quan-ly-diem";
     }
+
+
 }

@@ -24,6 +24,9 @@ public class Student extends AbstractBaseEntity {
     @Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "student_code")
+    private String studentCode;
+
     @Column(name = "email")
     private String email;
 

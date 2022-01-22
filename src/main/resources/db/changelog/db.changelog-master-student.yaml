@@ -18,6 +18,9 @@ databaseChangeLog:
                   name: full_name
                   type: NVARCHAR(255)
               - column:
+                  name: student_code
+                  type: NVARCHAR(255)
+              - column:
                   name: email
                   type: NVARCHAR(255)
               - column:

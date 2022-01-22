@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -57,6 +58,21 @@ public class StudentService {
         return responseDto;
     }
 
+    public ResponseDto update(StudentDTO studentDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Student> student = studentRepository.findById(studentDTO.getId());
+        if (student.isPresent()) {
+            Grade grade = gradeRepository.findById(studentDTO.getGradeId()).get();
+
+            Student student1 = toStudent.getDestination(student.get(), studentDTO);
+            student1.setGradeName(grade.getName());
+            Student result = studentRepository.save(student1);
+            StudentDTO studentDTO1 = toStudentDto.getDestination(result);
+            responseDto.setObject(studentDTO1);
+        }
+        return responseDto;
+    }
+
     public ResponseDto search(SearchReqDto reqDto) {
         ResponseDto responseDto = new ResponseDto();
         // Dùng hàm search (hero)
@@ -77,7 +93,7 @@ public class StudentService {
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
                 page = PageUltil.setDefault(pageIndex, pageSize);
-        searchReqDto.setPageIndex(page.getCurrentPage()-1);
+        searchReqDto.setPageIndex(page.getCurrentPage() - 1);
         searchReqDto.setPageSize(page.getPageSize());
         List<String> sort = new ArrayList<>();
         sort.add("id");

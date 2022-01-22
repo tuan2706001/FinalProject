@@ -9,12 +9,32 @@
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-96  text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-48  text-white transition duration-300">
                 Thêm lớp
             </button>
+            <div class="mr-8 lg:flex text-center xl:text-base  ">
+                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+                <select name="type"
+                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                    <option value="" hidden>--Chọn khóa--</option>
+                    <th:block th:each="item,index : ${khoas}">
+                        <option th:value="${item.id}" th:text="${item.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="mr-8 lg:flex text-center xl:text-base  ">
+                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+                <select name="type"
+                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                    <option value="" hidden>--Chọn ngành--</option>
+                    <th:block th:each="item,index : ${nganh}">
+                        <option th:value="${item.id}" th:text="${item.name}"></option>
+                    </th:block>
+                </select>
+            </div>
             <form>
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-60 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -49,9 +69,17 @@
                 <td th:text="${item.courseName}"></td>
                 <td th:text="${item.majorName}"></td>
                 <td>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
-                         viewBox="0 0 24 24"
-                         style="fill: rgba(0, 0, 0, 1);">
+
+                    <svg
+                            th:data-namelop="${item.name}"
+                            th:data-idlop="${item.id}"
+                            th:data-namenganh="${item.majorName}"
+                            th:data-idnganh="${item.majorId}"
+                            th:data-namekhoa="${item.courseName}"
+                            th:data-idkhoa="${item.courseId}"
+                            xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                            viewBox="0 0 24 24"
+                            style="fill: rgba(0, 0, 0, 1);">
                         <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                     </svg>
                 </td>
@@ -61,8 +89,8 @@
             </tr>
             </tbody>
         </table>
-        <div id="modalCreate" class="modal pt-20 z-50">
 
+        <div id="modalCreate" class="modal pt-20 z-50">
             <!-- Modal content -->
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
@@ -70,44 +98,41 @@
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" enctype="/createGrade">
+                <form method="POST" action="/createGrade">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
-                            <!--                        //Tên-->
-                            <div class="w-2/3">
-                                <label for="ten_loi_moi" class="font-medium mr-28">Tên Ngành</label>
-                                <div>
-                                    <!--                                    <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700-->
-                                    <!--                                leading-tight focus:outline-none focus:shadow-outline"/>-->
 
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên Ngành</label>
+                                <div>
                                     <select class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline">
-                                        <option>Lập trình máy tính</option>
-                                        <option>Quản trị mạng</option>
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
+                                        <option value="" hidden>Chọn ngành</option>
+                                        <th:block th:each="item,index : ${nganh}">
+                                            <option th:value="${item.id}" th:text="${item.name}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
                             </div>
-                            <!--                        //Mã sinh viên-->
+
                             <div class="w-1/3">
-                                <label for="ten_loi_moi" class="font-medium mr-28">Tên khóa</label>
+                                <label class="font-medium mr-28">Tên khóa</label>
                                 <div>
-                                    <!--                                    <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700-->
-                                    <!--                                leading-tight focus:outline-none focus:shadow-outline"/>-->
                                     <select class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline">
-                                        <option>khóa 10</option>
-                                        <option>khóa 11</option>
-                                        <option>khóa 12</option>
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
+                                        <option value="" hidden>Chọn ngành</option>
+                                        <th:block th:each="item,index : ${khoas}">
+                                            <option th:value="${item.id}" th:text="${item.name}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <!--                        //Email-->
                         <div>
-                            <label for="ten_loi_moi" class="font-medium mr-28">Tên lớp</label>
+                            <label class="font-medium mr-28">Tên lớp</label>
                             <div>
-                                <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <input type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
                             </div>
                         </div>
@@ -138,41 +163,41 @@
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" enctype="/updateGrade">
+                <form method="POST" action="/updateGrade">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
                             <div class="w-2/3">
-                                <label for="ten_loi_moi" class="font-medium mr-28">Tên Ngành</label>
+                                <label class="font-medium mr-28">Tên Ngành</label>
                                 <div>
-                                    <select class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="majorName">
-                                        <option>Lập trình máy tính</option>
-                                        <option>Quản trị mạng</option>
+                                    <select id="nameNganh" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
+                                        <th:block th:each="item,index : ${nganh}">
+                                            <option th:value="${item.id}" th:text="${item.name}" ></option>
+                                        </th:block>
                                     </select>
-                                    <input type="hidden" id="nameNganh">
+                                    <input type="hidden" id="idNganh" name="majorId">
                                 </div>
                             </div>
 
                             <div class="w-1/3">
-                                <label for="ten_loi_moi" class="font-medium mr-28">Tên khóa</label>
+                                <label class="font-medium mr-28">Tên khóa</label>
                                 <div>
-                                    <!--                                    <input id="ten_loi_moi" type="text" name="callName" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700-->
-                                    <!--                                leading-tight focus:outline-none focus:shadow-outline"/>-->
-                                    <select class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="courseName">
-                                        <option>khóa 10</option>
-                                        <option>khóa 11</option>
-                                        <option>khóa 12</option>
+                                    <select id="nameKhoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
+                                        <th:block th:each="item,index : ${khoas}">
+                                            <option th:value="${item.id}" th:text="${item.name}" ></option>
+                                        </th:block>
                                     </select>
+                                    <input type="hidden" id="idKhoa" name="courseId">
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label for="ten_loi_moi" class="font-medium mr-28">Tên lớp</label>
+                            <label class="font-medium mr-28">Tên lớp</label>
                             <div>
-                                <input id="updateLop" type="text" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <input id="nameLop" type="text" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"/>
                                 <input type="hidden" id="idLop" name="id">
                             </div>
@@ -196,8 +221,12 @@
     </div>
     <script>
         $('.edit').click(function () {
-            $('#updateLop').val($(this).data('nameLop'))
-            $('#idLop').val($(this).data('idLop'))
+            $('#nameLop').val($(this).data('namelop'))
+            $('#idLop').val($(this).data('idlop'))
+            $('#nameKhoa').val($(this).data('namekhoa'))
+            $('#idKhoa').val($(this).data('idkhoa'))
+            $('#nameNganh').val($(this).data('namenganh'))
+            $('#idNganh').val($(this).data('idnganh'))
         })
 
         function closeModal() {

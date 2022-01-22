@@ -24,6 +24,9 @@ public class StudentDTO {
     private String fullName;
 
     @JMap
+    private String studentCode;
+
+    @JMap
     private String email;
 
     @JMap

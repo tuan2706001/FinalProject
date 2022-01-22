@@ -46,9 +46,11 @@ public class MajorController {
 
     @PostMapping("updateMajor")
     public String updateMajor(
+            Model model,
             @ModelAttribute MajorDTO majorDTO
     ) {
         ResponseDto responseDto = majorService.update(majorDTO);
+        model.addAttribute("updateGrade");
         return "redirect:/quan-ly-nganh";
     }
 

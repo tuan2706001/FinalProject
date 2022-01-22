@@ -5,7 +5,6 @@ import com.java.project3.domain.Course;
 import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
 import com.java.project3.dto.GradeDTO;
-import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
@@ -51,12 +50,12 @@ public class GradeServcie {
 
     public ResponseDto create(GradeDTO gradeDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Major major = majorRepository.findById(gradeDTO.getMajorId()).get();
-        Course course = courseRepository.findById(gradeDTO.getCourseId()).get();
+        Optional<Major> major = majorRepository.findById(gradeDTO.getMajorId());
+        Optional<Course> course = courseRepository.findById(gradeDTO.getCourseId());
         Grade grade = toGrade.getDestination(gradeDTO);
         grade.setId(genIdService.nextId());
-        grade.setMajorName(major.getName());
-        grade.setCourseName(course.getName());
+        grade.setMajorName(major.get().getName());
+        grade.setCourseName(course.get().getName());
         grade.setIsDeleted(false);
         Grade result = gradeRepository.save(grade);
         var temp = toGradeDto.getDestination(result);
@@ -66,10 +65,11 @@ public class GradeServcie {
 
     public ResponseDto update(GradeDTO gradeDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Major major = majorRepository.findById(gradeDTO.getMajorId()).get();
-        Course course = courseRepository.findById(gradeDTO.getCourseId()).get();
         Optional<Grade> grade = gradeRepository.findById(gradeDTO.getId());
         if (grade.isPresent()) {
+            Major major = majorRepository.findById(gradeDTO.getMajorId()).get();
+            Course course = courseRepository.findById(gradeDTO.getCourseId()).get();
+
             Grade grade1 = toGrade.getDestination(grade.get(), gradeDTO);
             grade1.setMajorName(major.getName());
             grade1.setCourseName(course.getName());
