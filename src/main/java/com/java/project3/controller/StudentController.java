@@ -1,6 +1,5 @@
 package com.java.project3.controller;
 
-import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
@@ -62,12 +61,12 @@ public class StudentController {
         return "redirect:/quan-ly-sinh-vien";
     }
 
-    @GetMapping("quan-ly-sien-vien/{id}")
+    @GetMapping("/quan-ly-sinh-vien/{id}")
     public  String suaSinhVien (
             @PathVariable("id") Long id,
             Model model
     ) {
-        //get lớp
+        //get lớp tôi sai chính tả r
         SearchReqDto searchReqDtoLop = new SearchReqDto();
         searchReqDtoLop.setPageSize(100);
         searchReqDtoLop.setPageIndex(0);
@@ -77,7 +76,7 @@ public class StudentController {
 
         ResponseDto responseDto =  studentService.findById(id);
         model.addAttribute("data", responseDto.getObject());
-        return "fragment/body/home/edit-student";
+        return "fragment/body/home/edit/edit-student";
     }
 
     @PutMapping("updateStudent")

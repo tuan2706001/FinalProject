@@ -173,7 +173,7 @@
                             <div class="ml-10 flex my-5">
                                 <label>Nam
                                     <input type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
-                                           value="1" checked>
+                                           value="1">
                                 </label>
                             </div>
                             <div class="ml-10 flex my-5">
@@ -214,12 +214,12 @@
     </div>
     <section aria-label="modalEdit" class="">
         <div id="modalEdit"
-             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-500 overflow-y-scroll">
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
         </div>
     </section>
     <script>
-
         $('.edit').click(function () {
+            console.log($(this).data('url'))
             $.ajax({
                 url: $(this).data('url'),
                 method: 'GET',

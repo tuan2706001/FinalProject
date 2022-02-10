@@ -1,0 +1,85 @@
+<!-- Modal content -->
+<div class="modal-content w-4/12 mx-auto my-10">
+    <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+        <div class="text-xl ">Sửa môn</div>
+        <button><span class="closeModal transition duration-300">&times;</span></button>
+    </div>
+
+    <form th:method="PUT" action="/updateSubject">
+        <div class="modal-body p-10">
+
+            <div class="flex justify-between">
+                <!--                        //Tên-->
+                <div class="w-2/3">
+                    <label class="font-medium mr-28">Tên môn</label>
+                    <div>
+                        <input type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.name}"/>
+                        <input type="hidden" th:value="${data.id}" name="id">
+                    </div>
+                </div>
+            </div>
+            <!--                        //Lý thuyết-->
+            <div class="flex my-5">
+
+                <label class="font-medium mr-6">Lý thuyết</label>
+
+                <div style="color: #007DC5"></div>
+                <div class="ml-10 flex my-5">
+                    <label>Có
+                        <input type="radio" name="theory" class=" mt-1 outline-none callType"
+                               th:value="1" th:checked="${data.theory == 1 ? true : false }">
+                    </label>
+                </div>
+
+                <div class="ml-10 flex my-5">
+                    <label>Không
+                        <input type="radio" name="theory" class=" mt-1 outline-none callType"
+                               th:value="0" th:checked="${data.theory != 1 ? true : false }">
+                    </label>
+                </div>
+            </div>
+
+            <!--                        //Thực hành-->
+            <div class="flex my-5">
+                <label class="font-medium mr-6">Thực hành</label>
+                <div style="color: #007DC5"></div>
+                <div class="ml-10 flex my-5">
+                    <label>Có
+                        <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
+                               th:value="1" th:checked="${data.skill == 1 ? true : false }">
+                    </label>
+                </div>
+                <div class="ml-10 flex my-5">
+                    <label>Không
+                        <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
+                               th:value="0" th:checked="${data.skill != 1 ? true : false }">
+                    </label>
+                </div>
+            </div>
+
+            <!--                        //Số giờ-->
+
+            <div class="w-2/3">
+                <label class="font-medium mr-28">Số giờ</label>
+                <div>
+                    <input type="number" name="duration" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.duration}"/>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-10">
+                <div
+                        onclick="closeModal()"
+                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                </div>
+
+                <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                        id="submit">
+                    Gửi
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

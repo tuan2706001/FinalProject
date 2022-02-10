@@ -1,7 +1,11 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
+import com.java.project3.domain.Major;
+import com.java.project3.domain.Student;
 import com.java.project3.domain.Subject;
+import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -31,23 +36,45 @@ public class SubjectService {
     GenIdService genIdService;
 
 
-    JMapper<SubjectDTO, Subject> toSubjectGeneralDto;
-    JMapper<Subject, SubjectDTO> toSubjectGeneral;
+    JMapper<SubjectDTO, Subject> toSubjectDto;
+    JMapper<Subject, SubjectDTO> toSubject;
 
 
     public SubjectService() {
-        this.toSubjectGeneralDto = new JMapper<>(SubjectDTO.class, Subject.class);
-        this.toSubjectGeneral = new JMapper<>(Subject.class, SubjectDTO.class);
+        this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
+        this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
+    }
+
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Subject> subject = subjectRepository.findById(id);
+        if (subject.isPresent()) {
+            SubjectDTO subjectDTO = toSubjectDto.getDestination(subject.get());
+            responseDto.setObject(subjectDTO);
+        }
+        return responseDto;
     }
 
     public ResponseDto create(SubjectDTO subjectDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Subject subject = toSubjectGeneral.getDestination(subjectDTO);
+        Subject subject = toSubject.getDestination(subjectDTO);
         subject.setId(genIdService.nextId());
         subject.setIsDeleted(false);
         Subject result = subjectRepository.save(subject);
-        var temp = toSubjectGeneralDto.getDestination(result);
+        var temp = toSubjectDto.getDestination(result);
         responseDto.setObject(temp);
+        return responseDto;
+    }
+
+    public ResponseDto update(SubjectDTO subjectDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Subject> subject = subjectRepository.findById(subjectDTO.getId());
+        if (subject.isPresent()) {
+            Subject subject1 = toSubject.getDestination(subject.get(), subjectDTO);
+            Subject result = subjectRepository.save(subject1);
+            SubjectDTO subjectDTO1 = toSubjectDto.getDestination(result);
+            responseDto.setObject(subjectDTO1);
+        }
         return responseDto;
     }
 
@@ -60,7 +87,7 @@ public class SubjectService {
         // entity -> dto
         List<SubjectDTO> subjectDTOS = new ArrayList<>();
         for (var subjectGeneral : subjectGenerals) {
-            subjectDTOS.add(toSubjectGeneralDto.getDestination(subjectGeneral));
+            subjectDTOS.add(toSubjectDto.getDestination(subjectGeneral));
         }
         responseDto.setObject(prepareResponseForSearch(subjectGenerals.getTotalPages(), subjectGenerals.getNumber(), subjectGenerals.getTotalElements(), subjectDTOS));
         return responseDto;

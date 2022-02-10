@@ -1,16 +1,18 @@
 package com.java.project3.controller;
 
+import com.java.project3.dto.GradeDTO;
+import com.java.project3.dto.StudentDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
+import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
 import com.java.project3.service.SubjectService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
@@ -35,5 +37,31 @@ public class SubjectController {
         model.addAttribute("search", search);
 
         return "quan-ly-mon-hoc";
+    }
+
+    @PostMapping("createSubject")
+    public String createSubject(
+            @ModelAttribute SubjectDTO subjectDTO
+    ) {
+        ResponseDto responseDto = subjectService.create(subjectDTO);
+        return "redirect:/quan-ly-mon-hoc";
+    }
+
+    @GetMapping("quan-ly-mon/{id}")
+    public  String suaMon (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        ResponseDto responseDto =  subjectService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/edit/edit-subject";
+    }
+
+    @PutMapping("updateSubject")
+    public String updateSubject(
+            @ModelAttribute SubjectDTO subjectDTO
+    ) {
+        ResponseDto responseDto = subjectService.update(subjectDTO);
+        return "redirect:/quan-ly-mon-hoc";
     }
 }

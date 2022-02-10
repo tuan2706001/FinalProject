@@ -101,7 +101,7 @@ public class MarkService {
         return responseDto;
     }
 
-    public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search) {
+    public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search, Long gradeId, Long studentId, Long subjectId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -113,7 +113,16 @@ public class MarkService {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql = "S-subjectName=L\"" + search + "\", OR-S-studentName=L\"" + search + "\"";
+            sql += "S-subjectName=L\"" + search + "\", OR-S-studentName=L\"" + search + "\"";
+        }
+        if (gradeId != null) {
+            sql += ",N-gradeId\"" + gradeId + "\"";
+        }
+        if (studentId != null) {
+            sql += ",N-studentId\"" + studentId + "\"";
+        }
+        if (subjectId != null) {
+            sql += ",N-subjectId\"" + subjectId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

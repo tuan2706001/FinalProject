@@ -25,8 +25,8 @@
                                     th:selected="${courseId == item.id ? true : false}"></option>
                         </th:block>
                     </select>
-
                 </div>
+
                 <div class="mr-8 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
 
@@ -39,7 +39,6 @@
                                     th:selected="${majorId == item.id ? true : false}"></option>
                         </th:block>
                     </select>
-
                 </div>
 
                 <div class="justify-self-end">
@@ -131,7 +130,7 @@
                                 <div>
                                     <select class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="courseId">
-                                        <option value="" hidden>Chọn ngành</option>
+                                        <option value="" hidden>Chọn khóa</option>
                                         <th:block th:each="item,index : ${khoas}">
                                             <option th:value="${item.id}" th:text="${item.name}"></option>
                                         </th:block>
@@ -163,11 +162,10 @@
                 </form>
             </div>
         </div>
-
     </div>
     <section aria-label="modalEdit" class="">
         <div id="modalEdit"
-             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-500 overflow-y-scroll">
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
         </div>
     </section>
     <script>

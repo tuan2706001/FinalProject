@@ -103,7 +103,7 @@ public class GradeController {
 
         ResponseDto responseDto =  gradeServcie.findById(id);
         model.addAttribute("data", responseDto.getObject());
-        return "fragment/body/home/edit-grade";
+        return "fragment/body/home/edit/edit-grade";
     }
 
     @PutMapping("updateGrade")
