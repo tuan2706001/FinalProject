@@ -113,4 +113,14 @@ public class SubjectService {
         responseDto = subjectService.search(searchReqDto);
         return responseDto;
     }
+
+    public ResponseDto delete(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Subject> subject = subjectRepository.findById(id);
+        if (subject.isPresent()) {
+            subjectRepository.deleteById(id);
+            responseDto.setObject(id);
+        }
+        return responseDto;
+    }
 }

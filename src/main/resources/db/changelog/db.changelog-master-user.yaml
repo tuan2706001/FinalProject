@@ -33,54 +33,31 @@ databaseChangeLog:
                   name: birthday
                   type: date
               - column:
-                  name: addresss
+                  name: address
                   type: NVARCHAR(255)
               - column:
                   name: is_deleted
                   type: boolean
                   defaultValue: false
               - column:
-                  name: enabled
-                  type: bool
+                  name: created_at
+                  type: timestamp
               - column:
-                  name: anh_dai_dien
-                  type: VARCHAR(255)
-              - column:
-                  name: gioi_thieu
-                  type: VARCHAR(255)
-              - column:
-                  name: ngay_sinh
-                  type: Date
-              - column:
-                  name: gioi_tinh
-                  type: boolean
-              - column:
-                  name: website
-                  type: VARCHAR(255)
-              - column:
-                  name: dia_chi_thuong_tru
-                  type: VARCHAR(255)
-              - column:
-                  name: noi_o_hien_tai
-                  type: VARCHAR(255)
-              - column:
-                  name: know_oip
-                  type: VARCHAR(255)
-              - column:
-                  name: noi_lam_viec
-                  type: VARCHAR(255)
-              - column:
-                  name: hoc_van_id
+                  name: created_by
                   type: bigint
               - column:
-                  name: cong_viec_id
+                  name: created_by_name
+                  type: VARCHAR(255)
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: updated_by
                   type: bigint
-        - addNotNullConstraint:
-            columnDataType: VARCHAR(255)
-            columnName: id
-            constraintName: username_notnull
-            tableName: tbl_user
-            validate: true
+              - column:
+                  name: updated_by_name
+                  type: VARCHAR(255)
+
 #--------------------------------------------
 
 #User_detail

@@ -2,6 +2,7 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Grade;
+import com.java.project3.domain.Major;
 import com.java.project3.domain.Student;
 import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.StudentDTO;
@@ -120,6 +121,16 @@ public class StudentService {
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
         responseDto = studentService.search(searchReqDto);
+        return responseDto;
+    }
+
+    public ResponseDto delete(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
+            studentRepository.deleteById(id);
+            responseDto.setObject(id);
+        }
         return responseDto;
     }
 }

@@ -2,10 +2,11 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Major;
-import com.java.project3.dto.MajorDTO;
+import com.java.project3.domain.User;
+import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
-import com.java.project3.repository.MajorRepository;
+import com.java.project3.repository.UserRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -23,44 +24,42 @@ import static com.java.project3.utils.SearchUtil.*;
 import static org.springframework.data.domain.Sort.by;
 
 @Service
-public class MajorService {
+public class MinistryService {
     @Autowired
-    MajorRepository majorRepository;
+    UserRepository userRepository;
     @Autowired
     GenIdService genIdService;
     @Autowired
-    MajorService majorService;
+    MinistryService ministryService;
+
+    JMapper<UserDTO, User> toUserDto;
+    JMapper<User, UserDTO> toUser;
 
 
-    JMapper<MajorDTO, Major> toMajorDto;
-    JMapper<Major, MajorDTO> toMajor;
-
-
-    public MajorService() {
-        this.toMajorDto = new JMapper<>(MajorDTO.class, Major.class);
-        this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
+    public MinistryService() {
+        this.toUserDto = new JMapper<>(UserDTO.class, User.class);
+        this.toUser = new JMapper<>(User.class, UserDTO.class);
     }
 
-
-    public ResponseDto create(MajorDTO majorDTO) {
+    public ResponseDto create(UserDTO userDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Major major = toMajor.getDestination(majorDTO);
-        major.setId(genIdService.nextId());
-        major.setIsDeleted(false);
-        Major result = majorRepository.save(major);
-        var temp = toMajorDto.getDestination(result);
+        User user = toUser.getDestination(userDTO);
+        user.setId(genIdService.nextId());
+        user.setIsDeleted(false);
+        User result = userRepository.save(user);
+        var temp = toUserDto.getDestination(result);
         responseDto.setObject(temp);
         return responseDto;
     }
 
-    public ResponseDto update(MajorDTO majorDTO) {
+    public ResponseDto update(UserDTO userDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Major> major = majorRepository.findById(majorDTO.getId());
-        if (major.isPresent()) {
-            Major major1 = toMajor.getDestination(major.get(), majorDTO);
-            Major result = majorRepository.save(major1);
-            MajorDTO majorDTO1 = toMajorDto.getDestination(result);
-            responseDto.setObject(majorDTO1);
+        Optional<User> user = userRepository.findById(userDTO.getId());
+        if (user.isPresent()) {
+            User user1 = toUser.getDestination(user.get(), userDTO);
+            User result = userRepository.save(user1);
+            UserDTO userDTO1 = toUserDto.getDestination(result);
+            responseDto.setObject(userDTO1);
         }
         return responseDto;
     }
@@ -70,13 +69,13 @@ public class MajorService {
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<Major> majors = majorRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<User> users = userRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
-        List<MajorDTO> majorDTOS = new ArrayList<>();
-        for (var major : majors) {
-            majorDTOS.add(toMajorDto.getDestination(major));
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (var user : users) {
+            userDTOS.add(toUserDto.getDestination(user));
         }
-        responseDto.setObject(prepareResponseForSearch(majors.getTotalPages(), majors.getNumber(), majors.getTotalElements(), majorDTOS));
+        responseDto.setObject(prepareResponseForSearch(users.getTotalPages(), users.getNumber(), users.getTotalElements(), userDTOS));
         return responseDto;
     }
 
@@ -92,22 +91,23 @@ public class MajorService {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (name != null) {
-            sql = "S-name=L\"" + name + "\"";
+            sql = "S-fullName=L\"" + name + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
-        responseDto = majorService.search(searchReqDto);
+        responseDto = ministryService.search(searchReqDto);
         return responseDto;
     }
 
     public ResponseDto delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Major> major = majorRepository.findById(id);
-        if (major.isPresent()) {
-            majorRepository.deleteById(id);
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userRepository.deleteById(id);
             responseDto.setObject(id);
         }
         return responseDto;
     }
+
 }

@@ -8,12 +8,12 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<div th:fragment="quan-ly-nganh" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-giao-vu" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
                     class="justify-self-start rounded font-bold w-44 h-9 mr-96 text-white transition duration-300">
-                Thêm ngành
+                Thêm giáo vụ
             </button>
             <form>
                 <div class="justify-self-end">
@@ -39,36 +39,33 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên ngành</th>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Quyền</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
+                <td th:text="${item.fullName}"></td>
+                <td th:text="${item.email}"></td>
+                <td th:text="${item.phone}"></td>
+                <td th:text="${item.birthday}"></td>
+                <td th:text="${item.gender}"></td>
+                <td>admin</td>
                 <td>
-                    <div class=" rounded-full relative menu2 flex justify-center items-center">
-                        <svg
-                                th:data-namenganh="${item.name}"
-                                th:data-idnganh="${item.id}"
-                                xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
-                                viewBox="0 0 24 24"
-                                style="fill: rgba(0, 0, 0, 1);">
-                            <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-                        </svg>
-
-
-                        <div class="w-52 absolute top-10 menu2Child">
-
-                            <form action="/deleteMajor" th:method="DELETE">
-                                <input type="hidden" name="id" th:value="${item.id}">
-                                <button type="submit">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"/>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+                    <svg
+                            th:data-namenganh="${item.fullName}"
+                            th:data-idnganh="${item.id}"
+                            xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                            viewBox="0 0 24 24"
+                            style="fill: rgba(0, 0, 0, 1);">
+                        <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                    </svg>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
@@ -81,20 +78,78 @@
             <!-- Modal content -->
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Thêm ngành</div>
+                    <div class="text-xl ">Thêm giáo vụ</div>
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createMajor">
+                <form method="POST" action="/createMinistry">
                     <div class="modal-body p-10">
                         <div>
                             <div>
-                                <label class="font-medium mr-4">Tên Ngành</label>
+                                <label class="font-medium mr-4">Họ và tên</label>
                                 <div>
                                     <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
+                                leading-tight focus:outline-none focus:shadow-outline" name="fullName"/>
                                 </div>
                             </div>
+
+                            <div>
+                                <label class="font-medium mr-4">Email</label>
+                                <div>
+                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="email"/>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="font-medium mr-4">Số điện thoại</label>
+                                <div>
+                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="phone"/>
+                                </div>
+                            </div>
+
+                            <!--                        //Ngày sinh-->
+                            <div class="flex my-5">
+                                <div>
+                                    <label class="font-medium mr-6">Ngày sinh</label>
+                                    <div class="leading-10 font-medium mr-48">
+                                        <div>
+                                            <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                        leading-tight focus:outline-none focus:shadow-outline" name="birthday"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <!--                                    <div class="flex my-5">-->
+                                    <label class="font-medium mr-6">Giới tính</label>
+                                    <div style="color: #007DC5"></div>
+                                    <div class="ml-10 flex my-5">
+                                        <label>Nam
+                                            <input type="radio" name="gender"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   value="1">
+                                        </label>
+                                    </div>
+                                    <div class="ml-10 flex my-5">
+                                        <label>Nữ
+                                            <input type="radio" name="gender"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   value="0">
+                                        </label>
+                                    </div>
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+
+<!--                            <div>-->
+<!--                                <label class="font-medium mr-4">Quyền</label>-->
+<!--                                <div>-->
+<!--                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700-->
+<!--                                leading-tight focus:outline-none focus:shadow-outline" name="fullName"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="flex justify-end mt-10">
                                 <div

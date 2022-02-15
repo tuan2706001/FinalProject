@@ -131,4 +131,14 @@ public class GradeServcie {
         responseDto = gradeServcie.search(searchReqDto);
         return responseDto;
     }
+
+    public ResponseDto delete(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Grade> grade = gradeRepository.findById(id);
+        if (grade.isPresent()) {
+            gradeRepository.deleteById(id);
+            responseDto.setObject(id);
+        }
+        return responseDto;
+    }
 }

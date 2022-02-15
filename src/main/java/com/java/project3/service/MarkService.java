@@ -3,7 +3,6 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
-import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MarkDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -128,6 +127,16 @@ public class MarkService {
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
         responseDto = markService.search(searchReqDto);
+        return responseDto;
+    }
+
+    public ResponseDto delete(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Mark> mark = markRepository.findById(id);
+        if (mark.isPresent()) {
+            markRepository.deleteById(id);
+            responseDto.setObject(id);
+        }
         return responseDto;
     }
 }
