@@ -23,7 +23,7 @@ public final class SearchUtil {
 
 	public static List<Sort.Order> getOrders(List<String> sorts, String defaultProp) {
 		if (sorts.isEmpty())
-			return Arrays.asList(new Sort.Order(DESC, defaultProp));
+			return Arrays.asList(new Sort.Order(ASC, defaultProp));
 		List<Sort.Order> orders = new ArrayList<Sort.Order>(sorts.size());
 		for (String sort : sorts) {
 			String[] split = sort.split(COLON);

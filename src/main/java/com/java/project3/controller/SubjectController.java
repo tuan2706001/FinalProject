@@ -1,11 +1,8 @@
 package com.java.project3.controller;
 
-import com.java.project3.dto.GradeDTO;
-import com.java.project3.dto.StudentDTO;
-import com.java.project3.dto.SubjectDTO;
+import com.java.project3.dto.SubjectGeneralDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
-import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
 import com.java.project3.service.SubjectService;
 import com.java.project3.utils.PageUltil;
@@ -41,9 +38,9 @@ public class SubjectController {
 
     @PostMapping("createSubject")
     public String createSubject(
-            @ModelAttribute SubjectDTO subjectDTO
+            @ModelAttribute SubjectGeneralDTO subjectGeneralDTO
     ) {
-        ResponseDto responseDto = subjectService.create(subjectDTO);
+        ResponseDto responseDto = subjectService.create(subjectGeneralDTO);
         return "redirect:/quan-ly-mon-hoc";
     }
 
@@ -59,9 +56,17 @@ public class SubjectController {
 
     @PutMapping("updateSubject")
     public String updateSubject(
-            @ModelAttribute SubjectDTO subjectDTO
+            @ModelAttribute SubjectGeneralDTO subjectGeneralDTO
     ) {
-        ResponseDto responseDto = subjectService.update(subjectDTO);
+        ResponseDto responseDto = subjectService.update(subjectGeneralDTO);
+        return "redirect:/quan-ly-mon-hoc";
+    }
+
+    @DeleteMapping("deleteSubject")
+    public String deleteSubject(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = subjectService.delete(id);
         return "redirect:/quan-ly-mon-hoc";
     }
 }

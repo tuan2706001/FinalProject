@@ -2,7 +2,9 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Major;
+import com.java.project3.domain.Student;
 import com.java.project3.domain.User;
+import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -39,6 +41,16 @@ public class MinistryService {
     public MinistryService() {
         this.toUserDto = new JMapper<>(UserDTO.class, User.class);
         this.toUser = new JMapper<>(User.class, UserDTO.class);
+    }
+
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            UserDTO userDTO = toUserDto.getDestination(user.get());
+            responseDto.setObject(userDTO);
+        }
+        return responseDto;
     }
 
     public ResponseDto create(UserDTO userDTO) {

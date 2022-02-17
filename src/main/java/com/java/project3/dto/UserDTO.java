@@ -43,6 +43,12 @@ public class UserDTO {
     private String address;
 
     @JMap
+    private Short role;
+
+    @JMap
+    private Short status;
+
+    @JMap
     private LocalDateTime createdAt;
 
     @JMap

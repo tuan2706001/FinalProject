@@ -1,12 +1,8 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.Major;
-import com.java.project3.domain.Student;
-import com.java.project3.domain.Subject;
-import com.java.project3.dto.MajorDTO;
-import com.java.project3.dto.StudentDTO;
-import com.java.project3.dto.SubjectDTO;
+import com.java.project3.domain.SubjectGeneral;
+import com.java.project3.dto.SubjectGeneralDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.SubjectRepository;
@@ -36,44 +32,44 @@ public class SubjectService {
     GenIdService genIdService;
 
 
-    JMapper<SubjectDTO, Subject> toSubjectDto;
-    JMapper<Subject, SubjectDTO> toSubject;
+    JMapper<SubjectGeneralDTO, SubjectGeneral> toSubjectDto;
+    JMapper<SubjectGeneral, SubjectGeneralDTO> toSubject;
 
 
     public SubjectService() {
-        this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
-        this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
+        this.toSubjectDto = new JMapper<>(SubjectGeneralDTO.class, SubjectGeneral.class);
+        this.toSubject = new JMapper<>(SubjectGeneral.class, SubjectGeneralDTO.class);
     }
 
     public ResponseDto findById(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Subject> subject = subjectRepository.findById(id);
+        Optional<SubjectGeneral> subject = subjectRepository.findById(id);
         if (subject.isPresent()) {
-            SubjectDTO subjectDTO = toSubjectDto.getDestination(subject.get());
-            responseDto.setObject(subjectDTO);
+            SubjectGeneralDTO subjectGeneralDTO = toSubjectDto.getDestination(subject.get());
+            responseDto.setObject(subjectGeneralDTO);
         }
         return responseDto;
     }
 
-    public ResponseDto create(SubjectDTO subjectDTO) {
+    public ResponseDto create(SubjectGeneralDTO subjectGeneralDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Subject subject = toSubject.getDestination(subjectDTO);
-        subject.setId(genIdService.nextId());
-        subject.setIsDeleted(false);
-        Subject result = subjectRepository.save(subject);
+        SubjectGeneral subjectGeneral = toSubject.getDestination(subjectGeneralDTO);
+        subjectGeneral.setId(genIdService.nextId());
+        subjectGeneral.setIsDeleted(false);
+        SubjectGeneral result = subjectRepository.save(subjectGeneral);
         var temp = toSubjectDto.getDestination(result);
         responseDto.setObject(temp);
         return responseDto;
     }
 
-    public ResponseDto update(SubjectDTO subjectDTO) {
+    public ResponseDto update(SubjectGeneralDTO subjectGeneralDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Subject> subject = subjectRepository.findById(subjectDTO.getId());
+        Optional<SubjectGeneral> subject = subjectRepository.findById(subjectGeneralDTO.getId());
         if (subject.isPresent()) {
-            Subject subject1 = toSubject.getDestination(subject.get(), subjectDTO);
-            Subject result = subjectRepository.save(subject1);
-            SubjectDTO subjectDTO1 = toSubjectDto.getDestination(result);
-            responseDto.setObject(subjectDTO1);
+            SubjectGeneral subjectGeneral1 = toSubject.getDestination(subject.get(), subjectGeneralDTO);
+            SubjectGeneral result = subjectRepository.save(subjectGeneral1);
+            SubjectGeneralDTO subjectGeneralDTO1 = toSubjectDto.getDestination(result);
+            responseDto.setObject(subjectGeneralDTO1);
         }
         return responseDto;
     }
@@ -83,13 +79,13 @@ public class SubjectService {
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<Subject> subjectGenerals = subjectRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<SubjectGeneral> subjectGenerals = subjectRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
-        List<SubjectDTO> subjectDTOS = new ArrayList<>();
+        List<SubjectGeneralDTO> subjectGeneralDTOS = new ArrayList<>();
         for (var subjectGeneral : subjectGenerals) {
-            subjectDTOS.add(toSubjectDto.getDestination(subjectGeneral));
+            subjectGeneralDTOS.add(toSubjectDto.getDestination(subjectGeneral));
         }
-        responseDto.setObject(prepareResponseForSearch(subjectGenerals.getTotalPages(), subjectGenerals.getNumber(), subjectGenerals.getTotalElements(), subjectDTOS));
+        responseDto.setObject(prepareResponseForSearch(subjectGenerals.getTotalPages(), subjectGenerals.getNumber(), subjectGenerals.getTotalElements(), subjectGeneralDTOS));
         return responseDto;
     }
 
@@ -116,7 +112,7 @@ public class SubjectService {
 
     public ResponseDto delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Subject> subject = subjectRepository.findById(id);
+        Optional<SubjectGeneral> subject = subjectRepository.findById(id);
         if (subject.isPresent()) {
             subjectRepository.deleteById(id);
             responseDto.setObject(id);

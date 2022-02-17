@@ -3,7 +3,9 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.MarkDTO;
+import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.GradeRepository;
@@ -51,15 +53,25 @@ public class MarkService {
         this.toMark = new JMapper<>(Mark.class, MarkDTO.class);
     }
 
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Mark> mark = markRepository.findById(id);
+        if (mark.isPresent()) {
+            MarkDTO markDTO = toMarkDto.getDestination(mark.get());
+            responseDto.setObject(markDTO);
+        }
+        return responseDto;
+    }
+
     public ResponseDto create(MarkDTO markDTO) {
         ResponseDto responseDto = new ResponseDto();
         Student student = studentRepository.findById(markDTO.getStudentId()).get();
-        Subject subject = subjectRepository.findById(markDTO.getSubjectId()).get();
+        SubjectGeneral subjectGeneral = subjectRepository.findById(markDTO.getSubjectId()).get();
         Grade grade = gradeRepository.findById(markDTO.getGradeId()).get();
         Mark mark = toMark.getDestination(markDTO);
         mark.setId(genIdService.nextId());
         mark.setStudentName(student.getFullName());
-        mark.setSubjectName(subject.getName());
+        mark.setSubjectName(subjectGeneral.getName());
         mark.setGradeName(grade.getName());
         mark.setIsDeleted(false);
         Mark result = markRepository.save(mark);
@@ -68,22 +80,17 @@ public class MarkService {
         return responseDto;
     }
 
-//    public ResponseDto update(MarkDTO markDTO) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<Mark> mark = markRepository.findById(markDTO.getId());
-//        if (mark.isPresent()) {
-//            Mark mark1 = markRepository.findById(markDTO.getMajorId()).get();
-//            Course course = courseRepository.findById(gradeDTO.getCourseId()).get();
-//
-//            Grade grade1 = toGrade.getDestination(grade.get(), gradeDTO);
-//            grade1.setMajorName(major.getName());
-//            grade1.setCourseName(course.getName());
-//            Grade result = gradeRepository.save(grade1);
-//            GradeDTO gradeDTO1 = toGradeDto.getDestination(result);
-//            responseDto.setObject(gradeDTO1);
-//        }
-//        return responseDto;
-//    }
+    public ResponseDto update(MarkDTO markDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Mark> mark = markRepository.findById(markDTO.getId());
+        if (mark.isPresent()) {
+            Mark mark1 = toMark.getDestination(mark.get(), markDTO);
+            Mark result = markRepository.save(mark1);
+            MarkDTO markDTO1 = toMarkDto.getDestination(result);
+            responseDto.setObject(markDTO1);
+        }
+        return responseDto;
+    }
 
     public ResponseDto search(SearchReqDto reqDto) {
         ResponseDto responseDto = new ResponseDto();

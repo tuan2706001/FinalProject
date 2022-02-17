@@ -1,7 +1,9 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
+import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
+import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -39,6 +41,16 @@ public class MajorService {
     public MajorService() {
         this.toMajorDto = new JMapper<>(MajorDTO.class, Major.class);
         this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
+    }
+
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Major> major = majorRepository.findById(id);
+        if (major.isPresent()) {
+            MajorDTO majorDTO = toMajorDto.getDestination(major.get());
+            responseDto.setObject(majorDTO);
+        }
+        return responseDto;
     }
 
 

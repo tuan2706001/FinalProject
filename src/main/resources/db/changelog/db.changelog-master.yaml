@@ -14,9 +14,9 @@ databaseChangeLog:
   - include:
       file: db/changelog/db.changelog-master-student.yaml
   - include:
-      file: db/changelog/db.changelog-master-subject.yaml
+      file: db/changelog/db.changelog-master-subject-general.yaml
   - include:
-      file: db/changelog/db.changelog-master-subject-detail.yaml
+      file: db/changelog/db.changelog-master-subject-specialized.yaml
   - include:
       file: db/changelog/db.changelog-master-mark.yaml
 

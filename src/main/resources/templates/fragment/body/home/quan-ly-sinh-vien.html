@@ -52,6 +52,7 @@
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
                 <th>Họ và tên</th>
+                <th>Mã sinh viên</th>
                 <th>Lớp</th>
                 <th>Ngày sinh</th>
                 <th>giới tính</th>
@@ -62,27 +63,31 @@
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.fullName}"></td>
+                <td th:text="${item.studentCode}"></td>
                 <td th:text="${item.gradeName}"></td>
                 <td th:text="${item.birthday}"></td>
                 <td th:text="${item.gender} == 1 ? Nam : Nữ"></td>
                 <td>
-                    <svg
-                            th:data-namestudent="${item.fullName}"
-                            th:data-idstudent="${item.id}"
-                            th:data-masv="${item.studentCode}"
-                            th:data-email="${item.email}"
-                            th:data-sdt="${item.phone}"
-                            th:data-gender="${item.gender}"
-                            th:data-date="${item.birthday}"
-                            th:data-namegrade="${item.gradeName}"
-                            th:data-idgrade="${item.gradeId}"
-                            th:data-address="${item.address}"
-                            th:data-url="${'/quan-ly-sinh-vien/' + item.id}"
-                            xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
-                            viewBox="0 0 24 24"
-                            style="fill: rgba(0, 0, 0, 1);">
-                        <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-                    </svg>
+                    <div class=" rounded-full relative menu2 flex justify-center items-center">
+                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
+
+                        <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
+                            <svg
+                                    th:data-url="${'/quan-ly-sinh-vien/' + item.id}"
+                                    xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                                    viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                            </svg>
+                            <form action="/deleteStudent" th:method="DELETE">
+                                <input type="hidden" name="id" th:value="${item.id}">
+                                <button type="submit">
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
@@ -100,7 +105,7 @@
                     <button><span class="closeModal transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createStudent">
+                <form method="POST" action="/createStudent" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
@@ -108,17 +113,18 @@
                             <div class="w-2/3">
                                 <label class="font-medium mr-28">Tên sinh viên</label>
                                 <div>
-                                    <input type="text" name="fullName" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                    <input id="fullName" type="text" name="fullName" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
-                                    <input type="hidden" id="idNganh" name="id">
+                                    <div class="text-sm text-red-600" id="errFullName"></div>
                                 </div>
                             </div>
                             <!--                        //Mã sinh viên-->
                             <div class="w-1/3">
                                 <label class="font-medium mr-28">Mã sinh viên</label>
                                 <div>
-                                    <input type="text" name="studentCode" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                    <input id="studentCode" type="text" name="studentCode" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
+                                    <div class="text-sm text-red-600" id="errStudentCode"></div>
                                 </div>
                             </div>
                         </div>
@@ -126,8 +132,9 @@
                         <div>
                             <label class="font-medium mr-28">Email</label>
                             <div>
-                                <input type="text" name="email" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <input id="email" type="text" name="email" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
+                                <div class="text-sm text-red-600" id="errEmail"></div>
                             </div>
                         </div>
 
@@ -135,8 +142,9 @@
                         <div>
                             <label class="font-medium mr-28">Số điện thoại</label>
                             <div>
-                                <input type="text" name="phone" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <input id="phone" type="text" name="phone" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
+                                <div class="text-sm text-red-600" id="errPhone"></div>
                             </div>
                         </div>
 
@@ -145,12 +153,13 @@
                             <div>
                                 <label class="font-medium mr-6">Lớp</label>
                                 <div class="font-medium mr-48 ml-4">
-                                    <select class="border rounded-lg w-56 h-10" name="gradeId">
+                                    <select id="gradeId" class="border rounded-lg w-56 h-10" name="gradeId">
                                         <option value="" hidden>Chọn Lớp</option>
                                         <th:block th:each="item,index : ${lop}">
                                             <option th:value="${item.id}" th:text="${item.name}"></option>
                                         </th:block>
                                     </select>
+                                    <div class="text-sm text-red-600" id="errGrade"></div>
                                 </div>
                             </div>
 
@@ -160,8 +169,9 @@
                                 <div class="leading-10 font-medium mr-3">
 
                                     <div>
-                                        <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                        <input id="birthday" type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                         leading-tight focus:outline-none focus:shadow-outline" name="birthday"/>
+                                        <div class="text-sm text-red-600" id="errBirthday"></div>
                                     </div>
                                 </div>
                             </div>
@@ -172,16 +182,17 @@
                             <div style="color: #007DC5"></div>
                             <div class="ml-10 flex my-5">
                                 <label>Nam
-                                    <input type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
-                                           value="1">
+                                    <input id="gender" type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
+                                           value="1" checked>
                                 </label>
                             </div>
                             <div class="ml-10 flex my-5">
                                 <label>Nữ
-                                    <input type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
+                                    <input id="gender" type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
                                            value="0">
                                 </label>
                             </div>
+                            <div class="text-sm text-red-600" id="errGender"></div>
                         </div>
 
                         <!--                        //địa chỉ-->
@@ -189,8 +200,9 @@
                         <div class="mt-3">
                             <label class="font-medium mr-4">Địa chỉ</label>
                             <div>
-                                <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <input id="address" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="address"/>
+                                <div class="text-sm text-red-600" id="errAddress"></div>
                             </div>
                         </div>
 
@@ -217,6 +229,7 @@
              class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
         </div>
     </section>
+
     <script>
         $('.edit').click(function () {
             console.log($(this).data('url'))

@@ -12,7 +12,7 @@
                         <div class="w-2/3">
                             <label class="font-medium mr-28">Tên Ngành</label>
                             <div>
-                                <select id="nameNganh" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                <select  class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="majorId">
                                     <th:block th:each="item,index : ${nganh}">
                                         <option th:value="${item.id}" th:text="${item.name}"
@@ -26,7 +26,7 @@
                         <div class="w-1/3">
                             <label class="font-medium mr-28">Tên khóa</label>
                             <div>
-                                <select id="nameKhoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <select class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="courseId">
                                     <th:block th:each="item,index : ${khoas}">
                                         <option th:value="${item.id}" th:text="${item.name}"
@@ -41,7 +41,7 @@
                     <div>
                         <label class="font-medium mr-28">Tên lớp</label>
                         <div>
-                            <input id="nameLop" type="text" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                            <input type="text" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"
                                    th:value="${data.name}"/>
                             <input type="hidden" th:value="${data.id}" name="id">

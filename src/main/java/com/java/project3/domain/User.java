@@ -42,4 +42,10 @@ public class User extends AbstractBaseEntity {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "role")
+    private Short role;
+
+    @Column(name = "status")
+    private Short status;
+
 }

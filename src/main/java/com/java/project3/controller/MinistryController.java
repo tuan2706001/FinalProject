@@ -3,6 +3,7 @@ package com.java.project3.controller;
 import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
+import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
 import com.java.project3.service.MinistryService;
 import com.java.project3.utils.PageUltil;
@@ -44,13 +45,29 @@ public class MinistryController {
         return "redirect:/quan-ly-giao-vu";
     }
 
-    @PostMapping("updateMinistry")
+    @GetMapping("/quan-ly-giao-vu/{id}")
+    public  String suaGiaoVu (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        ResponseDto responseDto =  ministryService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/edit/edit-ministry";
+    }
+
+    @PutMapping("updateMinistry")
     public String updateMinistry(
-            Model model,
             @ModelAttribute UserDTO userDTO
     ) {
         ResponseDto responseDto = ministryService.update(userDTO);
-        model.addAttribute("updateMinistry");
+        return "redirect:/quan-ly-giao-vu";
+    }
+
+    @DeleteMapping("deleteMinistry")
+    public String deleteMinistry(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = ministryService.delete(id);
         return "redirect:/quan-ly-giao-vu";
     }
 }

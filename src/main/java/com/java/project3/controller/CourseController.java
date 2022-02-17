@@ -45,11 +45,29 @@ public class CourseController {
         return "redirect:/quan-ly-khoa";
     }
 
-    @PostMapping("updateCourse")
+    @GetMapping("quan-ly-khoa/{id}")
+    public  String suaKhoa (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        ResponseDto responseDto =  courseServcice.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/edit/edit-course";
+    }
+
+    @PutMapping("updateCourse")
     public String updateCourse(
             @ModelAttribute CourseDTO courseDTO
     ) {
         ResponseDto responseDto = courseServcice.update(courseDTO);
+        return "redirect:/quan-ly-khoa";
+    }
+
+    @DeleteMapping("deleteCourse")
+    public String deleteCourse(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = courseServcice.delete(id);
         return "redirect:/quan-ly-khoa";
     }
 }

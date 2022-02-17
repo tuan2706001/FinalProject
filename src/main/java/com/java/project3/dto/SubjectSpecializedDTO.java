@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDetailDTO {
+public class SubjectSpecializedDTO {
 
     @JMap
     private Long id;

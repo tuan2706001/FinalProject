@@ -86,4 +86,12 @@ public class StudentController {
         ResponseDto responseDto = studentService.update(studentDTO);
         return "redirect:/quan-ly-sinh-vien";
     }
+
+    @DeleteMapping("deleteStudent")
+    public String deleteStudent(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = studentService.delete(id);
+        return "redirect:/quan-ly-sinh-vien";
+    }
 }

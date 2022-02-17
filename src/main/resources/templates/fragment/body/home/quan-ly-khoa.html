@@ -44,13 +44,25 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
                 <td>
-                    <svg
-                        th:data-namekhoa="${item.name}"
-                        th:data-idkhoa="${item.id}"
-                        xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24" viewBox="0 0 24 24"
-                        style="fill: rgba(0, 0, 0, 1);">
-                        <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-                    </svg>
+                    <div class=" rounded-full relative menu2 flex justify-center items-center">
+                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
+
+                        <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
+                            <svg
+                                    th:data-url="${'/quan-ly-khoa/' + item.id}"
+                                    xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                                    viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                            </svg>
+                            <form action="/deleteCourse" th:method="DELETE">
+                                <input type="hidden" name="id" th:value="${item.id}">
+                                <button type="submit">
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
@@ -67,14 +79,15 @@
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createCourse">
+                <form method="POST" action="/createCourse" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
                         <div>
                             <div>
                                 <label class="font-medium mr-4">Tên Khóa</label>
                                 <div>
-                                    <input id="ten_khoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                    <input id="name" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"/>
+                                    <div class="text-sm text-red-600" id="errName"></div>
                                 </div>
                             </div>
                             <div class="flex justify-end mt-10">
@@ -93,54 +106,24 @@
                 </form>
             </div>
         </div>
-        <div id="modalEdit" class="modal pt-20 z-50">
-
-            <!-- Modal content -->
-            <div class="modal-content w-6/12 mx-auto my-10">
-                <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Sửa Khóa</div>
-                    <button><span class="closeModal  transition duration-300">&times;</span></button>
-                </div>
-
-                <form method="POST" action="/updateCourse">
-                    <div class="modal-body p-10">
-                        <div>
-                            <div>
-                                <label class="font-medium mr-4">Tên Khóa</label>
-                                <div>
-                                    <input id="updateKhoa" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
-                                    <input type="hidden" id="idKhoa" name="id">
-                                </div>
-                            </div>
-
-                            <div class="flex justify-end mt-10">
-                                <div
-                                        onclick="closeModal()"
-                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Hủy
-                                </div>
-                                <button
-                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                >Gửi
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
+    <section aria-label="modalEdit" class="">
+        <div id="modalEdit"
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
+        </div>
+    </section>
     <script>
-        $('.edit').click(function (){
-            $('#updateKhoa').val($(this).data('namekhoa'))
-            $('#idKhoa').val($(this).data('idkhoa'))
+        $('.edit').click(function () {
+            $.ajax({
+                url: $(this).data('url'),
+                method: 'GET',
+                success: function (p) {
+                    $('#modalEdit').html('')
+                    $('#modalEdit').html(p)
+                }
+            })
+
         })
-        function closeModal() {
-            var modalClose = document.getElementById("myModal");
-            console.log(123)
-            modalClose.style.display = "none";
-        }
     </script>
 </div>
 </body>

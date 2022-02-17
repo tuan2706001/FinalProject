@@ -15,9 +15,9 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = EntityName.SUBJECT_DETAIL)
-@Table(name = EntityName.SUBJECT_DETAIL)
-public class SubjectDetail extends AbstractBaseEntity {
+@Entity(name = EntityName.SUBJECT_GENERAL)
+@Table(name = EntityName.SUBJECT_GENERAL)
+public class SubjectGeneral extends AbstractBaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -31,15 +31,4 @@ public class SubjectDetail extends AbstractBaseEntity {
     @Column(name = "duration")
     private Short duration;
 
-    @Column(name = "major_id")
-    private Long majorId;
-
-    @Column(name = "major_name")
-    private String majorName;
-
-    @Column(name = "course_id")
-    private Long courseId;
-
-    @Column(name = "course_name")
-    private String courseName;
 }

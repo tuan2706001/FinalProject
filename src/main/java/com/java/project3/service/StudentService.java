@@ -58,10 +58,10 @@ public class StudentService {
 
     public ResponseDto create(StudentDTO studentDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Grade grade = gradeRepository.findById(studentDTO.getGradeId()).get();
+        Optional<Grade> grade = gradeRepository.findById(studentDTO.getGradeId());
         Student student = toStudent.getDestination(studentDTO);
         student.setId(genIdService.nextId());
-        student.setGradeName(grade.getName());
+        student.setGradeName(grade.get().getName());
         student.setPassword("123456");
         student.setIsDeleted(false);
         Student result = studentRepository.save(student);

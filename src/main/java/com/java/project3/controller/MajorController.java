@@ -44,13 +44,23 @@ public class MajorController {
         return "redirect:/quan-ly-nganh";
     }
 
-    @PostMapping("updateMajor")
+    @GetMapping("quan-ly-nganh/{id}")
+    public  String suaMon (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        ResponseDto responseDto =  majorService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/edit/edit-major";
+    }
+
+    @PutMapping("updateMajor")
     public String updateMajor(
             Model model,
             @ModelAttribute MajorDTO majorDTO
     ) {
         ResponseDto responseDto = majorService.update(majorDTO);
-        model.addAttribute("updateGrade");
+        model.addAttribute("updateMajor");
         return "redirect:/quan-ly-nganh";
     }
 

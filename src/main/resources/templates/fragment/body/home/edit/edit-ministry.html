@@ -1,0 +1,150 @@
+<div class="modal-content w-6/12 mx-auto my-10">
+    <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+        <div class="text-xl ">Sửa giáo vụ</div>
+        <span class="close transition duration-300 closeModalEdit">&times;</span>
+    </div>
+    <div class="w-full p-5">
+        <div class=" z-50">
+            <form th:method="PUT" action="/updateMinistry">
+                <div class="modal-body p-10">
+                    <div>
+                        <div>
+                            <label class="font-medium mr-4">Họ và tên</label>
+                            <div>
+                                <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="fullName" th:value="${data.fullName}"/>
+                            </div>
+                            <input type="hidden" th:value="${data.id}" name="id">
+                        </div>
+
+                        <div>
+                            <label class="font-medium mr-4">Email</label>
+                            <div>
+                                <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="email" th:value="${data.email}"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="font-medium mr-4">Số điện thoại</label>
+                            <div>
+                                <input type="number" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"  name="phone" th:value="${data.phone}"/>
+                            </div>
+                        </div>
+
+                        <!--                        //Ngày sinh-->
+                        <div class="flex my-5">
+                            <div class="mr-6">
+                                <label class="font-medium mr-6">Ngày sinh</label>
+                                <div class="leading-10 font-medium mr-48">
+                                    <div>
+                                        <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                        leading-tight focus:outline-none focus:shadow-outline" name="birthday" th:value="${data.birthday}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="font-medium mr-6">Giới tính</label>
+                                <div style="color: #007DC5"></div>
+                                <div class="flex">
+                                    <div class="mr-8 ml-5 flex">
+                                        <label>Nam
+                                            <input type="radio" name="gender"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   th:value="1" th:checked="${data.gender == 1 ? true : false }">
+                                        </label>
+                                    </div>
+                                    <div class="mr-5 flex">
+                                        <label>Nữ
+                                            <input type="radio" name="gender"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   th:value="0" th:checked="${data.gender != 1 ? true : false }">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="font-medium mr-4">Địa chỉ</label>
+                            <div>
+                                <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="address" th:value="${data.address}"/>
+                            </div>
+                        </div>
+
+                        <div class="flex my-5">
+                            <div class="mr-72">
+                                <div>
+                                    <label class="font-medium mr-6">Quyền</label>
+                                    <div class="mr-5 ml-5 flex my-5">
+                                        <label>
+                                            <input  type="radio" name="role"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   th:value="1" th:checked="${data.role == 1 ? true : false }" Quản lý
+                                        </label>
+                                    </div>
+                                    <div class="mr-5 ml-5 flex my-5">
+                                        <label>
+                                            <input  type="radio" name="role"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   th:value="0" th:checked="${data.role != 1 ? true : false }"> Giáo vụ
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <label class="font-medium mr-6">Trạng thái</label>
+                                <div style="color: #007DC5"></div>
+                                <div class="mr-5 ml-5 flex my-5">
+                                    <label>
+                                        <div class="flex">
+                                            <input  type="radio" name="status"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   th:value="1" th:checked="${data.status == 1 ? true : false }">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24"
+                                                 style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                                <path d="M18 10H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3h2c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7.939 5.499A2.002 2.002 0 0 1 14 16a1.99 1.99 0 0 1-1 1.723V20h-2v-2.277a1.992 1.992 0 0 1-.939-2.224z"></path>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="mr-5 ml-5 flex my-5">
+                                    <label>
+                                        <div class="flex">
+                                            <input  type="radio" name="status"
+                                                   class="mr-3 mt-1 outline-none callType"
+                                                   th:value="0" th:checked="${data.status != 1 ? true : false }">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24"
+                                                 style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                                <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7zm4 10.723V20h-2v-2.277a1.993 1.993 0 0 1 .567-3.677A2.001 2.001 0 0 1 14 16a1.99 1.99 0 0 1-1 1.723z"></path>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-10">
+                        <div
+                                onclick="closeModal()"
+                                class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                        </div>
+                        <button
+                                class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                id="submit">Gửi
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

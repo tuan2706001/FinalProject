@@ -2,8 +2,10 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Course;
+import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
 import com.java.project3.dto.CourseDTO;
+import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -41,6 +43,16 @@ public class CourseServcice {
     public CourseServcice() {
         this.toCourseDto = new JMapper<>(CourseDTO.class, Course.class);
         this.toCourse = new JMapper<>(Course.class, CourseDTO.class);
+    }
+
+    public ResponseDto findById(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Course> course = courseRepository.findById(id);
+        if (course.isPresent()) {
+            CourseDTO courseDTO = toCourseDto.getDestination(course.get());
+            responseDto.setObject(courseDTO);
+        }
+        return responseDto;
     }
 
     public ResponseDto create(CourseDTO courseDTO) {

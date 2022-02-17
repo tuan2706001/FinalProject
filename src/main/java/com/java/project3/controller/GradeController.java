@@ -113,4 +113,12 @@ public class GradeController {
         ResponseDto responseDto = gradeServcie.update(gradeDTO);
         return "redirect:/quan-ly-lop";
     }
+
+    @DeleteMapping("deleteGrade")
+    public String deleteGrade(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = gradeServcie.delete(id);
+        return "redirect:/quan-ly-lop";
+    }
 }

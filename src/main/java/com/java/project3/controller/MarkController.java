@@ -85,13 +85,31 @@ public class MarkController {
         return "redirect:/quan-ly-diem";
     }
 
-//    @PostMapping("updateMark")
-//    public String updateMark(
-//            @ModelAttribute MarkDTO markDTO
-//    ) {
-//        ResponseDto responseDto = markService.update(markDTO);
-//        return "redirect:/quan-ly-diem";
-//    }
+    @GetMapping("/quan-ly-diem/{id}")
+    public  String suaDien (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        ResponseDto responseDto =  markService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/edit/edit-mark";
+    }
+
+    @PutMapping("updateMark")
+    public String updateMark(
+            @ModelAttribute MarkDTO markDTO
+    ) {
+        ResponseDto responseDto = markService.update(markDTO);
+        return "redirect:/quan-ly-diem";
+    }
+
+    @DeleteMapping("deleteMark")
+    public String deleteMark(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = markService.delete(id);
+        return "redirect:/quan-ly-diem";
+    }
 
 
 }

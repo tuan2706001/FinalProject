@@ -45,6 +45,7 @@
                 <th>Ngày sinh</th>
                 <th>Giới tính</th>
                 <th>Quyền</th>
+                <th>Trạng thái</th>
                 <th>Sửa</th>
             </tr>
             </thead>
@@ -55,21 +56,34 @@
                 <td th:text="${item.email}"></td>
                 <td th:text="${item.phone}"></td>
                 <td th:text="${item.birthday}"></td>
-                <td th:text="${item.gender}"></td>
-                <td>admin</td>
+                <td th:text="${item.gender} == 1 ? Nam : Nữ"></td>
+                <td th:text="${item.role} == 1 ? 'Quản lý' : 'Giáo vụ'"></td>
+                <td th:text="${item.status} == 1 ? 'Hoạt động' : 'Khóa'"></td>
                 <td>
-                    <svg
-                            th:data-namenganh="${item.fullName}"
-                            th:data-idnganh="${item.id}"
-                            xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
-                            viewBox="0 0 24 24"
-                            style="fill: rgba(0, 0, 0, 1);">
-                        <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-                    </svg>
+                    <div class=" rounded-full relative menu2 flex justify-center items-center">
+                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
+
+                        <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
+                            <svg
+                                    th:data-url="${'/quan-ly-giao-vu/' + item.id}"
+                                    xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                                    viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                            </svg>
+                            <form action="/deleteMinistry" th:method="DELETE">
+                                <input type="hidden" name="id" th:value="${item.id}">
+                                <button type="submit">
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="3">Không có dữ liệu</td>
+                <td colspan="9">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
@@ -82,141 +96,177 @@
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createMinistry">
+                <form method="POST" action="/createMinistry" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
                         <div>
                             <div>
                                 <label class="font-medium mr-4">Họ và tên</label>
                                 <div>
-                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                    <input id="fullName" type="text" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="fullName"/>
+                                    <div class="text-sm text-red-600" id="errFullName"></div>
                                 </div>
                             </div>
 
                             <div>
                                 <label class="font-medium mr-4">Email</label>
                                 <div>
-                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                    <input id="email" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="email"/>
+                                    <div class="text-sm text-red-600" id="errEmail"></div>
                                 </div>
                             </div>
 
                             <div>
                                 <label class="font-medium mr-4">Số điện thoại</label>
                                 <div>
-                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                    <input id="phone" type="number" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="phone"/>
+                                    <div class="text-sm text-red-600" id="errPhone"></div>
                                 </div>
                             </div>
 
                             <!--                        //Ngày sinh-->
                             <div class="flex my-5">
-                                <div>
+                                <div class="mr-6">
                                     <label class="font-medium mr-6">Ngày sinh</label>
                                     <div class="leading-10 font-medium mr-48">
                                         <div>
-                                            <input type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                            <input id="birthday" type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                         leading-tight focus:outline-none focus:shadow-outline" name="birthday"/>
+                                            <div class="text-sm text-red-600" id="errBirthday"></div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <!--                                    <div class="flex my-5">-->
                                     <label class="font-medium mr-6">Giới tính</label>
                                     <div style="color: #007DC5"></div>
-                                    <div class="ml-10 flex my-5">
-                                        <label>Nam
-                                            <input type="radio" name="gender"
-                                                   class="mr-3 mt-1 outline-none callType"
-                                                   value="1">
-                                        </label>
+                                    <div class="flex">
+                                        <div class="mr-8 ml-5 flex">
+                                            <label>Nam
+                                                <input id="gender" type="radio" name="gender"
+                                                       class="mr-3 mt-1 outline-none callType"
+                                                       value="1" checked>
+                                            </label>
+                                        </div>
+                                        <div class="mr-5 flex">
+                                            <label>Nữ
+                                                <input id="gender" type="radio" name="gender"
+                                                       class="mr-3 mt-1 outline-none callType"
+                                                       value="0">
+                                            </label>
+                                        </div>
+                                        <div class="text-sm text-red-600" id="errName"></div>
                                     </div>
-                                    <div class="ml-10 flex my-5">
-                                        <label>Nữ
-                                            <input type="radio" name="gender"
-                                                   class="mr-3 mt-1 outline-none callType"
-                                                   value="0">
-                                        </label>
-                                    </div>
-                                    <!--                                    </div>-->
                                 </div>
                             </div>
 
-<!--                            <div>-->
-<!--                                <label class="font-medium mr-4">Quyền</label>-->
-<!--                                <div>-->
-<!--                                    <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700-->
-<!--                                leading-tight focus:outline-none focus:shadow-outline" name="fullName"/>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-                            <div class="flex justify-end mt-10">
-                                <div
-                                        onclick="closeModal()"
-                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Hủy
-                                </div>
-                                <button
-                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                        id="submit">Gửi
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div id="modalEdit" class="modal pt-20 z-50">
-
-            <!-- Modal content -->
-            <div class="modal-content w-6/12 mx-auto my-10">
-                <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Sửa Ngành</div>
-                    <span class="closeModal  transition duration-300">&times;</span>
-                </div>
-
-                <form method="POST" action="/updateMajor">
-                    <div class="modal-body p-10">
-                        <div>
                             <div>
-                                <label class="font-medium mr-4">Tên Ngành</label>
+                                <label class="font-medium mr-4">Địa chỉ</label>
                                 <div>
-                                    <input id="updateNganh" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
-                                    <input type="hidden" id="idNganh" name="id">
+                                    <input id="address" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="address"/>
+                                    <div class="text-sm text-red-600" id="errAddress"></div>
                                 </div>
                             </div>
 
-                            <div class="flex justify-end mt-10">
-                                <div
-                                        onclick="closeModal()"
-                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Hủy
+                            <div class="flex my-5">
+                                <div class="mr-72">
+                                    <div>
+                                        <label class="font-medium mr-6">Quyền</label>
+                                        <div class="mr-5 ml-5 flex my-5">
+                                            <label>
+                                                <input id="role" type="radio" name="role"
+                                                       class="mr-3 mt-1 outline-none callType"
+                                                       value="1"> Quản lý
+                                            </label>
+                                        </div>
+                                        <div class="mr-5 ml-5 flex my-5">
+                                            <label>
+                                                <input id="role" type="radio" name="role"
+                                                       class="mr-3 mt-1 outline-none callType"
+                                                       value="0" checked> Giáo vụ
+                                            </label>
+                                        </div>
+                                        <div class="text-sm text-red-600" id="errRole"></div>
+                                    </div>
                                 </div>
-                                <button
-                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                >Gửi
-                                </button>
+
+
+                                <div>
+                                    <label class="font-medium mr-6">Trạng thái</label>
+                                    <div style="color: #007DC5"></div>
+                                    <div class="mr-5 ml-5 flex my-5">
+                                        <label>
+                                            <div class="flex">
+                                                <input id="status" type="radio" name="status"
+                                                       class="mr-3 mt-1 outline-none callType"
+                                                       value="1" checked>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24"
+                                                     style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                                    <path d="M18 10H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3h2c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7.939 5.499A2.002 2.002 0 0 1 14 16a1.99 1.99 0 0 1-1 1.723V20h-2v-2.277a1.992 1.992 0 0 1-.939-2.224z"></path>
+                                                </svg>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="mr-5 ml-5 flex my-5">
+                                        <label>
+                                            <div class="flex">
+                                                <input id="status" type="radio" name="status"
+                                                       class="mr-3 mt-1 outline-none callType"
+                                                       value="0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24"
+                                                     style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                                    <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7zm4 10.723V20h-2v-2.277a1.993 1.993 0 0 1 .567-3.677A2.001 2.001 0 0 1 14 16a1.99 1.99 0 0 1-1 1.723z"></path>
+                                                </svg>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="text-sm text-red-600" id="errStatus"></div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="flex justify-end mt-10">
+                            <div
+                                    onclick="closeModal()"
+                                    class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                            </div>
+                            <button
+                                    class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                    id="submit">Gửi
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
+
+    <section aria-label="modalEdit" class="">
+        <div id="modalEdit"
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
+        </div>
+    </section>
+
     <script>
         $('.edit').click(function () {
-            $('#updateNganh').val($(this).data('namenganh'))
-            $('#idNganh').val($(this).data('idnganh'))
-        })
+            console.log($(this).data('url'))
+            $.ajax({
+                url: $(this).data('url'),
+                method: 'GET',
+                success: function (p) {
+                    $('#modalEdit').html('')
+                    $('#modalEdit').html(p)
+                }
+            })
 
-        function closeModal() {
-            var modalClose = document.getElementById("myModal");
-            console.log(123)
-            modalClose.style.display = "none";
-        }
+        })
     </script>
 </div>
 </body>

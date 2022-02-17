@@ -59,13 +59,25 @@
                 <td th:text="${item.skill} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.duration}"></td>
                 <td>
-                    <svg
-                            th:data-url="${'/quan-ly-mon/' + item.id}"
-                            xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
-                            viewBox="0 0 24 24"
-                            style="fill: rgba(0, 0, 0, 1);">
-                        <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-                    </svg>
+                    <div class=" rounded-full relative menu2 flex justify-center items-center">
+                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
+
+                        <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
+                            <svg
+                                    th:data-url="${'/quan-ly-mon-hoc/' + item.id}"
+                                    xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                                    viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                            </svg>
+                            <form action="/deleteSubject" th:method="DELETE">
+                                <input type="hidden" name="id" th:value="${item.id}">
+                                <button type="submit">
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
@@ -83,7 +95,7 @@
                     <button><span class="closeModal transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createSubject">
+                <form method="POST" action="/createSubject" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
@@ -91,8 +103,9 @@
                             <div class="w-2/3">
                                 <label class="font-medium mr-28">Tên môn</label>
                                 <div>
-                                    <input type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                    <input id="name" type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
+                                    <div class="text-sm text-red-600" id="errName"></div>
                                 </div>
                             </div>
                         </div>
@@ -104,17 +117,18 @@
                             <div style="color: #007DC5"></div>
                             <div class="ml-10 flex my-5">
                                 <label>Có
-                                    <input type="radio" name="theory" class=" mt-1 outline-none callType"
-                                           value="true">
+                                    <input id="choose" type="radio" name="theory" class=" mt-1 outline-none callType"
+                                           value="true" checked>
                                 </label>
                             </div>
 
                             <div class="ml-10 flex my-5">
                                 <label>Không
-                                    <input type="radio" name="theory" class=" mt-1 outline-none callType"
+                                    <input id="choose" type="radio" name="theory" class=" mt-1 outline-none callType"
                                            value="false">
                                 </label>
                             </div>
+                            <div class="text-sm text-red-600" id="errChoose"></div>
                         </div>
 
                         <!--                        //Thực hành-->
@@ -123,16 +137,17 @@
                             <div style="color: #007DC5"></div>
                             <div class="ml-10 flex my-5">
                                 <label>Có
-                                    <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
-                                           value="true">
+                                    <input id="choose" type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
+                                           value="true" checked>
                                 </label>
                             </div>
                             <div class="ml-10 flex my-5">
                                 <label>Không
-                                    <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
+                                    <input id="choose" type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
                                            value="false">
                                 </label>
                             </div>
+                            <div class="text-sm text-red-600" id="errChoose"></div>
                         </div>
 
                         <!--                        //Số giờ-->
@@ -140,8 +155,9 @@
                         <div class="w-2/3">
                             <label class="font-medium mr-28">Số giờ</label>
                             <div>
-                                <input type="number" name="duration" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                <input id="duration" type="number" name="duration" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
+                                <div class="text-sm text-red-600" id="errDuration"></div>
                             </div>
                         </div>
 
@@ -162,18 +178,6 @@
             </div>
         </div>
     </div>
-    <!--    <script>-->
-    <!--        $('.edit').click(function () {-->
-    <!--            $('#updateStudent').val($(this).data('namesv'))-->
-    <!--            $('#idStudent').val($(this).data('idsv'))-->
-    <!--        })-->
-
-    <!--        function closeModal() {-->
-    <!--            var modalClose = document.getElementById("myModal");-->
-    <!--            console.log(123)-->
-    <!--            modalClose.style.display = "none";-->
-    <!--        }-->
-    <!--    </script>-->
     <section aria-label="modalEdit" class="">
         <div id="modalEdit"
              class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
