@@ -4,7 +4,7 @@
         <span class="close transition duration-300 closeModalEdit">&times;</span>
     </div>
 
-    <form th:method="PUT" action="/updateMark">
+    <form th:method="PUT" action="/updateMark" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
 
             <div class="flex justify-between">
@@ -34,14 +34,14 @@
                     <div>
                         <input id="theory1" type="number" name="theory1" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.theory1}"/>
-                        <div class="text-sm text-red-600" id="errTheory1"></div>
+<!--                        <input value="1" id="theory1">-->
                     </div>
                 </div>
 
                 <div class="w-2/3 ml-12">
                     <label class="font-medium mr-28">Điểm thực hành 1</label>
                     <div>
-                        <input  type="number" name="skill1" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <input id="skill1"  type="number" name="skill1" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.skill1}"/>
                     </div>
                 </div>
@@ -52,15 +52,16 @@
                 <div class="w-2/3 mr-12">
                     <label class="font-medium mr-28">Điểm lý thuyết 2</label>
                     <div>
-                        <input type="number" name="theory2" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <input id="theory2" type="number" name="theory2" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.theory2}"/>
+                        <div class="text-sm text-red-600" id="errTheory2"></div>
                     </div>
                 </div>
 
                 <div class="w-2/3 ml-12">
                     <label class="font-medium mr-28">Điểm thực hành 2</label>
                     <div>
-                        <input type="number" name="skill2" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <input  type="number" name="skill2" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.skill2}"/>
                     </div>
                 </div>
@@ -74,7 +75,7 @@
                 </div>
 
                 <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                        id="submit">
+                        id="submit" onclick="console.log($('#theory1').val())">
                     Gửi
                 </button>
             </div>

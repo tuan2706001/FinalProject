@@ -5,15 +5,16 @@
         <span class="closeModal  transition duration-300">&times;</span>
     </div>
 
-    <form th:method="PUT" action="/updateMajor">
+    <form th:method="PUT" action="/updateMajor" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
             <div>
                 <div>
                     <label class="font-medium mr-4">Tên Ngành</label>
                     <div>
-                        <input  class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                        <input id="editName"  class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name" th:value="${data.name}"/>
                         <input type="hidden" th:value="${data.id}" name="id">
+                        <div class="text-sm text-red-600" id="errEditName"></div>
                     </div>
                 </div>
 

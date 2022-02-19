@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"-->
+<!--            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="-->
+<!--            crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
 </head>
 <body>
 <div th:fragment="quan-ly-giao-vu" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
@@ -145,19 +145,18 @@
                                     <div class="flex">
                                         <div class="mr-8 ml-5 flex">
                                             <label>Nam
-                                                <input id="gender" type="radio" name="gender"
+                                                <input type="radio" name="gender"
                                                        class="mr-3 mt-1 outline-none callType"
                                                        value="1" checked>
                                             </label>
                                         </div>
                                         <div class="mr-5 flex">
                                             <label>Nữ
-                                                <input id="gender" type="radio" name="gender"
+                                                <input type="radio" name="gender"
                                                        class="mr-3 mt-1 outline-none callType"
                                                        value="0">
                                             </label>
                                         </div>
-                                        <div class="text-sm text-red-600" id="errName"></div>
                                     </div>
                                 </div>
                             </div>
@@ -177,19 +176,18 @@
                                         <label class="font-medium mr-6">Quyền</label>
                                         <div class="mr-5 ml-5 flex my-5">
                                             <label>
-                                                <input id="role" type="radio" name="role"
+                                                <input type="radio" name="role"
                                                        class="mr-3 mt-1 outline-none callType"
                                                        value="1"> Quản lý
                                             </label>
                                         </div>
                                         <div class="mr-5 ml-5 flex my-5">
                                             <label>
-                                                <input id="role" type="radio" name="role"
+                                                <input type="radio" name="role"
                                                        class="mr-3 mt-1 outline-none callType"
                                                        value="0" checked> Giáo vụ
                                             </label>
                                         </div>
-                                        <div class="text-sm text-red-600" id="errRole"></div>
                                     </div>
                                 </div>
 
@@ -200,7 +198,7 @@
                                     <div class="mr-5 ml-5 flex my-5">
                                         <label>
                                             <div class="flex">
-                                                <input id="status" type="radio" name="status"
+                                                <input type="radio" name="status"
                                                        class="mr-3 mt-1 outline-none callType"
                                                        value="1" checked>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -214,7 +212,7 @@
                                     <div class="mr-5 ml-5 flex my-5">
                                         <label>
                                             <div class="flex">
-                                                <input id="status" type="radio" name="status"
+                                                <input type="radio" name="status"
                                                        class="mr-3 mt-1 outline-none callType"
                                                        value="0">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -225,7 +223,6 @@
                                             </div>
                                         </label>
                                     </div>
-                                    <div class="text-sm text-red-600" id="errStatus"></div>
                                 </div>
                             </div>
                         </div>
