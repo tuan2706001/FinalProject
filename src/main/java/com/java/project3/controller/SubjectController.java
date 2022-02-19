@@ -1,6 +1,6 @@
 package com.java.project3.controller;
 
-import com.java.project3.dto.SubjectGeneralDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
@@ -38,9 +38,9 @@ public class SubjectController {
 
     @PostMapping("createSubject")
     public String createSubject(
-            @ModelAttribute SubjectGeneralDTO subjectGeneralDTO
+            @ModelAttribute SubjectDTO subjectDTO
     ) {
-        ResponseDto responseDto = subjectService.create(subjectGeneralDTO);
+        ResponseDto responseDto = subjectService.create(subjectDTO);
         return "redirect:/quan-ly-mon-hoc";
     }
 
@@ -56,9 +56,9 @@ public class SubjectController {
 
     @PutMapping("updateSubject")
     public String updateSubject(
-            @ModelAttribute SubjectGeneralDTO subjectGeneralDTO
+            @ModelAttribute SubjectDTO subjectDTO
     ) {
-        ResponseDto responseDto = subjectService.update(subjectGeneralDTO);
+        ResponseDto responseDto = subjectService.update(subjectDTO);
         return "redirect:/quan-ly-mon-hoc";
     }
 

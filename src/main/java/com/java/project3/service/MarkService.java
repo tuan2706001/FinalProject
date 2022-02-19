@@ -66,12 +66,12 @@ public class MarkService {
     public ResponseDto create(MarkDTO markDTO) {
         ResponseDto responseDto = new ResponseDto();
         Student student = studentRepository.findById(markDTO.getStudentId()).get();
-        SubjectGeneral subjectGeneral = subjectRepository.findById(markDTO.getSubjectId()).get();
+        Subject subject = subjectRepository.findById(markDTO.getSubjectId()).get();
         Grade grade = gradeRepository.findById(markDTO.getGradeId()).get();
         Mark mark = toMark.getDestination(markDTO);
         mark.setId(genIdService.nextId());
         mark.setStudentName(student.getFullName());
-        mark.setSubjectName(subjectGeneral.getName());
+        mark.setSubjectName(subject.getName());
         mark.setGradeName(grade.getName());
         mark.setIsDeleted(false);
         Mark result = markRepository.save(mark);

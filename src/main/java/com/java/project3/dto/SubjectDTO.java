@@ -12,10 +12,13 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectGeneralDTO {
+public class SubjectDTO {
 
     @JMap
     private Long id;
+
+    @JMap
+    private Short type;
 
     @JMap
     private String name;
@@ -28,6 +31,18 @@ public class SubjectGeneralDTO {
 
     @JMap
     private Short duration;
+
+    @JMap
+    private Long majorId;
+
+    @JMap
+    private String majorName;
+
+    @JMap
+    private Long courseId;
+
+    @JMap
+    private String courseName;
 
     @JMap
     private LocalDateTime createdAt;
