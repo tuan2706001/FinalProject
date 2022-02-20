@@ -1,12 +1,14 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
+import com.java.project3.domain.Course;
 import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
 import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
+import com.java.project3.repository.CourseRepository;
 import com.java.project3.repository.MajorRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
@@ -32,6 +34,8 @@ public class MajorService {
     GenIdService genIdService;
     @Autowired
     MajorService majorService;
+    @Autowired
+    CourseRepository courseRepository;
 
 
     JMapper<MajorDTO, Major> toMajorDto;
@@ -56,8 +60,10 @@ public class MajorService {
 
     public ResponseDto create(MajorDTO majorDTO) {
         ResponseDto responseDto = new ResponseDto();
+        Course course = courseRepository.findById(majorDTO.getCourseId()).orElse(null);
         Major major = toMajor.getDestination(majorDTO);
         major.setId(genIdService.nextId());
+        major.setCourseName(course.getName());
         major.setIsDeleted(false);
         Major result = majorRepository.save(major);
         var temp = toMajorDto.getDestination(result);

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý môn học</title>
+    <title>Thống kê</title>
     <link rel="stylesheet" th:href="@{/css/tailwind.css}">
 
     <link th:href="@{/css/pages/common/modal.css}" th:rel="stylesheet"/>
@@ -11,7 +11,6 @@
     <link th:href="@{/css/pages/common/cutText.css}" th:rel="stylesheet"/>
     <link th:href="@{/css/tableMode.css}" th:rel="stylesheet"/>
     <link th:href="@{/css/pages/common/modal.css}" th:rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="z-50 sticky">
@@ -22,12 +21,9 @@
         <div th:replace="~{fragment/common/home/menu-left :: menuLeft}"></div>
     </div>
     <div class="w-10/12">
-        <div th:replace="~{fragment/body/home/quan-ly-mon-hoc :: quan-ly-mon-hoc}"></div>
+        <div th:replace="~{fragment/body/home/thong-ke-diem :: thong-ke-diem}"></div>
         <div th:replace="~{fragment/footer/footer :: footer}"></div>
     </div>
 </div>
-<script th:src="@{/js/pages/loi-moi/popup.js}"></script>
-<script th:src="@{/js/validate/checknull.js}"></script>
-<script th:src="@{/js/validate/checknulledit.js}"></script>
 </body>
 </html>

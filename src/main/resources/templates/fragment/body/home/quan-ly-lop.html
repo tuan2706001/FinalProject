@@ -7,27 +7,14 @@
 <body>
 <div th:fragment="quan-ly-lop" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
-        <div class="flex justify-center mt-10">
+        <div class="flex mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-28 text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-36 text-white transition duration-300">
                 Thêm lớp
             </button>
             <form class="flex">
-                <div class="mr-8 lg:flex text-center xl:text-base  ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
 
-                    <select name="courseId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Tất cả--</option>
-                        <th:block th:each="item,index : ${khoas}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${courseId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
-
-                <div class="mr-8 lg:flex text-center xl:text-base  ">
+                <div class="mr-36 lg:flex text-center xl:text-base">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
 
                     <select name="majorId"
@@ -65,7 +52,6 @@
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
                 <th>Tên lớp</th>
-                <th>Tên khóa</th>
                 <th>Tên ngành</th>
                 <th>Sửa</th>
             </tr>
@@ -74,7 +60,6 @@
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
-                <td th:text="${item.courseName}"></td>
                 <td th:text="${item.majorName}"></td>
                 <td>
 
@@ -132,19 +117,6 @@
                                 </div>
                             </div>
 
-                            <div class="w-1/3">
-                                <label class="font-medium mr-28">Tên khóa</label>
-                                <div>
-                                    <select id="courseId" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
-                                        <option value="" hidden>Chọn khóa</option>
-                                        <th:block th:each="item,index : ${khoas}">
-                                            <option th:value="${item.id}" th:text="${item.name}"></option>
-                                        </th:block>
-                                    </select>
-                                    <div class="text-sm text-red-600" id="errCourse"></div>
-                                </div>
-                            </div>
                         </div>
                         <div>
                             <label class="font-medium mr-28">Tên lớp</label>

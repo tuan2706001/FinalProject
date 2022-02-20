@@ -1,19 +1,19 @@
 <div class="modal-content w-6/12 mx-auto my-10">
     <div class="modal-header h-14 w-full flex justify-between items-center px-10">
         <div class="text-xl ">Sửa Khóa</div>
-        <button><span class="closeModal  transition duration-300">&times;</span></button>
+        <button><span class="closeModal transition duration-300">&times;</span></button>
     </div>
 
-    <form th:method="PUT" action="/updateCourse">
+    <form th:method="PUT" action="/updateCourse" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
             <div>
                 <div>
                     <label class="font-medium mr-4">Tên Khóa</label>
                     <div>
-                        <input id="name" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                        <input id="editName" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name" th:value="${data.name}"/>
                         <input type="hidden" th:value="${data.id}" name="id">
-                        <div class="text-sm text-red-600" id="errName"></div>
+                        <div class="text-sm text-red-600" id="errEditName"></div>
                     </div>
                 </div>
 
@@ -32,10 +32,10 @@
         </div>
     </form>
 </div>
-<script>
-    function closeModal() {
-        var modalClose = document.getElementById("myModal");
-        console.log(123)
-        modalClose.style.display = "none";
-    }
-</script>
+<!--<script>-->
+<!--    function closeModal() {-->
+<!--        var modalClose = document.getElementById("myModal");-->
+<!--        console.log(123)-->
+<!--        modalClose.style.display = "none";-->
+<!--    }-->
+<!--</script>-->

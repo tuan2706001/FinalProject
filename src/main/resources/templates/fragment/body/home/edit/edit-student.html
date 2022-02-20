@@ -5,7 +5,7 @@
     </div>
     <div class="w-full p-5">
         <div class=" z-50">
-            <form th:method="PUT" action="/updateStudent">
+            <form th:method="PUT" action="/updateStudent" onsubmit="return checkEditValidate()">
                 <div class="modal-body p-10">
 
                     <div class="flex justify-between">
@@ -13,18 +13,19 @@
                         <div class="w-2/3">
                             <label class="font-medium mr-28">Tên sinh viên</label>
                             <div>
-                                <input type="text" name="fullName" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                <input id="editFullName" type="text" name="fullName" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.fullName}"/>
                                 <input type="hidden" th:value="${data.id}" name="id">
+                                <div class="text-sm text-red-600" id="errEditFullName"></div>
                             </div>
                         </div>
                         <!--                        //Mã sinh viên-->
                         <div class="w-1/3">
                             <label class="font-medium mr-28">Mã sinh viên</label>
                             <div>
-                                <input  type="text" name="studentCode" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                <input id="editStudentCode"  type="text" name="studentCode" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.studentCode}"/>
-<!--                                <input type="hidden" id="studentCode" name="studentCode">-->
+                                <div class="text-sm text-red-600" id="errEditStudentCode"></div>
                             </div>
                         </div>
                     </div>
@@ -32,9 +33,9 @@
                     <div>
                         <label class="font-medium mr-28">Email</label>
                         <div>
-                            <input  type="text" name="email" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                            <input id="editEmail"  type="text" name="email" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.email}"/>
-<!--                            <input type="hidden" id="email" name="email">-->
+                            <div class="text-sm text-red-600" id="errEditEmail"></div>
                         </div>
                     </div>
 
@@ -42,9 +43,9 @@
                     <div>
                         <label class="font-medium mr-28">Số điện thoại</label>
                         <div>
-                            <input  type="text" name="phone" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                            <input id="editPhone" type="text" name="phone" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.phone}"/>
-<!--                            <input type="hidden" id="phone" name="phone">-->
+                            <div class="text-sm text-red-600" id="errEditPhone"></div>
                         </div>
                     </div>
 
@@ -60,7 +61,6 @@
                                                 th:selected="${data.gradeId == item.id ? true : false}"></option>
                                     </th:block>
                                 </select>
-<!--                                <input type="hidden" id="idGrade" name="gradeId">-->
                             </div>
                         </div>
 
@@ -72,7 +72,6 @@
                                 <div>
                                     <input type="date" name="birthday" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                         leading-tight focus:outline-none focus:shadow-outline" th:value="${data.birthday}"/>
-<!--                                    <input type="hidden" id="date" name="birthday">-->
                                 </div>
                             </div>
                         </div>
@@ -85,14 +84,12 @@
                             <label>Nam
                                 <input type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
                                        th:value="1" th:checked="${data.gender == 1 ? true : false }">
-                                <!--                                    <input type="hidden" id="gender" name="gender">-->
                             </label>
                         </div>
                         <div class="ml-10 flex my-5">
                             <label>Nữ
                                 <input type="radio" name="gender" class="mr-3 mt-1 outline-none callType"
                                        th:value="0" th:checked="${data.gender != 1 ? true : false }">
-                                <!--                                    <input type="hidden" id="gender" name="gender">-->
                             </label>
                         </div>
                     </div>
@@ -102,9 +99,9 @@
                     <div class="mt-3">
                         <label class="font-medium mr-4">Địa chỉ</label>
                         <div>
-                            <input class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                            <input id="editAddress" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="address" th:value="${data.address}"/>
-<!--                            <input type="hidden" id="address" name="address">-->
+                            <div class="text-sm text-red-600" id="errEditAddress"></div>
                         </div>
                     </div>
 

@@ -16,7 +16,7 @@ databaseChangeLog:
                     primaryKeyName: subject_pkey
               - column:
                   name: type
-                  type: smallint(255)
+                  type: NVARCHAR(255)
               - column:
                   name: name
                   type: NVARCHAR(255)

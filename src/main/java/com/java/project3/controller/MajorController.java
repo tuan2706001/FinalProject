@@ -3,7 +3,9 @@ package com.java.project3.controller;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
+import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
+import com.java.project3.service.CourseServcice;
 import com.java.project3.service.MajorService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,16 @@ import org.springframework.web.bind.annotation.*;
 public class MajorController {
     @Autowired
     MajorService majorService;
+    @Autowired
+    CourseServcice courseServcice;
 
     @GetMapping("quan-ly-nganh")
     public String major(
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
-            @RequestParam(value = "search", required = false) String search
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "courseId", required = false) Long courseId
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
@@ -32,6 +37,16 @@ public class MajorController {
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
+
+
+        //get khóa
+        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
+        searchReqDtoKhoa.setPageSize(100);
+        searchReqDtoKhoa.setPageIndex(0);
+        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
+        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
+        model.addAttribute("khoas", searchResDtoKhoa.getData());
+        model.addAttribute("courseId", courseId);
 
         return "quan-ly-nganh";
     }
@@ -49,6 +64,14 @@ public class MajorController {
             @PathVariable("id") Long id,
             Model model
     ) {
+
+        //get khóa
+        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
+        searchReqDtoKhoa.setPageSize(100);
+        searchReqDtoKhoa.setPageIndex(0);
+        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
+        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
+        model.addAttribute("khoas", searchResDtoKhoa.getData());
         ResponseDto responseDto =  majorService.findById(id);
         model.addAttribute("data", responseDto.getObject());
         return "fragment/body/home/edit/edit-major";

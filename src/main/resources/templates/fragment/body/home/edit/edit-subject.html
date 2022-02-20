@@ -1,21 +1,28 @@
-<!-- Modal content -->
-<div class="modal-content w-4/12 mx-auto my-10">
+<div class="modal-content w-5/12 mx-auto my-10">
     <div class="modal-header h-14 w-full flex justify-between items-center px-10">
         <div class="text-xl ">Sửa môn</div>
         <button><span class="closeModal transition duration-300">&times;</span></button>
     </div>
 
-    <form th:method="PUT" action="/updateSubject">
+    <form th:method="PUT" action="/updateSubject" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
 
             <div class="flex justify-between">
                 <!--                        //Tên-->
-                <div class="w-2/3">
+                <div class="w-7/12 mr-12">
                     <label class="font-medium mr-28">Tên môn</label>
                     <div>
-                        <input type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <input id="editName" type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.name}"/>
                         <input type="hidden" th:value="${data.id}" name="id">
+                        <div class="text-sm text-red-600" id="errEditName"></div>
+                    </div>
+                </div>
+
+                <div class="w-4/12">
+                    <label class="font-medium mr-28">Loại môn</label>
+                    <div>
+                        <input  class="border rounded-lg w-48 h-10 pl-6" name="type" th:value="${data.type}" readonly>
                     </div>
                 </div>
             </div>
@@ -28,14 +35,14 @@
                 <div class="ml-10 flex my-5">
                     <label>Có
                         <input type="radio" name="theory" class=" mt-1 outline-none callType"
-                               th:value="1" th:checked="${data.theory == 1 ? true : false }">
+                               th:value="${data.theory}" th:checked="${data.theory == true ? true : false }">
                     </label>
                 </div>
 
                 <div class="ml-10 flex my-5">
                     <label>Không
                         <input type="radio" name="theory" class=" mt-1 outline-none callType"
-                               th:value="0" th:checked="${data.theory != 1 ? true : false }">
+                               th:value="${data.theory}" th:checked="${data.theory != true ? true : false }">
                     </label>
                 </div>
             </div>
@@ -47,13 +54,13 @@
                 <div class="ml-10 flex my-5">
                     <label>Có
                         <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
-                               th:value="1" th:checked="${data.skill == 1 ? true : false }">
+                               th:value="${data.skill}" th:checked="${data.skill == true ? true : false }">
                     </label>
                 </div>
                 <div class="ml-10 flex my-5">
                     <label>Không
                         <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
-                               th:value="0" th:checked="${data.skill != 1 ? true : false }">
+                               th:value="${data.skill}" th:checked="${data.skill != true ? true : false }">
                     </label>
                 </div>
             </div>
@@ -63,8 +70,9 @@
             <div class="w-2/3">
                 <label class="font-medium mr-28">Số giờ</label>
                 <div>
-                    <input type="number" name="duration" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                    <input id="editDuration" type="number" name="duration" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.duration}"/>
+                    <div class="text-sm text-red-600" id="errEditDuration"></div>
                 </div>
             </div>
 

@@ -21,6 +21,12 @@ public class MajorDTO {
     private String name;
 
     @JMap
+    private Long courseId;
+
+    @JMap
+    private String courseName;
+
+    @JMap
     private LocalDateTime createdAt;
 
     @JMap

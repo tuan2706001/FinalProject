@@ -44,7 +44,16 @@ public class SubjectController {
         return "redirect:/quan-ly-mon-hoc";
     }
 
-    @GetMapping("quan-ly-mon/{id}")
+    @PostMapping("createSubjectDetail")
+    public String createSubjectDetail(
+            @ModelAttribute SubjectDTO subjectDTO
+    ) {
+        ResponseDto responseDto = subjectService.createDetail(subjectDTO);
+        return "redirect:/quan-ly-mon-hoc";
+    }
+
+
+    @GetMapping("quan-ly-mon-hoc/{id}")
     public  String suaMon (
             @PathVariable("id") Long id,
             Model model

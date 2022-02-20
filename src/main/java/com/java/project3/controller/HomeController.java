@@ -41,10 +41,10 @@ public class HomeController {
         return "trang-chu";
     }
 
-    @GetMapping("thong-ke")
-    public String statistical() {
-        return "thong-ke";
-    }
+//    @GetMapping("thong-ke")
+//    public String statistical() {
+//        return "thong-ke";
+//    }
 
     @GetMapping("thong-tin-ca-nhan")
     public String info() {

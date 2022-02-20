@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Subject extends AbstractBaseEntity {
 
     @Column(name = "type")
-    private Short type;
+    private String type;
 
     @Column(name = "name")
     private String name;

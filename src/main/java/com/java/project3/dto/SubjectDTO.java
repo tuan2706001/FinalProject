@@ -18,7 +18,7 @@ public class SubjectDTO {
     private Long id;
 
     @JMap
-    private Short type;
+    private String type;
 
     @JMap
     private String name;

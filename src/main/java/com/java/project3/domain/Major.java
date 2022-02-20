@@ -21,4 +21,10 @@ public class Major extends AbstractBaseEntity {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "course_id")
+    private Long courseId;
+
+    @Column(name = "course_name")
+    private String courseName;
 }

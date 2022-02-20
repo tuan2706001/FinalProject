@@ -25,7 +25,7 @@ public class GradeController {
     MajorService majorService;
 
     @GetMapping("quan-ly-lop")
-    public String major(
+    public String grade(
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
@@ -49,21 +49,11 @@ public class GradeController {
         model.addAttribute("search", search);
 
 
-        //get khóa
-        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
-        searchReqDtoKhoa.setPageSize(100);
-        searchReqDtoKhoa.setPageIndex(0);
-        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
-        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
-        model.addAttribute("khoas", searchResDtoKhoa.getData());
-        model.addAttribute("courseId", courseId);
-
-
         //get ngành
         SearchReqDto searchReqDtoNganh = new SearchReqDto();
-        searchReqDtoKhoa.setPageSize(100);
-        searchReqDtoKhoa.setPageIndex(0);
-        ResponseDto responseDtoNganh = majorService.search(searchReqDtoKhoa);
+        searchReqDtoNganh.setPageSize(100);
+        searchReqDtoNganh.setPageIndex(0);
+        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
         SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
         model.addAttribute("nganh", searchResDtoNganh.getData());
         model.addAttribute("majorId", majorId);

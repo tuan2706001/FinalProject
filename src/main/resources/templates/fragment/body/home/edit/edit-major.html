@@ -8,10 +8,24 @@
     <form th:method="PUT" action="/updateMajor" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
             <div>
+                <div class="w-2/3">
+                    <label class="font-medium mr-28">Tên Ngành</label>
+                    <div>
+                        <select id="cousreId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
+                            <th:block th:each="item,index : ${khoas}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${data.courseId == item.id ? true : false}"></option>
+                            </th:block>
+                        </select>
+                        <div class="text-sm text-red-600" id="errCourse"></div>
+                    </div>
+                </div>
+
                 <div>
                     <label class="font-medium mr-4">Tên Ngành</label>
                     <div>
-                        <input id="editName"  class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                        <input id="editName"  class="mb-4 shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name" th:value="${data.name}"/>
                         <input type="hidden" th:value="${data.id}" name="id">
                         <div class="text-sm text-red-600" id="errEditName"></div>

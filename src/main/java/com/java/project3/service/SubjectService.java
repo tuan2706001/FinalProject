@@ -1,10 +1,14 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
+import com.java.project3.domain.Course;
+import com.java.project3.domain.Major;
 import com.java.project3.domain.Subject;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
+import com.java.project3.repository.CourseRepository;
+import com.java.project3.repository.MajorRepository;
 import com.java.project3.repository.SubjectRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
@@ -30,6 +34,10 @@ public class SubjectService {
     SubjectService subjectService;
     @Autowired
     GenIdService genIdService;
+    @Autowired
+    MajorRepository majorRepository;
+    @Autowired
+    CourseRepository courseRepository;
 
 
     JMapper<SubjectDTO, Subject> toSubjectDto;
@@ -61,6 +69,23 @@ public class SubjectService {
         responseDto.setObject(temp);
         return responseDto;
     }
+
+
+    public ResponseDto createDetail(SubjectDTO subjectDTO) {
+        ResponseDto responseDto = new ResponseDto();
+        Major major = majorRepository.findById(subjectDTO.getMajorId()).orElse(null);
+        Course course = courseRepository.findById(subjectDTO.getCourseId()).orElse(null);
+        Subject subject = toSubject.getDestination(subjectDTO);
+        subject.setId(genIdService.nextId());
+        subject.setMajorName(major.getName());
+        subject.setCourseName(course.getName());
+        subject.setIsDeleted(false);
+        Subject result = subjectRepository.save(subject);
+        var temp = toSubjectDto.getDestination(result);
+        responseDto.setObject(temp);
+        return responseDto;
+    }
+
 
     public ResponseDto update(SubjectDTO subjectDTO) {
         ResponseDto responseDto = new ResponseDto();
