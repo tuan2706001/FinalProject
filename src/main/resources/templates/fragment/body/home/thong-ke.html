@@ -64,19 +64,20 @@
             </tr>
             </thead>
             <tbody>
-            <a th:classappend="${#httpServletRequest.requestURI.contains('/trang-chu')}" href="/trang-chu">
                 <tr th:each="item,index : ${findAll}">
                     <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                     <td th:text="${item.name}"></td>
                     <td th:text="${item.courseName}"></td>
                     <td th:text="${item.majorName}"></td>
                 </tr>
-            </a>
             <tr th:if="${#lists.isEmpty(findAll)}">
                 <td colspan="5">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
+
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
+
     </div>
 </div>
 </body>

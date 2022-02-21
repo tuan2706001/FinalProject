@@ -75,7 +75,9 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(majorDTO.getId());
         if (major.isPresent()) {
+            Course course = courseRepository.findById(majorDTO.getCourseId()).orElse(null);
             Major major1 = toMajor.getDestination(major.get(), majorDTO);
+            major1.setCourseName(course.getName());
             Major result = majorRepository.save(major1);
             MajorDTO majorDTO1 = toMajorDto.getDestination(result);
             responseDto.setObject(majorDTO1);

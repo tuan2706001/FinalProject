@@ -39,10 +39,4 @@ public class Subject extends AbstractBaseEntity {
 
     @Column(name = "major_name")
     private String majorName;
-
-    @Column(name = "course_id")
-    private Long courseId;
-
-    @Column(name = "course_name")
-    private String courseName;
 }

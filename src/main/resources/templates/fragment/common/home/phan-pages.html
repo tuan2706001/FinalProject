@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="page" th:if="${page.totalPage > 0}">
+    <div class="flex justify-end mt-10">
+        <div class="flex">
+            <a
+                    th:if="${page.showFirstPage == true}"
+                    th:href="@{${urlPage}(currentPage = 1, search=${search}, pageSize = ${page.pageSize})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showPreviousPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                <a
+                        th:href="@{${urlPage}(currentPage=${i}, search=${search}, pageSize = ${page.pageSize})}"
+                        th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></a>
+            </th:block>
+        </div>
+        <div class="flex">
+            <a
+                    th:if="${page.showNextPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showEndPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search}, pageSize = ${page.pageSize})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${page.totalPage > 0}">
+            <form th:action="@{${urlPage}}">
+                <input type="text" name="search" th:value="${search}" hidden>
+                <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
+                    <option value="1" th:text="' 1 '" th:selected="${pageSize == i} ? true : false"></option>
+                    <th:block th:each="i:${#numbers.sequence(1,20)}">
+                        <th:block th:if="${i % 5 == 0}">
+                            <option th:value="${i}" th:text="${i}" th:selected="${page.pageSize == i}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </form>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageLichSuLoiMoi">
+    <div class="flex justify-end">
+        <div class="flex">
+            <div
+                th:if="${showFirstPage1 == true}"
+                th:data-url="${urlPage} + '?currentPage=1&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&dateStart=' + ${dateStart1} + '&dateEnd=' + ${dateEnd1} + '&type=' + ${typeCall1}"
+                class="cursor-pointer hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2"
+                th:classappend="${classPage}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showFirstPage1 == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage1 == true}"
+                th:classappend="${classPage}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${currentPage1 - 1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&dateStart=' + ${dateStart1} + '&dateEnd=' + ${dateEnd1} + '&type=' + ${typeCall1}"
+                    class="cursor-pointer mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage1 == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex" th:if="${totalPage1}">
+            <th:block th:each="i:${#numbers.sequence(startPage1,endPage1)}">
+                <div
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${i} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&dateStart=' + ${dateStart1} + '&dateEnd=' + ${dateEnd1} + '&type=' + ${typeCall1}"
+                    th:class="(${currentPage1 == i} ?
+                    (${totalPage1 > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                    'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                    ' cursor-pointer h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></div>
+            </th:block>
+        </div>
+        <div class="flex">
+            <div
+                th:if="${showNextPage1 == true}"
+                th:classappend="${classPage}"
+                th:data-url="${urlPage} + '?currentPage=' + ${currentPage1 + 1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&dateStart=' + ${dateStart1} + '&dateEnd=' + ${dateEnd1} + '&type=' + ${typeCall1}"
+                class="cursor-pointer  mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showNextPage1 == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage1 == true}"
+                th:classappend="${classPage}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${totalPage1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&dateStart=' + ${dateStart1} + '&dateEnd=' + ${dateEnd1} + '&type=' + ${typeCall1}"
+                    class="cursor-pointer  hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage1 == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${totalPage1 > 0}">
+            <select
+                name="pageSize"
+                th:classappend="${classPageSize}"
+                class="border border-gray-300 ml-3 rounded"
+                th:data-url="${urlPage} + '?search=' + ${search1} + '&dateStart=' + ${dateStart1} + '&dateEnd=' + ${dateEnd1} + '&type=' + ${typeCall1}"
+            >
+                <option value="1" th:text="1 + ' / ' + #{page}" th:selected="${pageSize1 == 1}"></option>
+                <th:block th:each="i:${#numbers.sequence(1,20)}">
+                    <th:block th:if="${i % 5 == 0}">
+                        <option
+                            class="page"
+                            th:selected="${pageSize1 == i}"
+                            th:text="${i} + ' / ' + #{page}"
+                            th:value="${i}"
+                        ></option>
+                    </th:block>
+                </th:block>
+            </select>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageLoiMoiDacBiet" th:if="${totalPage > 0}">
+    <div class="flex justify-end">
+        <div class="flex">
+            <div
+                    th:if="${showFirstPage == true}"
+                    th:classappend="${class}"
+                    th:data-url="${urlPage} + '?currentPage=1&search=' + ${search1} + '&pageSize=' + ${pageSize}"
+                    class="cursor-pointer page hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage == true}"
+                    th:classappend="${class}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${currentPage - 1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize}"
+                    class="cursor-pointer page mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(startPage,endPage)}">
+                <div
+                        th:data-url="${urlPage} + '?currentPage=' + ${i} + '&search=' + ${search1} + '&pageSize=' + ${pageSize}"
+                        th:classappend="${class}"
+                        th:class="(${currentPage == i} ?
+                    (${totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                    'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                    ' cursor-pointer page h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></div>
+            </th:block>
+        </div>
+        <div class="flex">
+            <div
+                    th:if="${showNextPage == true}"
+                    th:classappend="${class}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${currentPage + 1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize}"
+                    class="cursor-pointer page mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-line-join="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage == true}"
+                    th:classappend="${class}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${totalPage} + '&search=' + ${search1} + '&pageSize=' + ${pageSize}"
+                    class="cursor-pointer page hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block>
+                <input type="text" th:name="search" th:value="${search}" hidden>
+                <select
+                    name="pageSize"
+                    class="border border-gray-300 ml-3 rounded pageSize"
+                    th:classappend="${classPageSize}"
+                    th:data-url="${urlPage} + '?search=' + ${search1}"
+                >
+                    <option value="1" th:text="1 + ' / ' + #{page}" th:selected="${pageSize == 1}"></option>
+                    <th:block th:each="i:${#numbers.sequence(1,20)}">
+                        <th:block th:if="${i % 5 == 0}">
+                            <option
+                                class="page"
+                                th:selected="${pageSize == i}"
+                                th:text="${i} + ' / ' + #{page}"
+                                th:value="${i}"
+                            ></option>
+                        </th:block>
+                    </th:block>
+                </select>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageLichSuYeuCau" class="mt-10">
+    <div class="flex justify-end">
+        <div class="flex">
+            <div
+                    th:if="${showFirstPage1 == true}"
+                    th:data-url="${urlThem} + '?currentPage=1&pageSize=' + ${pageSize1}"
+                    class="cursor-pointer hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2"
+                    th:classappend="${classPage}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showFirstPage1 == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage1 == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlThem} + '?currentPage=' + ${currentPage1 - 1} + '&pageSize=' + ${pageSize1}"
+                    class="cursor-pointer mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage1 == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex" th:if="${totalPage1}">
+            <th:block th:each="i:${#numbers.sequence(startPage1,endPage1)}">
+                <div
+                        th:classappend="${classPage}"
+                        th:data-url="${urlThem} + '?currentPage=' + ${i} + '&pageSize=' + ${pageSize1}"
+                        th:class="(${currentPage1 == i} ?
+                    (${totalPage1 > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                    'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                    ' cursor-pointer h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></div>
+            </th:block>
+        </div>
+        <div class="flex">
+            <div
+                    th:if="${showNextPage1 == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlThem} + '?currentPage=' + ${currentPage1 + 1} + '&pageSize=' + ${pageSize1}"
+                    class="cursor-pointer  mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showNextPage1 == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage1 == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlThem} + '?currentPage=' + ${totalPage1} + '&pageSize=' + ${pageSize1}"
+                    class="cursor-pointer  hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage1 == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${totalPage1 > 0}">
+            <select
+                    name="pageSize"
+                    th:classappend="${classPageSize}"
+                    class="border border-gray-300 ml-3 rounded"
+                    th:data-url="${urlThem}"
+            >
+                <option value="1" th:text="1 + ' / ' + #{page}" th:selected="${pageSize1 == 1}"></option>
+                <th:block th:each="i:${#numbers.sequence(1,20)}">
+                    <th:block th:if="${i % 5 == 0}">
+                        <option
+                                class="page"
+                                th:selected="${pageSize1 == i}"
+                                th:text="${i} + ' / ' + #{page}"
+                                th:value="${i}"
+                        ></option>
+                    </th:block>
+                </th:block>
+            </select>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageLoiMoiPersonal">
+    <div class="flex justify-between">
+        <div class="mt-5">
+            <a th:href="@{${urlCallFollow}}">
+                <button class="rounded py-1 btnFollow border px-4 transition duration-300 ease-in-out">Lời mời quan tâm</button>
+            </a>
+        </div>
+        <div class="flex justify-end mt-10" th:if="${page.totalPage > 0}">
+            <div class="flex">
+                <a
+                        th:if="${page.showFirstPage == true}"
+                        th:href="@{${urlPage}(currentPage = 1, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                        class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <div
+                        th:if="${page.showFirstPage == false}"
+                        class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                    </svg>
+                </div>
+                <a
+                        th:if="${page.showPreviousPage == true}"
+                        th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                        class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <div
+                        th:if="${page.showPreviousPage == false}"
+                        class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="flex">
+                <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                    <a
+                            th:href="@{${urlPage}(currentPage=${i}, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                            th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                            th:text="${i}"></a>
+                </th:block>
+            </div>
+            <div class="flex">
+                <a
+                        th:if="${page.showNextPage == true}"
+                        th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                        class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <div
+                        th:if="${page.showNextPage == false}"
+                        class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <a
+                        th:if="${page.showEndPage == true}"
+                        th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                        class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <div
+                        th:if="${page.showEndPage == false}"
+                        class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+            <th:block th:if="${page.totalPage > 0}">
+                <form th:action="@{${urlPage}}">
+                    <input type="text" th:name="search" th:value="${search}" hidden>
+                    <input type="text" th:name="status" th:value="${status}" hidden>
+                    <input type="text" th:name="dateStart" th:value="${dateStart}" hidden>
+                    <input type="text" th:name="dateEnd" th:value="${dateEnd}" hidden>
+                    <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
+                        <option value="1" th:text="1" th:selected="${pageSize == i} ? true : false"></option>
+                        <th:block th:each="i:${#numbers.sequence(1,20)}">
+                            <th:block th:if="${i % 5 == 0}">
+                                <option th:value="${i}" th:text="${i} + ' / ' + #{page}" th:selected="${page.pageSize == i}"></option>
+                            </th:block>
+                        </th:block>
+                    </select>
+                </form>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div th:fragment="pageQuanTriVien" th:if="${page.totalPage > 0}">
+    <div class="flex justify-end mt-10">
+        <div class="flex">
+            <a
+                    th:if="${page.showFirstPage == true}"
+                    th:href="@{${urlPage}(currentPage = 1, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showPreviousPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                <a
+                        th:href="@{${urlPage}(currentPage=${i}, search=${search}, pageSize = ${page.pageSize})}"
+                        th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></a>
+            </th:block>
+        </div>
+        <div class="flex">
+            <a
+                    th:if="${page.showNextPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showEndPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search}, pageSize = ${page.pageSize}, status = ${status},dateStart = ${dateStart},dateEnd = ${dateEnd})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${page.totalPage > 0}">
+            <form th:action="@{${urlPage}}">
+                <input type="text" th:name="search" th:value="${search}" hidden>
+                <input type="text" th:name="status" th:value="${status}" hidden>
+                <input type="text" th:name="dateStart" th:value="${dateStart}" hidden>
+                <input type="text" th:name="dateEnd" th:value="${dateEnd}" hidden>
+                <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
+                    <option value="1" th:text="1" th:selected="${pageSize == i} ? true : false"></option>
+                    <th:block th:each="i:${#numbers.sequence(1,20)}">
+                        <th:block th:if="${i % 5 == 0}">
+                            <option th:value="${i}" th:text="${i} + ' / ' + #{page}" th:selected="${page.pageSize == i}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </form>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageLichSuHoatDong" th:if="${page.totalPage > 0}">
+    <div class="flex justify-end mt-10">
+        <div class="flex">
+            <a
+                    th:if="${page.showFirstPage == true}"
+                    th:href="@{${urlPage}(currentPage = 1, search=${search}, pageSize = ${page.pageSize})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showPreviousPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                <a
+                        th:href="@{${urlPage}(currentPage=${i}, search=${search}, pageSize = ${page.pageSize})}"
+                        th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></a>
+            </th:block>
+        </div>
+        <div class="flex">
+            <a
+                    th:if="${page.showNextPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showEndPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search}, pageSize = ${page.pageSize})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${page.totalPage > 0}">
+            <form th:action="@{${urlPage}}">
+                <input type="text" th:name="search" th:value="${search}" hidden>
+                <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
+                    <option value="1" th:text="1" th:selected="${pageSize == i} ? true : false"></option>
+                    <th:block th:each="i:${#numbers.sequence(1,20)}">
+                        <th:block th:if="${i % 5 == 0}">
+                            <option th:value="${i}" th:text="${i} + ' / ' + #{page}" th:selected="${page.pageSize == i}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </form>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageChiTietThucTap" th:if="${totalPage > 0}">
+    <div class="flex justify-end">
+        <div class="flex">
+            <div
+                    th:if="${showFirstPage == true}"
+                    th:data-url="${urlPages} + '?currentPage=1&search=' + ${search} + '&pageSize=' + ${pageSize} + '&status=' + ${status}"
+                    class="hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2"
+                    th:classappend="${classPage}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPages} + '?currentPage=' + ${currentPage - 1} + '&search=' + ${search} + '&pageSize=' + ${pageSize} + '&status=' + ${status}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(startPage,endPage)}">
+                <div
+                        th:classappend="${classPage}"
+                        th:data-url="${urlPages} + '?currentPage=' + ${i} + '&search=' + ${search} + '&pageSize=' + ${pageSize} + '&status=' + ${status}"
+                        th:class="(${currentPage == i} ?
+                    (${totalPage > 1} ? '-mt-2' : '' ) + ' cursor-pointer text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                    'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                    ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></div>
+            </th:block>
+        </div>
+        <div class="flex">
+            <div
+                    th:if="${showNextPage == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPages} + '?currentPage=' + ${currentPage + 1} + '&search=' + ${search} + '&pageSize=' + ${pageSize} + '&status=' + ${status}"
+                    class=" cursor-pointer mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPages} + '?currentPage=' + ${totalPage} + '&search=' + ${search} + '&pageSize=' + ${pageSize} + '&status=' + ${status}"
+                    class="hover:bg-blue-500 cursor-pointer flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${totalPage > 0}">
+            <select
+                    name="pageSize"
+                    th:classappend="${classPageSize}"
+                    class="border border-gray-300 ml-3 rounded"
+                    th:data-url="${urlPages} + '?search=' + ${search} + '&status=' + ${status}"
+            >
+                <option value="1" th:text="1 + ' / ' + #{page}" th:selected="${pageSize == 1}"></option>
+                <th:block th:each="i:${#numbers.sequence(1,20)}">
+                    <th:block th:if="${i % 5 == 0}">
+                        <option
+                                class="page"
+                                th:selected="${pageSize == i}"
+                                th:text="${i} + ' / ' + #{page}"
+                                th:value="${i}"
+                        ></option>
+                    </th:block>
+                </th:block>
+            </select>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageDanhSachChuDe" class="my-10" th:if="${totalPage > 0}">
+    <div class="flex justify-end">
+        <div class="flex">
+            <div
+                    th:if="${showFirstPage == true}"
+                    th:data-url="${urlPages} + '?currentPage=1&pageSize=' + ${pageSize}"
+                    class="hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2"
+                    th:classappend="${classPage}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPages} + '?currentPage=' + ${currentPage - 1} + '&pageSize=' + ${pageSize}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(startPage,endPage)}">
+                <div
+                        th:classappend="${classPage}"
+                        th:data-url="${urlPages} + '?currentPage=' + ${i} + '&pageSize=' + ${pageSize}"
+                        th:class="(${currentPage == i} ?
+                    (${totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                    'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                    ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></div>
+            </th:block>
+        </div>
+        <div class="flex">
+            <div
+                    th:if="${showNextPage == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPages} + '?currentPage=' + ${currentPage + 1} + '&pageSize=' + ${pageSize}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPages} + '?currentPage=' + ${totalPage} + '&pageSize=' + ${pageSize}"
+                    class="hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${totalPage > 0}">
+            <select
+                    name="pageSize"
+                    th:classappend="${classPageSize}"
+                    class="border border-gray-300 ml-3 rounded"
+                    th:data-url="${urlPages}"
+            >
+                <option value="1" th:text="1 + ' / ' + #{page}" th:selected="${pageSize == 1}"></option>
+                <th:block th:each="i:${#numbers.sequence(1,20)}">
+                    <th:block th:if="${i % 5 == 0}">
+                        <option
+                                class="page"
+                                th:selected="${pageSize == i}"
+                                th:text="${i} + ' / ' + #{page}"
+                                th:value="${i}"
+                        ></option>
+                    </th:block>
+                </th:block>
+            </select>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageLoiMoiThamGia" th:if="${totalPage1}">
+    <div class="flex justify-end">
+        <div class="flex">
+            <div
+                    th:if="${showFirstPage1 == true}"
+                    th:data-url="${urlPage} + '?currentPage=1&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&type=' + ${typeCall1} + '&status=' + ${status}"
+                    class="cursor-pointer hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2"
+                    th:classappend="${classPage}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showFirstPage1 == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage1 == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${currentPage1 - 1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&type=' + ${typeCall1} + '&status=' + ${status}"
+                    class="cursor-pointer mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showPreviousPage1 == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex" th:if="${totalPage1}">
+            <th:block th:each="i:${#numbers.sequence(startPage1,endPage1)}">
+                <div
+                        th:classappend="${classPage}"
+                        th:data-url="${urlPage} + '?currentPage=' + ${i} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&type=' + ${typeCall1} + '&status=' + ${status}"
+                        th:class="(${currentPage1 == i} ?
+                    (${totalPage1 > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                    'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                    ' cursor-pointer h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></div>
+            </th:block>
+        </div>
+        <div class="flex">
+            <div
+                    th:if="${showNextPage1 == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${currentPage1 + 1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&type=' + ${typeCall1} + '&status=' + ${status}"
+                    class="cursor-pointer mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showNextPage1 == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage1 == true}"
+                    th:classappend="${classPage}"
+                    th:data-url="${urlPage} + '?currentPage=' + ${totalPage1} + '&search=' + ${search1} + '&pageSize=' + ${pageSize1} + '&type=' + ${typeCall1} + '&status=' + ${status}"
+                    class="cursor-pointer hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div
+                    th:if="${showEndPage1 == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${totalPage1 > 0}">
+            <select
+                    name="pageSize"
+                    th:classappend="${classPageSize}"
+                    class="border border-gray-300 ml-3 rounded"
+                    th:data-url="${urlPage} + '?search=' + ${search1} + '&type=' + ${typeCall1} + '&status=' + ${status}"
+            >
+                <option value="1" th:text="1 + ' / ' + #{page}" th:selected="${pageSize1 == 1}"></option>
+                <th:block th:each="i:${#numbers.sequence(1,20)}">
+                    <th:block th:if="${i % 5 == 0}">
+                        <option
+                                class="page"
+                                th:selected="${pageSize1 == i}"
+                                th:text="${i} + ' / ' + #{page}"
+                                th:value="${i}"
+                        ></option>
+                    </th:block>
+                </th:block>
+            </select>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageSanPhamDeTaiViewers" th:if="${page.totalPage > 0}">
+    <div class="flex justify-center">
+        <div class="flex">
+            <a
+                    th:if="${page.showFirstPage == true}"
+                    th:href="@{${urlPage}(currentPage = 1, search=${search})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showPreviousPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                <a
+                        th:href="@{${urlPage}(currentPage=${i}, search=${search})}"
+                        th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></a>
+            </th:block>
+        </div>
+        <div class="flex">
+            <a
+                    th:if="${page.showNextPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showEndPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="pageThemeAndProduct" th:if="${page.totalPage > 0}">
+    <div class="flex justify-end mt-10">
+        <div class="flex">
+            <a
+                    th:if="${page.showFirstPage == true}"
+                    th:href="@{${urlPage}(currentPage = 1, search=${search}, pageSize = ${page.pageSize}, status = ${status})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showPreviousPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search}, pageSize = ${page.pageSize}, status = ${status})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                <a
+                        th:href="@{${urlPage}(currentPage=${i}, search=${search}, pageSize = ${page.pageSize})}"
+                        th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></a>
+            </th:block>
+        </div>
+        <div class="flex">
+            <a
+                    th:if="${page.showNextPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showEndPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search}, pageSize = ${page.pageSize}, status = ${status})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${page.totalPage > 0}">
+            <form th:action="@{${urlPage}}">
+                <input type="text" th:name="search" th:value="${search}" hidden>
+                <input type="text" th:name="status" th:value="${status}" hidden>
+                <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
+                    <option value="1" th:text="1" th:selected="${pageSize == i} ? true : false"></option>
+                    <th:block th:each="i:${#numbers.sequence(1,20)}">
+                        <th:block th:if="${i % 5 == 0}">
+                            <option th:value="${i}" th:text="${i} + ' / ' + #{page}" th:selected="${page.pageSize == i}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </form>
+        </th:block>
+    </div>
+</div>
+<div th:fragment="pageDanhMuc" th:if="${page.totalPage > 0}">
+    <div class="flex justify-end mt-10">
+        <div class="flex">
+            <a
+                    th:if="${page.showFirstPage == true}"
+                    th:href="@{${urlPage}(currentPage = 1, search=${search}, pageSize = ${page.pageSize})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showFirstPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showPreviousPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage - 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center  hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showPreviousPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center  w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+        </div>
+        <div class="flex">
+            <th:block th:each="i:${#numbers.sequence(page.startPage,page.endPage)}">
+                <a
+                        th:href="@{${urlPage}(currentPage=${i}, search=${search}, pageSize = ${page.pageSize})}"
+                        th:class="(${page.currentPage == i} ?
+                        (${page.totalPage > 1} ? '-mt-2' : '' ) + ' text-white bg-gradient-to-b from-blue-500 to-blue-300' :
+                        'bg-gradient-to-b hover:from-blue-600 hover:to-blue-400 hover:text-white bg-gray-200 hover:text-white') +
+                        ' h-6 w-6 flex justify-center items-center mx-1 rounded'"
+                        th:text="${i}"></a>
+            </th:block>
+        </div>
+        <div class="flex">
+            <a
+                    th:if="${page.showNextPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.currentPage + 1}, search=${search}, pageSize = ${page.pageSize})}"
+                    class="mx-1 hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showNextPage == false}"
+                    class="cursor-not-allowed mx-1 flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <a
+                    th:if="${page.showEndPage == true}"
+                    th:href="@{${urlPage}(currentPage=${page.totalPage}, search=${search}, pageSize = ${page.pageSize})}"
+                    class=" hover:bg-blue-500 flex justify-center items-center hover:text-white w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div
+                    th:if="${page.showEndPage == false}"
+                    class="cursor-not-allowed flex justify-center items-center w-6 h-6 bg-opacity-0 rounded border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        <th:block th:if="${page.totalPage > 0}">
+            <form th:action="@{${urlPage}}">
+                <input type="text" th:name="search" th:value="${search}" hidden>
+                <input type="text" th:name="status" th:value="${status}" hidden>
+                <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
+                    <option value="1" th:text="1" th:selected="${pageSize == i} ? true : false"></option>
+                    <th:block th:each="i:${#numbers.sequence(1,20)}">
+                        <th:block th:if="${i % 5 == 0}">
+                            <option th:value="${i}" th:text="${i} + ' / ' + #{page}" th:selected="${page.pageSize == i}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </form>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

@@ -16,6 +16,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,11 +75,9 @@ public class SubjectService {
     public ResponseDto createDetail(SubjectDTO subjectDTO) {
         ResponseDto responseDto = new ResponseDto();
         Major major = majorRepository.findById(subjectDTO.getMajorId()).orElse(null);
-        Course course = courseRepository.findById(subjectDTO.getCourseId()).orElse(null);
         Subject subject = toSubject.getDestination(subjectDTO);
         subject.setId(genIdService.nextId());
         subject.setMajorName(major.getName());
-        subject.setCourseName(course.getName());
         subject.setIsDeleted(false);
         Subject result = subjectRepository.save(subject);
         var temp = toSubjectDto.getDestination(result);
@@ -91,7 +90,9 @@ public class SubjectService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Subject> subject = subjectRepository.findById(subjectDTO.getId());
         if (subject.isPresent()) {
+            Major major = majorRepository.findById(subjectDTO.getMajorId()).orElse(null);
             Subject subject1 = toSubject.getDestination(subject.get(), subjectDTO);
+            subject1.setMajorName(major.getName());
             Subject result = subjectRepository.save(subject1);
             SubjectDTO subjectDTO1 = toSubjectDto.getDestination(result);
             responseDto.setObject(subjectDTO1);
@@ -111,6 +112,35 @@ public class SubjectService {
             subjectDTOS.add(toSubjectDto.getDestination(subject));
         }
         responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), subjectDTOS));
+        return responseDto;
+    }
+
+    public ResponseDto searchSubjectByType1(String type, String search, Integer pageSize, Integer pageIndex) {
+        ResponseDto responseDto = new ResponseDto();
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        type = type == null ? "" : type;
+        search = search == null ? "" : search.trim();
+        Page<Subject> subjects = subjectRepository.search1(type, search, pageable);
+        List<SubjectDTO> listDto = new ArrayList<>();
+        for (var item : subjects) {
+            listDto.add(toSubjectDto.getDestination(item));
+        }
+        responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), listDto));
+        return responseDto;
+    }
+
+
+    public ResponseDto searchSubjectByType2(String type, String search, Integer pageSize, Integer pageIndex) {
+        ResponseDto responseDto = new ResponseDto();
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        type = type == null ? "" : type.trim();
+        search = search == null ? "" : search.trim();
+        Page<Subject> subjects = subjectRepository.search2(type, search, pageable);
+        List<SubjectDTO> listDto = new ArrayList<>();
+        for (var item : subjects) {
+            listDto.add(toSubjectDto.getDestination(item));
+        }
+        responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), listDto));
         return responseDto;
     }
 

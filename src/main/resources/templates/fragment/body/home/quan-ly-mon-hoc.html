@@ -14,11 +14,13 @@
             </button>
             <div class="mr-8 lg:flex text-center xl:text-base  ">
                 <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>
-                <select name="type"
+                <form action="/quan-ly-mon-hoc-chuyen-nganh">
+                <select onchange="this.form.submit()" name="type"
                         class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="1" class="text-bold justify-center">Đại cương</option>
-                    <option value="2" class="text-bold justify-center">Chuyên ngành</option>
+                        <option value="Đại cương" class="text-bold justify-center">Đại cương</option>
+                        <option value="Chuyên ngành" class="text-bold justify-center">Chuyên ngành</option>
                 </select>
+                </form>
             </div>
             <form>
                 <div class="justify-self-end">
@@ -44,8 +46,8 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên môn</th>
                 <th>Loại</th>
+                <th>Tên môn</th>
                 <th>Lý thuyết</th>
                 <th>Thực hành</th>
                 <th>Số giờ</th>
@@ -55,8 +57,8 @@
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
                 <td th:text="${item.type}"></td>
+                <td th:text="${item.name}"></td>
                 <td th:text="${item.theory} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.skill} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.duration}"></td>
@@ -75,7 +77,8 @@
                             <form action="/deleteSubject" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
                                 </button>
                             </form>
                         </div>
@@ -87,6 +90,8 @@
             </tr>
             </tbody>
         </table>
+
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
 
         <div id="modalCreate" class="modal pt-20 z-50">
 
@@ -117,8 +122,8 @@
                                     <select id="type" class="border rounded-lg w-48 h-10" name="type">
                                         <option value="" hidden>Chọn loại</option>
                                         <th:block>
-                                            <option name="type" >Đại cương</option>
-                                            <option name="type" >Chuyên ngành</option>
+                                            <option name="type">Đại cương</option>
+                                            <option name="type">Chuyên ngành</option>
                                         </th:block>
                                     </select>
                                 </div>

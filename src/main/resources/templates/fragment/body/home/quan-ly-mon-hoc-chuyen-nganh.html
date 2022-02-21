@@ -14,11 +14,13 @@
             </button>
             <div class="mr-8 lg:flex text-center xl:text-base  ">
                 <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>
-                <select name="type"
+                <form action="/quan-ly-mon-hoc">
+                <select onchange="this.form.submit()" name="type"
                         class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
                     <option value="1" class="text-bold justify-center">Đại cương</option>
-                    <option value="2" class="text-bold justify-center">Chuyên ngành</option>
+                    <option value="2" class="text-bold justify-center" selected="selected">Chuyên ngành</option>
                 </select>
+                </form>
             </div>
             <form>
                 <div class="justify-self-end">
@@ -44,8 +46,9 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên môn</th>
                 <th>Loại</th>
+                <th>Tên môn</th>
+                <th>Ngành</th>
                 <th>Lý thuyết</th>
                 <th>Thực hành</th>
                 <th>Số giờ</th>
@@ -55,8 +58,9 @@
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
                 <td th:text="${item.type}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.majorName}"></td>
                 <td th:text="${item.theory} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.skill} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.duration}"></td>
@@ -66,7 +70,7 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-mon-hoc/' + item.id}"
+                                    th:data-url="${'/quan-ly-mon-hoc-chuyen-nganh/' + item.id}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
@@ -83,10 +87,12 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="7">Không có dữ liệu</td>
+                <td colspan="8">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
+
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
 
         <div id="modalCreate" class="modal pt-20 z-50">
 
@@ -97,7 +103,7 @@
                     <button><span class="closeModal transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createSubject" onsubmit="return checkValidate()">
+                <form method="POST" action="/createSubjectDetail" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
@@ -121,6 +127,24 @@
                                             <option name="type" >Chuyên ngành</option>
                                         </th:block>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
+                            <div class="mr-12">
+                                <label class="font-medium mr-28">Tên ngành</label>
+                                <div>
+                                    <div>
+                                        <select id="type" class="border rounded-lg w-72 h-10" name="majorId" onchange="this.form.submit()">
+                                            <option value="0" hidden>--Chọn ngành--</option>
+                                            <th:block th:each="item,index : ${nganh}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${majorId == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
