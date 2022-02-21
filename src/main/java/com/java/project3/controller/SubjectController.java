@@ -27,16 +27,16 @@ public class SubjectController {
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "type", required = false) String type,
-            @RequestParam(value = "name", required = false) String name
+            @RequestParam(value = "search", required = false) String search
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = subjectService.searchSubjectByType1(type, name, page.getPageSize(), page.getCurrentPage() - 1);
+        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search, "Đại cương");
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
-        model.addAttribute("search", name);
+        model.addAttribute("search", search);
 
         return "quan-ly-mon-hoc";
     }
@@ -51,7 +51,7 @@ public class SubjectController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = subjectService.searchSubjectByType2(type, search, page.getPageSize(), page.getCurrentPage() - 1);
+        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search, "Chuyên ngành");
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);

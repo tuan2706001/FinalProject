@@ -100,10 +100,10 @@
             <form th:action="@{${urlPage}}">
                 <input type="text" name="search" th:value="${search}" hidden>
                 <select name="pageSize" onchange="this.form.submit()" class="border border-gray-300 ml-3 rounded">
-                    <option value="1" th:text="' 1 '" th:selected="${pageSize == i} ? true : false"></option>
+                    <option value="1" th:text="' 1 ' + 'bản ghi / 1 trang'" th:selected="${pageSize == i} ? true : false"></option>
                     <th:block th:each="i:${#numbers.sequence(1,20)}">
                         <th:block th:if="${i % 5 == 0}">
-                            <option th:value="${i}" th:text="${i}" th:selected="${page.pageSize == i}"></option>
+                            <option th:value="${i}" th:text="${i} + ' bản ghi / 1 trang'" th:selected="${page.pageSize == i}"></option>
                         </th:block>
                     </th:block>
                 </select>

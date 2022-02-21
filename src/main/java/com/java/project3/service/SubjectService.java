@@ -144,7 +144,7 @@ public class SubjectService {
         return responseDto;
     }
 
-    public ResponseDto searchSubjectBy(Integer pageIndex, Integer pageSize, String search) {
+    public ResponseDto searchSubjectBy(Integer pageIndex, Integer pageSize, String search, String type) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -156,7 +156,10 @@ public class SubjectService {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql = "S-name=L\"" + search + "\"";
+            sql += "S-name=L\"" + search + "\"";
+        }
+        if (type != null) {
+            sql += "S-type=L\"" + type + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

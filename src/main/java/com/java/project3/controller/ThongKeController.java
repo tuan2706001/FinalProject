@@ -76,24 +76,24 @@ public class ThongKeController {
         return "thong-ke";
     }
 
-    @GetMapping("thong-ke-mon")
-    public String major(
-            Model model,
-            @RequestParam(value = "currentPage", required = false) Integer currentPage,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize,
-            @RequestParam(value = "search", required = false) String search
-    ) {
-        Page page = new Page();
-        page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search);
-        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
-        model.addAttribute("findAll", searchResDto.getData());
-        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
-        model.addAttribute("page", page);
-        model.addAttribute("search", search);
-
-        return "thong-ke-mon";
-    }
+//    @GetMapping("thong-ke-mon")
+//    public String major(
+//            Model model,
+//            @RequestParam(value = "currentPage", required = false) Integer currentPage,
+//            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+//            @RequestParam(value = "search", required = false) String search
+//    ) {
+//        Page page = new Page();
+//        page = PageUltil.setDefault(currentPage, pageSize);
+//        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search);
+//        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
+//        model.addAttribute("findAll", searchResDto.getData());
+//        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
+//        model.addAttribute("page", page);
+//        model.addAttribute("search", search);
+//
+//        return "thong-ke-mon";
+//    }
 
     @GetMapping("thong-ke-diem")
     public String major(
