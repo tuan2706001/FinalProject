@@ -10,6 +10,7 @@ import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
+import com.java.project3.repository.MajorRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -34,6 +35,8 @@ public class CourseServcice {
     CourseServcice courseServcice;
     @Autowired
     GenIdService genIdService;
+    @Autowired
+    MajorRepository majorRepository;
 
 
     JMapper<CourseDTO, Course> toCourseDto;
@@ -97,7 +100,7 @@ public class CourseServcice {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
-        page = PageUltil.setDefault(pageIndex, pageSize);
+                page = PageUltil.setDefault(pageIndex, pageSize);
         searchReqDto.setPageIndex(page.getCurrentPage() - 1);
         searchReqDto.setPageSize(page.getPageSize());
         List<String> sort = new ArrayList<>();
@@ -118,8 +121,11 @@ public class CourseServcice {
         ResponseDto responseDto = new ResponseDto();
         Optional<Course> course = courseRepository.findById(id);
         if (course.isPresent()) {
-            courseRepository.deleteById(id);
-            responseDto.setObject(id);
+            Major major = majorRepository.findByCourseId(id);
+            if (major == null) {
+                courseRepository.deleteById(id);
+                responseDto.setObject(id);
+            }
         }
         return responseDto;
     }

@@ -9,6 +9,7 @@ import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
+import com.java.project3.repository.GradeRepository;
 import com.java.project3.repository.MajorRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
@@ -36,6 +37,8 @@ public class MajorService {
     MajorService majorService;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    GradeRepository gradeRepository;
 
 
     JMapper<MajorDTO, Major> toMajorDto;
@@ -125,8 +128,11 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(id);
         if (major.isPresent()) {
-            majorRepository.deleteById(id);
-            responseDto.setObject(id);
+            Grade grade = gradeRepository.findByMajorId(id);
+            if (grade == null) {
+                majorRepository.deleteById(id);
+                responseDto.setObject(id);
+            }
         }
         return responseDto;
     }

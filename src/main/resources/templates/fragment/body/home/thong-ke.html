@@ -9,21 +9,20 @@
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <form class="flex">
-                <div class="mr-8 lg:flex xl:text-base ml-10 ">
 
+                <div class="mr-8 lg:flex xl:text-base ">
                     <select name="courseId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn khóa--</option>
                         <th:block th:each="item,index : ${khoas}">
-                            <option th:value="${item.id}" th:text="${item.name}"
+                            <option th:value="${item.id}" th:text="'Khóa ' + ${item.name}"
                                     th:selected="${courseId == item.id ? true : false}"></option>
                         </th:block>
                     </select>
                 </div>
 
                 <div class="mr-8 lg:flex text-center xl:text-base mr-72 ">
-
                     <select name="majorId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
@@ -59,19 +58,15 @@
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
                 <th>Tên lớp</th>
-                <th>Tên khóa</th>
-                <th>Tên ngành</th>
             </tr>
             </thead>
             <tbody>
                 <tr th:each="item,index : ${findAll}">
                     <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                     <td th:text="${item.name}"></td>
-                    <td th:text="${item.courseName}"></td>
-                    <td th:text="${item.majorName}"></td>
                 </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="5">Không có dữ liệu</td>
+                <td colspan="2">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>

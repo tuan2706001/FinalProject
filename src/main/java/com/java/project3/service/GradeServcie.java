@@ -4,12 +4,14 @@ import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Course;
 import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
+import com.java.project3.domain.Student;
 import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
 import com.java.project3.repository.GradeRepository;
 import com.java.project3.repository.MajorRepository;
+import com.java.project3.repository.StudentRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -38,6 +40,8 @@ public class GradeServcie {
     MajorRepository majorRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     JMapper<GradeDTO, Grade> toGradeDto;
     JMapper<Grade, GradeDTO> toGrade;
@@ -131,8 +135,11 @@ public class GradeServcie {
         ResponseDto responseDto = new ResponseDto();
         Optional<Grade> grade = gradeRepository.findById(id);
         if (grade.isPresent()) {
-            gradeRepository.deleteById(id);
-            responseDto.setObject(id);
+            Student student = studentRepository.findByGradeId(id);
+            if (student == null) {
+                gradeRepository.deleteById(id);
+                responseDto.setObject(id);
+            }
         }
         return responseDto;
     }

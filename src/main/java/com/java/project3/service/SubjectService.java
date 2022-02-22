@@ -115,34 +115,34 @@ public class SubjectService {
         return responseDto;
     }
 
-    public ResponseDto searchSubjectByType1(String type, String search, Integer pageSize, Integer pageIndex) {
-        ResponseDto responseDto = new ResponseDto();
-        Pageable pageable = PageRequest.of(pageIndex, pageSize);
-        type = type == null ? "" : type;
-        search = search == null ? "" : search.trim();
-        Page<Subject> subjects = subjectRepository.search1(type, search, pageable);
-        List<SubjectDTO> listDto = new ArrayList<>();
-        for (var item : subjects) {
-            listDto.add(toSubjectDto.getDestination(item));
-        }
-        responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), listDto));
-        return responseDto;
-    }
-
-
-    public ResponseDto searchSubjectByType2(String type, String search, Integer pageSize, Integer pageIndex) {
-        ResponseDto responseDto = new ResponseDto();
-        Pageable pageable = PageRequest.of(pageIndex, pageSize);
-        type = type == null ? "" : type.trim();
-        search = search == null ? "" : search.trim();
-        Page<Subject> subjects = subjectRepository.search2(type, search, pageable);
-        List<SubjectDTO> listDto = new ArrayList<>();
-        for (var item : subjects) {
-            listDto.add(toSubjectDto.getDestination(item));
-        }
-        responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), listDto));
-        return responseDto;
-    }
+//    public ResponseDto searchSubjectByType1(String type, String search, Integer pageSize, Integer pageIndex) {
+//        ResponseDto responseDto = new ResponseDto();
+//        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+//        type = type == null ? "" : type;
+//        search = search == null ? "" : search.trim();
+//        Page<Subject> subjects = subjectRepository.search1(type, search, pageable);
+//        List<SubjectDTO> listDto = new ArrayList<>();
+//        for (var item : subjects) {
+//            listDto.add(toSubjectDto.getDestination(item));
+//        }
+//        responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), listDto));
+//        return responseDto;
+//    }
+//
+//
+//    public ResponseDto searchSubjectByType2(String type, String search, Integer pageSize, Integer pageIndex) {
+//        ResponseDto responseDto = new ResponseDto();
+//        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+//        type = type == null ? "" : type.trim();
+//        search = search == null ? "" : search.trim();
+//        Page<Subject> subjects = subjectRepository.search2(type, search, pageable);
+//        List<SubjectDTO> listDto = new ArrayList<>();
+//        for (var item : subjects) {
+//            listDto.add(toSubjectDto.getDestination(item));
+//        }
+//        responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), listDto));
+//        return responseDto;
+//    }
 
     public ResponseDto searchSubjectBy(Integer pageIndex, Integer pageSize, String search, String type) {
         ResponseDto responseDto = new ResponseDto();
