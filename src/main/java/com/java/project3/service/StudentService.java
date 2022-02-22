@@ -1,15 +1,19 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
+import com.java.project3.constant.Enum;
 import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
 import com.java.project3.domain.Student;
+import com.java.project3.domain.User;
 import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.StudentDTO;
+import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.GradeRepository;
 import com.java.project3.repository.StudentRepository;
+import com.java.project3.repository.UserRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -36,14 +40,20 @@ public class StudentService {
     GradeRepository gradeRepository;
     @Autowired
     GenIdService genIdService;
+    @Autowired
+    UserRepository userRepository;
 
     JMapper<StudentDTO, Student> toStudentDto;
     JMapper<Student, StudentDTO> toStudent;
+    JMapper<UserDTO, User> toUserDto;
+    JMapper<User, UserDTO> toUser;
 
 
     public StudentService() {
         this.toStudentDto = new JMapper<>(StudentDTO.class, Student.class);
         this.toStudent = new JMapper<>(Student.class, StudentDTO.class);
+        this.toUserDto = new JMapper<>(UserDTO.class, User.class);
+        this.toUser = new JMapper<>(User.class, UserDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -67,6 +77,22 @@ public class StudentService {
         Student result = studentRepository.save(student);
         var temp = toStudentDto.getDestination(result);
         responseDto.setObject(temp);
+
+        // tạo bản ghi bảng user
+        UserDTO userDTO = new UserDTO();
+        User user = toUser.getDestination(userDTO);
+        user.setId(genIdService.nextId());
+        user.setFullName(studentDTO.getFullName());
+        user.setEmail(studentDTO.getEmail());
+        user.setPhone(studentDTO.getPhone());
+        user.setPassword("123456");
+        user.setGender(studentDTO.getGender());
+        user.setBirthday(studentDTO.getBirthday());
+        user.setAddress(studentDTO.getAddress());
+        user.setRole(Enum.SINH_VIEN.value);
+        user.setIsDeleted(false);
+        User result1 = userRepository.save(user);
+        var temp1 = toUserDto.getDestination(result1);
         return responseDto;
     }
 

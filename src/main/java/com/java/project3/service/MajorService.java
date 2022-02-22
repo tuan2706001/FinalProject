@@ -103,7 +103,7 @@ public class MajorService {
         return responseDto;
     }
 
-    public ResponseDto searchMajorBy(Integer pageIndex, Integer pageSize, String name) {
+    public ResponseDto searchMajorBy(Integer pageIndex, Integer pageSize, String name, Long courseId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -116,6 +116,9 @@ public class MajorService {
         String sql = "";
         if (name != null) {
             sql = "S-name=L\"" + name + "\"";
+        }
+        if (courseId != null) {
+            sql += ",N-courseId=\"" + courseId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

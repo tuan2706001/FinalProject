@@ -10,14 +10,28 @@
 <body>
 <div th:fragment="quan-ly-nganh" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
-        <div class="flex justify-center mt-10">
+        <div class="flex mt-10">
             <button id="myBtn"
-                    class="justify-self-start rounded font-bold w-44 h-9 mr-96 text-white transition duration-300">
+                    class="justify-self-start rounded font-bold w-44 h-9 mr-40 text-white transition duration-300">
                 Thêm ngành
             </button>
-            <form>
+            <form class="flex">
+                <div class="mr-36 lg:flex text-center xl:text-base">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
+
+                    <select name="courseId"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                            onchange="this.form.submit()">
+                        <option value="0" hidden>--Chọn Khóa--</option>
+                        <th:block th:each="item,index : ${khoa}">
+                            <option th:value="${item.id}" th:text="${item.name}"
+                                    th:selected="${courseId == item.id ? true : false}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-56 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">

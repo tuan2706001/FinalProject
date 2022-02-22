@@ -58,6 +58,15 @@ public class GradeController {
         model.addAttribute("nganh", searchResDtoNganh.getData());
         model.addAttribute("majorId", majorId);
 
+        //get khóa
+        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
+        searchReqDtoKhoa.setPageSize(100);
+        searchReqDtoKhoa.setPageIndex(0);
+        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
+        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
+        model.addAttribute("khoa", searchResDtoKhoa.getData());
+        model.addAttribute("courseId", courseId);
+
 
         return "quan-ly-lop";
     }

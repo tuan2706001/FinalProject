@@ -138,4 +138,12 @@ public class SubjectController {
         ResponseDto responseDto = subjectService.delete(id);
         return "redirect:/quan-ly-mon-hoc";
     }
+
+    @DeleteMapping("deleteSubjectDetail")
+    public String deleteSubjectDetail(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = subjectService.delete(id);
+        return "redirect:/quan-ly-mon-hoc-chuyen-nganh";
+    }
 }

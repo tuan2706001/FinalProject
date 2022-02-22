@@ -31,7 +31,7 @@ public class MajorController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = majorService.searchMajorBy(page.getCurrentPage() - 1, page.getPageSize(), search);
+        ResponseDto responseDto = majorService.searchMajorBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -45,7 +45,7 @@ public class MajorController {
         searchReqDtoKhoa.setPageIndex(0);
         ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
         SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
-        model.addAttribute("khoas", searchResDtoKhoa.getData());
+        model.addAttribute("khoa", searchResDtoKhoa.getData());
         model.addAttribute("courseId", courseId);
 
         return "quan-ly-nganh";

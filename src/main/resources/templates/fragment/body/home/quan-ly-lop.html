@@ -9,15 +9,27 @@
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-36 text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-24 text-white transition duration-300">
                 Thêm lớp
             </button>
-            <form class="flex">
 
+            <div class="mr-10 lg:flex text-center xl:text-base">
+                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
+                <select name="courseId" id="courseId"
+                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                        onchange="this.form.submit()">
+                    <option value="0" hidden>--Chọn Khóa--</option>
+                    <th:block th:each="item,index : ${khoa}">
+                        <option th:value="${item.id}" th:text="${item.name}"
+                                th:selected="${courseId == item.id ? true : false}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <form class="flex">
                 <div class="mr-36 lg:flex text-center xl:text-base">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
-
-                    <select name="majorId"
+                    <select name="majorId" id="majorId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn ngành--</option>
@@ -29,7 +41,7 @@
                 </div>
 
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-60 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-24 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -77,7 +89,8 @@
                             <form action="/deleteGrade" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
                                 </button>
                             </form>
                         </div>
@@ -163,6 +176,17 @@
             })
 
         })
+
+        //ajax lấy ngành theo khóa
+        $('#courseId').change(function () {
+            var htmlSv = '';
+
+            $.each($('#majorId').val() == 0 ? sv1 : sv2, function (idex, items) {
+                htmlSv += '<option value="' + items.name + '">' + items.name + '</option>';
+            })
+            $('#select2').html(htmlSv);
+        })
+
     </script>
 </div>
 </body>
