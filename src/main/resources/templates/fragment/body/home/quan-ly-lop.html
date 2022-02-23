@@ -16,8 +16,7 @@
             <div class="mr-10 lg:flex text-center xl:text-base">
                 <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
                 <select name="courseId" id="courseId"
-                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                        onchange="this.form.submit()">
+                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded">
                     <option value="0" hidden>--Chọn Khóa--</option>
                     <th:block th:each="item,index : ${khoa}">
                         <option th:value="${item.id}" th:text="${item.name}"
@@ -29,14 +28,16 @@
             <form class="flex">
                 <div class="mr-36 lg:flex text-center xl:text-base">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
-                    <select name="majorId" id="majorId"
+                    <select name="majorId" id="majorIds"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn ngành--</option>
-                        <th:block th:each="item,index : ${nganh}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${majorId == item.id ? true : false}"></option>
-                        </th:block>
+                        <th:bock th:if="${dataNganh != null && #lists.size(dataNganh) > 0}">
+                            <th:block th:each="item,index : ${dataNganh}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${majorId == item.id ? true : false}"></option>
+                            </th:block>
+                        </th:bock>
                     </select>
                 </div>
 
@@ -119,14 +120,32 @@
                         <div class="flex justify-between">
 
                             <div class="w-2/3">
-                                <label class="font-medium mr-28">Tên Ngành</label>
+                                <label class="font-medium mr-24">Tên khóa</label>
                                 <div>
-                                    <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                    <select id="courseIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
+                                        <option value="0" hidden>--Chọn Khóa--</option>
+                                        <th:block th:each="item,index : ${khoa}">
+                                            <option th:value="${item.id}" th:text="${item.name}"
+                                                    th:selected="${courseId == item.id ? true : false}"></option>
+                                        </th:block>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errMajor"></div>
+                                </div>
+                            </div>
+
+                            <div class="w-2/3">
+                                <label class="font-medium mr-10">Tên Ngành</label>
+                                <div>
+                                    <select id="majorIdss" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="majorId">
                                         <option value="" hidden>Chọn ngành</option>
-                                        <th:block th:each="item,index : ${nganh}">
-                                            <option th:value="${item.id}" th:text="${item.name}"></option>
-                                        </th:block>
+                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">
+                                            <th:block th:each="item,index : ${dataNganh}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${majorId == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
                                     </select>
                                     <div class="text-sm text-red-600" id="errMajor"></div>
                                 </div>
@@ -179,13 +198,38 @@
 
         //ajax lấy ngành theo khóa
         $('#courseId').change(function () {
-            var htmlSv = '';
+            var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
 
-            $.each($('#majorId').val() == 0 ? sv1 : sv2, function (idex, items) {
-                htmlSv += '<option value="' + items.name + '">' + items.name + '</option>';
+            $.ajax({
+                url: "/getMajor/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+
+                    $.each(e, function (idex, items) {
+                        htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#majorIds').html(htmlMajor);
+                }
             })
-            $('#select2').html(htmlSv);
         })
+
+        //ajax lấy ngành theo khóa
+        $('#courseIds').change(function () {
+            var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
+
+            $.ajax({
+                url: "/getMajor/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+
+                    $.each(e, function (idex, items) {
+                        htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#majorIdss').html(htmlMajor);
+                }
+            })
+        })
+
 
     </script>
 </div>

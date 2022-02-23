@@ -116,10 +116,7 @@ public class GradeServcie {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql += "S-name=L\"" + search + "\", OR-S-majorName=L\"" + search + "\", OR-S-courseName=L\"" + search + "\"";
-        }
-        if (courseId != null) {
-            sql += ",N-courseId=\"" + courseId + "\"";
+            sql += "S-name=L\"" + search + "\", OR-S-majorName=L\"" + search + "\"";
         }
         if (majorId != null) {
             sql += ",N-majorId=\"" + majorId + "\"";

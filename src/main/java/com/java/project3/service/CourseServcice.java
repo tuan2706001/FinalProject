@@ -117,18 +117,18 @@ public class CourseServcice {
         return responseDto;
     }
 
-    public ResponseDto delete(Long id) {
-        ResponseDto responseDto = new ResponseDto();
-        Optional<Course> course = courseRepository.findById(id);
-        if (course.isPresent()) {
-            Major major = majorRepository.findByCourseId(id);
-            if (major == null) {
-                courseRepository.deleteById(id);
-                responseDto.setObject(id);
-            }
-        }
-        return responseDto;
-    }
+//    public ResponseDto delete(Long id) {
+//        ResponseDto responseDto = new ResponseDto();
+//        Optional<Course> course = courseRepository.findById(id);
+//        if (course.isPresent()) {
+//            Major major = majorRepository.findByCourseId(id);
+//            if (major == null) {
+//                courseRepository.deleteById(id);
+//                responseDto.setObject(id);
+//            }
+//        }
+//        return responseDto;
+//    }
 
 
 }

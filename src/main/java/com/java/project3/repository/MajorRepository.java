@@ -5,7 +5,13 @@ import com.java.project3.domain.Major;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 public interface MajorRepository extends JpaRepository<Major, Long>, JpaSpecificationExecutor<Major> {
 
-    Major findByCourseId (Long courseId);
+    List<Major> findByCourseId (Long courseId);
+
+//    Major find
+
+//    List<Major> search (Long courseId);
 }
