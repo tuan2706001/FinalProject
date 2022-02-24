@@ -8,29 +8,33 @@
 <div th:fragment="thong-ke" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
+
+            <div class="mr-8 lg:flex xl:text-base ">
+                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
+                <select name="courseId" id="courseId"
+                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                    <option value="0" hidden>--Chọn Khóa--</option>
+                    <th:block th:each="item,index : ${khoa}">
+                        <option th:value="${item.id}" th:text="${item.name}"
+                                th:selected="${courseId == item.id ? true : false}"></option>
+                    </th:block>
+                </select>
+            </div>
+
             <form class="flex">
 
-                <div class="mr-8 lg:flex xl:text-base ">
-                    <select name="courseId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn khóa--</option>
-                        <th:block th:each="item,index : ${khoas}">
-                            <option th:value="${item.id}" th:text="'Khóa ' + ${item.name}"
-                                    th:selected="${courseId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
-
                 <div class="mr-8 lg:flex text-center xl:text-base mr-72 ">
-                    <select name="majorId"
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
+                    <select name="majorId" id="majorIds"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn ngành--</option>
-                        <th:block th:each="item,index : ${nganh}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${majorId == item.id ? true : false}"></option>
-                        </th:block>
+                        <th:bock th:if="${dataNganh != null && #lists.size(dataNganh) > 0}">
+                            <th:block th:each="item,index : ${dataNganh}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${majorId == item.id ? true : false}"></option>
+                            </th:block>
+                        </th:bock>
                     </select>
                 </div>
 
@@ -61,10 +65,10 @@
             </tr>
             </thead>
             <tbody>
-                <tr th:each="item,index : ${findAll}">
-                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                    <td th:text="${item.name}"></td>
-                </tr>
+            <tr th:each="item,index : ${findAll}">
+                <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
+                <td th:text="${item.name}"></td>
+            </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
                 <td colspan="2">Không có dữ liệu</td>
             </tr>
@@ -74,6 +78,26 @@
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
 
     </div>
+    <script>
+        //ajax lấy ngành theo khóa
+        $('#courseId').change(function () {
+            var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
+
+            $.ajax({
+                url: "/getMajors/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+
+                    $.each(e, function (idex, items) {
+                        htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#majorIds').html(htmlMajor);
+                }
+            })
+        })
+
+
+    </script>
 </div>
 </body>
 </html>

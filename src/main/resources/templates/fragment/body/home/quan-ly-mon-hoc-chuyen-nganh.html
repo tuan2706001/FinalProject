@@ -15,11 +15,12 @@
             <div class="mr-8 lg:flex text-center xl:text-base  ">
                 <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>
                 <form action="/quan-ly-mon-hoc">
-                <select onchange="this.form.submit()" name="type"
-                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="Đại cương" class="text-bold justify-center">Đại cương</option>
-                    <option value="Chuyên ngành" class="text-bold justify-center" selected="selected">Chuyên ngành</option>
-                </select>
+                    <select onchange="this.form.submit()" name="type"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                        <option value="Đại cương" class="text-bold justify-center">Đại cương</option>
+                        <option value="Chuyên ngành" class="text-bold justify-center" selected="selected">Chuyên ngành
+                        </option>
+                    </select>
                 </form>
             </div>
             <form>
@@ -79,7 +80,8 @@
                             <form action="/deleteSubjectDetail" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
                                 </button>
                             </form>
                         </div>
@@ -121,11 +123,7 @@
                                 <label class="font-medium mr-28">Loại môn</label>
                                 <div>
                                     <select id="type" class="border rounded-lg w-48 h-10" name="type">
-                                        <option value="" hidden>Chọn loại</option>
-                                        <th:block>
-                                            <option name="type" >Đại cương</option>
-                                            <option name="type" >Chuyên ngành</option>
-                                        </th:block>
+                                        <option name="type">Chuyên ngành</option>
                                     </select>
                                 </div>
                             </div>
@@ -134,17 +132,31 @@
                         <div class="flex justify-between">
                             <!--                        //Tên-->
                             <div class="mr-12">
+                                <label class="font-medium mr-28">Tên khóa</label>
+                                <div>
+                                    <select id="courseIds" class="border rounded-lg w-36 h-10" name="courseId">
+                                        <option value="0" hidden>--Chọn khóa--</option>
+                                        <th:block th:each="item,index : ${khoa}">
+                                            <option th:value="${item.id}" th:text="${item.name}"
+                                                    th:selected="${courseId == item.id ? true : false}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mr-12">
                                 <label class="font-medium mr-28">Tên ngành</label>
                                 <div>
-                                    <div>
-                                        <select id="type" class="border rounded-lg w-72 h-10" name="majorId" onchange="this.form.submit()">
-                                            <option value="0" hidden>--Chọn ngành--</option>
-                                            <th:block th:each="item,index : ${nganh}">
+                                    <select id="majorIdss" class="border rounded-lg w-68 h-10" name="majorId"
+                                            onchange="this.form.submit()">
+                                        <option value="0" hidden>--Chọn ngành--</option>
+                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">
+                                            <th:block th:each="item,index : ${dataNganh}">
                                                 <option th:value="${item.id}" th:text="${item.name}"
                                                         th:selected="${majorId == item.id ? true : false}"></option>
                                             </th:block>
-                                        </select>
-                                    </div>
+                                        </th:bock>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -231,6 +243,23 @@
                 }
             })
 
+        })
+
+        //ajax lấy ngành theo khóa
+        $('#courseIds').change(function () {
+            var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
+
+            $.ajax({
+                url: "/getMajor2/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+
+                    $.each(e, function (idex, items) {
+                        htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#majorIdss').html(htmlMajor);
+                }
+            })
         })
     </script>
 </div>

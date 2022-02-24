@@ -61,16 +61,6 @@ public class MajorService {
         return responseDto;
     }
 
-//    public ResponseDto findCourseByMajorId(Long id) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<Major> major = majorRepository.findById(id);
-//        if (major.isPresent()) {
-//            MajorDTO majorDTO = toMajorDto.getDestination(major.get());
-//            responseDto.setObject(majorDTO);
-//        }
-//        return responseDto;
-//    }
-
 
     public ResponseDto findByCourseId(Long id) {
         ResponseDto responseDto = new ResponseDto();

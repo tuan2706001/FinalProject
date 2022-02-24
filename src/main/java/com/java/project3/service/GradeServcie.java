@@ -132,7 +132,7 @@ public class GradeServcie {
         ResponseDto responseDto = new ResponseDto();
         Optional<Grade> grade = gradeRepository.findById(id);
         if (grade.isPresent()) {
-            Student student = studentRepository.findByGradeId(id);
+            Student student = studentRepository.delete(id);
             if (student == null) {
                 gradeRepository.deleteById(id);
                 responseDto.setObject(id);

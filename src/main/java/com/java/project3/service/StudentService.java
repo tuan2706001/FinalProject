@@ -7,6 +7,7 @@ import com.java.project3.domain.Major;
 import com.java.project3.domain.Student;
 import com.java.project3.domain.User;
 import com.java.project3.dto.GradeDTO;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.ResponseDto;
@@ -63,6 +64,17 @@ public class StudentService {
             StudentDTO studentDTO = toStudentDto.getDestination(student.get());
             responseDto.setObject(studentDTO);
         }
+        return responseDto;
+    }
+
+    public ResponseDto findByGradeId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Student> students = studentRepository.findByGradeId(id);
+        List<StudentDTO> studentDTOS = new ArrayList<>();
+        for (var item : students) {
+            studentDTOS.add(toStudentDto.getDestination(item));
+        }
+        responseDto.setObject(studentDTOS);
         return responseDto;
     }
 

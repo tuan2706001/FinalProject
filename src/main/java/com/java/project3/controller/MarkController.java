@@ -1,7 +1,9 @@
 package com.java.project3.controller;
 
 import com.java.project3.dto.GradeDTO;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.MarkDTO;
+import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -15,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -77,10 +81,44 @@ public class MarkController {
         return "quan-ly-diem";
     }
 
+    @GetMapping("getStudent/{id}")
+    @ResponseBody
+    public List<StudentDTO> getStudent(
+            @PathVariable("id") Long id
+    ) {
+        ResponseDto responseDto = studentService.findByGradeId(id);
+        return (List<StudentDTO>) responseDto.getObject();
+    }
+
     @PostMapping("createMark")
     public String createMark(
+            Model model,
             @ModelAttribute MarkDTO markDTO
     ) {
+
+        //dùng ajax
+        List<StudentDTO> studentDTOS = null;
+        if (markDTO.getStudentId() != null) {
+            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
+            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
+            model.addAttribute("gradeId", studentDTO.getGradeId());
+
+            //get lớp
+            SearchReqDto searchReqDtoLop = new SearchReqDto();
+            searchReqDtoLop.setPageSize(100);
+            searchReqDtoLop.setPageIndex(0);
+            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
+            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
+            model.addAttribute("lop", searchResDtoLop.getData());
+            model.addAttribute("gradeIds", markDTO.getGradeId());
+
+            ResponseDto responseDto2 = studentService.findByGradeId(studentDTO.getGradeId());
+            studentDTOS = (List<StudentDTO>) responseDto2.getObject();
+            model.addAttribute("studentIdss", markDTO.getStudentId());
+
+        }
+        model.addAttribute("dataSv", studentDTOS);
+
         ResponseDto responseDto = markService.create(markDTO);
         return "redirect:/quan-ly-diem";
     }

@@ -63,11 +63,11 @@ public class CourseController {
         return "redirect:/quan-ly-khoa";
     }
 
-//    @DeleteMapping("deleteCourse")
-//    public String deleteCourse(
-//            @RequestParam(name = "id") Long id
-//    ) {
-//        ResponseDto responseDto = courseServcice.delete(id);
-//        return "redirect:/quan-ly-khoa";
-//    }
+    @DeleteMapping("deleteCourse")
+    public String deleteCourse(
+            @RequestParam(name = "id") Long id
+    ) {
+        ResponseDto responseDto = courseServcice.delete(id);
+        return "redirect:/quan-ly-khoa";
+    }
 }
