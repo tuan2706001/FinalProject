@@ -54,13 +54,15 @@
                             </div>
 
                             <div class="mt-4">
-                                <label for="hocVan">Học vấn</label>
-                                <input id="hocVan" type="text"
-                                       class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500">
-                                <div class="text-sm text-red-600 h-3" id="errHocVan"></div>
+                                <label>Ngày sinh</label>
+                                <div>
+                                    <input id="birthday" type="date" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                        leading-tight focus:outline-none focus:shadow-outline" name="birthday"/>
+                                    <div class="text-sm text-red-600" id="errBirthday"></div>
+                                </div>
                             </div>
                             <div class="mt-4">
-                                <label for="hocVan">Giới tính</label>
+                                <label>Giới tính</label>
                                 <div class="flex mt-2 ml-16">
                                     <div class="mr-5">
                                         <input type="radio" name="type" class="mr-3 mt-1 outline-none callType"
@@ -75,47 +77,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-2 w-full">
-                        <span class="font-medium block">Giới thiệu</span>
-                        <textarea class="border border-gray-500 w-full ckeditor" id="gioithieu"></textarea>
-                    </div>
+
                     <div class="mt-4">
-                        <div class="text-xl font-medium" style="color: #15597E">Thông tin tài khoản</div>
+                        <div class="text-xl font-medium" style="color: #15597E">Bảo Mật</div>
                         <div class="flex">
                             <div class="w-1/2 left pr-6">
                                 <div class="mt-4">
-                                    <label>Tên tài khoản</label>
+                                    <label>Mật khẩu cũ</label>
                                     <input id="" type="text"
                                            class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
                                            placeholder="Tên tài khoản của bạn">
-                                    <div class="flex justify-end mt-1 cursor-pointer doiMk" id="doiMk">Đổi mật khẩu
-                                    </div>
-                                </div>
-                                <div class="matKhau hidden">
-                                    <label for="mk">Mật khẩu cũ</label>
-                                    <div class="mt-2 flex border rounded border-gray-500">
-                                        <input id="mk" type="password" name="oldPassword"
-                                               class="w-5/12 w-full py-1 px-2 rounded focus:outline-none"
-                                               placeholder="Mật khẩu">
-                                    </div>
-                                    <div class="text-sm text-red-600 h-3 err" id="errPass">
-                                    </div>
                                 </div>
                             </div>
-                            <div class="w-1/2 left pl-6 matKhau hidden">
+                            <div class="w-1/2 right ml-12 ">
                                 <div class="mt-4">
-                                    <label for="mkm">Mật khẩu mới</label>
-                                    <div class="mt-2 flex border rounded border-gray-500">
-                                        <input id="mkm" type="password" name="newPassword"
-                                               class="w-5/12 w-full py-1 px-2 rounded focus:outline-none"
-                                               placeholder="Mật khẩu mới">
-                                    </div>
-                                    <div class="text-sm text-red-600 h-3 err" id="errPassm"></div>
+                                    <label>Mật khẩu mới</label>
+                                    <input id="" type="text"
+                                           class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
+                                           placeholder="Tên tài khoản của bạn">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-end mt-6 pb-10">
+                    <div class="flex justify-center mt-6 pb-10">
                         <button class="hover:bg-blue-400 px-4 py-1.5 rounded" type="submit"
                                 style="background-color: #007DC5 ; color: white">Cập nhật
                         </button>

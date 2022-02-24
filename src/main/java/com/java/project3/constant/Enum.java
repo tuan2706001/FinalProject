@@ -24,4 +24,13 @@ public enum Enum {
         }
         return null;
     }
+
+    public static String findNameByValue(Short abbr) {
+        for (Enum v : values()) {
+            if (v.getValue().equals(abbr)) {
+                return v.name();
+            }
+        }
+        return null;
+    }
 }

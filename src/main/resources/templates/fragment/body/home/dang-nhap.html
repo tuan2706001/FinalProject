@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="w-11/12 sm:w-4/5 px-7 mx-auto mt-14 mb-1">
-            <form th:action="@{/j_spring_security_check} "method="post">
+            <form th:action="@{/j_spring_security_check}" method="POST">
                 <div class="pb-0.5">
                     <div class="font-semibold  text-xl pb-2">
                         <label>Email</label>
@@ -55,29 +55,20 @@
                         <a href="/user/forgot-password">Quên mật khẩu ?</a>
                     </div>
                 </div>
-                <!--                    <div class="h-3 mt-4 mb-1 font-semibold text-sm flex justify-center items-center text-red-500 mx-auto">-->
-                <!--                        <span class="error">alo</span>-->
-                <!--                    </div>-->
                 <div class="w-full flex justify-center items-center">
-                    <button
+                    <button value="Đăng nhập"
                             class=" signInBTN w-2/3 text-white text-2xl rounded-lg h-12
                                     transition duration-300 font-bold
                                     mb-5 bg-blue-500" style="margin-top: 26px"
                             type="submit">
                         <a href="/trang-chu">Đăng nhập</a>
                     </button>
+                    <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+                          th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+                Static summary
+         </span>
 
                 </div>
-<!--                <div class="mt-6 pt-0.5 text-sm text-center md:flex md:text-left justify-center pb-2">-->
-<!--                    <div>-->
-<!--                        <span class="text-lg">Bạn chưa có tài khoản ?</span>-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <a th:classappend="${#httpServletRequest.requestURI.contains('/dang-ky')}" href="/dang-ky">-->
-<!--                            <span style="color: #007DC5" class="text-lg"> Đăng ký</span>-->
-<!--                        </a>-->
-<!--                    </div>-->
-<!--                </div>-->
             </form>
         </div>
     </div>

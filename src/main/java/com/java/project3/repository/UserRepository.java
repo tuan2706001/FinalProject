@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    @Query(value = "SELECT * FROM #{#entityName} where email = :email", nativeQuery = true)
-    List<User> findByEmail(String email);
+//    @Query(value = "SELECT * FROM #{#entityName} where email = :email", nativeQuery = true)
+//    List<User> findByEmail(String email);
+
+    Optional<User> findByEmail(String email);
 
 }

@@ -18,7 +18,7 @@ public class HomeController {
     @Autowired
     StudentService studentService;
 
-    @GetMapping(value = {"/trang-chu"})
+    @GetMapping(value = {"","/trang-chu"})
     public String home(
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
@@ -51,7 +51,7 @@ public class HomeController {
         return "thong-tin-ca-nhan";
     }
 
-    @GetMapping(value = {"/","/dang-nhap"})
+    @GetMapping("/dang-nhap")
     public String login() {
         return "dang-nhap";
     }
