@@ -51,6 +51,14 @@ public class GradeController {
         model.addAttribute("page", page);
         model.addAttribute("search", search);
 
+        //get khóa
+        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
+        searchReqDtoKhoa.setPageSize(100);
+        searchReqDtoKhoa.setPageIndex(0);
+        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
+        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
+        model.addAttribute("khoa", searchResDtoKhoa.getData());
+        model.addAttribute("courseId", courseId);
 
         //get ngành
         SearchReqDto searchReqDtoNganh = new SearchReqDto();
@@ -61,16 +69,7 @@ public class GradeController {
         model.addAttribute("nganh", searchResDtoNganh.getData());
         model.addAttribute("majorId", majorId);
 
-        //get khóa
-        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
-        searchReqDtoKhoa.setPageSize(100);
-        searchReqDtoKhoa.setPageIndex(0);
-        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
-        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
-        model.addAttribute("khoa", searchResDtoKhoa.getData());
-        model.addAttribute("courseId", courseId);
-
-        //dùng ajax
+        //dùng ajax lấu ngành theo khóa
         List<MajorDTO> majorDTOS = null;
         if (majorId != null) {
             ResponseDto responseDto1 = majorService.findById(majorId);

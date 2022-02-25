@@ -1,11 +1,15 @@
 package com.java.project3.controller;
 
+import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
+import com.java.project3.service.GradeServcie;
 import com.java.project3.service.MajorService;
 import com.java.project3.service.StudentService;
+import com.java.project3.service.UserService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class HomeController {
     @Autowired
     StudentService studentService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    GradeServcie gradeServcie;
 
     @GetMapping(value = {"","/trang-chu"})
     public String home(
@@ -38,18 +46,36 @@ public class HomeController {
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
+
+        long responseDto1 = gradeServcie.countAll();
+        model.addAttribute("countAll", responseDto1);
         return "trang-chu";
     }
-
-//    @GetMapping("thong-ke")
-//    public String statistical() {
-//        return "thong-ke";
-//    }
 
     @GetMapping("thong-tin-ca-nhan")
     public String info() {
         return "thong-tin-ca-nhan";
     }
+
+//    @GetMapping("/thong-tin-ca-nhan/{id}")
+//    public  String suaInfo (
+//            @PathVariable("id") Long id,
+//            Model model
+//    ) {
+//        ResponseDto responseDto =  userService.findById(id);
+//        model.addAttribute("data", responseDto.getObject());
+//        return "fragment/body/home/thong-tin-ca-nhan";
+//    }
+
+//    @PutMapping("updateInfo")
+//    public String updateInfo(
+//            @ModelAttribute UserDTO userDTO
+//    ) {
+//        ResponseDto responseDto = userService.update(userDTO);
+//        return "redirect:/thong-tin-ca-nhan";
+//    }
+
+
 
     @GetMapping("/dang-nhap")
     public String login() {

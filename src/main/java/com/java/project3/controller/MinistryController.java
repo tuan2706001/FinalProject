@@ -70,4 +70,27 @@ public class MinistryController {
         ResponseDto responseDto = ministryService.delete(id);
         return "redirect:/quan-ly-giao-vu";
     }
+
+//    @GetMapping("thong-tin-ca-nhan")
+//    public String info() {
+//        return "thong-tin-ca-nhan";
+//    }
+
+    @GetMapping("/thong-tin-ca-nhan/{id}")
+    public  String suaInfo (
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+        ResponseDto responseDto =  ministryService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+        return "fragment/body/home/thong-tin-ca-nhan";
+    }
+
+    @PutMapping("updateInfo")
+    public String updateInfo(
+            @ModelAttribute UserDTO userDTO
+    ) {
+        ResponseDto responseDto = ministryService.update(userDTO);
+        return "redirect:/thong-tin-ca-nhan";
+    }
 }

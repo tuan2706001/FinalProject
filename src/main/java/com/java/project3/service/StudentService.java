@@ -171,4 +171,9 @@ public class StudentService {
         }
         return responseDto;
     }
+
+    public long countAll() {
+        long student = studentRepository.count();
+        return student;
+    }
 }

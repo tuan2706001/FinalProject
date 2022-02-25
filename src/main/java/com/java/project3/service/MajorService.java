@@ -4,6 +4,7 @@ import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Course;
 import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
+import com.java.project3.domain.Subject;
 import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
@@ -11,6 +12,7 @@ import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
 import com.java.project3.repository.GradeRepository;
 import com.java.project3.repository.MajorRepository;
+import com.java.project3.repository.SubjectRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -39,6 +41,8 @@ public class MajorService {
     CourseRepository courseRepository;
     @Autowired
     GradeRepository gradeRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
 
 
     JMapper<MajorDTO, Major> toMajorDto;
@@ -72,6 +76,18 @@ public class MajorService {
         responseDto.setObject(majorDTOS);
         return responseDto;
     }
+
+//    public ResponseDto findBySubjectId(Long id) {
+//        ResponseDto responseDto = new ResponseDto();
+//        Optional<Subject> subject = subjectRepository.findById(id);
+//        List<Grade> grades = gradeRepository.search(subject.get().getMajorId());
+//        List<GradeDTO> gradeDTOS = new ArrayList<>();
+//        for (var item : grades) {
+//            gradeDTOS.add(toMajorDto.getDestination(item));
+//        }
+//        responseDto.setObject(majorDTOS);
+//        return responseDto;
+//    }
 
 
     public ResponseDto create(MajorDTO majorDTO) {

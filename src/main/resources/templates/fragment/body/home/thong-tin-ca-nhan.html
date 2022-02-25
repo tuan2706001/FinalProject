@@ -12,18 +12,18 @@
         </div>
         <div class="h-full w-8/12 rounded-lg bg-white mx-auto mt-10">
 
-            <form class="formInfo" enctype="multipart/form-data" th:method="PUT"
-                  onsubmit="return checkValidate()">
+            <form action="/updateInfo" th:method="PUT" onsubmit="return checkEditValidate()">
                 <div class="w-10/12 mx-auto">
                     <div class="text-xl font-medium" style="color: #15597E">Thông tin cá nhân</div>
 
                     <div class="flex">
                         <div class="w-1/2 left pr-6">
                             <div class="mt-4">
-                                <label for="name">Họ và tên</label>
+                                <label>Họ và tên</label>
                                 <input id="name" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                       placeholder="Họ và tên của bạn">
+                                       placeholder="Họ và tên của bạn" th:value="${data.fullName}" name="fullName">
+                                <input type="hidden" th:value="${data.id}" name="id">
                                 <div class="text-sm text-red-600 h-3 err" id="errName"></div>
                             </div>
 
@@ -84,7 +84,7 @@
                             <div class="w-1/2 left pr-6">
                                 <div class="mt-4">
                                     <label>Mật khẩu cũ</label>
-                                    <input id="" type="text"
+                                    <input  type="text"
                                            class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
                                            placeholder="Tên tài khoản của bạn">
                                 </div>
@@ -92,7 +92,7 @@
                             <div class="w-1/2 right ml-12 ">
                                 <div class="mt-4">
                                     <label>Mật khẩu mới</label>
-                                    <input id="" type="text"
+                                    <input type="text"
                                            class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
                                            placeholder="Tên tài khoản của bạn">
                                 </div>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center mt-6 pb-10">
-                        <button class="hover:bg-blue-400 px-4 py-1.5 rounded" type="submit"
+                        <button class="hover:bg-blue-400 px-4 py-1.5 rounded" id="submit"
                                 style="background-color: #007DC5 ; color: white">Cập nhật
                         </button>
                     </div>

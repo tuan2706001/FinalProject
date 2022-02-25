@@ -3,9 +3,7 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
-import com.java.project3.dto.MajorDTO;
-import com.java.project3.dto.MarkDTO;
-import com.java.project3.dto.UserDTO;
+import com.java.project3.dto.*;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.GradeRepository;
@@ -63,6 +61,29 @@ public class MarkService {
         return responseDto;
     }
 
+    public ResponseDto findBySubjectId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Subject> subject = subjectRepository.findById(id);
+        List<Mark> marks = markRepository.findBySubjectId(subject.get().getMajorId());
+        List<MarkDTO> markDTOS = new ArrayList<>();
+        for (var item : marks) {
+            markDTOS.add(toMarkDto.getDestination(item));
+        }
+        responseDto.setObject(markDTOS);
+        return responseDto;
+    }
+
+    public ResponseDto findByGradeAndSubject (Long gradeId, Long subjectId) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Mark> marks = markRepository.findByGradeIdAndSubjectId(gradeId, subjectId);
+        List<MarkDTO> markDTOS = new ArrayList<>();
+        for (var item : marks) {
+            markDTOS.add(toMarkDto.getDestination(item));
+        }
+        responseDto.setObject(markDTOS);
+        return  responseDto;
+    }
+
     public ResponseDto create(MarkDTO markDTO) {
         ResponseDto responseDto = new ResponseDto();
         Student student = studentRepository.findById(markDTO.getStudentId()).get();
@@ -74,6 +95,11 @@ public class MarkService {
         mark.setSubjectName(subject.getName());
         mark.setGradeName(grade.getName());
         mark.setIsDeleted(false);
+        if (mark.getTheory1() >= 5 && mark.getSkill1() >= 5) {
+            mark.setStatus((short) 1);
+        } else {
+            mark.setStatus((short) 2);
+        }
         Mark result = markRepository.save(mark);
         var temp = toMarkDto.getDestination(result);
         responseDto.setObject(temp);
@@ -85,6 +111,11 @@ public class MarkService {
         Optional<Mark> mark = markRepository.findById(markDTO.getId());
         if (mark.isPresent()) {
             Mark mark1 = toMark.getDestination(mark.get(), markDTO);
+            if (mark1.getTheory2() >=5 && mark1.getSkill2() >= 5) {
+                mark1.setStatus((short) 1);
+            } else {
+                mark1.setStatus((short) 3);
+            }
             Mark result = markRepository.save(mark1);
             MarkDTO markDTO1 = toMarkDto.getDestination(result);
             responseDto.setObject(markDTO1);
@@ -120,12 +151,6 @@ public class MarkService {
         String sql = "";
         if (search != null) {
             sql += "S-subjectName=L\"" + search + "\", OR-S-studentName=L\"" + search + "\"";
-        }
-        if (gradeId != null) {
-            sql += ",N-gradeId\"" + gradeId + "\"";
-        }
-        if (studentId != null) {
-            sql += ",N-studentId\"" + studentId + "\"";
         }
         if (subjectId != null) {
             sql += ",N-subjectId\"" + subjectId + "\"";

@@ -2,12 +2,15 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Course;
+import com.java.project3.domain.Grade;
 import com.java.project3.domain.Major;
 import com.java.project3.domain.Subject;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
+import com.java.project3.repository.GradeRepository;
 import com.java.project3.repository.MajorRepository;
 import com.java.project3.repository.SubjectRepository;
 import com.java.project3.service.base.GenIdService;
@@ -39,6 +42,8 @@ public class SubjectService {
     MajorRepository majorRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    GradeRepository gradeRepository;
 
 
     JMapper<SubjectDTO, Subject> toSubjectDto;
@@ -57,6 +62,22 @@ public class SubjectService {
             SubjectDTO subjectDTO = toSubjectDto.getDestination(subject.get());
             responseDto.setObject(subjectDTO);
         }
+        return responseDto;
+    }
+
+    public ResponseDto findByGradeId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        Optional<Grade> grade = gradeRepository.findById(id);
+        List<Subject> subjects = subjectRepository.findByMajorIdNull();
+        List<Subject> subjectss = subjectRepository.findByMajorId(grade.get().getMajorId());
+        List<SubjectDTO> subjectDTOS = new ArrayList<>();
+        for (var item : subjects) {
+            subjectDTOS.add(toSubjectDto.getDestination(item));
+        }
+        for (var item : subjectss) {
+            subjectDTOS.add(toSubjectDto.getDestination(item));
+        }
+        responseDto.setObject(subjectDTOS);
         return responseDto;
     }
 

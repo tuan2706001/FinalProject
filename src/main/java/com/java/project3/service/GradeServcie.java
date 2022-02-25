@@ -1,17 +1,12 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.Course;
-import com.java.project3.domain.Grade;
-import com.java.project3.domain.Major;
-import com.java.project3.domain.Student;
+import com.java.project3.domain.*;
 import com.java.project3.dto.GradeDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
-import com.java.project3.repository.CourseRepository;
-import com.java.project3.repository.GradeRepository;
-import com.java.project3.repository.MajorRepository;
-import com.java.project3.repository.StudentRepository;
+import com.java.project3.repository.*;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -42,6 +37,10 @@ public class GradeServcie {
     CourseRepository courseRepository;
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
+    @Autowired
+    MarkRepository markRepository;
 
     JMapper<GradeDTO, Grade> toGradeDto;
     JMapper<Grade, GradeDTO> toGrade;
@@ -61,6 +60,19 @@ public class GradeServcie {
         }
         return responseDto;
     }
+
+//    public ResponseDto findByMarkId(Long id) {
+//        ResponseDto responseDto = new ResponseDto();
+//        Optional<Mark> mark = markRepository.findById(id);
+//        Grade grades = gradeRepository.fi(mark.get().getSubjectId());
+//        List<GradeDTO> gradeDTOS = new ArrayList<>();
+//        for (var item : grades) {
+//            gradeDTOS.add(toGradeDto.getDestination(item));
+//        }
+//        responseDto.setObject(gradeDTOS);
+//        return responseDto;
+//    }
+
 
     public ResponseDto create(GradeDTO gradeDTO) {
         ResponseDto responseDto = new ResponseDto();
@@ -140,4 +152,11 @@ public class GradeServcie {
         }
         return responseDto;
     }
+
+    public long countAll() {
+        long grade = gradeRepository.count();
+        return grade;
+    }
+
+
 }

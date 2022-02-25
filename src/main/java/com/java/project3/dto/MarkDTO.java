@@ -47,6 +47,9 @@ public class MarkDTO {
     private Short skill2;
 
     @JMap
+    private Short status;
+
+    @JMap
     private LocalDateTime createdAt;
 
     @JMap

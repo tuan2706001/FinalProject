@@ -23,7 +23,7 @@
 
             <form class="flex">
 
-                <div class="mr-8 lg:flex text-center xl:text-base mr-72 ">
+                <div class="mr-56 lg:flex text-center xl:text-base">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
                     <select name="majorId" id="majorIds"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
@@ -38,8 +38,12 @@
                     </select>
                 </div>
 
+                <div class="mr-20 lg:flex text-center xl:text-base">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Thống kê điểm theo lớp</div>
+                </div>
+
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-60 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-30 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -57,6 +61,7 @@
                 </div>
             </form>
         </div>
+
         <table class="w-full tableRounded mt-1">
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
@@ -65,15 +70,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
-                <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="2">Không có dữ liệu</td>
-            </tr>
+                <tr th:each="item,index : ${findAll}">
+                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
+                    <td th:text="${item.name}"><a th:href="/quan-ly-khoa"></a></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(findAll)}">
+                    <td colspan="2">Không có dữ liệu</td>
+                </tr>
             </tbody>
         </table>
+
 
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
 

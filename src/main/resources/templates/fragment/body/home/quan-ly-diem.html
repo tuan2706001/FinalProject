@@ -12,32 +12,32 @@
                     class="content-left rounded font-bold w-44 h-9 mr-24  text-white transition duration-300">
                 Thêm điểm
             </button>
+
+            <div class="mr-2 lg:flex text-center xl:text-base  ">
+                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+
+                <select name="gradeId" id="gradeIdss"
+                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                    <option value="0" hidden>--Chọn Lớp--</option>
+                    <th:block th:each="item,index : ${lop}">
+                        <option th:value="${item.id}" th:text="${item.name}"
+                                th:selected="${gradeId == item.id ? true : false}"></option>
+                    </th:block>
+                </select>
+            </div>
             <form class="flex">
-                <div class="mr-2 lg:flex text-center xl:text-base  ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-
-                    <select name="gradeId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn Lớp--</option>
-                        <th:block th:each="item,index : ${lop}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${gradeId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
-
                 <div class="mr-8 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-
-                    <select name="subjectId"
+                    <select name="subjectId" id="subjectIds"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn môn--</option>
-                        <th:block th:each="item,index : ${mon}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${subjectId == item.id ? true : false}"></option>
-                        </th:block>
+                        <th:bock th:if="${dataMons != null && #lists.size(dataMons) > 0}">
+                            <th:block th:each="item,index : ${dataMons}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${subjectId == item.id ? true : false}"></option>
+                            </th:block>
+                        </th:bock>
                     </select>
                 </div>
 
@@ -71,6 +71,7 @@
                 <th>Thực hành 1</th>
                 <th>Lý thuyết 2</th>
                 <th>Thực hành 2</th>
+                <th>Kết quả</th>
                 <th>Sửa</th>
             </tr>
             </thead>
@@ -84,6 +85,7 @@
                 <td th:text="${item.skill1}"></td>
                 <td th:text="${item.theory2}"></td>
                 <td th:text="${item.skill2}"></td>
+                <td th:text="${item.status} == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -108,7 +110,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="9">Không có dữ liệu</td>
+                <td colspan="10">Không có dữ liệu</td>
             </tr>
             </tbody>
             </tbody>
@@ -142,116 +144,151 @@
                                         </th:block>
                                     </select>
                                     <div class=" text-sm text-red-600" id="errGrade"></div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="w-2/3">
-                            <label class="font-medium ml-32">Tên sinh viên</label>
-                            <div>
-                                <select id="studentIdss" class="mb-1 shadow appearance-none border rounded w-80 ml-32 py-2 px-3 text-gray-700
+                            <div class="w-2/3">
+                                <label class="font-medium ml-32">Tên sinh viên</label>
+                                <div>
+                                    <select id="studentIdss" class="mb-1 shadow appearance-none border rounded w-80 ml-32 py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="studentId">
-                                    <option value="" hidden>--Chọn sinh viên--</option>
-                                    <th:bock th:if="${dataSv != null && #lists.size(dataSv) > 0}">
-                                        <th:block th:each="item,index : ${dataSv}">
-                                            <option th:value="${item.id}" th:text="${item.fullName}"
-                                                    th:selected="${studentId == item.id ? true : false}"></option>
-                                        </th:block>
-                                    </th:bock>
-                                </select>
-                                <div class="text-sm text-red-600 ml-32" id="errStudent"></div>
+                                        <option value="" hidden>--Chọn sinh viên--</option>
+                                        <th:bock th:if="${dataSv != null && #lists.size(dataSv) > 0}">
+                                            <th:block th:each="item,index : ${dataSv}">
+                                                <option th:value="${item.id}" th:text="${item.fullName}"
+                                                        th:selected="${studentId == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600 ml-32" id="errStudent"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flex justify-between">
-                        <div class="w-2/3 mb-5">
-                            <label class="font-medium mr-28">Tên môn</label>
-                            <div>
-                                <select id="subjectId" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <div class="flex justify-between">
+                            <div class="w-2/3 mb-5">
+                                <label class="font-medium mr-28">Tên môn</label>
+                                <div>
+                                    <select id="subjectIdss" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="subjectId">
-                                    <option value="" hidden>--Chọn môn học--</option>
-                                    <th:block th:each="item,index : ${mon}">
-                                        <option th:value="${item.id}" th:text="${item.name}"></option>
-                                    </th:block>
-                                </select>
-                                <div class="text-sm text-red-600" id="errSubject"></div>
+                                        <option value="" hidden>--Chọn môn học--</option>
+                                        <th:bock th:if="${dataMon != null && #lists.size(dataMon) > 0}">
+                                            <th:block th:each="item,index : ${dataMon}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${subjectId == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errSubject"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="w-2/3 mb-5">
-                        <label class="font-medium mr-28">Điểm lý thuyết 1</label>
-                        <div>
-                            <input id="theory1" type="number" name="theory1" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <div class="w-2/3 mb-5">
+                            <label class="font-medium mr-28">Điểm lý thuyết 1</label>
+                            <div>
+                                <input id="theory1" type="number" name="theory1" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
-                            <div class="text-sm text-red-600" id="errTheory1"></div>
+                                <div class="text-sm text-red-600" id="errTheory1"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-2/3 mb-5">
-                        <label class="font-medium mr-28">Điểm thực hành 1</label>
-                        <div>
-                            <input id="skill1" type="number" name="skill1" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <div class="w-2/3 mb-5">
+                            <label class="font-medium mr-28">Điểm thực hành 1</label>
+                            <div>
+                                <input id="skill1" type="number" name="skill1" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
-                            <div class="text-sm text-red-600" id="errSkill1"></div>
+                                <div class="text-sm text-red-600" id="errSkill1"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="flex justify-end mt-10">
-                        <div
-                                onclick="closeModal()"
-                                class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                        <div class="flex justify-end mt-10">
+                            <div
+                                    onclick="closeModal()"
+                                    class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
                                         ">Hủy
-                        </div>
+                            </div>
 
-                        <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                id="submit">
-                            Gửi
-                        </button>
+                            <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                    id="submit">
+                                Gửi
+                            </button>
+                        </div>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
-</div>
 
-<section aria-label="modalEdit" class="">
-    <div id="modalEdit"
-         class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
-    </div>
-</section>
+    <section aria-label="modalEdit" class="">
+        <div id="modalEdit"
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
+        </div>
+    </section>
 
-<script>
-    $('.edit').click(function () {
-        console.log($(this).data('url'))
-        $.ajax({
-            url: $(this).data('url'),
-            method: 'GET',
-            success: function (p) {
-                $('#modalEdit').html('')
-                $('#modalEdit').html(p)
-            }
+    <script>
+        $('.edit').click(function () {
+            console.log($(this).data('url'))
+            $.ajax({
+                url: $(this).data('url'),
+                method: 'GET',
+                success: function (p) {
+                    $('#modalEdit').html('')
+                    $('#modalEdit').html(p)
+                }
+            })
+
         })
 
-    })
+        //ajax lấy sinh viên theo lớp
+        $('#gradeIds').change(function () {
+            var htmlStudent = '<option value="0" hidden>--Chọn sinh viên--</option>';
 
-    //ajax lấy sinh viên theo lớp
-    $('#gradeIds').change(function () {
-        var htmlStudent = '<option value="0" hidden>--Chọn sinh viên--</option>';
+            $.ajax({
+                url: "/getStudent/" + $(this).val(),
+                success: function (e) {
 
-        $.ajax({
-            url: "/getStudent/" + $(this).val(),
-            success: function (e) {
-
-                $.each(e, function (idex, items) {
-                    htmlStudent += '<option value="' + items.id + '">' + items.fullName + '</option>';
-                })
-                $('#studentIdss').html(htmlStudent);
-            }
+                    $.each(e, function (idex, items) {
+                        htmlStudent += '<option value="' + items.id + '">' + items.fullName + '</option>';
+                    })
+                    $('#studentIdss').html(htmlStudent);
+                }
+            })
         })
-    })
 
-</script>
+        //ajax lấy môn theo lớp
+        $('#gradeIds').change(function () {
+            var htmlSubject = '<option value="0" hidden>--Chọn môn học--</option>';
+
+            $.ajax({
+                url: "/getSubject/" + $(this).val(),
+                success: function (e) {
+
+                    $.each(e, function (idex, items) {
+                        htmlSubject += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#subjectIdss').html(htmlSubject);
+                }
+            })
+        })
+
+        //ajax lấy môn theo lớp
+        $('#gradeIdss').change(function () {
+            var htmlSubject = '<option value="0" hidden>--Chọn môn học--</option>';
+
+            $.ajax({
+                url: "/getSubject/" + $(this).val(),
+                success: function (e) {
+
+                    $.each(e, function (idex, items) {
+                        htmlSubject += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#subjectIds').html(htmlSubject);
+                }
+            })
+        })
+
+    </script>
 
 </div>
 </body>

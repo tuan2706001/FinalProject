@@ -50,5 +50,7 @@ public class Mark extends AbstractBaseEntity {
     @Column(name = "skill2")
     private Short skill2;
 
+    @Column(name = "status")
+    private Short status;
 
 }

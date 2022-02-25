@@ -54,7 +54,7 @@ public class ThongKeSevice {
         Grade grade = gradeRepository.findById(gradeId).orElse(null);
         Major major = majorRepository.findById(grade.getMajorId()).orElse(null);
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Subject> subjects = subjectRepository.findByMajorId(major, pageable);
+        Page<Subject> subjects = subjectRepository.search(major, pageable);
         List<SubjectDTO> listDto = new ArrayList<>();
         for (var item : subjects) {
             listDto.add(toSubjectDto.getDestination(item));

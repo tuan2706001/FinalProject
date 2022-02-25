@@ -8,17 +8,22 @@
 <div th:fragment="thong-ke-mon" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
-            <div class="mr-8 lg:flex text-center xl:text-base  ">
-                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>
-                <select name="type"
-                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="1" class="text-bold justify-center">Đại cương</option>
-                    <option value="2" class="text-bold justify-center">Chuyên ngành</option>
-                </select>
-            </div>
-            <form>
+            <form class="flex">
+                <div class="mr-40 lg:flex text-center xl:text-base  ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>
+                    <select name="type"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                        <option value="1" class="text-bold justify-center">Đại cương</option>
+                        <option value="2" class="text-bold justify-center">Chuyên ngành</option>
+                    </select>
+                </div>
+
+                <div class="mr-20 lg:flex text-center xl:text-base">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Những môn của lớp BKD08K11</div>
+                </div>
+
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-12">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-40 mr-12">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -42,9 +47,6 @@
                 <th>STT</th>
                 <th>Tên môn</th>
                 <th>Loại</th>
-                <th>Lý thuyết</th>
-                <th>Thực hành</th>
-                <th>Số giờ</th>
             </tr>
             </thead>
             <tbody>
@@ -52,15 +54,14 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.type}"></td>
-                <td th:text="${item.theory} == true ? 'có' : 'không'"></td>
-                <td th:text="${item.skill} == true ? 'có' : 'không'"></td>
-                <td th:text="${item.duration}"></td>
+
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="7">Không có dữ liệu</td>
+                <td colspan="3">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
     </div>
 </div>
 </body>

@@ -10,34 +10,6 @@
         <div class="flex justify-center mt-10">
 
             <form class="flex">
-                <div class="mr-2 lg:flex text-center xl:text-base  ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-
-                    <select name="gradeId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn Lớp--</option>
-                        <th:block th:each="item,index : ${lop}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${gradeId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
-
-                <div class="mr-8 lg:flex text-center xl:text-base  ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-
-                    <select name="subjectId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn môn--</option>
-                        <th:block th:each="item,index : ${mon}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${subjectId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
-
                 <div class="justify-self-end">
                     <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
@@ -61,23 +33,23 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Lớp</th>
                 <th>Tên sinh viên</th>
                 <th>Lý thuyết 1</th>
                 <th>Thực hành 1</th>
                 <th>Lý thuyết 2</th>
                 <th>Thực hành 2</th>
+                <th>Kết quả</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.gradeName}"></td>
                 <td th:text="${item.studentName}"></td>
                 <td th:text="${item.theory1}"></td>
                 <td th:text="${item.skill1}"></td>
                 <td th:text="${item.theory2}"></td>
                 <td th:text="${item.skill2}"></td>
+                <td th:text="${item.status}"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
                 <td colspan="9">Không có dữ liệu</td>
@@ -85,6 +57,7 @@
             </tbody>
             </tbody>
         </table>
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
     </div>
 </div>
 </body>
