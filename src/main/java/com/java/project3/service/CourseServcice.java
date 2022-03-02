@@ -41,11 +41,15 @@ public class CourseServcice {
 
     JMapper<CourseDTO, Course> toCourseDto;
     JMapper<Course, CourseDTO> toCourse;
+    JMapper<MajorDTO, Major> toMajorDto;
+    JMapper<Major, MajorDTO> toMajor;
 
 
     public CourseServcice() {
         this.toCourseDto = new JMapper<>(CourseDTO.class, Course.class);
         this.toCourse = new JMapper<>(Course.class, CourseDTO.class);
+        this.toMajorDto = new JMapper<>(MajorDTO.class, Major.class);
+        this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -77,6 +81,7 @@ public class CourseServcice {
             Course result = courseRepository.save(course1);
             CourseDTO courseDTO1 = toCourseDto.getDestination(result);
             responseDto.setObject(courseDTO1);
+
         }
         return responseDto;
     }
@@ -128,6 +133,11 @@ public class CourseServcice {
             }
         }
         return responseDto;
+    }
+
+    public long countAll() {
+        long count = courseRepository.count();
+        return count;
     }
 
 

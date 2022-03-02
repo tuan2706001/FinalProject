@@ -155,7 +155,7 @@
                             <div>
                                 <label class="font-medium mr-6">Lớp</label>
                                 <div class="font-medium mr-48 ml-4">
-                                    <select id="gradeId" class="border rounded-lg w-56 h-10" name="gradeId">
+                                    <select id="gradeIds" class="border rounded-lg w-56 h-10" name="gradeId">
                                         <option value="" hidden>Chọn Lớp</option>
                                         <th:block th:each="item,index : ${lop}">
                                             <option th:value="${item.id}" th:text="${item.name}"></option>

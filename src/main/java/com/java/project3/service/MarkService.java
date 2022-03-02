@@ -111,10 +111,12 @@ public class MarkService {
         Optional<Mark> mark = markRepository.findById(markDTO.getId());
         if (mark.isPresent()) {
             Mark mark1 = toMark.getDestination(mark.get(), markDTO);
-            if (mark1.getTheory2() >=5 && mark1.getSkill2() >= 5) {
-                mark1.setStatus((short) 1);
-            } else {
-                mark1.setStatus((short) 3);
+            if (mark1.getTheory1() <5 && mark1.getSkill1() < 5 ) {
+                if (mark1.getTheory2() >= 5 && mark1.getSkill2() >= 5) {
+                    mark1.setStatus((short) 1);
+                } else {
+                    mark1.setStatus((short) 3);
+                }
             }
             Mark result = markRepository.save(mark1);
             MarkDTO markDTO1 = toMarkDto.getDestination(result);

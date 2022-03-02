@@ -7,6 +7,7 @@ import com.java.project3.domain.Major;
 import com.java.project3.domain.Subject;
 import com.java.project3.dto.GradeDTO;
 import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
@@ -47,11 +48,19 @@ public class MajorService {
 
     JMapper<MajorDTO, Major> toMajorDto;
     JMapper<Major, MajorDTO> toMajor;
+    JMapper<GradeDTO, Grade> toGradeDto;
+    JMapper<Grade, GradeDTO> toGrade;
+    JMapper<SubjectDTO, Subject> toSubjectDto;
+    JMapper<Subject, SubjectDTO> toSubject;
 
 
     public MajorService() {
         this.toMajorDto = new JMapper<>(MajorDTO.class, Major.class);
         this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
+        this.toGradeDto = new JMapper<>(GradeDTO.class, Grade.class);
+        this.toGrade = new JMapper<>(Grade.class, GradeDTO.class);
+        this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
+        this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -113,6 +122,24 @@ public class MajorService {
             Major result = majorRepository.save(major1);
             MajorDTO majorDTO1 = toMajorDto.getDestination(result);
             responseDto.setObject(majorDTO1);
+
+            //update lại tên ngành trong lớp
+            List<Grade> grades = gradeRepository.search(majorDTO.getId());
+            List<GradeDTO> gradeDTOS = new ArrayList<>();
+            for (var item : grades) {
+                gradeDTOS.add(toGradeDto.getDestination(item));
+                item.setMajorName(major1.getName());
+                gradeRepository.save(item);
+            }
+
+            //update lại tên ngành trong môn
+            List<Subject> subjects = subjectRepository.findByMajorId(majorDTO.getId());
+            List<SubjectDTO> subjectDTOS = new ArrayList<>();
+            for (var item : subjects) {
+                subjectDTOS.add(toSubjectDto.getDestination(item));
+                item.setMajorName(major1.getName());
+                subjectRepository.save(item);
+            }
         }
         return responseDto;
     }

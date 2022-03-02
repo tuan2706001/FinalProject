@@ -22,9 +22,20 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-12">
                     <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số khóa </h3>
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li class="mx-auto"><span class="counter text-info" th:text="${countAllCourse}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
                         <h3 class="box-title">Tổng số lớp</h3>
                         <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li class="mx-auto"><span class="counter text-purple" th:each="item,index : ${countAll}"></span></li>
+                            <li class="mx-auto">
+                                <span class="counter text-purple" th:text="${countAllGrade}"></span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -33,16 +44,7 @@
                         <h3 class="box-title">Tổng số sinh viên</h3>
                         <ul class="list-inline two-part  align-items-center mb-0">
                             <li class="mx-auto">
-                                <span class="counter text-success">400</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">Tổng số giáo viên </h3>
-                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li class="mx-auto"><span class="counter text-info">20</span>
+                                <span class="counter text-success" th:text="${countAllStudent}"></span>
                             </li>
                         </ul>
                     </div>

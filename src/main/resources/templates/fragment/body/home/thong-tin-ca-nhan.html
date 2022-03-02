@@ -12,7 +12,8 @@
         </div>
         <div class="h-full w-8/12 rounded-lg bg-white mx-auto mt-10">
 
-            <form action="/updateInfo" th:method="PUT" onsubmit="return checkEditValidate()">
+
+            <form  th:method="PUT" action="/updateInfo">
                 <div class="w-10/12 mx-auto">
                     <div class="text-xl font-medium" style="color: #15597E">Thông tin cá nhân</div>
 
@@ -22,8 +23,8 @@
                                 <label>Họ và tên</label>
                                 <input id="name" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                       placeholder="Họ và tên của bạn" th:value="${data.fullName}" name="fullName">
-                                <input type="hidden" th:value="${data.id}" name="id">
+                                       placeholder="Họ và tên của bạn" name="fullName" >
+<!--                                <input type="hidden" th:value="${data.id}" name="id" >-->
                                 <div class="text-sm text-red-600 h-3 err" id="errName"></div>
                             </div>
 
@@ -31,7 +32,7 @@
                                 <label for="email">Email</label>
                                 <input id="email" type="text"
                                        class="mt-2 w-5/12 w-full border rounded py-1 px-2 border-gray-500"
-                                       placeholder="Email của bạn">
+                                       placeholder="Email của bạn" >
                                 <div class="text-sm text-red-600 h-3 err" id="errEmail"></div>
                             </div>
 

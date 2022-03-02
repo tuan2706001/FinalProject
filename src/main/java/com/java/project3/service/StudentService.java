@@ -2,17 +2,12 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.constant.Enum;
-import com.java.project3.domain.Grade;
-import com.java.project3.domain.Major;
-import com.java.project3.domain.Student;
-import com.java.project3.domain.User;
-import com.java.project3.dto.GradeDTO;
-import com.java.project3.dto.MajorDTO;
-import com.java.project3.dto.StudentDTO;
-import com.java.project3.dto.UserDTO;
+import com.java.project3.domain.*;
+import com.java.project3.dto.*;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.GradeRepository;
+import com.java.project3.repository.MarkRepository;
 import com.java.project3.repository.StudentRepository;
 import com.java.project3.repository.UserRepository;
 import com.java.project3.service.base.GenIdService;
@@ -43,11 +38,15 @@ public class StudentService {
     GenIdService genIdService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    MarkRepository markRepository;
 
     JMapper<StudentDTO, Student> toStudentDto;
     JMapper<Student, StudentDTO> toStudent;
     JMapper<UserDTO, User> toUserDto;
     JMapper<User, UserDTO> toUser;
+    JMapper<MarkDTO, Mark> toMarkDto;
+    JMapper<Mark, MarkDTO> toMark;
 
 
     public StudentService() {
@@ -55,6 +54,8 @@ public class StudentService {
         this.toStudent = new JMapper<>(Student.class, StudentDTO.class);
         this.toUserDto = new JMapper<>(UserDTO.class, User.class);
         this.toUser = new JMapper<>(User.class, UserDTO.class);
+        this.toMarkDto = new JMapper<>(MarkDTO.class, Mark.class);
+        this.toMark = new JMapper<>(Mark.class, MarkDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -119,6 +120,15 @@ public class StudentService {
             Student result = studentRepository.save(student1);
             StudentDTO studentDTO1 = toStudentDto.getDestination(result);
             responseDto.setObject(studentDTO1);
+
+            //update lại tên sinh viên trong điểm
+            List<Mark> marks = markRepository.findByStudentId(studentDTO.getId());
+            List<MarkDTO> markDTOS = new ArrayList<>();
+            for (var item : marks) {
+                markDTOS.add(toMarkDto.getDestination(item));
+                item.setStudentName(student1.getFullName());
+                markRepository.save(item);
+            }
         }
         return responseDto;
     }

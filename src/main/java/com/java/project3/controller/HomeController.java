@@ -47,8 +47,15 @@ public class HomeController {
         model.addAttribute("page", page);
         model.addAttribute("search", search);
 
+        long responseDto3 = gradeServcie.countAll();
+        model.addAttribute("countAllCourse", responseDto3);
+
         long responseDto1 = gradeServcie.countAll();
-        model.addAttribute("countAll", responseDto1);
+        model.addAttribute("countAllGrade", responseDto1);
+
+        long responseDto2 = studentService.countAll();
+        model.addAttribute("countAllStudent", responseDto2);
+
         return "trang-chu";
     }
 
@@ -56,6 +63,9 @@ public class HomeController {
     public String info() {
         return "thong-tin-ca-nhan";
     }
+
+
+
 
 //    @GetMapping("/thong-tin-ca-nhan/{id}")
 //    public  String suaInfo (
@@ -66,7 +76,7 @@ public class HomeController {
 //        model.addAttribute("data", responseDto.getObject());
 //        return "fragment/body/home/thong-tin-ca-nhan";
 //    }
-
+//
 //    @PutMapping("updateInfo")
 //    public String updateInfo(
 //            @ModelAttribute UserDTO userDTO

@@ -1,18 +1,13 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.Course;
-import com.java.project3.domain.Grade;
-import com.java.project3.domain.Major;
-import com.java.project3.domain.Subject;
+import com.java.project3.domain.*;
 import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.MarkDTO;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
-import com.java.project3.repository.CourseRepository;
-import com.java.project3.repository.GradeRepository;
-import com.java.project3.repository.MajorRepository;
-import com.java.project3.repository.SubjectRepository;
+import com.java.project3.repository.*;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -44,15 +39,21 @@ public class SubjectService {
     CourseRepository courseRepository;
     @Autowired
     GradeRepository gradeRepository;
+    @Autowired
+    MarkRepository markRepository;
 
 
     JMapper<SubjectDTO, Subject> toSubjectDto;
     JMapper<Subject, SubjectDTO> toSubject;
+    JMapper<MarkDTO, Mark> toMarkDto;
+    JMapper<Mark, MarkDTO> toMark;
 
 
     public SubjectService() {
         this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
         this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
+        this.toMarkDto = new JMapper<>(MarkDTO.class, Mark.class);
+        this.toMark = new JMapper<>(Mark.class, MarkDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -117,6 +118,15 @@ public class SubjectService {
             Subject result = subjectRepository.save(subject1);
             SubjectDTO subjectDTO1 = toSubjectDto.getDestination(result);
             responseDto.setObject(subjectDTO1);
+
+            //update lại môn trong điểm
+            List<Mark> marks = markRepository.findBySubjectId(subjectDTO.getId());
+            List<MarkDTO> markDTOS = new ArrayList<>();
+            for (var item : marks) {
+                markDTOS.add(toMarkDto.getDestination(item));
+                item.setSubjectName(subject1.getName());
+                markRepository.save(item);
+            }
         }
         return responseDto;
     }

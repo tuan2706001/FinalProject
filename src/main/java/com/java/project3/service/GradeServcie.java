@@ -3,6 +3,8 @@ package com.java.project3.service;
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
 import com.java.project3.dto.GradeDTO;
+import com.java.project3.dto.MarkDTO;
+import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -44,11 +46,19 @@ public class GradeServcie {
 
     JMapper<GradeDTO, Grade> toGradeDto;
     JMapper<Grade, GradeDTO> toGrade;
+    JMapper<StudentDTO, Student> toStudentDto;
+    JMapper<Student, StudentDTO> toStudent;
+    JMapper<MarkDTO, Mark> toMarkDto;
+    JMapper<Mark, MarkDTO> toMark;
 
 
     public GradeServcie() {
         this.toGradeDto = new JMapper<>(GradeDTO.class, Grade.class);
         this.toGrade = new JMapper<>(Grade.class, GradeDTO.class);
+        this.toStudentDto = new JMapper<>(StudentDTO.class, Student.class);
+        this.toStudent = new JMapper<>(Student.class, StudentDTO.class);
+        this.toMarkDto = new JMapper<>(MarkDTO.class, Mark.class);
+        this.toMark = new JMapper<>(Mark.class, MarkDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -97,6 +107,24 @@ public class GradeServcie {
             Grade result = gradeRepository.save(grade1);
             GradeDTO gradeDTO1 = toGradeDto.getDestination(result);
             responseDto.setObject(gradeDTO1);
+
+            //update lại tên lớp trong student
+            List<Student> students = studentRepository.findByGradeId(gradeDTO.getId());
+            List<StudentDTO> studentDTOS = new ArrayList<>();
+            for (var item : students) {
+                studentDTOS.add(toStudentDto.getDestination(item));
+                item.setGradeName(grade1.getName());
+                studentRepository.save(item);
+            }
+
+            //update lại tên lớp trong điểm
+            List<Mark> marks = markRepository.findByGradeId(gradeDTO.getId());
+            List<MarkDTO> markDTOS = new ArrayList<>();
+            for (var item : marks) {
+                markDTOS.add(toMarkDto.getDestination(item));
+                item.setGradeName(grade1.getName());
+                markRepository.save(item);
+            }
         }
         return responseDto;
     }

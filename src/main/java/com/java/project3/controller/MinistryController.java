@@ -76,7 +76,7 @@ public class MinistryController {
 //        return "thong-tin-ca-nhan";
 //    }
 
-    @GetMapping("/thong-tin-ca-nhan/{id}")
+    @GetMapping("thong-tin-ca-nhan/{id}")
     public  String suaInfo (
             @PathVariable("id") Long id,
             Model model

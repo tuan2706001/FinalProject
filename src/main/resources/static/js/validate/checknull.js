@@ -8,17 +8,17 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#majorId').val() === ""){
+    if ($('#majorIdss').val() === ""){
         check = false
-        var id = "majorId"
+        var id = "majorIdss"
         var err = "errMajor"
         var mess = "Hãy chọn ngành"
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#courseId').val() === ""){
+    if ($('#courseIds').val() === ""){
         check = false
-        var id = "courseId"
+        var id = "courseIds"
         var err = "errCourse"
         var mess = "Hãy chọn khóa"
         checkEmptyValidate(id, mess, err)
@@ -37,6 +37,14 @@ function checkValidate(){
         var id = "email"
         var err = "errEmail"
         var mess = "Email không được để trống"
+        checkEmptyValidate(id, mess, err)
+    }
+
+    if ($('#password').val() === ""){
+        check = false
+        var id = "password"
+        var err = "errPassword"
+        var mess = "Password không được để trống"
         checkEmptyValidate(id, mess, err)
     }
 
@@ -96,9 +104,9 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#gradeId').val() === ""){
+    if ($('#gradeIds').val() === ""){
         check = false
-        var id = "gradeId"
+        var id = "gradeIds"
         var err = "errGrade"
         var mess = "Hãy chọn lớp"
         checkEmptyValidate(id, mess, err)
@@ -121,17 +129,17 @@ function checkValidate(){
     //     checkEmptyValidate(id, mess, err)
     // }
 
-    if ($('#studentId').val() === ""){
+    if ($('#studentIdss').val() === ""){
         check = false
-        var id = "studentId"
+        var id = "studentIdss"
         var err = "errStudent"
         var mess = "Hãy chọn sinh viên"
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#subjectId').val() === ""){
+    if ($('#subjectIdss').val() === ""){
         check = false
-        var id = "subjectId"
+        var id = "subjectIdss"
         var err = "errSubject"
         var mess = "Hãy chọn môn học"
         checkEmptyValidate(id, mess, err)

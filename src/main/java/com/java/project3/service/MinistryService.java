@@ -15,6 +15,8 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class MinistryService {
     GenIdService genIdService;
     @Autowired
     MinistryService ministryService;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     JMapper<UserDTO, User> toUserDto;
     JMapper<User, UserDTO> toUser;
@@ -57,6 +61,7 @@ public class MinistryService {
         ResponseDto responseDto = new ResponseDto();
         User user = toUser.getDestination(userDTO);
         user.setId(genIdService.nextId());
+        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         user.setIsDeleted(false);
         User result = userRepository.save(user);
         var temp = toUserDto.getDestination(result);

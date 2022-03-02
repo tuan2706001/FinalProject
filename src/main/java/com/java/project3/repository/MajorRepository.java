@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MajorRepository extends JpaRepository<Major, Long>, JpaSpecificationExecutor<Major> {
 
@@ -14,4 +15,7 @@ public interface MajorRepository extends JpaRepository<Major, Long>, JpaSpecific
 
     @Query(value = "SELECT c.* FROM #{#entityName} c WHERE c.course_id = :course_id", nativeQuery = true)
     Major delete(@Param("course_id") Long courseId);
+
+    @Query(value = "SELECT c.* FROM #{#entityName} c WHERE c.course_id = :course_id", nativeQuery = true)
+    Major findCourseId(@Param("course_id") Long courseId);
 }

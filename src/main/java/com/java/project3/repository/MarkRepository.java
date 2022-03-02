@@ -18,10 +18,12 @@ public interface MarkRepository extends JpaRepository<Mark, Long>, JpaSpecificat
     @Query(value = "SELECT  s.* FROM #{#entityName} s WHERE s.subject_id = :subject_id AND s.grade_id = :grade_id", nativeQuery = true)
     Page<Mark> findBySubjectIdAndGradeId(@Param("subject_id") Subject subjectId, @Param("grade_id") Grade gradeId, Pageable pageable);
 
-    Mark findByGradeId(Long gradeId);
+    List<Mark> findByGradeId(Long gradeId);
 
     List<Mark> findBySubjectId(Long id);
 
     List<Mark> findByGradeIdAndSubjectId(Long gradeId, Long subjectId);
+
+    List<Mark> findByStudentId(Long studentId);
 
 }
