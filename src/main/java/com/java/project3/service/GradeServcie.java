@@ -74,11 +74,9 @@ public class GradeServcie {
 //    public ResponseDto findByMarkId(Long id) {
 //        ResponseDto responseDto = new ResponseDto();
 //        Optional<Mark> mark = markRepository.findById(id);
-//        Grade grades = gradeRepository.fi(mark.get().getSubjectId());
-//        List<GradeDTO> gradeDTOS = new ArrayList<>();
-//        for (var item : grades) {
-//            gradeDTOS.add(toGradeDto.getDestination(item));
-//        }
+//        Grade grade = gradeRepository.fi(mark.get().getSubjectId());
+//        GradeDTO gradeDTO = toGradeDto.getDestination(grade)
+//
 //        responseDto.setObject(gradeDTOS);
 //        return responseDto;
 //    }
@@ -118,7 +116,7 @@ public class GradeServcie {
             }
 
             //update lại tên lớp trong điểm
-            List<Mark> marks = markRepository.findByGradeId(gradeDTO.getId());
+            List<Mark> marks = markRepository.searchByGradeId(gradeDTO.getId());
             List<MarkDTO> markDTOS = new ArrayList<>();
             for (var item : marks) {
                 markDTOS.add(toMarkDto.getDestination(item));

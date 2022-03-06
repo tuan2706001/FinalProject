@@ -6,6 +6,7 @@ public enum Enum {
     GIAO_VU((short) 2),
     SINH_VIEN((short) 3);
 
+
     public Short value;
 
     Enum(Short value) {

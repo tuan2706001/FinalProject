@@ -69,15 +69,18 @@
                 <th>Tên lớp</th>
             </tr>
             </thead>
-            <tbody>
-                <tr th:each="item,index : ${findAll}">
+            <th:tbody th:each="item,index : ${findAll}">
+                <tr class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                     <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                    <td th:text="${item.name}"><a th:href="/quan-ly-khoa"></a></td>
+
+                    <td>
+                        <a th:href="${url + item.id}" th:text="${item.name}"></a>
+                    </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(findAll)}">
                     <td colspan="2">Không có dữ liệu</td>
                 </tr>
-            </tbody>
+            </th:tbody>
         </table>
 
 

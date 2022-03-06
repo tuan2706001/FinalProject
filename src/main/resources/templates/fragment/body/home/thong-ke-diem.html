@@ -10,8 +10,25 @@
         <div class="flex justify-center mt-10">
 
             <form class="flex">
+
+                <div class="mr-48 lg:flex xl:text-base ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Môn</div>
+                    <select name="courseId" id="courseId"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
+                        <option value="0" hidden>--Chọn môn--</option>
+                        <th:block th:each="item,index : ${khoa}">
+                            <option th:value="${item.id}" th:text="${item.name}"
+                                    th:selected="${courseId == item.id ? true : false}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+                <div class="mr-8 ml-20 lg:flex xl:text-base ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Thống kê điểm theo lớp </div>
+                </div>
+
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-60 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -33,6 +50,7 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
+                <th>Môn</th>
                 <th>Tên sinh viên</th>
                 <th>Lý thuyết 1</th>
                 <th>Thực hành 1</th>
@@ -44,12 +62,13 @@
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
+                <td th:text="${item.subjectName}"></td>
                 <td th:text="${item.studentName}"></td>
                 <td th:text="${item.theory1}"></td>
                 <td th:text="${item.skill1}"></td>
                 <td th:text="${item.theory2}"></td>
                 <td th:text="${item.skill2}"></td>
-                <td th:text="${item.status}"></td>
+                <td th:text="${item.status}  == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
                 <td colspan="9">Không có dữ liệu</td>

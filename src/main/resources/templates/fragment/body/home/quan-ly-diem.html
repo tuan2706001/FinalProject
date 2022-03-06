@@ -18,13 +18,14 @@
 
                 <select name="gradeId" id="gradeIdss"
                         class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="0" hidden>--Chọn Lớp--</option>
+                    <option value="0" hidden>--Chọn lớp--</option>
                     <th:block th:each="item,index : ${lop}">
                         <option th:value="${item.id}" th:text="${item.name}"
                                 th:selected="${gradeId == item.id ? true : false}"></option>
                     </th:block>
                 </select>
             </div>
+
             <form class="flex">
                 <div class="mr-8 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
@@ -41,10 +42,26 @@
                     </select>
                 </div>
 
+                <div class="mr-2 lg:flex text-center xl:text-base ml-36">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+
+                    <select name="status"
+                            id="status"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-48 h-8 w-52 rounded"
+                            onchange="this.form.submit()">
+                        <option value="0" hidden>--Chọn kết quả--</option>
+                            <option th:value="1" th:selected="${status} == 1 ? true : false">Qua môn</option>
+                            <option th:value="2" th:selected="${status} == 2 ? true : false">Thi lại</option>
+                            <option th:value="3" th:selected="${status} == 3 ? true : false">Học lại</option>
+                        </th:block>
+                    </select>
+                </div>
+
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-10 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
+                               id="search"
                                th:value="${search}">
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" class="xl:h-6 xl:w-6 lg:w-5 lg:w-5 w-6 w-6"
@@ -256,7 +273,7 @@
             })
         })
 
-        //ajax lấy môn theo lớp
+        //ajax lấy môn theo lớp (hàm create)
         $('#gradeIds').change(function () {
             var htmlSubject = '<option value="0" hidden>--Chọn môn học--</option>';
 
@@ -272,7 +289,7 @@
             })
         })
 
-        //ajax lấy môn theo lớp
+        //ajax lấy môn theo lớp (hàm danh sách)
         $('#gradeIdss').change(function () {
             var htmlSubject = '<option value="0" hidden>--Chọn môn học--</option>';
 
@@ -287,7 +304,23 @@
                 }
             })
         })
+        $('#subjectIds').change(function () {
+            url = '/quan-ly-diem?'
+            if ($('#gradeIdss').val() !== ''){
+                url += 'gradeId=' + $('#gradeIdss').val()
+            }
+            if ($('#status').val() !== ''){
+                url += '&status=' + $('#status').val()
+            }
+            if ($('#subjectIds').val() !== ''){
+                url += '&subjectId=' + $('#subjectIds').val()
+            }
+            if ($('#search').val() !== ''){
+                url += '&search=' + $('#search').val()
+            }
 
+            window.location.href= url;
+        })
     </script>
 
 </div>

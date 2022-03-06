@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import static com.java.project3.constant.UriConstans.THONG_KE_DIEM;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class ThongKeController {
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
+        model.addAttribute("url", THONG_KE_DIEM);
 
 
         //get khóa
@@ -133,7 +135,7 @@ public class ThongKeController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, studentId, subjectId);
+        ResponseDto responseDto = markService.findByGradeId(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, subjectId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);

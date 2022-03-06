@@ -1,7 +1,8 @@
 <div class="modal-content w-6/12 mx-auto my-10">
     <div class="modal-header h-14 w-full flex justify-between items-center px-10">
         <div class="text-xl ">Sửa điểm</div>
-        <span class="close transition duration-300 closeModalEdit">&times;</span>
+        <button><span class="closeModal transition duration-300"
+                      onclick="$('#modalEdit').css('display','none')">x</span></button>
     </div>
 
     <form th:method="PUT" action="/updateMark" onsubmit="return checkEditValidate()">
@@ -15,6 +16,7 @@
                         <input type="text" name="studentName" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.studentName}" readonly/>
                         <input type="hidden" th:value="${data.id}" name="id">
+                        <input type="hidden" th:value="${data.status}" name="status">
                     </div>
                 </div>
 
@@ -36,16 +38,16 @@
                 <div class="w-2/3 mr-12">
                     <label class="font-medium mr-28">Điểm lý thuyết 1</label>
                     <div>
-                        <input id="theory1" type="number" name="theory1" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.theory1}"/>
+                        <input id="theory1" type="number" name="theory1" class="theory1 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" readonly th:value="${data.theory1}"/>
                     </div>
                 </div>
 
                 <div class="w-2/3 ml-12">
                     <label class="font-medium mr-28">Điểm thực hành 1</label>
                     <div>
-                        <input id="skill1"  type="number" name="skill1" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.skill1}"/>
+                        <input id="skill1"  type="number" name="skill1" class=" skill1 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" readonly th:value="${data.skill1}"/>
                     </div>
                 </div>
             </div>
@@ -55,7 +57,7 @@
                 <div class="w-2/3 mr-12">
                     <label class="font-medium mr-28">Điểm lý thuyết 2</label>
                     <div>
-                        <input id="theory2" type="number" name="theory2" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <input id="theory2" type="number" name="theory2" class="theory2 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.theory2}"/>
                         <div class="text-sm text-red-600" id="errTheory2"></div>
                     </div>
@@ -64,21 +66,22 @@
                 <div class="w-2/3 ml-12">
                     <label class="font-medium mr-28">Điểm thực hành 2</label>
                     <div>
-                        <input  type="number" name="skill2" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                        <input id="skill2"  type="number" name="skill2" class="skill2 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" th:value="${data.skill2}"/>
+                        <div class="text-sm text-red-600" id="errSkill2"></div>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-end mt-10">
                 <div
-                        onclick="closeModal()"
+                        onclick="$('#modalEdit').css('display','none')"
                         class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
                                         ">Hủy
                 </div>
 
                 <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                        id="submit" onclick="console.log($('#theory1').val())">
+                        id="submit">
                     Gửi
                 </button>
             </div>

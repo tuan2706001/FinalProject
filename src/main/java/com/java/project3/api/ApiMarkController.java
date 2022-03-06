@@ -19,8 +19,11 @@ public class ApiMarkController {
     }
 
     @GetMapping("")
-    public ResponseDto find(@RequestParam("grade_id") Long gradeId,
-                            @RequestParam("subject_id") Long subjectId) {
-        return markService.findByGradeAndSubject(gradeId, subjectId);
+    public ResponseDto find(@RequestParam(name = "page_index", required = false) Integer pageIndex,
+                            @RequestParam(name = "page_size", required = false) Integer pageSize,
+                            @RequestParam(name = "grade_id", required = false) Long gradeId,
+                            @RequestParam(name = "subject_id", required = false) Long subjectId,
+                            @RequestParam(name = "search", required = false) String search) {
+        return markService.findByGradeId(pageIndex, pageSize, search, gradeId, subjectId);
     }
 }

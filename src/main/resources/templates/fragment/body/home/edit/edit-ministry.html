@@ -1,7 +1,8 @@
 <div class="modal-content w-6/12 mx-auto my-10">
     <div class="modal-header h-14 w-full flex justify-between items-center px-10">
         <div class="text-xl ">Sửa giáo vụ</div>
-        <span class="close transition duration-300 closeModalEdit">&times;</span>
+        <button><span class="closeModal transition duration-300"
+                      onclick="$('#modalEdit').css('display','none')">x</span></button>
     </div>
     <div class="w-full p-5">
         <div class=" z-50">
@@ -84,7 +85,7 @@
                                         <label>
                                             <input  type="radio" name="role"
                                                    class="mr-3 mt-1 outline-none callType"
-                                                   th:value="1" th:checked="${data.role == 1 ? true : false }" Quản lý
+                                                   th:value="1" th:checked="${data.role == 1 ? true : false }"> Quản lý
                                         </label>
                                     </div>
                                     <div class="mr-5 ml-5 flex my-5">
@@ -135,7 +136,7 @@
 
                     <div class="flex justify-end mt-10">
                         <div
-                                onclick="closeModal()"
+                                onclick="$('#modalEdit').css('display','none')"
                                 class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
                                         ">Hủy
                         </div>

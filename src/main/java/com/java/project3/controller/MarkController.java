@@ -9,11 +9,14 @@ import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
 import com.java.project3.service.*;
 import com.java.project3.utils.PageUltil;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -38,7 +41,9 @@ public class MarkController {
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "gradeId", required = false) Long gradeId,
             @RequestParam(value = "studentId", required = false) Long studentId,
-            @RequestParam(value = "subjectId", required = false) Long subjectId
+            @RequestParam(value = "subjectId", required = false) Long subjectId,
+            @RequestParam(value = "status", required = false) Short status,
+            HttpServletResponse response
     ) {
         if (gradeId == null || gradeId == 0) {
             gradeId = null;
@@ -52,12 +57,14 @@ public class MarkController {
 
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, studentId, subjectId);
+        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search , gradeId, studentId, status, subjectId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
+        model.addAttribute("status", status);
+
 
         //get lớp
         SearchReqDto searchReqDtoLop = new SearchReqDto();
@@ -90,22 +97,27 @@ public class MarkController {
         //dùng ajax lọc danh sách môn học theo lớp
         List<SubjectDTO> subjectDTOS = null;
         if (subjectId != null) {
-            ResponseDto subject = subjectService.findById(subjectId);
-            SubjectDTO subjectDTO = (SubjectDTO) subject.getObject();
+//            ResponseDto subject = subjectService.findById(subjectId);
+//            SubjectDTO subjectDTO = (SubjectDTO) subject.getObject();
+//            ResponseDto grade = gradeServcie.findById(gradeId);
+//            GradeDTO gradeDTO = (GradeDTO) grade.getObject();
+            model.addAttribute("gradeIdss", gradeId);
 
-            ResponseDto mark = markService.findBySubjectId(subjectDTO.getId());
-            List<MarkDTO> markDTO = (List<MarkDTO>) mark.getObject();
-
-
-//            ResponseDto grade = gradeServcie.findByMarkId(((MarkDTO) mark.getObject()).getGradeId());
-//            List<GradeDTO> gradeDTO = (List<GradeDTO>) grade.getObject();
+//            ResponseDto grade = markService.findByGradeId(gradeId);
+//            GradeDTO gradeDTO = (GradeDTO) grade.getObject();
 //            model.addAttribute("gradeIdss", gradeDTO.getId());
-//
-//            ResponseDto responseDto2 = subjectService.findByGradeId(gradeDTO.getId());
-//            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
-//            model.addAttribute("subjectIds", subjectId);
+
+            ResponseDto responseDto2 = subjectService.findByGradeId(gradeId);
+            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
+            model.addAttribute("subjectIds", subjectId);
+            String id = subjectId.toString();
+            Cookie jwtCookie = new Cookie("idAdmin", id);
+            response.addCookie(jwtCookie);
 
         }
+//        ResponseDto mark = markService.findByGradeAndSubject(subjectId, gradeId);
+//        List<MarkDTO> markDTO = (List<MarkDTO>) mark.getObject();
+//        model.addAttribute("findAll", markDTO);
         model.addAttribute("dataMons", subjectDTOS);
 
 
