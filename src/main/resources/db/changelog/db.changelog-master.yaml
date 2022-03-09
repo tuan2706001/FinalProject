@@ -8,10 +8,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/db.changelog-master-grade.yaml
   - include:
-      file: db/changelog/db.changelog-master-role.yaml
-  - include:
-      file: db/changelog/db.changelog-master-user-role.yaml
-  - include:
       file: db/changelog/db.changelog-master-student.yaml
   - include:
       file: db/changelog/db.changelog-master-subject.yaml

@@ -20,21 +20,4 @@ public class CourseDTO {
     @JMap
     private String name;
 
-    @JMap
-    private LocalDateTime createdAt;
-
-    @JMap
-    private Long createdBy;
-
-    @JMap
-    private String createdByName;
-
-    @JMap
-    private LocalDateTime updatedAt;
-
-    @JMap
-    private Long updatedBy;
-
-    @JMap
-    private String updatedByName;
 }

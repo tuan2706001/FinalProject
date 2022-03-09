@@ -27,31 +27,4 @@ public abstract class AbstractBaseEntity implements AuditAuto, Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "created_at")
-    @JsonIgnore
-    private LocalDateTime createdAt;
-
-    @Column(name = "created_by")
-    @JsonIgnore
-    private Long createdBy;
-
-    @Column(name = "created_by_name")
-    @JsonIgnore
-    private String createdByName;
-
-    @Column(name = "updated_at")
-    @JsonIgnore
-    private LocalDateTime updatedAt;
-
-    @Column(name = "updated_by")
-    @JsonIgnore
-    private Long updatedBy;
-
-    @Column(name = "updated_by_name")
-    @JsonIgnore
-    private String updatedByName;
-
-    @Column(name = "is_deleted")
-    @JsonIgnore
-    private Boolean isDeleted;
 }

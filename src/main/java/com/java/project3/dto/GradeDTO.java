@@ -26,21 +26,6 @@ public class GradeDTO {
     @JMap
     private String majorName;
 
-    @JMap
-    private LocalDateTime createdAt;
+    private Long sumStudent;
 
-    @JMap
-    private Long createdBy;
-
-    @JMap
-    private String createdByName;
-
-    @JMap
-    private LocalDateTime updatedAt;
-
-    @JMap
-    private Long updatedBy;
-
-    @JMap
-    private String updatedByName;
 }
