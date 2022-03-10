@@ -66,7 +66,6 @@ public class CourseServcice {
         ResponseDto responseDto = new ResponseDto();
         Course course = toCourse.getDestination(courseDTO);
         course.setId(genIdService.nextId());
-        course.setIsDeleted(false);
         Course result = courseRepository.save(course);
         var temp = toCourseDto.getDestination(result);
         responseDto.setObject(temp);

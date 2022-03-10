@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-//    @Query(value = "SELECT * FROM #{#entityName} where email = :email", nativeQuery = true)
-//    List<User> findByEmail(String email);
-
     Optional<User> findByEmail(String email);
+
+    @Query(value = "select count(t) from #{#entityName} t WHERE t.email = :email")
+    Long countEmail(String email);
 
 }

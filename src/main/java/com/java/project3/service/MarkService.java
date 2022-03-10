@@ -146,7 +146,6 @@ public class MarkService {
         mark.setStudentName(student.getFullName());
         mark.setSubjectName(subject.getName());
         mark.setGradeName(grade.getName());
-        mark.setIsDeleted(false);
         if (mark.getTheory1() >= 5 && mark.getSkill1() >= 5) {
             mark.setStatus((short) 1);
         } else {

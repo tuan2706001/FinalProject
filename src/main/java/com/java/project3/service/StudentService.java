@@ -16,6 +16,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class StudentService {
     UserRepository userRepository;
     @Autowired
     MarkRepository markRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     JMapper<StudentDTO, Student> toStudentDto;
     JMapper<Student, StudentDTO> toStudent;
@@ -86,7 +89,6 @@ public class StudentService {
         student.setId(genIdService.nextId());
         student.setGradeName(grade.get().getName());
         student.setPassword("123456");
-        student.setIsDeleted(false);
         Student result = studentRepository.save(student);
         var temp = toStudentDto.getDestination(result);
         responseDto.setObject(temp);
@@ -98,12 +100,11 @@ public class StudentService {
         user.setFullName(studentDTO.getFullName());
         user.setEmail(studentDTO.getEmail());
         user.setPhone(studentDTO.getPhone());
-        user.setPassword("123456");
+        user.setPassword(bCryptPasswordEncoder.encode("123456"));
         user.setGender(studentDTO.getGender());
         user.setBirthday(studentDTO.getBirthday());
         user.setAddress(studentDTO.getAddress());
         user.setRole(Enum.SINH_VIEN.value);
-        user.setIsDeleted(false);
         User result1 = userRepository.save(user);
         var temp1 = toUserDto.getDestination(result1);
         return responseDto;

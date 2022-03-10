@@ -71,24 +71,12 @@ public class GradeServcie {
         return responseDto;
     }
 
-//    public ResponseDto findByMarkId(Long id) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<Mark> mark = markRepository.findById(id);
-//        Grade grade = gradeRepository.fi(mark.get().getSubjectId());
-//        GradeDTO gradeDTO = toGradeDto.getDestination(grade)
-//
-//        responseDto.setObject(gradeDTOS);
-//        return responseDto;
-//    }
-
-
     public ResponseDto create(GradeDTO gradeDTO) {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(gradeDTO.getMajorId());
         Grade grade = toGrade.getDestination(gradeDTO);
         grade.setId(genIdService.nextId());
         grade.setMajorName(major.get().getName());
-        grade.setIsDeleted(false);
         Grade result = gradeRepository.save(grade);
         var temp = toGradeDto.getDestination(result);
         responseDto.setObject(temp);
@@ -136,7 +124,12 @@ public class GradeServcie {
         // entity -> dto
         List<GradeDTO> gradeDTOS = new ArrayList<>();
         for (var grade : grades) {
-            gradeDTOS.add(toGradeDto.getDestination(grade));
+            GradeDTO gradeDTO = toGradeDto.getDestination(grade);
+            Major major = majorRepository.findById(gradeDTO.getMajorId()).orElse(null);
+            Course course = courseRepository.findById(major.getCourseId()).orElse(null);
+            gradeDTO.setCourseName(course.getName());
+            gradeDTO.setSumStudent(studentRepository.countStudentByGradeId(grade.getId()));
+            gradeDTOS.add(gradeDTO);
         }
         responseDto.setObject(prepareResponseForSearch(grades.getTotalPages(), grades.getNumber(), grades.getTotalElements(), gradeDTOS));
         return responseDto;

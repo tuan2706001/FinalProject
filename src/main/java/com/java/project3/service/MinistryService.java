@@ -1,10 +1,7 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.Major;
-import com.java.project3.domain.Student;
 import com.java.project3.domain.User;
-import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.UserDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,13 +55,15 @@ public class MinistryService {
 
     public ResponseDto create(UserDTO userDTO) {
         ResponseDto responseDto = new ResponseDto();
-        User user = toUser.getDestination(userDTO);
-        user.setId(genIdService.nextId());
-        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
-        user.setIsDeleted(false);
-        User result = userRepository.save(user);
-        var temp = toUserDto.getDestination(result);
-        responseDto.setObject(temp);
+        Long email = userRepository.countEmail(userDTO.getEmail());
+        if (email == 0) {
+            User user = toUser.getDestination(userDTO);
+            user.setId(genIdService.nextId());
+            user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            User result = userRepository.save(user);
+            var temp = toUserDto.getDestination(result);
+            responseDto.setObject(temp);
+        }
         return responseDto;
     }
 
@@ -90,13 +88,16 @@ public class MinistryService {
         // entity -> dto
         List<UserDTO> userDTOS = new ArrayList<>();
         for (var user : users) {
-            userDTOS.add(toUserDto.getDestination(user));
+            if (user.getStatus() != null) {
+                UserDTO userDTO = toUserDto.getDestination(user);
+                userDTOS.add(userDTO);
+            }
         }
         responseDto.setObject(prepareResponseForSearch(users.getTotalPages(), users.getNumber(), users.getTotalElements(), userDTOS));
         return responseDto;
     }
 
-    public ResponseDto searchMajorBy(Integer pageIndex, Integer pageSize, String name) {
+    public ResponseDto searchMajorBy(Integer pageIndex, Integer pageSize, String search) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -107,8 +108,8 @@ public class MinistryService {
         sort.add("id");
         searchReqDto.setSorts(sort);
         String sql = "";
-        if (name != null) {
-            sql = "S-fullName=L\"" + name + "\"";
+        if (search != null) {
+            sql = "S-fullName=L\"" + search + "\", S-email=L\"" + search + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

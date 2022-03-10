@@ -111,8 +111,6 @@ public class MarkController {
             subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
             model.addAttribute("subjectIds", subjectId);
             String id = subjectId.toString();
-            Cookie jwtCookie = new Cookie("idAdmin", id);
-            response.addCookie(jwtCookie);
 
         }
 //        ResponseDto mark = markService.findByGradeAndSubject(subjectId, gradeId);

@@ -38,4 +38,6 @@ public class SubjectDTO {
     @JMap
     private String majorName;
 
+    private String courseName;
+
 }

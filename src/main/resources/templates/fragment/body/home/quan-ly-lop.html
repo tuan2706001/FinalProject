@@ -64,16 +64,20 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên lớp</th>
+                <th>tên khóa</th>
                 <th>Tên ngành</th>
+                <th>Tên lớp</th>
+                <th>Số sinh viên</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
+                <td th:text="${item.courseName}"></td>
                 <td th:text="${item.majorName}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.sumStudent} == null ? 0 : ${item.sumStudent}"></td>
                 <td>
 
                     <div class=" rounded-full relative menu2 flex justify-center items-center">

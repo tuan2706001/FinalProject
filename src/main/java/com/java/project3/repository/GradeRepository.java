@@ -20,6 +20,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long>, JpaSpecific
     @Query(value = "SELECT  s.* FROM #{#entityName} s WHERE s.major_id = :major_id", nativeQuery = true)
     List<Grade> search(@Param("major_id") Long majorId);
 
-
+    Long countByMajorId(Long majorId);
 
 }

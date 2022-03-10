@@ -47,9 +47,9 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Loại</th>
-                <th>Tên môn</th>
+                <th>Khóa</th>
                 <th>Ngành</th>
+                <th>Tên môn</th>
                 <th>Lý thuyết</th>
                 <th>Thực hành</th>
                 <th>Số giờ</th>
@@ -59,9 +59,9 @@
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.type}"></td>
-                <td th:text="${item.name}"></td>
+                <td th:text="${item.courseName}"></td>
                 <td th:text="${item.majorName}"></td>
+                <td th:text="${item.name}"></td>
                 <td th:text="${item.theory} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.skill} == true ? 'có' : 'không'"></td>
                 <td th:text="${item.duration}"></td>

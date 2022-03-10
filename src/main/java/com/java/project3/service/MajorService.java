@@ -105,7 +105,6 @@ public class MajorService {
         Major major = toMajor.getDestination(majorDTO);
         major.setId(genIdService.nextId());
         major.setCourseName(course.getName());
-        major.setIsDeleted(false);
         Major result = majorRepository.save(major);
         var temp = toMajorDto.getDestination(result);
         responseDto.setObject(temp);

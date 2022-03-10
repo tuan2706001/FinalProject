@@ -86,7 +86,6 @@ public class SubjectService {
         ResponseDto responseDto = new ResponseDto();
         Subject subject = toSubject.getDestination(subjectDTO);
         subject.setId(genIdService.nextId());
-        subject.setIsDeleted(false);
         Subject result = subjectRepository.save(subject);
         var temp = toSubjectDto.getDestination(result);
         responseDto.setObject(temp);
@@ -100,7 +99,6 @@ public class SubjectService {
         Subject subject = toSubject.getDestination(subjectDTO);
         subject.setId(genIdService.nextId());
         subject.setMajorName(major.getName());
-        subject.setIsDeleted(false);
         Subject result = subjectRepository.save(subject);
         var temp = toSubjectDto.getDestination(result);
         responseDto.setObject(temp);
@@ -140,7 +138,15 @@ public class SubjectService {
         // entity -> dto
         List<SubjectDTO> subjectDTOS = new ArrayList<>();
         for (var subject : subjects) {
-            subjectDTOS.add(toSubjectDto.getDestination(subject));
+            if (subject.getMajorId() != null) {
+                SubjectDTO subjectDTO = toSubjectDto.getDestination(subject);
+                Major major = majorRepository.findById(subjectDTO.getMajorId()).get();
+                Course course = courseRepository.findById(major.getCourseId()).get();
+                subjectDTO.setCourseName(course.getName());
+                subjectDTOS.add(subjectDTO);
+            } else {
+                subjectDTOS.add(toSubjectDto.getDestination(subject));
+            }
         }
         responseDto.setObject(prepareResponseForSearch(subjects.getTotalPages(), subjects.getNumber(), subjects.getTotalElements(), subjectDTOS));
         return responseDto;

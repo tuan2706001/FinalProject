@@ -15,4 +15,6 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
 
     @Query(value = "SELECT c.* FROM #{#entityName} c WHERE c.grade_id = :grade_id", nativeQuery = true)
     Student delete(@Param("grade_id") Long gradeId);
+
+    Long countStudentByGradeId(Long gradeId);
 }

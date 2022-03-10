@@ -28,4 +28,6 @@ public class GradeDTO {
 
     private Long sumStudent;
 
+    private String courseName;
+
 }
