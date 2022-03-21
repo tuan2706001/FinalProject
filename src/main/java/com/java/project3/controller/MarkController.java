@@ -40,7 +40,6 @@ public class MarkController {
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "gradeId", required = false) Long gradeId,
-            @RequestParam(value = "studentId", required = false) Long studentId,
             @RequestParam(value = "subjectId", required = false) Long subjectId,
             @RequestParam(value = "status", required = false) Short status,
             HttpServletResponse response
@@ -48,22 +47,21 @@ public class MarkController {
         if (gradeId == null || gradeId == 0) {
             gradeId = null;
         }
-        if (studentId == null || studentId == 0) {
-            studentId = null;
-        }
         if (subjectId == null || subjectId == 0) {
             subjectId = null;
         }
 
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search , gradeId, studentId, status, subjectId);
+        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search , gradeId, status, subjectId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
         model.addAttribute("status", status);
+//        model.addAttribute("gradeId", gradeId);
+//        model.addAttribute("subjectId", subjectId);
 
 
         //get lớp
@@ -73,16 +71,8 @@ public class MarkController {
         ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
         SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
         model.addAttribute("lop", searchResDtoLop.getData());
-        model.addAttribute("gradeIdss", gradeId);
+        model.addAttribute("gradeId", gradeId);
 
-        //get sinh vien
-        SearchReqDto searchReqDtoSinhVien = new SearchReqDto();
-        searchReqDtoSinhVien.setPageSize(100);
-        searchReqDtoSinhVien.setPageIndex(0);
-        ResponseDto responseDtoSinhVien = studentService.search(searchReqDtoLop);
-        SearchResDto searchResDtoSinhVien = (SearchResDto) responseDtoSinhVien.getObject();
-        model.addAttribute("student", searchResDtoSinhVien.getData());
-        model.addAttribute("studentId", studentId);
 
         //get mon hoc
         SearchReqDto searchReqDtoMon = new SearchReqDto();
@@ -94,29 +84,16 @@ public class MarkController {
         model.addAttribute("subjectId", subjectId);
 
 
-        //dùng ajax lọc danh sách môn học theo lớp
-        List<SubjectDTO> subjectDTOS = null;
-        if (subjectId != null) {
-//            ResponseDto subject = subjectService.findById(subjectId);
-//            SubjectDTO subjectDTO = (SubjectDTO) subject.getObject();
-//            ResponseDto grade = gradeServcie.findById(gradeId);
-//            GradeDTO gradeDTO = (GradeDTO) grade.getObject();
-            model.addAttribute("gradeIdss", gradeId);
-
-//            ResponseDto grade = markService.findByGradeId(gradeId);
-//            GradeDTO gradeDTO = (GradeDTO) grade.getObject();
-//            model.addAttribute("gradeIdss", gradeDTO.getId());
-
-            ResponseDto responseDto2 = subjectService.findByGradeId(gradeId);
-            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
-            model.addAttribute("subjectIds", subjectId);
-            String id = subjectId.toString();
-
-        }
-//        ResponseDto mark = markService.findByGradeAndSubject(subjectId, gradeId);
-//        List<MarkDTO> markDTO = (List<MarkDTO>) mark.getObject();
-//        model.addAttribute("findAll", markDTO);
-        model.addAttribute("dataMons", subjectDTOS);
+//        //dùng ajax lọc danh sách môn học theo lớp
+//        List<SubjectDTO> subjectDTOS = null;
+//        if (subjectId != null) {
+//            model.addAttribute("gradeIdsss", gradeId);
+//
+//            ResponseDto responseDto2 = subjectService.findByGradeId(gradeId);
+//            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
+//            model.addAttribute("subjectIds", subjectId);
+//        }
+//        model.addAttribute("dataMons", subjectDTOS);
 
 
         return "quan-ly-diem";

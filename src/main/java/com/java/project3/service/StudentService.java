@@ -16,7 +16,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,8 +41,8 @@ public class StudentService {
     UserRepository userRepository;
     @Autowired
     MarkRepository markRepository;
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     JMapper<StudentDTO, Student> toStudentDto;
     JMapper<Student, StudentDTO> toStudent;
@@ -85,29 +85,31 @@ public class StudentService {
     public ResponseDto create(StudentDTO studentDTO) {
         ResponseDto responseDto = new ResponseDto();
         Optional<Grade> grade = gradeRepository.findById(studentDTO.getGradeId());
+        Long checkEmail = studentRepository.countStudentByEmail(studentDTO.getEmail());
+        if (checkEmail == 0) {
         Student student = toStudent.getDestination(studentDTO);
         student.setId(genIdService.nextId());
         student.setGradeName(grade.get().getName());
         student.setPassword("123456");
         Student result = studentRepository.save(student);
         var temp = toStudentDto.getDestination(result);
-        responseDto.setObject(temp);
-
-        // tạo bản ghi bảng user
-        UserDTO userDTO = new UserDTO();
-        User user = toUser.getDestination(userDTO);
-        user.setId(genIdService.nextId());
-        user.setFullName(studentDTO.getFullName());
-        user.setEmail(studentDTO.getEmail());
-        user.setPhone(studentDTO.getPhone());
-        user.setPassword(bCryptPasswordEncoder.encode("123456"));
-        user.setGender(studentDTO.getGender());
-        user.setBirthday(studentDTO.getBirthday());
-        user.setAddress(studentDTO.getAddress());
-        user.setRole(Enum.SINH_VIEN.value);
-        User result1 = userRepository.save(user);
-        var temp1 = toUserDto.getDestination(result1);
+        }
         return responseDto;
+//        // tạo bản ghi bảng user
+//        UserDTO userDTO = new UserDTO();
+//        User user = toUser.getDestination(userDTO);
+//        user.setId(genIdService.nextId());
+//        user.setFullName(studentDTO.getFullName());
+//        user.setEmail(studentDTO.getEmail());
+//        user.setPhone(studentDTO.getPhone());
+//        user.setPassword("123456");
+//        user.setGender(studentDTO.getGender());
+//        user.setBirthday(studentDTO.getBirthday());
+//        user.setAddress(studentDTO.getAddress());
+//        user.setRole(Enum.SINH_VIEN.value);
+//        User result1 = userRepository.save(user);
+//        var temp1 = toUserDto.getDestination(result1);
+
     }
 
     public ResponseDto update(StudentDTO studentDTO) {
@@ -161,7 +163,7 @@ public class StudentService {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql += "S-fullName=L\"" + search + "\", OR-S-gradeName=L\"" + search + "\"";
+            sql += "S-fullName=L\"" + search + "\", OR-S-studentCode=L\"" + search + "\"";
         }
         if (gradeId != null) {
             sql += ",N-gradeId=\"" + gradeId + "\"";

@@ -12,33 +12,33 @@
                     class="content-left rounded font-bold w-44 h-9 mr-24  text-white transition duration-300">
                 Thêm điểm
             </button>
-
-            <div class="mr-2 lg:flex text-center xl:text-base  ">
-                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-
-                <select name="gradeId" id="gradeIdss"
-                        class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                    <option value="0" hidden>--Chọn lớp--</option>
-                    <th:block th:each="item,index : ${lop}">
-                        <option th:value="${item.id}" th:text="${item.name}"
-                                th:selected="${gradeId == item.id ? true : false}"></option>
-                    </th:block>
-                </select>
-            </div>
-
             <form class="flex">
+                <div class="mr-2 lg:flex text-center xl:text-base  ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+
+                    <select name="gradeId"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                            onchange="this.form.submit()">
+                        <option value="0" hidden>--Chọn lớp--</option>
+                        <th:block th:each="item,index : ${lop}">
+                            <option th:value="${item.id}" th:text="${item.name}"
+                                    th:selected="${gradeId == item.id ? true : false}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
                 <div class="mr-8 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-                    <select name="subjectId" id="subjectIds"
+                    <select name="subjectId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn môn--</option>
-                        <th:bock th:if="${dataMons != null && #lists.size(dataMons) > 0}">
-                            <th:block th:each="item,index : ${dataMons}">
+<!--                        <th:bock th:if="${dataMons != null && #lists.size(dataMons) > 0}">-->
+                            <th:block th:each="item,index : ${mon}">
                                 <option th:value="${item.id}" th:text="${item.name}"
                                         th:selected="${subjectId == item.id ? true : false}"></option>
                             </th:block>
-                        </th:bock>
+<!--                        </th:bock>-->
                     </select>
                 </div>
 
@@ -50,9 +50,9 @@
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-48 h-8 w-52 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn kết quả--</option>
-                            <option th:value="1" th:selected="${status} == 1 ? true : false">Qua môn</option>
-                            <option th:value="2" th:selected="${status} == 2 ? true : false">Thi lại</option>
-                            <option th:value="3" th:selected="${status} == 3 ? true : false">Học lại</option>
+                        <option th:value="1" th:selected="${status} == 1 ? true : false">Qua môn</option>
+                        <option th:value="2" th:selected="${status} == 2 ? true : false">Thi lại</option>
+                        <option th:value="3" th:selected="${status} == 3 ? true : false">Học lại</option>
                         </th:block>
                     </select>
                 </div>
@@ -257,7 +257,7 @@
 
         })
 
-        //ajax lấy sinh viên theo lớp
+        //ajax lấy sinh viên theo lớp (hàm create)
         $('#gradeIds').change(function () {
             var htmlStudent = '<option value="0" hidden>--Chọn sinh viên--</option>';
 
@@ -289,38 +289,38 @@
             })
         })
 
-        //ajax lấy môn theo lớp (hàm danh sách)
-        $('#gradeIdss').change(function () {
-            var htmlSubject = '<option value="0" hidden>--Chọn môn học--</option>';
-
-            $.ajax({
-                url: "/getSubject/" + $(this).val(),
-                success: function (e) {
-
-                    $.each(e, function (idex, items) {
-                        htmlSubject += '<option value="' + items.id + '">' + items.name + '</option>';
-                    })
-                    $('#subjectIds').html(htmlSubject);
-                }
-            })
-        })
-        $('#subjectIds').change(function () {
-            url = '/quan-ly-diem?'
-            if ($('#gradeIdss').val() !== ''){
-                url += 'gradeId=' + $('#gradeIdss').val()
-            }
-            if ($('#status').val() !== ''){
-                url += '&status=' + $('#status').val()
-            }
-            if ($('#subjectIds').val() !== ''){
-                url += '&subjectId=' + $('#subjectIds').val()
-            }
-            if ($('#search').val() !== ''){
-                url += '&search=' + $('#search').val()
-            }
-
-            window.location.href= url;
-        })
+        // //ajax lấy môn theo lớp (hàm danh sách)
+        // $('#gradeIdsss').change(function () {
+        //     var htmlSubject = '<option value="0" hidden>--Chọn môn học--</option>';
+        //
+        //     $.ajax({
+        //         url: "/getSubject/" + $(this).val(),
+        //         success: function (e) {
+        //
+        //             $.each(e, function (idex, items) {
+        //                 htmlSubject += '<option value="' + items.id + '">' + items.name + '</option>';
+        //             })
+        //             $('#subjectIds').html(htmlSubject);
+        //         }
+        //     })
+        // })
+        // $('#subjectIds').change(function () {
+        //     url = '/quan-ly-diem?'
+        //     if ($('#gradeIdsss').val() !== '') {
+        //         url += 'gradeId=' + $('#gradeIdsss').val()
+        //     }
+        //     if ($('#status').val() !== '') {
+        //         url += '&status=' + $('#status').val()
+        //     }
+        //     if ($('#subjectIds').val() !== '') {
+        //         url += '&subjectId=' + $('#subjectIds').val()
+        //     }
+        //     if ($('#search').val() !== '') {
+        //         url += '&search=' + $('#search').val()
+        //     }
+        //
+        //     window.location.href = url;
+        // })
     </script>
 
 </div>

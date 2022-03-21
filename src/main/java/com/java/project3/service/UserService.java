@@ -9,7 +9,7 @@ import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.repository.UserRepository;
 import com.java.project3.service.base.GenIdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,8 +18,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
     @Autowired
     GenIdService genIdService;
 

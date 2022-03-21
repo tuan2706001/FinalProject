@@ -17,4 +17,6 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
     Student delete(@Param("grade_id") Long gradeId);
 
     Long countStudentByGradeId(Long gradeId);
+
+    Long countStudentByEmail(String email);
 }

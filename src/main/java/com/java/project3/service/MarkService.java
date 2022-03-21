@@ -177,7 +177,7 @@ public class MarkService {
     }
 
     public ResponseDto search(SearchReqDto reqDto) {
-        ResponseDto responseDto = new ResponseDto();
+         ResponseDto responseDto = new ResponseDto();
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
@@ -191,7 +191,7 @@ public class MarkService {
         return responseDto;
     }
 
-    public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search, Long gradeId, Long studentId, Short status, Long subjectId) {
+    public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search, Long gradeId, Short status, Long subjectId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
