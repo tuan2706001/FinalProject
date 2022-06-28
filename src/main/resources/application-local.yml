@@ -21,7 +21,7 @@ spring:
     enabled: true
     url: jdbc:postgresql://localhost:5432/project3
     user: postgres
-    password: root
+    password: datVit.123
     change-log: db/changelog/db.changelog-master.yaml
   jpa:
     show-sql: true
@@ -37,7 +37,8 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/project3
     username: postgres
-    password: root
+    password: datVit.123
+
     hikari:
       connection-timeout: 20000
       minimum-idle: 1

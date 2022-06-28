@@ -2,10 +2,15 @@ package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.Course;
+import com.java.project3.domain.Curriculum;
+import com.java.project3.domain.Major;
 import com.java.project3.dto.CourseDTO;
+import com.java.project3.dto.CurriculumDTO;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
+import com.java.project3.repository.CurriculumRepository;
 import com.java.project3.service.base.GenIdService;
 import com.java.project3.utils.PageUltil;
 import lombok.var;
@@ -23,52 +28,50 @@ import static com.java.project3.utils.SearchUtil.*;
 import static org.springframework.data.domain.Sort.by;
 
 @Service
-public class CourseServcice {
+public class CurriculumService {
     @Autowired
-    CourseRepository courseRepository;
-    @Autowired
-    CourseServcice courseServcice;
+    CurriculumRepository curriculumRepository;
     @Autowired
     GenIdService genIdService;
 
 
-    JMapper<CourseDTO, Course> toCourseDto;
-    JMapper<Course, CourseDTO> toCourse;
+    JMapper<CurriculumDTO, Curriculum> toCurriculumDto;
+    JMapper<Curriculum, CurriculumDTO> toCurriculum;
 
 
-    public CourseServcice() {
-        this.toCourseDto = new JMapper<>(CourseDTO.class, Course.class);
-        this.toCourse = new JMapper<>(Course.class, CourseDTO.class);
+    public CurriculumService() {
+        this.toCurriculumDto = new JMapper<>(CurriculumDTO.class, Curriculum.class);
+        this.toCurriculum = new JMapper<>(Curriculum.class, CurriculumDTO.class);
     }
 
     public ResponseDto findById(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Course> course = courseRepository.findById(id);
-        if (course.isPresent()) {
-            CourseDTO courseDTO = toCourseDto.getDestination(course.get());
-            responseDto.setObject(courseDTO);
+        Optional<Curriculum> curriculum = curriculumRepository.findById(id);
+        if (curriculum.isPresent()) {
+            CurriculumDTO curriculumDTO = toCurriculumDto.getDestination(curriculum.get());
+            responseDto.setObject(curriculumDTO);
         }
         return responseDto;
     }
 
-    public ResponseDto create(CourseDTO courseDTO) {
+    public ResponseDto create(CurriculumDTO curriculumDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Course course = toCourse.getDestination(courseDTO);
-        course.setId(genIdService.nextId());
-        Course result = courseRepository.save(course);
-        var temp = toCourseDto.getDestination(result);
+        Curriculum curriculum = toCurriculum.getDestination(curriculumDTO);
+        curriculum.setId(genIdService.nextId());
+        Curriculum result = curriculumRepository.save(curriculum);
+        var temp = toCurriculumDto.getDestination(result);
         responseDto.setObject(temp);
         return responseDto;
     }
 
-    public ResponseDto update(CourseDTO courseDTO) {
+    public ResponseDto update(CurriculumDTO curriculumDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Course> course = courseRepository.findById(courseDTO.getId());
-        if (course.isPresent()) {
-            Course course1 = toCourse.getDestination(course.get(), courseDTO);
-            Course result = courseRepository.save(course1);
-            CourseDTO courseDTO1 = toCourseDto.getDestination(result);
-            responseDto.setObject(courseDTO1);
+        Optional<Curriculum> curriculum = curriculumRepository.findById(curriculumDTO.getId());
+        if (curriculum.isPresent()) {
+            Curriculum curriculum1 = toCurriculum.getDestination(curriculum.get(), curriculumDTO);
+            Curriculum result = curriculumRepository.save(curriculum1);
+            CurriculumDTO curriculumDTO1 = toCurriculumDto.getDestination(result);
+            responseDto.setObject(curriculumDTO1);
 
         }
         return responseDto;
@@ -79,17 +82,17 @@ public class CourseServcice {
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<Course> courses = courseRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<Curriculum> curricula = curriculumRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
-        List<CourseDTO> courseDTOS = new ArrayList<>();
-        for (var khoa : courses) {
-            courseDTOS.add(toCourseDto.getDestination(khoa));
+        List<CurriculumDTO> curriculumDTOS = new ArrayList<>();
+        for (var curriculum : curricula) {
+            curriculumDTOS.add(toCurriculumDto.getDestination(curriculum));
         }
-        responseDto.setObject(prepareResponseForSearch(courses.getTotalPages(), courses.getNumber(), courses.getTotalElements(), courseDTOS));
+        responseDto.setObject(prepareResponseForSearch(curricula.getTotalPages(), curricula.getNumber(), curricula.getTotalElements(), curriculumDTOS));
         return responseDto;
     }
 
-    public ResponseDto searchCourseBy(Integer pageIndex, Integer pageSize, String name) {
+    public ResponseDto searchCurriculumBy(Integer pageIndex, Integer pageSize, String name) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -106,24 +109,22 @@ public class CourseServcice {
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
-        responseDto = courseServcice.search(searchReqDto);
+        responseDto = search(searchReqDto);
         return responseDto;
     }
 
     public ResponseDto delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Course> course = courseRepository.findById(id);
-        if (course.isPresent()) {
-            courseRepository.deleteById(id);
+        Optional<Curriculum> curriculum = curriculumRepository.findById(id);
+        if (curriculum.isPresent()) {
+            curriculumRepository.deleteById(id);
             responseDto.setObject(id);
         }
         return responseDto;
     }
 
     public long countAll() {
-        long count = courseRepository.count();
+        long count = curriculumRepository.count();
         return count;
     }
-
-
 }

@@ -1,25 +1,31 @@
 databaseChangeLog:
 
-  #Lớp
+  #CtdtSubject
   - changeSet:
-      id: grade
+      id: ctdt-subject
       author: dat
       changes:
         - createTable:
-            tableName: tbl_grade
+            tableName: ctdt_subject
             columns:
               - column:
                   name: id
                   type: bigint
                   constraints:
                     primaryKey: true
-                    primaryKeyName: grade_pkey
+                    primaryKeyName: ctdt_subject_pkey
+              - column:
+                  name: type
+                  type: integer
               - column:
                   name: name
                   type: NVARCHAR(255)
               - column:
-                  name: major_id
+                  name: time
+                  type: integer
+              - column:
+                  name: ctdt_id
                   type: bigint
               - column:
-                  name: major_name
-                  type: NVARCHAR(255)
+                  name: subject_id
+                  type: bigint

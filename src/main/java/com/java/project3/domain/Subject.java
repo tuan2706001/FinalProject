@@ -19,24 +19,6 @@ import javax.persistence.Table;
 @Table(name = EntityName.SUBJECT)
 public class Subject extends AbstractBaseEntity {
 
-    @Column(name = "type")
-    private String type;
-
     @Column(name = "name")
     private String name;
-
-    @Column(name = "theory")
-    private Boolean theory;
-
-    @Column(name = "skill")
-    private Boolean skill;
-
-    @Column(name = "duration")
-    private Short duration;
-
-    @Column(name = "major_id")
-    private Long majorId;
-
-    @Column(name = "major_name")
-    private String majorName;
 }

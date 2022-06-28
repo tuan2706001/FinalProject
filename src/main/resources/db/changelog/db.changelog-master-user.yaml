@@ -6,7 +6,7 @@ databaseChangeLog:
       author: dat
       changes:
         - createTable:
-            tableName: tbl_user
+            tableName: user
             columns:
               - column:
                   name: id

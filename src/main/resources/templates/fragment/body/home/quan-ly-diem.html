@@ -16,27 +16,27 @@
                 <div class="mr-2 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
 
-                    <select name="gradeId"
+                    <select name="courseClassId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn lớp--</option>
                         <th:block th:each="item,index : ${lop}">
                             <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${gradeId == item.id ? true : false}"></option>
+                                    th:selected="${courseClassId == item.id ? true : false}"></option>
                         </th:block>
                     </select>
                 </div>
 
                 <div class="mr-8 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-                    <select name="subjectId"
+                    <select name="ctdtSubjectId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn môn--</option>
 <!--                        <th:bock th:if="${dataMons != null && #lists.size(dataMons) > 0}">-->
                             <th:block th:each="item,index : ${mon}">
                                 <option th:value="${item.id}" th:text="${item.name}"
-                                        th:selected="${subjectId == item.id ? true : false}"></option>
+                                        th:selected="${ctdtSubjectId == item.id ? true : false}"></option>
                             </th:block>
 <!--                        </th:bock>-->
                     </select>
@@ -153,11 +153,11 @@
                                 <label class="font-medium mr-36">Tên Lớp</label>
                                 <div>
                                     <select id="gradeIds" class="mb-1 shadow appearance-none border rounded w-60 mr-24  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="gradeId">
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseClassId">
                                         <option value="" hidden>--Chọn lớp--</option>
                                         <th:block th:each="item,index : ${lop}">
                                             <option th:value="${item.id}" th:text="${item.name}"
-                                                    th:selected="${gradeId == item.id ? true : false}"></option>
+                                                    th:selected="${courseClassId == item.id ? true : false}"></option>
                                         </th:block>
                                     </select>
                                     <div class=" text-sm text-red-600" id="errGrade"></div>
@@ -187,12 +187,12 @@
                                 <label class="font-medium mr-28">Tên môn</label>
                                 <div>
                                     <select id="subjectIdss" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="subjectId">
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtSubjectId">
                                         <option value="" hidden>--Chọn môn học--</option>
                                         <th:bock th:if="${dataMon != null && #lists.size(dataMon) > 0}">
                                             <th:block th:each="item,index : ${dataMon}">
                                                 <option th:value="${item.id}" th:text="${item.name}"
-                                                        th:selected="${subjectId == item.id ? true : false}"></option>
+                                                        th:selected="${ctdtSubjectId == item.id ? true : false}"></option>
                                             </th:block>
                                         </th:bock>
                                     </select>
@@ -307,13 +307,13 @@
         // $('#subjectIds').change(function () {
         //     url = '/quan-ly-diem?'
         //     if ($('#gradeIdsss').val() !== '') {
-        //         url += 'gradeId=' + $('#gradeIdsss').val()
+        //         url += 'courseClassId=' + $('#gradeIdsss').val()
         //     }
         //     if ($('#status').val() !== '') {
         //         url += '&status=' + $('#status').val()
         //     }
         //     if ($('#subjectIds').val() !== '') {
-        //         url += '&subjectId=' + $('#subjectIds').val()
+        //         url += '&ctdtSubjectId=' + $('#subjectIds').val()
         //     }
         //     if ($('#search').val() !== '') {
         //         url += '&search=' + $('#search').val()

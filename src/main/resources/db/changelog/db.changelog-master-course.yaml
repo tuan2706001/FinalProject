@@ -6,7 +6,7 @@ databaseChangeLog:
     author: dat
     changes:
       - createTable:
-          tableName: tbl_course
+          tableName: course
           columns:
             - column:
                 name: id

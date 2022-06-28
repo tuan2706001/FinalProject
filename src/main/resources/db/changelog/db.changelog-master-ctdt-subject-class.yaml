@@ -1,22 +1,22 @@
 databaseChangeLog:
 
-  #major
+  #ctdt-subject-class
   - changeSet:
-      id: major
+      id: ctdt-subject-class
       author: dat
       changes:
         - createTable:
-            tableName: major
+            tableName: ctdt_subject_class
             columns:
               - column:
                   name: id
                   type: bigint
                   constraints:
                     primaryKey: true
-                    primaryKeyName: major_pkey
+                    primaryKeyName: ctdt_subject_class_pkey
               - column:
                   name: name
                   type: NVARCHAR(255)
               - column:
-                  name: curriculum_id
+                  name: ctdt_subject_id
                   type: bigint

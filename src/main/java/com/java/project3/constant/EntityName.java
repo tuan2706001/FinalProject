@@ -2,12 +2,16 @@ package com.java.project3.constant;
 
 public class EntityName {
 
-    public final static String COURSE = "tbl_course";
-    public final static String MAJOR = "tbl_major";
-    public final static String USER = "tbl_user";
-    public final static String GRADE = "tbl_grade";
-    public final static String STUDENT = "tbl_student";
-    public final static String SUBJECT = "tbl_subject";
-    public final static String MARK = "tbl_mark";
-    public final static String PERSISTENT_LOGINS = "tbl_persistent_logins";
+    public final static String CURRICULUM = "curriculum";
+    public final static String COURSE = "course";
+    public final static String MAJOR = "major";
+    public final static String CTDT = "ctdt";
+    public final static String USER = "user";
+    public final static String COURSE_CLASS = "course_class";
+    public final static String CTDT_SUBJECT_CLASS = "ctdt_subject_class";
+    public final static String STUDENT = "student";
+    public final static String SUBJECT = "subject";
+    public final static String CTDT_SUBJECT = "ctdt_subject";
+    public final static String MARK = "mark";
+    public final static String PERSISTENT_LOGINS = "persistent_logins";
 }

@@ -6,7 +6,7 @@ databaseChangeLog:
       author: dat
       changes:
         - createTable:
-            tableName: tbl_student
+            tableName: student
             columns:
               - column:
                   name: id
@@ -31,7 +31,7 @@ databaseChangeLog:
                   type: NVARCHAR(255)
               - column:
                   name: gender
-                  type: smallint
+                  type: integer
               - column:
                   name: birthday
                   type: date
@@ -39,8 +39,5 @@ databaseChangeLog:
                   name: address
                   type: NVARCHAR(255)
               - column:
-                  name: grade_id
+                  name: course_class_id
                   type: bigint
-              - column:
-                  name: grade_name
-                  type: NVARCHAR(255)

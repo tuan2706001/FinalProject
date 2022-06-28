@@ -1,0 +1,22 @@
+databaseChangeLog:
+
+  #ctdt-subject-class--student
+  - changeSet:
+      id: ctdt-subject-class--student
+      author: dat
+      changes:
+        - createTable:
+            tableName: ctdt_subject_class__student
+            columns:
+              - column:
+                  name: student_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: student_id_pkey
+              - column:
+                  name: ctdt_subject_class_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ctdt_subject_class_id_pkey

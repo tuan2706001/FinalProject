@@ -17,13 +17,13 @@
             <form class="flex">
                 <div class="mr-8 lg:flex text-center xl:text-base  ">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Lớp</div>
-                    <select name="gradeId"
+                    <select name="courseClassId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn lớp--</option>
                         <th:block th:each="item,index : ${lop}">
                             <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${gradeId == item.id ? true : false}"></option>
+                                    th:selected="${courseClassId == item.id ? true : false}"></option>
                         </th:block>
                     </select>
                 </div>
@@ -155,7 +155,7 @@
                             <div>
                                 <label class="font-medium mr-6">Lớp</label>
                                 <div class="font-medium mr-48 ml-4">
-                                    <select id="gradeIds" class="border rounded-lg w-56 h-10" name="gradeId">
+                                    <select id="gradeIds" class="border rounded-lg w-56 h-10" name="courseClassId">
                                         <option value="" hidden>Chọn Lớp</option>
                                         <th:block th:each="item,index : ${lop}">
                                             <option th:value="${item.id}" th:text="${item.name}"></option>

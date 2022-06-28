@@ -23,34 +23,22 @@ public class Mark extends AbstractBaseEntity {
     @Column(name = "student_id")
     private Long studentId;
 
-    @Column(name = "student_name")
-    private String studentName;
-
-    @Column(name = "subject_id")
-    private Long subjectId;
-
-    @Column(name = "subject_name")
-    private String subjectName;
-
-    @Column(name = "grade_id")
-    private Long gradeId;
-
-    @Column(name = "grade_name")
-    private String gradeName;
+    @Column(name = "ctdt_subject_class_id")
+    private Long ctdtSubjectClassId;
 
     @Column(name = "theory1")
-    private Short theory1;
+    private Integer theory1;
 
     @Column(name = "theory2")
-    private Short theory2;
+    private Integer theory2;
 
     @Column(name = "skill1")
-    private Short skill1;
+    private Integer skill1;
 
     @Column(name = "skill2")
-    private Short skill2;
+    private Integer skill2;
 
     @Column(name = "status")
-    private Short status;
+    private Integer status;
 
 }

@@ -46,9 +46,6 @@ public class StudentDTO {
     private String address;
 
     @JMap
-    private Long gradeId;
-
-    @JMap
-    private String gradeName;
+    private Long courseClassId;
 
 }

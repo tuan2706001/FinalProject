@@ -45,9 +45,6 @@ public class Student extends AbstractBaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "grade_id")
-    private Long gradeId;
-
-    @Column(name = "grade_name")
-    private String gradeName;
+    @Column(name = "course_class_id")
+    private Long courseClassId;
 }

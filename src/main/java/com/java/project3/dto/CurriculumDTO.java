@@ -6,28 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GradeDTO {
-
+public class CurriculumDTO {
     @JMap
     private Long id;
 
     @JMap
     private String name;
-
-    @JMap
-    private Long majorId;
-
-    @JMap
-    private String majorName;
-
-    private Long sumStudent;
-
-    private String courseName;
-
 }

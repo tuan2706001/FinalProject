@@ -25,6 +25,11 @@
             Quản lý giáo vụ
         </a>
 
+        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-he') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+           href="/quan-ly-he" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
+            Quản lý hệ
+        </a>
+
         <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-khoa') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
            href="/quan-ly-khoa" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
             Quản lý khóa

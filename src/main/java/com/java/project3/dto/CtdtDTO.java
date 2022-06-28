@@ -6,17 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDTO {
-
+public class CtdtDTO {
     @JMap
     private Long id;
 
     @JMap
     private String name;
 
+    @JMap
+    private Long majorId;
 }

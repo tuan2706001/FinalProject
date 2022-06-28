@@ -6,35 +6,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarkDTO {
+public class CtdtSubjectDTO {
     @JMap
     private Long id;
 
     @JMap
-    private Long studentId;
+    private String name;
 
     @JMap
-    private Long ctdtSubjectClassId;
+    private Integer examType;
 
     @JMap
-    private Integer theory1;
+    private Boolean theory;
 
     @JMap
-    private Integer theory2;
+    private Boolean skill;
 
     @JMap
-    private Integer skill1;
+    private Integer time;
 
     @JMap
-    private Integer skill2;
+    private Long ctdtId;
 
     @JMap
-    private Integer status;
-
+    private Long subjectId;
 }

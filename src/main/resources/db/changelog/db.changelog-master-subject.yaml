@@ -1,12 +1,12 @@
 databaseChangeLog:
 
-  #Subject
+  #subject
   - changeSet:
       id: subject
       author: dat
       changes:
         - createTable:
-            tableName: tbl_subject
+            tableName: subject
             columns:
               - column:
                   name: id
@@ -15,23 +15,5 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: subject_pkey
               - column:
-                  name: type
-                  type: NVARCHAR(255)
-              - column:
                   name: name
-                  type: NVARCHAR(255)
-              - column:
-                  name: theory
-                  type: boolean
-              - column:
-                  name: skill
-                  type: boolean
-              - column:
-                  name: duration
-                  type: smallint
-              - column:
-                  name: major_id
-                  type: bigint
-              - column:
-                  name: major_name
                   type: NVARCHAR(255)

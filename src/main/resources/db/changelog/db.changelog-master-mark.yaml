@@ -6,7 +6,7 @@ databaseChangeLog:
       author: dat
       changes:
         - createTable:
-            tableName: tbl_mark
+            tableName: mark
             columns:
               - column:
                   name: id
@@ -18,32 +18,20 @@ databaseChangeLog:
                   name: student_id
                   type: bigint
               - column:
-                  name: student_name
-                  type: NVARCHAR(255)
-              - column:
-                  name: subject_id
+                  name: ctdt_subject_class_id
                   type: bigint
-              - column:
-                  name: subject_name
-                  type: NVARCHAR(255)
-              - column:
-                  name: grade_id
-                  type: bigint
-              - column:
-                  name: grade_name
-                  type: NVARCHAR(255)
               - column:
                   name: theory1
-                  type: smallint
+                  type: integer
               - column:
                   name: theory2
-                  type: smallint
+                  type: integer
               - column:
                   name: skill1
-                  type: smallint
+                  type: integer
               - column:
                   name: skill2
-                  type: smallint
+                  type: integer
               - column:
                   name: status
-                  type: smallint
+                  type: integer
