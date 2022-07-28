@@ -8,7 +8,7 @@
 //import com.java.project3.dto.MarkDTO;
 //import com.java.project3.dto.SubjectDTO;
 //import com.java.project3.dto.base.ResponseDto;
-//import com.java.project3.repository.GradeRepository;
+//import com.java.project3.repository.CourseClassRepository;
 //import com.java.project3.repository.MajorRepository;
 //import com.java.project3.repository.MarkRepository;
 //import com.java.project3.repository.SubjectRepository;
@@ -27,7 +27,7 @@
 //@Service
 //public class ThongKeSevice {
 //    @Autowired
-//    GradeRepository gradeRepository;
+//    CourseClassRepository courseClassRepository;
 //    @Autowired
 //    MajorRepository majorRepository;
 //    @Autowired
@@ -51,7 +51,7 @@
 //
 //    public ResponseDto findSubjectByMajorId (Integer pageIndex, Integer pageSize, Long gradeId) {
 //        ResponseDto responseDto = new ResponseDto();
-//        CourseClass courseClass = gradeRepository.findById(gradeId).orElse(null);
+//        CourseClass courseClass = courseClassRepository.findById(gradeId).orElse(null);
 //        Major major = majorRepository.findById(courseClass.getMajorId()).orElse(null);
 //        Pageable pageable = PageRequest.of(0, 5);
 //        Page<CtdtSubject> subjects = subjectRepository.search(major, pageable);
@@ -67,7 +67,7 @@
 //    public ResponseDto findMarkBySubjectIdAndGradeId (Integer pageIndex, Integer pageSize, Long subjectId, Long gradeId) {
 //        ResponseDto responseDto = new ResponseDto();
 //        CtdtSubject ctdtSubject = subjectRepository.findById(subjectId).orElse(null);
-//        CourseClass courseClass = gradeRepository.findById(gradeId).orElse(null);
+//        CourseClass courseClass = courseClassRepository.findById(gradeId).orElse(null);
 ////        Major major = majorRepository.findById(courseClass.getMajorId()).orElse(null);
 //        Pageable pageable = PageRequest.of(0, 5);
 //        Page<Mark> marks = markRepository.findBySubjectIdAndGradeId(ctdtSubject, courseClass, pageable);

@@ -9,7 +9,7 @@
 //import com.java.project3.dto.MarkDTO;
 //import com.java.project3.dto.base.ResponseDto;
 //import com.java.project3.dto.base.SearchReqDto;
-//import com.java.project3.repository.GradeRepository;
+//import com.java.project3.repository.CourseClassRepository;
 //import com.java.project3.repository.MarkRepository;
 //import com.java.project3.repository.StudentRepository;
 //import com.java.project3.repository.SubjectRepository;
@@ -42,7 +42,7 @@
 //    @Autowired
 //    SubjectRepository subjectRepository;
 //    @Autowired
-//    GradeRepository gradeRepository;
+//    CourseClassRepository courseClassRepository;
 //
 //
 //    JMapper<MarkDTO, Mark> toMarkDto;
@@ -78,7 +78,7 @@
 //
 //    public ResponseDto findByGradeId(Long gradeId) {
 //        ResponseDto responseDto = new ResponseDto();
-//        Optional<CourseClass> grade = gradeRepository.findById(gradeId);
+//        Optional<CourseClass> grade = courseClassRepository.findById(gradeId);
 //        Mark marks = markRepository.findByGradeId(grade.get().getId());
 ////        List<MarkDTO> markDTOS = new ArrayList<>();
 ////        for (var item : marks) {
@@ -140,7 +140,7 @@
 //        ResponseDto responseDto = new ResponseDto();
 //        Student student = studentRepository.findById(markDTO.getStudentId()).get();
 //        CtdtSubject ctdtSubject = subjectRepository.findById(markDTO.getSubjectId()).get();
-//        CourseClass courseClass = gradeRepository.findById(markDTO.getGradeId()).get();
+//        CourseClass courseClass = courseClassRepository.findById(markDTO.getGradeId()).get();
 //        Mark mark = toMark.getDestination(markDTO);
 //        mark.setId(genIdService.nextId());
 //        mark.setStudentName(student.getFullName());

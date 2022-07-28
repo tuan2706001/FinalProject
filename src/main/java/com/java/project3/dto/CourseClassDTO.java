@@ -22,6 +22,12 @@ public class CourseClassDTO {
     private Long ctdtId;
 
     @JMap
+    private Long ctdtName;
+
+    @JMap
     private Long courseId;
+
+    @JMap
+    private String courseName;
 
 }

@@ -21,5 +21,11 @@ databaseChangeLog:
                   name: ctdt_id
                   type: bigint
               - column:
+                  name: ctdt_name
+                  type: NVARCHAR(255)
+              - column:
                   name: course_id
                   type: bigint
+              - column:
+                  name: course_name
+                  type: NVARCHAR(255)

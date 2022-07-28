@@ -1,22 +1,22 @@
 <!-- Modal content -->
 <div class="modal-content w-6/12 mx-auto my-10">
     <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-        <div class="text-xl ">Sửa Ngành</div>
+        <div class="text-xl ">Sửa chương trình đào tạo</div>
         <button><span class="closeModal transition duration-300"
                       onclick="$('#modalEdit').css('display','none')">x</span></button>
     </div>
 
-    <form th:method="PUT" action="/updateMajor" onsubmit="return checkEditValidate()">
+    <form th:method="PUT" action="/updateCtdt" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
             <div>
                 <div class="w-2/3">
                     <label class="font-medium mr-28">Tên hệ</label>
                     <div>
-                        <select id="curriculumId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                        <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="curriculumId">
-                            <th:block th:each="item,index : ${hes}">
+                            <th:block th:each="item,index : ${nganhs}">
                                 <option th:value="${item.id}" th:text="${item.name}"
-                                        th:selected="${data.curriculumId == item.id ? true : false}"></option>
+                                        th:selected="${data.majorId == item.id ? true : false}"></option>
                             </th:block>
                         </select>
                         <div class="text-sm text-red-600" id="errHe"></div>
@@ -24,7 +24,7 @@
                 </div>
 
                 <div>
-                    <label class="font-medium mr-4">Tên Ngành</label>
+                    <label class="font-medium mr-4">Tên chương trình đào tạo</label>
                     <div>
                         <input id="editName"  class="mb-4 shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name" th:value="${data.name}"/>

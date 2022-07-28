@@ -1,13 +1,17 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.*;
-import com.java.project3.dto.CourseClassDTO;
+import com.java.project3.domain.Ctdt;
+import com.java.project3.domain.CtdtSubject;
+import com.java.project3.domain.Curriculum;
+import com.java.project3.domain.Major;
+import com.java.project3.dto.CtdtDTO;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseRepository;
+import com.java.project3.repository.CtdtRepository;
 import com.java.project3.repository.CurriculumRepository;
 import com.java.project3.repository.MajorRepository;
 import com.java.project3.service.base.GenIdService;
@@ -27,7 +31,7 @@ import static com.java.project3.utils.SearchUtil.*;
 import static org.springframework.data.domain.Sort.by;
 
 @Service
-public class MajorService {
+public class CtdtService {
     @Autowired
     MajorRepository majorRepository;
     @Autowired
@@ -35,39 +39,29 @@ public class MajorService {
     @Autowired
     MajorService majorService;
     @Autowired
-    CourseRepository courseRepository;
-//    @Autowired
-//    CourseClassRepository courseClassRepository;
-//    @Autowired
-//    SubjectRepository subjectRepository;
-    @Autowired
     CurriculumRepository curriculumRepository;
+    @Autowired
+    CtdtRepository ctdtRepository;
+    @Autowired
+    CtdtService ctdtService;
 
 
-    JMapper<MajorDTO, Major> toMajorDto;
-    JMapper<Major, MajorDTO> toMajor;
-//    JMapper<CourseClassDTO, CourseClass> toGradeDto;
-//    JMapper<CourseClass, CourseClassDTO> toGrade;
-    JMapper<SubjectDTO, CtdtSubject> toSubjectDto;
-    JMapper<CtdtSubject, SubjectDTO> toSubject;
+    JMapper<CtdtDTO, Ctdt> toCtdtDto;
+    JMapper<Ctdt, CtdtDTO> toCtdt;
 
 
-    public MajorService() {
-        this.toMajorDto = new JMapper<>(MajorDTO.class, Major.class);
-        this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
-//        this.toGradeDto = new JMapper<>(CourseClassDTO.class, CourseClass.class);
-//        this.toGrade = new JMapper<>(CourseClass.class, CourseClassDTO.class);
-        this.toSubjectDto = new JMapper<>(SubjectDTO.class, CtdtSubject.class);
-        this.toSubject = new JMapper<>(CtdtSubject.class, SubjectDTO.class);
+    public CtdtService() {
+        this.toCtdtDto = new JMapper<>(CtdtDTO.class, Ctdt.class);
+        this.toCtdt = new JMapper<>(Ctdt.class, CtdtDTO.class);
     }
 
     public ResponseDto findById(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Major> major = majorRepository.findById(id);
-        if (major.isPresent()) {
-            MajorDTO majorDTO = toMajorDto.getDestination(major.get());
-            majorDTO.getCurriculumId();
-            responseDto.setObject(majorDTO);
+        Optional<Ctdt> ctdt = ctdtRepository.findById(id);
+        if (ctdt.isPresent()) {
+            CtdtDTO ctdtDTO = toCtdtDto.getDestination(ctdt.get());
+            ctdtDTO.getMajorId();
+            responseDto.setObject(ctdtDTO);
         }
         return responseDto;
     }
@@ -97,28 +91,28 @@ public class MajorService {
 //    }
 
 
-    public ResponseDto create(MajorDTO majorDTO) {
+    public ResponseDto create(CtdtDTO ctdtDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
-        Major major = toMajor.getDestination(majorDTO);
-        major.setId(genIdService.nextId());
-        major.setCurriculumName(curriculum.getName());
-        Major result = majorRepository.save(major);
-        var temp = toMajorDto.getDestination(result);
+        Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
+        Ctdt ctdt = toCtdt.getDestination(ctdtDTO);
+        ctdt.setId(genIdService.nextId());
+        ctdt.setMajorName(major.getName());
+        Ctdt result = ctdtRepository.save(ctdt);
+        var temp = toCtdtDto.getDestination(result);
         responseDto.setObject(temp);
         return responseDto;
     }
 
-    public ResponseDto update(MajorDTO majorDTO) {
+    public ResponseDto update(CtdtDTO ctdtDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Major> major = majorRepository.findById(majorDTO.getId());
-        if (major.isPresent()) {
-            Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
-            Major major1 = toMajor.getDestination(major.get(), majorDTO);
-            major1.setCurriculumName(curriculum.getName());
-            Major result = majorRepository.save(major1);
-            MajorDTO majorDTO1 = toMajorDto.getDestination(result);
-            responseDto.setObject(majorDTO1);
+        Optional<Ctdt> ctdt = ctdtRepository.findById(ctdtDTO.getId());
+        if (ctdt.isPresent()) {
+            Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
+            Ctdt ctdt1 = toCtdt.getDestination(ctdt.get(), ctdtDTO);
+            ctdt1.setMajorName(major.getName());
+            Ctdt result = ctdtRepository.save(ctdt1);
+            CtdtDTO ctdtDTO1 = toCtdtDto.getDestination(result);
+            responseDto.setObject(ctdtDTO1);
 
 //            //update lại tên ngành trong lớp
 //            List<CourseClass> courseClasses = courseClassRepository.search(majorDTO.getId());
@@ -146,17 +140,17 @@ public class MajorService {
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<Major> majors = majorRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<Ctdt> ctdts = ctdtRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
-        List<MajorDTO> majorDTOS = new ArrayList<>();
-        for (var major : majors) {
-            majorDTOS.add(toMajorDto.getDestination(major));
+        List<CtdtDTO> ctdtDTOS = new ArrayList<>();
+        for (var ctdt : ctdts) {
+            ctdtDTOS.add(toCtdtDto.getDestination(ctdt));
         }
-        responseDto.setObject(prepareResponseForSearch(majors.getTotalPages(), majors.getNumber(), majors.getTotalElements(), majorDTOS));
+        responseDto.setObject(prepareResponseForSearch(ctdts.getTotalPages(), ctdts.getNumber(), ctdts.getTotalElements(), ctdts));
         return responseDto;
     }
 
-    public ResponseDto searchMajorBy(Integer pageIndex, Integer pageSize, String name, Long curriculumId) {
+    public ResponseDto searchCtdtBy(Integer pageIndex, Integer pageSize, String name, Long majorId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -170,23 +164,23 @@ public class MajorService {
         if (name != null) {
             sql = "S-name=L\"" + name + "\"";
         }
-        if (curriculumId != null) {
-            sql += ",N-curriculumId=\"" + curriculumId + "\"";
+        if (majorId != null) {
+            sql += ",N-majorId=\"" + majorId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
-        responseDto = majorService.search(searchReqDto);
+        responseDto = ctdtService.search(searchReqDto);
         return responseDto;
     }
 
     public ResponseDto delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Major> major = majorRepository.findById(id);
-        if (major.isPresent()) {
+        Optional<Ctdt> ctdt = ctdtRepository.findById(id);
+        if (ctdt.isPresent()) {
 
-                majorRepository.deleteById(id);
-                responseDto.setObject(id);
+            ctdtRepository.deleteById(id);
+            responseDto.setObject(id);
 
         }
         return responseDto;

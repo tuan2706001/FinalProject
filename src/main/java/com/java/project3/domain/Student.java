@@ -47,4 +47,7 @@ public class Student extends AbstractBaseEntity {
 
     @Column(name = "course_class_id")
     private Long courseClassId;
+
+    @Column(name = "course_class_name")
+    private String courseClassName;
 }

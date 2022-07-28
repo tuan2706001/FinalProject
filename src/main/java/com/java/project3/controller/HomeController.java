@@ -3,7 +3,7 @@ package com.java.project3.controller;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
-//import com.java.project3.service.GradeServcie;
+//import com.java.project3.service.CourseClassServcie;
 //import com.java.project3.service.StudentService;
 import com.java.project3.service.UserService;
 import com.java.project3.utils.PageUltil;
@@ -20,7 +20,7 @@ public class HomeController {
     @Autowired
     UserService userService;
 //    @Autowired
-//    GradeServcie gradeServcie;
+//    CourseClassServcie gradeServcie;
 
     @GetMapping(value = {"","/trang-chu"})
     public String home(

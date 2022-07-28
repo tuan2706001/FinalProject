@@ -8,24 +8,24 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<div th:fragment="quan-ly-nganh" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-ctdt" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <button id="myBtn"
-                    class="justify-self-start rounded font-bold w-44 h-9 mr-40 text-white transition duration-300">
-                Thêm ngành
+                    class="justify-self-start rounded font-bold w-44 h12 mr-40 text-white transition duration-300">
+                Thêm chương trình đào tạo
             </button>
             <form class="flex">
                 <div class="mr-36 lg:flex text-center xl:text-base">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
 
-                    <select name="curriculumId"
+                    <select name="majorId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
                             onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn hệ--</option>
-                        <th:block th:each="item,index : ${he}">
+                        <option value="0" hidden>--Chọn ngành--</option>
+                        <th:block th:each="item,index : ${nganh}">
                             <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${curriculumId == item.id ? true : false}"></option>
+                                    th:selected="${majorId == item.id ? true : false}"></option>
                         </th:block>
                     </select>
                 </div>
@@ -53,15 +53,15 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên hệ</th>
                 <th>Tên ngành</th>
+                <th>Tên chương trình đào tạo</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.curriculumName}"></td>
+                <td th:text="${item.majorName}"></td>
                 <td th:text="${item.name}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
@@ -69,13 +69,13 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-nganh/' + item.id}"
+                                    th:data-url="${'/quan-ly-ctdt/' + item.id}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
                                 <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                             </svg>
-                            <form action="/deleteMajor" th:method="DELETE">
+                            <form action="/deleteCtdt" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
                                     <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
@@ -97,20 +97,20 @@
             <!-- Modal content -->
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Thêm ngành</div>
+                    <div class="text-xl ">Thêm chương trình đào tạo</div>
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createMajor" onsubmit="return checkValidate()">
+                <form method="POST" action="/createCtdt" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
                         <div>
                             <div class="w-2/3">
-                                <label class="font-medium mr-28">Tên hệ</label>
+                                <label class="font-medium mr-28">Tên ngành</label>
                                 <div>
-                                    <select id="curriculumIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="curriculumId">
-                                        <option value="" hidden>Chọn hệ</option>
-                                        <th:block th:each="item,index : ${he}">
+                                    <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
+                                        <option value="" hidden>Chọn ngành</option>
+                                        <th:block th:each="item,index : ${nganh}">
                                             <option th:value="${item.id}" th:text="${item.name}"></option>
                                         </th:block>
                                     </select>
@@ -119,7 +119,7 @@
                             </div>
 
                             <div>
-                                <label class="font-medium mr-4">Tên Ngành</label>
+                                <label class="font-medium mr-4">Tên chương trình đào tạo</label>
                                 <div>
                                     <input id="name" class="mb-4 shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"/>

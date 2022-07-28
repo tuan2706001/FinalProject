@@ -22,9 +22,15 @@ public class CourseClass extends AbstractBaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "major_id")
-    private Long majorId;
+    @Column(name = "ctdt_id")
+    private Long ctdtId;
 
-    @Column(name = "major_name")
-    private String majorName;
+    @Column(name = "ctdt_name")
+    private String ctdtName;
+
+    @Column(name = "course_id")
+    private Long courseId;
+
+    @Column(name = "course_name")
+    private String courseName;
 }

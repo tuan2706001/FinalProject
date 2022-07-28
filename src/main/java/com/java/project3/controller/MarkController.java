@@ -21,7 +21,7 @@
 //    @Autowired
 //    MarkService markService;
 //    @Autowired
-//    GradeServcie gradeServcie;
+//    CourseClassServcie gradeServcie;
 //    @Autowired
 //    StudentService studentService;
 //    @Autowired

@@ -19,7 +19,7 @@
 //@RequestMapping("/")
 //public class ThongKeController {
 //    @Autowired
-//    GradeServcie gradeServcie;
+//    CourseClassServcie gradeServcie;
 //    @Autowired
 //    CourseServcice courseServcice;
 //    @Autowired

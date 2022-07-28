@@ -2,7 +2,7 @@
 //
 //import com.java.project3.dto.CourseClassDTO;
 //import com.java.project3.dto.base.ResponseDto;
-//import com.java.project3.service.GradeServcie;
+//import com.java.project3.service.CourseClassServcie;
 //import com.java.project3.service.SubjectService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@
 //@RequestMapping("/api/grade")
 //public class ApiGradeController {
 //    @Autowired
-//    GradeServcie gradeServcie;
+//    CourseClassServcie gradeServcie;
 //    @Autowired
 //    SubjectService subjectService;
 //

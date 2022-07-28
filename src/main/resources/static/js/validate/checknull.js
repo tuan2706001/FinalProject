@@ -8,6 +8,14 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
+    if ($('#curriculumIdss').val() === ""){
+        check = false
+        var id = "curriculumIdss"
+        var err = "errhe"
+        var mess = "Hãy chọn hệ"
+        checkEmptyValidate(id, mess, err)
+    }
+
     if ($('#majorIdss').val() === ""){
         check = false
         var id = "majorIdss"

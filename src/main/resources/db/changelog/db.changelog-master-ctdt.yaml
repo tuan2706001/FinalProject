@@ -20,3 +20,6 @@ databaseChangeLog:
               - column:
                   name: major_id
                   type: bigint
+              - column:
+                  name: major_name
+                  type: NVARCHAR(255)
