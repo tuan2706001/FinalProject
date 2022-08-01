@@ -92,104 +92,104 @@
 ////        model.addAttribute("dataMons", subjectDTOS);
 //
 //
-//        return "quan-ly-diem";
-//    }
+////        return "quan-ly-diem";
+////    }
+////
+////    @GetMapping("getStudent/{id}")
+////    @ResponseBody
+////    public List<StudentDTO> getStudent(
+////            @PathVariable("id") Long id
+////    ) {
+////        ResponseDto responseDto = studentService.findByGradeId(id);
+////        return (List<StudentDTO>) responseDto.getObject();
+////    }
+////
+////    @GetMapping("getSubject/{id}")
+////    @ResponseBody
+////    public List<SubjectDTO> getSubject(
+////            @PathVariable("id") Long id
+////    ) {
+////        ResponseDto responseDto = subjectService.findByGradeId(id);
+////        return (List<SubjectDTO>) responseDto.getObject();
+////    }
+////
+////    @PostMapping("createMark")
+////    public String createMark(
+////            Model model,
+////            @ModelAttribute MarkDTO markDTO
+////    ) {
+////
+////        //dùng ajax lọc dánh sách sinh viên
+////        List<StudentDTO> studentDTOS = null;
+////        if (markDTO.getStudentId() != null) {
+////            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
+////            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
+////            model.addAttribute("gradeId", studentDTO.getGradeId());
+////
+////            //get lớp
+////            SearchReqDto searchReqDtoLop = new SearchReqDto();
+////            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
+////            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
+////            model.addAttribute("lop", searchResDtoLop.getData());
+////            model.addAttribute("gradeIds", markDTO.getGradeId());
+////
+////            ResponseDto responseDto2 = studentService.findByGradeId(studentDTO.getGradeId());
+////            studentDTOS = (List<StudentDTO>) responseDto2.getObject();
+////            model.addAttribute("studentIdss", markDTO.getStudentId());
+////
+////        }
+////        model.addAttribute("dataSv", studentDTOS);
+////
+////        //dùng ajax lọc dánh sách môn học
+////        List<SubjectDTO> subjectDTOS = null;
+////        if (markDTO.getSubjectId() != null) {
+////            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
+////            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
+////            model.addAttribute("gradeId", studentDTO.getGradeId());
+////
+////            //get lớp
+////            SearchReqDto searchReqDtoLop = new SearchReqDto();
+////            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
+////            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
+////            model.addAttribute("lop", searchResDtoLop.getData());
+////            model.addAttribute("gradeIdss", markDTO.getGradeId());
+////
+////            ResponseDto responseDto2 = subjectService.findByGradeId(studentDTO.getGradeId());
+////            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
+////            model.addAttribute("subjectIdss", markDTO.getSubjectId());
+////
+////        }
+////        model.addAttribute("dataMon", subjectDTOS);
+////
+////        ResponseDto responseDto = markService.create(markDTO);
+////        return "redirect:/quan-ly-diem";
+////    }
 //
-//    @GetMapping("getStudent/{id}")
-//    @ResponseBody
-//    public List<StudentDTO> getStudent(
-//            @PathVariable("id") Long id
-//    ) {
-//        ResponseDto responseDto = studentService.findByGradeId(id);
-//        return (List<StudentDTO>) responseDto.getObject();
-//    }
+////    @GetMapping("/quan-ly-diem/{id}")
+////    public String suaDien(
+////            @PathVariable("id") Long id,
+////            Model model
+////    ) {
+////        ResponseDto responseDto = markService.findById(id);
+////        model.addAttribute("data", responseDto.getObject());
+////        return "fragment/body/home/edit/edit-mark";
+////    }
 //
-//    @GetMapping("getSubject/{id}")
-//    @ResponseBody
-//    public List<SubjectDTO> getSubject(
-//            @PathVariable("id") Long id
-//    ) {
-//        ResponseDto responseDto = subjectService.findByGradeId(id);
-//        return (List<SubjectDTO>) responseDto.getObject();
-//    }
+////    @PutMapping("updateMark")
+////    public String updateMark(
+////            @ModelAttribute MarkDTO markDTO
+////    ) {
+////        ResponseDto responseDto = markService.update(markDTO);
+////        return "redirect:/quan-ly-diem";
+////    }
 //
-//    @PostMapping("createMark")
-//    public String createMark(
-//            Model model,
-//            @ModelAttribute MarkDTO markDTO
-//    ) {
-//
-//        //dùng ajax lọc dánh sách sinh viên
-//        List<StudentDTO> studentDTOS = null;
-//        if (markDTO.getStudentId() != null) {
-//            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
-//            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
-//            model.addAttribute("gradeId", studentDTO.getGradeId());
-//
-//            //get lớp
-//            SearchReqDto searchReqDtoLop = new SearchReqDto();
-//            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
-//            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
-//            model.addAttribute("lop", searchResDtoLop.getData());
-//            model.addAttribute("gradeIds", markDTO.getGradeId());
-//
-//            ResponseDto responseDto2 = studentService.findByGradeId(studentDTO.getGradeId());
-//            studentDTOS = (List<StudentDTO>) responseDto2.getObject();
-//            model.addAttribute("studentIdss", markDTO.getStudentId());
-//
-//        }
-//        model.addAttribute("dataSv", studentDTOS);
-//
-//        //dùng ajax lọc dánh sách môn học
-//        List<SubjectDTO> subjectDTOS = null;
-//        if (markDTO.getSubjectId() != null) {
-//            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
-//            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
-//            model.addAttribute("gradeId", studentDTO.getGradeId());
-//
-//            //get lớp
-//            SearchReqDto searchReqDtoLop = new SearchReqDto();
-//            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
-//            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
-//            model.addAttribute("lop", searchResDtoLop.getData());
-//            model.addAttribute("gradeIdss", markDTO.getGradeId());
-//
-//            ResponseDto responseDto2 = subjectService.findByGradeId(studentDTO.getGradeId());
-//            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
-//            model.addAttribute("subjectIdss", markDTO.getSubjectId());
-//
-//        }
-//        model.addAttribute("dataMon", subjectDTOS);
-//
-//        ResponseDto responseDto = markService.create(markDTO);
-//        return "redirect:/quan-ly-diem";
-//    }
-//
-//    @GetMapping("/quan-ly-diem/{id}")
-//    public String suaDien(
-//            @PathVariable("id") Long id,
-//            Model model
-//    ) {
-//        ResponseDto responseDto = markService.findById(id);
-//        model.addAttribute("data", responseDto.getObject());
-//        return "fragment/body/home/edit/edit-mark";
-//    }
-//
-//    @PutMapping("updateMark")
-//    public String updateMark(
-//            @ModelAttribute MarkDTO markDTO
-//    ) {
-//        ResponseDto responseDto = markService.update(markDTO);
-//        return "redirect:/quan-ly-diem";
-//    }
-//
-//    @DeleteMapping("deleteMark")
-//    public String deleteMark(
-//            @RequestParam(name = "id") Long id
-//    ) {
-//        ResponseDto responseDto = markService.delete(id);
-//        return "redirect:/quan-ly-diem";
-//    }
+////    @DeleteMapping("deleteMark")
+////    public String deleteMark(
+////            @RequestParam(name = "id") Long id
+////    ) {
+////        ResponseDto responseDto = markService.delete(id);
+////        return "redirect:/quan-ly-diem";
+////    }
 //
 //
 //}

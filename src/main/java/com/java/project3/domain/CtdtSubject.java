@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Table(name = EntityName.CTDT_SUBJECT)
 public class CtdtSubject extends AbstractBaseEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "ma_mon")
+    private String maMon;
 
     @Column(name = "exam_type")
     private Integer examType;

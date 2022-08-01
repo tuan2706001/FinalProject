@@ -6,20 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDTO {
-
+public class TeacherSubjectDTO {
     @JMap
     private Long id;
 
     @JMap
-    private String name;
+    private Long teacherId;
 
     @JMap
-    private String gioiThieu;
-
+    private Long subjectId;
 }

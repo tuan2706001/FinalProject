@@ -22,12 +22,14 @@ public class CourseClassDTO {
     private Long ctdtId;
 
     @JMap
-    private Long ctdtName;
+    private String ctdtName;
 
     @JMap
     private Long courseId;
 
     @JMap
     private String courseName;
+
+    private Long sumStudent;
 
 }

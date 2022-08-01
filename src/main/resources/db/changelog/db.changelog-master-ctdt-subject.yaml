@@ -18,7 +18,7 @@ databaseChangeLog:
                   name: type
                   type: integer
               - column:
-                  name: name
+                  name: ma_mon
                   type: NVARCHAR(255)
               - column:
                   name: time

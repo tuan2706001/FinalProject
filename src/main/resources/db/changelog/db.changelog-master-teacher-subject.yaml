@@ -1,22 +1,22 @@
 databaseChangeLog:
 
-  #subject
+  #teacher
   - changeSet:
-      id: subject
+      id: teacher_subject
       author: dat
       changes:
         - createTable:
-            tableName: subject
+            tableName: teacher_subject
             columns:
               - column:
                   name: id
                   type: bigint
                   constraints:
                     primaryKey: true
-                    primaryKeyName: subject_pkey
+                    primaryKeyName: teacher_subject_pkey
               - column:
-                  name: name
-                  type: NVARCHAR(255)
+                  name: teacher_id
+                  type: bigint
               - column:
-                  name: gioi_thieu
-                  type: NVARCHAR(255)
+                  name: subject_id
+                  type: bigint

@@ -15,13 +15,12 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = EntityName.SUBJECT)
-@Table(name = EntityName.SUBJECT)
-public class Subject extends AbstractBaseEntity {
+@Entity(name = EntityName.TEACHER_SUBJECT)
+@Table(name = EntityName.TEACHER_SUBJECT)
+public class TeacherSubject extends AbstractBaseEntity {
+    @Column(name = "teacher_id")
+    private Long teacherId;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "gioi_thieu")
-    private String gioiThieu;
+    @Column(name = "subject_id")
+    private Long subjectId;
 }

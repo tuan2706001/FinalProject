@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-lop-chung" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-lop-chung" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <button id="myBtn"
@@ -26,35 +26,35 @@
             </div>
 
             <form class="flex">
-                <div class="mr-16 lg:flex text-center xl:text-base">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
-                    <select name="majorId" id="majorIds"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn ngành--</option>
-                        <th:bock th:if="${dataNganh != null && #lists.size(dataNganh) > 0}">
-                            <th:block th:each="item,index : ${dataNganh}">
-                                <option th:value="${item.id}" th:text="${item.name}"
-                                        th:selected="${majorId == item.id ? true : false}"></option>
-                            </th:block>
-                        </th:bock>
-                    </select>
-                </div>
+<!--                <div class="mr-16 lg:flex text-center xl:text-base">-->
+<!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>-->
+<!--                    <select name="majorId" id="majorIds"-->
+<!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"-->
+<!--                            onchange="this.form.submit()">-->
+<!--                        <option value="0" hidden>&#45;&#45;Chọn ngành&#45;&#45;</option>-->
+<!--                        <th:bock th:if="${dataNganh != null && #lists.size(dataNganh) > 0}">-->
+<!--                            <th:block th:each="item,index : ${dataNganh}">-->
+<!--                                <option th:value="${item.id}" th:text="${item.name}"-->
+<!--                                        th:selected="${majorId == item.id ? true : false}"></option>-->
+<!--                            </th:block>-->
+<!--                        </th:bock>-->
+<!--                    </select>-->
+<!--                </div>-->
 
-                <div class="mr-12 lg:flex text-center xl:text-base">
-<!--                    <div class="lg:mt-1 text-base mt-4 text-bold">Chương trình</div>-->
-                    <select name="majorId" id="majorIds"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn chương trình--</option>
-                        <th:bock th:if="${dataNganh != null && #lists.size(dataNganh) > 0}">
-                            <th:block th:each="item,index : ${dataNganh}">
-                                <option th:value="${item.id}" th:text="${item.name}"
-                                        th:selected="${majorId == item.id ? true : false}"></option>
-                            </th:block>
-                        </th:bock>
-                    </select>
-                </div>
+<!--                <div class="mr-12 lg:flex text-center xl:text-base">-->
+<!--&lt;!&ndash;                    <div class="lg:mt-1 text-base mt-4 text-bold">Chương trình</div>&ndash;&gt;-->
+<!--                    <select name="majorId" id="majorIds"-->
+<!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"-->
+<!--                            onchange="this.form.submit()">-->
+<!--                        <option value="0" hidden>&#45;&#45;Chọn chương trình&#45;&#45;</option>-->
+<!--                        <th:bock th:if="${dataNganh != null && #lists.size(dataNganh) > 0}">-->
+<!--                            <th:block th:each="item,index : ${dataNganh}">-->
+<!--                                <option th:value="${item.id}" th:text="${item.name}"-->
+<!--                                        th:selected="${majorId == item.id ? true : false}"></option>-->
+<!--                            </th:block>-->
+<!--                        </th:bock>-->
+<!--                    </select>-->
+<!--                </div>-->
 
                 <div class="justify-self-end">
                     <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-14 mr-6">
@@ -80,7 +80,7 @@
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
                 <th>tên khóa</th>
-                <th>Tên ngành</th>
+                <th>Tên chương trình đào tạo</th>
                 <th>Tên lớp</th>
                 <th>Số sinh viên</th>
                 <th>Sửa</th>
@@ -90,7 +90,7 @@
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.courseName}"></td>
-                <td th:text="${item.majorName}"></td>
+                <td th:text="${item.ctdtName}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.sumStudent} == null ? 0 : ${item.sumStudent}"></td>
                 <td>
@@ -100,13 +100,13 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-lop/' + item.id}"
+                                    th:data-url="${'/quan-ly-lop-chung/' + item.id}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
                                 <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                             </svg>
-                            <form action="/deleteGrade" th:method="DELETE">
+                            <form action="/deleteCourseClass" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
                                     <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
@@ -133,7 +133,7 @@
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createGrade" onsubmit="return checkValidate()">
+                <form method="POST" action="/createCourseClass" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
@@ -153,41 +153,41 @@
                                 </div>
                             </div>
 
-                            <div class="w-2/3">
-                                <label class="font-medium mr-10">Chuyên ngành</label>
-                                <div>
-                                    <select id="majorIdss" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
-                                        <option value="" hidden>--Chọn ngành--</option>
-                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">
-                                            <th:block th:each="item,index : ${dataNganh}">
-                                                <option th:value="${item.id}" th:text="${item.name}"
-                                                        th:selected="${majorId == item.id ? true : false}"></option>
-                                            </th:block>
-                                        </th:bock>
-                                    </select>
-                                    <div class="text-sm text-red-600" id="errMajor"></div>
-                                </div>
-                            </div>
+<!--                            <div class="w-2/3">-->
+<!--                                <label class="font-medium mr-10">Chuyên ngành</label>-->
+<!--                                <div>-->
+<!--                                    <select id="majorIdss" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700-->
+<!--                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">-->
+<!--                                        <option value="" hidden>&#45;&#45;Chọn ngành&#45;&#45;</option>-->
+<!--                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">-->
+<!--                                            <th:block th:each="item,index : ${dataNganh}">-->
+<!--                                                <option th:value="${item.id}" th:text="${item.name}"-->
+<!--                                                        th:selected="${majorId == item.id ? true : false}"></option>-->
+<!--                                            </th:block>-->
+<!--                                        </th:bock>-->
+<!--                                    </select>-->
+<!--                                    <div class="text-sm text-red-600" id="errMajor"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                         </div>
 
-                        <div>
-                            <label class="font-medium mr-28">Chương trình đào tạo</label>
-                            <div>
-                                <select id="ctdtIdss" class="mb-4 shadow appearance-none border rounded w-7/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">
-                                    <option value="" hidden>--Chương trình đào tạo--</option>
-                                    <th:bock th:if="${dataCtdts != null && #lists.size(dataCtdts) > 0}">
-                                        <th:block th:each="item,index : ${dataCtdt}">
-                                            <option th:value="${item.id}" th:text="${item.name}"
-                                                    th:selected="${ctdtId == item.id ? true : false}"></option>
-                                        </th:block>
-                                    </th:bock>
-                                </select>
-                                <div class="text-sm text-red-600" id="errMajor"></div>
-                            </div>
-                        </div>
+<!--                        <div>-->
+<!--                            <label class="font-medium mr-28">Chương trình đào tạo</label>-->
+<!--                            <div>-->
+<!--                                <select id="ctdtIdss" class="mb-4 shadow appearance-none border rounded w-7/12  py-2 px-3 text-gray-700-->
+<!--                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">-->
+<!--                                    <option value="" hidden>&#45;&#45;Chương trình đào tạo&#45;&#45;</option>-->
+<!--                                    <th:bock th:if="${dataCtdts != null && #lists.size(dataCtdts) > 0}">-->
+<!--                                        <th:block th:each="item,index : ${dataCtdt}">-->
+<!--                                            <option th:value="${item.id}" th:text="${item.name}"-->
+<!--                                                    th:selected="${ctdtId == item.id ? true : false}"></option>-->
+<!--                                        </th:block>-->
+<!--                                    </th:bock>-->
+<!--                                </select>-->
+<!--                                <div class="text-sm text-red-600" id="errMajor"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div>
                             <label class="font-medium mr-28">Tên lớp</label>

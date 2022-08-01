@@ -38,15 +38,15 @@ public class CourseClassServcie {
     CourseRepository courseRepository;
     @Autowired
     CtdtRepository ctdtRepository;
-//    @Autowired
-//    StudentRepository studentRepository;
+    @Autowired
+    StudentRepository studentRepository;
 //    @Autowired
 //    SubjectRepository subjectRepository;
 //    @Autowired
 //    MarkRepository markRepository;
 
-    JMapper<CourseClassDTO, CourseClass> toGradeDto;
-    JMapper<CourseClass, CourseClassDTO> toGrade;
+    JMapper<CourseClassDTO, CourseClass> toCourseClassDto;
+    JMapper<CourseClass, CourseClassDTO> toCourseClass;
     JMapper<StudentDTO, Student> toStudentDto;
     JMapper<Student, StudentDTO> toStudent;
     JMapper<MarkDTO, Mark> toMarkDto;
@@ -54,8 +54,8 @@ public class CourseClassServcie {
 
 
     public CourseClassServcie() {
-        this.toGradeDto = new JMapper<>(CourseClassDTO.class, CourseClass.class);
-        this.toGrade = new JMapper<>(CourseClass.class, CourseClassDTO.class);
+        this.toCourseClassDto = new JMapper<>(CourseClassDTO.class, CourseClass.class);
+        this.toCourseClass = new JMapper<>(CourseClass.class, CourseClassDTO.class);
         this.toStudentDto = new JMapper<>(StudentDTO.class, Student.class);
         this.toStudent = new JMapper<>(Student.class, StudentDTO.class);
         this.toMarkDto = new JMapper<>(MarkDTO.class, Mark.class);
@@ -66,7 +66,7 @@ public class CourseClassServcie {
         ResponseDto responseDto = new ResponseDto();
         Optional<CourseClass> grade = courseClassRepository.findById(id);
         if (grade.isPresent()) {
-            CourseClassDTO courseClassDTO = toGradeDto.getDestination(grade.get());
+            CourseClassDTO courseClassDTO = toCourseClassDto.getDestination(grade.get());
             responseDto.setObject(courseClassDTO);
         }
         return responseDto;
@@ -76,12 +76,12 @@ public class CourseClassServcie {
         ResponseDto responseDto = new ResponseDto();
         Optional<Ctdt> ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId());
         Optional<Course> course = courseRepository.findById(courseClassDTO.getCourseId());
-        CourseClass courseClass = toGrade.getDestination(courseClassDTO);
+        CourseClass courseClass = toCourseClass.getDestination(courseClassDTO);
         courseClass.setId(genIdService.nextId());
         courseClass.setCtdtName(ctdt.get().getName());
         courseClass.setCourseName(course.get().getName());
         CourseClass result = courseClassRepository.save(courseClass);
-        var temp = toGradeDto.getDestination(result);
+        var temp = toCourseClassDto.getDestination(result);
         responseDto.setObject(temp);
         return responseDto;
     }
@@ -92,11 +92,11 @@ public class CourseClassServcie {
         if (courseClass.isPresent()) {
             Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).get();
             Course course = courseRepository.findById(courseClassDTO.getCourseId()).get();
-            CourseClass courseClass1 = toGrade.getDestination(courseClass.get(), courseClassDTO);
+            CourseClass courseClass1 = toCourseClass.getDestination(courseClass.get(), courseClassDTO);
             courseClass1.setCtdtName(ctdt.getName());
             courseClass1.setCourseName(course.getName());
             CourseClass result = courseClassRepository.save(courseClass1);
-            CourseClassDTO courseClassDTO1 = toGradeDto.getDestination(result);
+            CourseClassDTO courseClassDTO1 = toCourseClassDto.getDestination(result);
             responseDto.setObject(courseClassDTO1);
 
 //            //update lại tên lớp trong student
@@ -128,22 +128,23 @@ public class CourseClassServcie {
         Page<CourseClass> courseClasses = courseClassRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
         List<CourseClassDTO> courseClassDTOS = new ArrayList<>();
-        for (var grade : courseClasses) {
-//            CourseClassDTO courseClassDTO = toGradeDto.getDestination(grade);
+        for (var courseClass : courseClasses) {
+            CourseClassDTO courseClassDTO = toCourseClassDto.getDestination(courseClass);
 
-            courseClassDTOS.add(toGradeDto.getDestination(grade));
 
-//            Major major = majorRepository.findById(courseClassDTO.getCourseId()).orElse(null);
-//            Course course = courseRepository.findById(major.getCourseId()).orElse(null);
-//            courseClassDTO.setCourseName(course.getName());
-//            courseClassDTO.setSumStudent(studentRepository.countStudentByGradeId(grade.getId()));
-//            toGradeDto.getDestination(grade);
+
+            Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).orElse(null);
+            Course course = courseRepository.findById(courseClassDTO.getCourseId()).orElse(null);
+            courseClassDTO.setCourseName(course.getName());
+            courseClassDTO.setCtdtName(ctdt.getName());
+            courseClassDTO.setSumStudent(studentRepository.countStudentByCourseClassId(courseClass.getId()));
+            courseClassDTOS.add(courseClassDTO);
         }
         responseDto.setObject(prepareResponseForSearch(courseClasses.getTotalPages(), courseClasses.getNumber(), courseClasses.getTotalElements(), courseClassDTOS));
         return responseDto;
     }
 
-    public ResponseDto searchCourseClassBy(Integer pageIndex, Integer pageSize, String search, Long courseId, Long ctdtId) {
+    public ResponseDto searchCourseClassBy(Integer pageIndex, Integer pageSize, String search, Long courseId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -160,9 +161,9 @@ public class CourseClassServcie {
         if (courseId != null) {
             sql += ",N-courseId=\"" + courseId + "\"";
         }
-        if (ctdtId != null) {
-            sql += ",N-ctdtId=\"" + ctdtId + "\"";
-        }
+//        if (ctdtId != null) {
+//            sql += ",N-ctdtId=\"" + ctdtId + "\"";
+//        }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);

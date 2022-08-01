@@ -39,22 +39,22 @@ public class SubjectService {
     CourseClassRepository courseClassRepository;
 
 
-    JMapper<SubjectDTO, CtdtSubject> toSubjectDto;
-    JMapper<CtdtSubject, SubjectDTO> toSubject;
+    JMapper<SubjectDTO, Subject> toSubjectDto;
+    JMapper<Subject, SubjectDTO> toSubject;
     JMapper<MarkDTO, Mark> toMarkDto;
     JMapper<Mark, MarkDTO> toMark;
 
 
     public SubjectService() {
-        this.toSubjectDto = new JMapper<>(SubjectDTO.class, CtdtSubject.class);
-        this.toSubject = new JMapper<>(CtdtSubject.class, SubjectDTO.class);
+        this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
+        this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
         this.toMarkDto = new JMapper<>(MarkDTO.class, Mark.class);
         this.toMark = new JMapper<>(Mark.class, MarkDTO.class);
     }
 
     public ResponseDto findById(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<CtdtSubject> subject = subjectRepository.findById(id);
+        Optional<Subject> subject = subjectRepository.findById(id);
         if (subject.isPresent()) {
             SubjectDTO subjectDTO = toSubjectDto.getDestination(subject.get());
             responseDto.setObject(subjectDTO);
@@ -80,32 +80,32 @@ public class SubjectService {
 
     public ResponseDto create(SubjectDTO subjectDTO) {
         ResponseDto responseDto = new ResponseDto();
-        CtdtSubject ctdtSubject = toSubject.getDestination(subjectDTO);
-        ctdtSubject.setId(genIdService.nextId());
-        CtdtSubject result = subjectRepository.save(ctdtSubject);
+        Subject subject = toSubject.getDestination(subjectDTO);
+        subject.setId(genIdService.nextId());
+        Subject result = subjectRepository.save(subject);
         var temp = toSubjectDto.getDestination(result);
         responseDto.setObject(temp);
         return responseDto;
     }
 
 
-    public ResponseDto createDetail(SubjectDTO subjectDTO) {
-        ResponseDto responseDto = new ResponseDto();
-        CtdtSubject ctdtSubject = toSubject.getDestination(subjectDTO);
-        ctdtSubject.setId(genIdService.nextId());
-        CtdtSubject result = subjectRepository.save(ctdtSubject);
-        var temp = toSubjectDto.getDestination(result);
-        responseDto.setObject(temp);
-        return responseDto;
-    }
+//    public ResponseDto createDetail(SubjectDTO subjectDTO) {
+//        ResponseDto responseDto = new ResponseDto();
+//        CtdtSubject ctdtSubject = toSubject.getDestination(subjectDTO);
+//        ctdtSubject.setId(genIdService.nextId());
+//        CtdtSubject result = subjectRepository.save(ctdtSubject);
+//        var temp = toSubjectDto.getDestination(result);
+//        responseDto.setObject(temp);
+//        return responseDto;
+//    }
 
 
     public ResponseDto update(SubjectDTO subjectDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<CtdtSubject> subject = subjectRepository.findById(subjectDTO.getId());
+        Optional<Subject> subject = subjectRepository.findById(subjectDTO.getId());
         if (subject.isPresent()) {
-            CtdtSubject ctdtSubject1 = toSubject.getDestination(subject.get(), subjectDTO);
-            CtdtSubject result = subjectRepository.save(ctdtSubject1);
+            Subject subject1 = toSubject.getDestination(subject.get(), subjectDTO);
+            Subject result = subjectRepository.save(subject1);
             SubjectDTO subjectDTO1 = toSubjectDto.getDestination(result);
             responseDto.setObject(subjectDTO1);
 
@@ -126,7 +126,7 @@ public class SubjectService {
         // Dùng hàm search (hero)
         PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
                 by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
-        Page<CtdtSubject> subjects = subjectRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        Page<Subject> subjects = subjectRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
         List<SubjectDTO> subjectDTOS = new ArrayList<>();
         for (var subject : subjects) {
@@ -199,7 +199,7 @@ public class SubjectService {
 
     public ResponseDto delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<CtdtSubject> subject = subjectRepository.findById(id);
+        Optional<Subject> subject = subjectRepository.findById(id);
         if (subject.isPresent()) {
             subjectRepository.deleteById(id);
             responseDto.setObject(id);

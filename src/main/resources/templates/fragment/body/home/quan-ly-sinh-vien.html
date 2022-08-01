@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div th:fragment="quan-ly-sinh-vien" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-sinh-vien" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
@@ -64,7 +64,7 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.fullName}"></td>
                 <td th:text="${item.studentCode}"></td>
-                <td th:text="${item.gradeName}"></td>
+                <td th:text="${item.courseClassName}"></td>
                 <td th:text="${item.birthday}"></td>
                 <td th:text="${item.gender} == 1 ? Nam : Nữ"></td>
                 <td>

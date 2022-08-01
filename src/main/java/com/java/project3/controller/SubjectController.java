@@ -37,7 +37,7 @@ public class SubjectController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search, "Đại cương");
+        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search, null);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -47,43 +47,43 @@ public class SubjectController {
         return "quan-ly-mon-hoc";
     }
 
-    @GetMapping("quan-ly-mon-hoc-chuyen-nganh")
-    public String majorDetail(
-            Model model,
-            @RequestParam(value = "currentPage", required = false) Integer currentPage,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize,
-            @RequestParam(value = "type", required = false) String type,
-            @RequestParam(value = "search", required = false) String search,
-            @RequestParam(value = "courseId", required = false) Long courseId
-    ) {
-        Page page = new Page();
-        page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search, "Chuyên ngành");
-        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
-        model.addAttribute("findAll", searchResDto.getData());
-        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
-        model.addAttribute("page", page);
-        model.addAttribute("search", search);
-
-        //get khóa
-        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
-        searchReqDtoKhoa.setPageSize(100);
-        searchReqDtoKhoa.setPageIndex(0);
-        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
-        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
-        model.addAttribute("khoa", searchResDtoKhoa.getData());
-        model.addAttribute("courseId", courseId);
-
-        //get ngành
-        SearchReqDto searchReqDtoNganh = new SearchReqDto();
-        searchReqDtoNganh.setPageSize(100);
-        searchReqDtoNganh.setPageIndex(0);
-        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
-        SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
-        model.addAttribute("nganh", searchResDtoNganh.getData());
-
-        return "quan-ly-mon-hoc-chuyen-nganh";
-    }
+//    @GetMapping("quan-ly-mon-hoc")
+//    public String majorDetail(
+//            Model model,
+//            @RequestParam(value = "currentPage", required = false) Integer currentPage,
+//            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+//            @RequestParam(value = "type", required = false) String type,
+//            @RequestParam(value = "search", required = false) String search,
+//            @RequestParam(value = "courseId", required = false) Long courseId
+//    ) {
+//        Page page = new Page();
+//        page = PageUltil.setDefault(currentPage, pageSize);
+//        ResponseDto responseDto = subjectService.searchSubjectBy(page.getCurrentPage() - 1, page.getPageSize(), search, "Chuyên ngành");
+//        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
+//        model.addAttribute("findAll", searchResDto.getData());
+//        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
+//        model.addAttribute("page", page);
+//        model.addAttribute("search", search);
+//
+//        //get khóa
+//        SearchReqDto searchReqDtoKhoa = new SearchReqDto();
+//        searchReqDtoKhoa.setPageSize(100);
+//        searchReqDtoKhoa.setPageIndex(0);
+//        ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
+//        SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
+//        model.addAttribute("khoa", searchResDtoKhoa.getData());
+//        model.addAttribute("courseId", courseId);
+//
+//        //get ngành
+//        SearchReqDto searchReqDtoNganh = new SearchReqDto();
+//        searchReqDtoNganh.setPageSize(100);
+//        searchReqDtoNganh.setPageIndex(0);
+//        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
+//        SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
+//        model.addAttribute("nganh", searchResDtoNganh.getData());
+//
+//        return "quan-ly-mon-hoc-chuyen-nganh";
+//    }
 
     @PostMapping("createSubject")
     public String createSubject(

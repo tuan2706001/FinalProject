@@ -48,8 +48,8 @@ public class MajorService {
     JMapper<Major, MajorDTO> toMajor;
 //    JMapper<CourseClassDTO, CourseClass> toGradeDto;
 //    JMapper<CourseClass, CourseClassDTO> toGrade;
-    JMapper<SubjectDTO, CtdtSubject> toSubjectDto;
-    JMapper<CtdtSubject, SubjectDTO> toSubject;
+    JMapper<SubjectDTO, Subject> toSubjectDto;
+    JMapper<Subject, SubjectDTO> toSubject;
 
 
     public MajorService() {
@@ -57,8 +57,8 @@ public class MajorService {
         this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
 //        this.toGradeDto = new JMapper<>(CourseClassDTO.class, CourseClass.class);
 //        this.toGrade = new JMapper<>(CourseClass.class, CourseClassDTO.class);
-        this.toSubjectDto = new JMapper<>(SubjectDTO.class, CtdtSubject.class);
-        this.toSubject = new JMapper<>(CtdtSubject.class, SubjectDTO.class);
+        this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
+        this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
     }
 
     public ResponseDto findById(Long id) {

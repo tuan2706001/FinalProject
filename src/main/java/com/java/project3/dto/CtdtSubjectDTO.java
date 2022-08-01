@@ -15,16 +15,10 @@ public class CtdtSubjectDTO {
     private Long id;
 
     @JMap
-    private String name;
+    private String ma_mon;
 
     @JMap
     private Integer examType;
-
-    @JMap
-    private Boolean theory;
-
-    @JMap
-    private Boolean skill;
 
     @JMap
     private Integer time;

@@ -64,29 +64,29 @@
 //        return responseDto;
 //    }
 //
-//    public ResponseDto findBySubjectId(Long subjectId) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<CtdtSubject> subject = subjectRepository.findById(subjectId);
-//        List<Mark> marks = markRepository.findBySubjectId(subject.get().getId());
-//        List<MarkDTO> markDTOS = new ArrayList<>();
-//        for (var item : marks) {
-//            markDTOS.add(toMarkDto.getDestination(item));
-//        }
-//        responseDto.setObject(markDTOS);
-//        return responseDto;
-//    }
-//
-//    public ResponseDto findByGradeId(Long gradeId) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<CourseClass> grade = courseClassRepository.findById(gradeId);
-//        Mark marks = markRepository.findByGradeId(grade.get().getId());
+////    public ResponseDto findBySubjectId(Long subjectId) {
+////        ResponseDto responseDto = new ResponseDto();
+////        Optional<CtdtSubject> subject = subjectRepository.findById(subjectId);
+////        List<Mark> marks = markRepository.findBySubjectId(subject.get().getId());
 ////        List<MarkDTO> markDTOS = new ArrayList<>();
 ////        for (var item : marks) {
-//            MarkDTO markDTO = toMarkDto.getDestination(marks);
+////            markDTOS.add(toMarkDto.getDestination(item));
 ////        }
-//        responseDto.setObject(markDTO);
-//        return responseDto;
-//    }
+////        responseDto.setObject(markDTOS);
+////        return responseDto;
+////    }
+//
+////    public ResponseDto findByGradeId(Long gradeId) {
+////        ResponseDto responseDto = new ResponseDto();
+////        Optional<CourseClass> grade = courseClassRepository.findById(gradeId);
+////        Mark marks = markRepository.findByGradeId(grade.get().getId());
+//////        List<MarkDTO> markDTOS = new ArrayList<>();
+//////        for (var item : marks) {
+////            MarkDTO markDTO = toMarkDto.getDestination(marks);
+//////        }
+////        responseDto.setObject(markDTO);
+////        return responseDto;
+////    }
 //
 //    public ResponseDto findByGradeAndSubject(Long gradeId, Long subjectId) {
 //        ResponseDto responseDto = new ResponseDto();
@@ -136,45 +136,45 @@
 ////        return  responseDto;
 ////    }
 //
-//    public ResponseDto create(MarkDTO markDTO) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Student student = studentRepository.findById(markDTO.getStudentId()).get();
-//        CtdtSubject ctdtSubject = subjectRepository.findById(markDTO.getSubjectId()).get();
-//        CourseClass courseClass = courseClassRepository.findById(markDTO.getGradeId()).get();
-//        Mark mark = toMark.getDestination(markDTO);
-//        mark.setId(genIdService.nextId());
-//        mark.setStudentName(student.getFullName());
-//        mark.setSubjectName(ctdtSubject.getName());
-//        mark.setGradeName(courseClass.getName());
-//        if (mark.getTheory1() >= 5 && mark.getSkill1() >= 5) {
-//            mark.setStatus((short) 1);
-//        } else {
-//            mark.setStatus((short) 2);
-//        }
-//        Mark result = markRepository.save(mark);
-//        var temp = toMarkDto.getDestination(result);
-//        responseDto.setObject(temp);
-//        return responseDto;
-//    }
+////    public ResponseDto create(MarkDTO markDTO) {
+////        ResponseDto responseDto = new ResponseDto();
+////        Student student = studentRepository.findById(markDTO.getStudentId()).get();
+////        CtdtSubject ctdtSubject = subjectRepository.findById(markDTO.getSubjectId()).get();
+////        CourseClass courseClass = courseClassRepository.findById(markDTO.getGradeId()).get();
+////        Mark mark = toMark.getDestination(markDTO);
+////        mark.setId(genIdService.nextId());
+////        mark.setStudentName(student.getFullName());
+////        mark.setSubjectName(ctdtSubject.getName());
+////        mark.setGradeName(courseClass.getName());
+////        if (mark.getTheory1() >= 5 && mark.getSkill1() >= 5) {
+////            mark.setStatus((short) 1);
+////        } else {
+////            mark.setStatus((short) 2);
+////        }
+////        Mark result = markRepository.save(mark);
+////        var temp = toMarkDto.getDestination(result);
+////        responseDto.setObject(temp);
+////        return responseDto;
+////    }
 //
-//    public ResponseDto update(MarkDTO markDTO) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<Mark> mark = markRepository.findById(markDTO.getId());
-//        if (mark.isPresent()) {
-//            Mark mark1 = toMark.getDestination(mark.get(), markDTO);
-//            if (mark1.getTheory1() < 5 && mark1.getSkill1() < 5) {
-//                if (mark1.getTheory2() >= 5 && mark1.getSkill2() >= 5) {
-//                    mark1.setStatus((short) 1);
-//                } else {
-//                    mark1.setStatus((short) 3);
-//                }
-//            }
-//            Mark result = markRepository.save(mark1);
-//            MarkDTO markDTO1 = toMarkDto.getDestination(result);
-//            responseDto.setObject(markDTO1);
-//        }
-//        return responseDto;
-//    }
+////    public ResponseDto update(MarkDTO markDTO) {
+////        ResponseDto responseDto = new ResponseDto();
+////        Optional<Mark> mark = markRepository.findById(markDTO.getId());
+////        if (mark.isPresent()) {
+////            Mark mark1 = toMark.getDestination(mark.get(), markDTO);
+////            if (mark1.getTheory1() < 5 && mark1.getSkill1() < 5) {
+////                if (mark1.getTheory2() >= 5 && mark1.getSkill2() >= 5) {
+////                    mark1.setStatus((short) 1);
+////                } else {
+////                    mark1.setStatus((short) 3);
+////                }
+////            }
+////            Mark result = markRepository.save(mark1);
+////            MarkDTO markDTO1 = toMarkDto.getDestination(result);
+////            responseDto.setObject(markDTO1);
+////        }
+////        return responseDto;
+////    }
 //
 //    public ResponseDto search(SearchReqDto reqDto) {
 //         ResponseDto responseDto = new ResponseDto();

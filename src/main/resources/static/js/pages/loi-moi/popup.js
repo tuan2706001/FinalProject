@@ -10,7 +10,15 @@ $('.edit').click(function (){
 $('.closeModal').click(function (){
     $('#modalCreate').css('display','none')
     $('#modalEdit').css('display','none')
+    $('#modalShow').css('display','none')
+    $(".modalViewSubject").hide()
     $('body,html').css('overflow','auto');
+})
+
+$('.show').click(function (){
+    $('#modalShow').css('display','block')
+
+    $('body,html').css('overflow','hidden');
 })
 
 $(window).click(function (e){
@@ -20,6 +28,10 @@ $(window).click(function (e){
     }
     if ($(e.target).is($('#modalEdit'))){
         $('#modalEdit').css('display','none')
+        $('body,html').css('overflow','auto');
+    }
+    if ($(e.target).is($('#modalShow'))){
+        $('#modalShow').css('display','none')
         $('body,html').css('overflow','auto');
     }
 })

@@ -45,7 +45,7 @@ public class CourseClassController {
         }
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = courseClassServcie.searchCourseClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseId, ctdtId);
+        ResponseDto responseDto = courseClassServcie.searchCourseClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -60,15 +60,15 @@ public class CourseClassController {
         SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
         model.addAttribute("khoa", searchResDtoKhoa.getData());
         model.addAttribute("courseId", courseId);
-
-        //get ctdt
-        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
-        searchReqDtoCtdt.setPageSize(100);
-        searchReqDtoCtdt.setPageIndex(0);
-        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
-        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
-        model.addAttribute("ctdt", searchResDtoCtdt.getData());
-        model.addAttribute("ctdtId", ctdtId);
+//
+//        //get ctdt
+//        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
+//        searchReqDtoCtdt.setPageSize(100);
+//        searchReqDtoCtdt.setPageIndex(0);
+//        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
+//        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
+//        model.addAttribute("ctdt", searchResDtoCtdt.getData());
+//        model.addAttribute("ctdtId", ctdtId);
 
 //        //dùng ajax lấu ngành theo khóa
 //        List<MajorDTO> majorDTOS = null;
@@ -126,7 +126,7 @@ public class CourseClassController {
 //        model.addAttribute("dataNganhs", majorDTOS);
 
         ResponseDto responseDto = courseClassServcie.create(courseClassDTO);
-        return "redirect:/quan-ly-lop";
+        return "redirect:/quan-ly-lop-chung";
     }
 
     @GetMapping("quan-ly-lop-chung/{id}")
@@ -155,7 +155,7 @@ public class CourseClassController {
         return "fragment/body/home/edit/edit-grade";
     }
 
-    @PutMapping("updateGrade")
+    @PutMapping("updateCourseClass")
     public String updateGrade(
             @ModelAttribute CourseClassDTO courseClassDTO
     ) {
@@ -163,7 +163,7 @@ public class CourseClassController {
         return "redirect:/quan-ly-lop-chung";
     }
 
-    @DeleteMapping("deleteGrade")
+    @DeleteMapping("deleteCourseClass")
     public String deleteGrade(
             @RequestParam(name = "id") Long id
     ) {

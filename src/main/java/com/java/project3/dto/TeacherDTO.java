@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDTO {
+public class TeacherDTO {
 
     @JMap
     private Long id;
@@ -19,7 +20,9 @@ public class SubjectDTO {
     @JMap
     private String name;
 
-    @JMap
-    private String gioiThieu;
+    private List<Long> subjectIds;
 
+    private List<String> subjectNames;
+
+    private Long sumSubject;
 }
