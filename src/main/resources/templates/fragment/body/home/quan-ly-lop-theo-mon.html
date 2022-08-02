@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div th:fragment="quan-ly-lop-theo-mon" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+    <div class="w-11/12 mx-auto">
+        <div class="flex justify-center mt-10">
+            <button id="myBtn" class="content-left rounded font-bold w-44 h-9 mr-96  text-white transition duration-300">
+                Thêm hệ
+            </button>
+            <form>
+                <div class="justify-self-end">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                        <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
+                               name="search"
+                               th:value="${search}">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="xl:h-6 xl:w-6 lg:w-5 lg:w-5 w-6 w-6" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="w-full tableRounded mt-1">
+            <thead>
+            <tr class=" text-white " style="background: #4A96CA">
+                <th>STT</th>
+                <th>Tên hệ</th>
+                <th>Sửa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item,index : ${findAll}">
+                <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
+                <td th:text="${item.name}"></td>
+                <td>
+                    <div class=" rounded-full relative menu2 flex justify-center items-center">
+                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
+
+                        <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
+                            <svg
+                                    th:data-url="${'/quan-ly-he/' + item.id}"
+                                    xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
+                                    viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);">
+                                <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
+                            </svg>
+                            <form action="/deleteCurriculum" th:method="DELETE">
+                                <input type="hidden" name="id" th:value="${item.id}">
+                                <button type="submit">
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(findAll)}">
+                <td colspan="3">Không có dữ liệu</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
+
+        <div id="modalCreate" class="modal pt-20 z-50">
+
+            <!-- Modal content -->
+            <div class="modal-content w-6/12 mx-auto my-10">
+                <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+                    <div class="text-xl ">Thêm hệ</div>
+                    <button><span class="closeModal  transition duration-300">&times;</span></button>
+                </div>
+
+                <form method="POST" action="/createCurriculum" onsubmit="return checkValidate()">
+                    <div class="modal-body p-10">
+                        <div>
+                            <div>
+                                <label class="font-medium mr-4">Tên hệ</label>
+                                <div>
+                                    <input id="name" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
+                                    <div class="text-sm text-red-600" id="errName"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-end mt-10">
+                                <div
+                                        onclick="closeModal()"
+                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                                </div>
+                                <button
+                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                        id="submit">Gửi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <section aria-label="modalEdit" class="">
+        <div id="modalEdit"
+             class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
+        </div>
+    </section>
+    <script>
+        $('.edit').click(function () {
+            $.ajax({
+                url: $(this).data('url'),
+                method: 'GET',
+                success: function (p) {
+                    $('#modalEdit').html('')
+                    $('#modalEdit').html(p)
+                }
+            })
+
+        })
+    </script>
+</div>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <div th:fragment="menuLeft" class="w-full min-h-full left-0 pt-10 top-0 px-1 rounded bg-gray-100" >
+    <div th:fragment="menuLeft" class="w-full min-h-full left-0 pt-5 top-0 rounded bg-gray-100" >
 
 <!--        <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-10 xl:w-56 lg:h-10 lg:w-64 mb-10 mx-auto rounded-md w-full h-10 lg:rounded-lg flex items-center justify-between text-center">-->
 <!--            <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold" name="search" value="">-->
@@ -14,45 +14,58 @@
 <!--                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>-->
 <!--            </svg>-->
 <!--        </div>-->
-
         <a th:classappend="${#httpServletRequest.requestURI.contains('/trang-chu') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/trang-chu" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3">
+           href="/trang-chu" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
             Trang chủ
         </a>
 
-<!--        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-giao-vu') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"-->
-<!--           href="/quan-ly-giao-vu" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">-->
-<!--            Quản lý giáo vụ-->
-<!--        </a>-->
+        <div class="rounded-lg">
+            <div class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center mt-3">
+                <div class="menu w-full h-full flex items-center bg-blue-400 hover:bg-gray-400 shadow-xl duration-300 rounded-lg">
+                    <div class="ml-3">
+                        Quản lý danh mục
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-400 transition-all duration-300 h-0 overflow-hidden menuChild" >
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-he') ? 'bg-gradient-to-r from-indigo-900' : 'bg-sky-400'}"
+                   href="/quan-ly-he" class="w-full font-bold text-slate-600 transition duration-300 h-12 flex items-center pl-9 hover:bg-yellow-500 cursor-pointer rounded-lg">
+                    Quản lý hệ
+                </a>
 
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-he') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-he" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Quản lý hệ
-        </a>
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-nganh') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+                   href="/quan-ly-nganh" class="w-full font-bold text-slate-700 transition duration-300 h-12 flex items-center pl-9 hover:bg-yellow-500 cursor-pointer rounded-lg">
+                    Quản lý ngành
+                </a>
 
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-nganh') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-nganh" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Quản lý ngành
-        </a>
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-ctdt') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+                   href="/quan-ly-ctdt" class="w-full font-bold text-slate-700 transition duration-300 h-12 flex items-center pl-9 hover:bg-yellow-500 cursor-pointer rounded-lg">
+                    Quản lý chương trình
+                </a>
 
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-ctdt') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-ctdt" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Quản lý chương trình đào tạo
-        </a>
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-khoa') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400'}"
+                   href="/quan-ly-khoa" class="w-full font-bold text-slate-700 transition duration-300 h-12 flex items-center pl-9 hover:bg-yellow-500 cursor-pointer rounded-lg">
+                    Quản lý khóa
+                </a>
 
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-khoa') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-khoa" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Quản lý khóa
-        </a>
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-chung') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+                   href="/quan-ly-lop-chung" class="w-full font-bold text-slate-700 transition duration-300 h-12 flex items-center pl-9 hover:bg-yellow-500 cursor-pointer rounded-lg">
+                    Quản lý lớp
+                </a>
+            </div>
+        </div>
+
+
+
 
         <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-giao-vien') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
            href="/quan-ly-giao-vien" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
             Quản lý giáo viên
         </a>
 
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-chung') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-lop-chung" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Quản lý lớp
+        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-theo-mon') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+           href="/quan-ly-lop-theo-mon" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
+            Phân công giảng dạy
         </a>
 
         <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-sinh-vien') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
@@ -74,7 +87,16 @@
            href="/thong-ke" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
             Thống kê
         </a>
-
+        <script>
+            $('.menu').click(function () {
+                if ($('.menuChild').hasClass('h-0')){
+                    $('.menuChild').removeClass('h-0').addClass('h-60')
+                }
+                else {
+                    $('.menuChild').removeClass('h-60').addClass('h-0')
+                }
+            })
+        </script>
     </div>
 </body>
 </html>
