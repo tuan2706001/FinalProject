@@ -1,6 +1,8 @@
 package com.java.project3.controller;
 
 import com.java.project3.dto.CourseClassDTO;
+import com.java.project3.dto.CtdtDTO;
+import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -35,7 +39,8 @@ public class CourseClassController {
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "courseId", required = false) Long courseId,
-            @RequestParam(value = "ctdtId", required = false) Long ctdtId
+            @RequestParam(value = "ctdtId", required = false) Long ctdtId,
+            @RequestParam(value = "majorId", required = false) Long majorId
     ) {
         if (ctdtId == null || ctdtId == 0) {
             ctdtId = null;
@@ -61,40 +66,49 @@ public class CourseClassController {
         model.addAttribute("khoa", searchResDtoKhoa.getData());
         model.addAttribute("courseId", courseId);
 
-        //get ctdt
-        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
-        searchReqDtoCtdt.setPageSize(100);
-        searchReqDtoCtdt.setPageIndex(0);
-        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
-        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
-        model.addAttribute("ctdt", searchResDtoCtdt.getData());
-        model.addAttribute("ctdtId", ctdtId);
+//        //get ctdt
+//        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
+//        searchReqDtoCtdt.setPageSize(100);
+//        searchReqDtoCtdt.setPageIndex(0);
+//        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
+//        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
+//        model.addAttribute("ctdt", searchResDtoCtdt.getData());
+//        model.addAttribute("ctdtId", ctdtId);
+//
+//        //get nganh
+//        SearchReqDto searchReqDtoNganh = new SearchReqDto();
+//        searchReqDtoNganh.setPageSize(100);
+//        searchReqDtoNganh.setPageIndex(0);
+//        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
+//        SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
+//        model.addAttribute("nganh", searchResDtoNganh.getData());
+//        model.addAttribute("majorId", majorId);
 
-//        //dùng ajax lấu ngành theo khóa
-//        List<MajorDTO> majorDTOS = null;
-//        if (majorId != null) {
-//            ResponseDto responseDto1 = majorService.findById(majorId);
-//            MajorDTO majorDTO = (MajorDTO) responseDto1.getObject();
-//            model.addAttribute("courseId", majorDTO.getCourseId());
-//
-//            ResponseDto responseDto2 = majorService.findByCourseId(majorDTO.getCourseId());
-//            majorDTOS = (List<MajorDTO>) responseDto2.getObject();
-//            model.addAttribute("majorIds", majorId);
-//
-//        }
-//        model.addAttribute("dataNganh", majorDTOS);
+        //dùng ajax lấu ngành theo khóa
+        List<CtdtDTO> ctdtDTOS = null;
+        if (majorId != null) {
+            ResponseDto responseDto1 = ctdtService.findById(ctdtId);
+            CtdtDTO ctdtDTO = (CtdtDTO) responseDto1.getObject();
+            model.addAttribute("majorId", ctdtDTO.getMajorId());
+
+            ResponseDto responseDto2 = ctdtService.findByMajorId(ctdtDTO.getMajorId());
+            ctdtDTOS = (List<CtdtDTO>) responseDto2.getObject();
+            model.addAttribute("ctdtIds", ctdtId);
+
+        }
+        model.addAttribute("dataCtdt", ctdtDTOS);
 
 
         return "quan-ly-lop-chung";
     }
 
-//    @GetMapping("getMajor/{id}")
+//    @GetMapping("getCtdt/{id}")
 //    @ResponseBody
-//    public List<MajorDTO> getMajor(
+//    public List<CtdtDTO> getCtdt(
 //            @PathVariable("id") Long id
 //    ) {
-//        ResponseDto responseDto = majorService.findByCourseId(id);
-//        return (List<MajorDTO>) responseDto.getObject();
+//        ResponseDto responseDto = ctdtService.findByMajorId(id);
+//        return (List<CtdtDTO>) responseDto.getObject();
 //    }
 
     @PostMapping("createCourseClass")

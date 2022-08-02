@@ -15,10 +15,10 @@ public class CtdtSubjectDTO {
     private Long id;
 
     @JMap
-    private String ma_mon;
+    private String maMon;
 
     @JMap
-    private Integer examType;
+    private Integer type;
 
     @JMap
     private Integer time;
@@ -28,4 +28,10 @@ public class CtdtSubjectDTO {
 
     @JMap
     private Long subjectId;
+
+    private String ctdtName;
+
+    private String subjectName;
+
+
 }

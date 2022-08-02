@@ -218,22 +218,22 @@
 
         })
 
-        //ajax lấy ngành theo khóa
-        $('#courseId').change(function () {
-            var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
-
-            $.ajax({
-                url: "/getMajor/" + $(this).val(),
-                // data: {courseId: $(this).val()},
-                success: function (e) {
-
-                    $.each(e, function (idex, items) {
-                        htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
-                    })
-                    $('#majorIds').html(htmlMajor);
-                }
-            })
-        })
+        // //ajax lấy ctdt theo nganh
+        // $('#majorId').change(function () {
+        //     var htmlMajor = '<option value="0" hidden>--Chọn ctdt--</option>';
+        //
+        //     $.ajax({
+        //         url: "/getCtdt/" + $(this).val(),
+        //         // data: {courseId: $(this).val()},
+        //         success: function (e) {
+        //
+        //             $.each(e, function (idex, items) {
+        //                 htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
+        //             })
+        //             $('#ctdtIds').html(htmlMajor);
+        //         }
+        //     })
+        // })
 
         //ajax lấy ngành theo khóa
         $('#courseIds').change(function () {

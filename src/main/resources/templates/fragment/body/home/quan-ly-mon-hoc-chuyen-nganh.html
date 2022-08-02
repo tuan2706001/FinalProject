@@ -47,11 +47,10 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Khóa</th>
-                <th>Ngành</th>
+                <th>Mã môn</th>
                 <th>Tên môn</th>
-                <th>Lý thuyết</th>
-                <th>Thực hành</th>
+                <th>Chương trình</th>
+                <th>Loại</th>
                 <th>Số giờ</th>
                 <th>Sửa</th>
             </tr>
@@ -59,12 +58,11 @@
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.courseName}"></td>
-                <td th:text="${item.majorName}"></td>
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.theory} == true ? 'có' : 'không'"></td>
-                <td th:text="${item.skill} == true ? 'có' : 'không'"></td>
-                <td th:text="${item.duration}"></td>
+                <td th:text="${item.maMon}"></td>
+                <td th:text="${item.subjectId}"></td>
+                <td th:text="${item.ctdtId}"></td>
+                <td th:text="${item.type}"></td>
+                <td th:text="${item.time}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -105,98 +103,130 @@
                     <button><span class="closeModal transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createSubjectDetail" onsubmit="return checkValidate()">
+                <form method="POST" action="/createCtdtSubject" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between">
                             <!--                        //Tên-->
-                            <div class="w-7/12 mr-12">
-                                <label class="font-medium mr-28">Tên môn</label>
-                                <div>
-                                    <input id="name" type="text" name="name" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline"/>
-                                    <div class="text-sm text-red-600" id="errName"></div>
-                                </div>
-                            </div>
-
-                            <div class="w-4/12">
-                                <label class="font-medium mr-28">Loại môn</label>
-                                <div>
-                                    <select id="type" class="border rounded-lg w-48 h-10" name="type">
-                                        <option name="type">Chuyên ngành</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-between">
-                            <!--                        //Tên-->
-                            <div class="mr-12">
-                                <label class="font-medium mr-28">Tên khóa</label>
-                                <div>
-                                    <select id="courseIds" class="border rounded-lg w-36 h-10" name="courseId">
-                                        <option value="0" hidden>--Chọn khóa--</option>
-                                        <th:block th:each="item,index : ${khoa}">
-                                            <option th:value="${item.id}" th:text="${item.name}"
-                                                    th:selected="${courseId == item.id ? true : false}"></option>
-                                        </th:block>
-                                    </select>
-                                    <div class="text-sm text-red-600" id="errCourse"></div>
-                                </div>
-                            </div>
-
-                            <div class="mr-12">
+                            <div class="w-2/3">
                                 <label class="font-medium mr-28">Tên ngành</label>
                                 <div>
-                                    <select id="majorIdss" class="border rounded-lg w-68 h-10" name="majorId"
+                                    <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId"
                                             onchange="this.form.submit()">
-                                        <option value="0" hidden>--Chọn ngành--</option>
-                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">
-                                            <th:block th:each="item,index : ${dataNganh}">
+                                        <option value="" hidden>Chọn ngành</option>
+                                            <th:block th:each="item,index : ${nganh}">
                                                 <option th:value="${item.id}" th:text="${item.name}"
                                                         th:selected="${majorId == item.id ? true : false}"></option>
                                             </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errMajor"></div>
+                                    <div class="text-sm text-red-600" id="errMon"></div>
+                                </div>
+                            </div>
+
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên chương trình</label>
+                                <div>
+                                    <select id="ctdtIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId"
+                                            onchange="this.form.submit()">
+                                        <option value="" hidden>Chọn chương trình</option>
+                                        <th:bock th:if="${dataCtdt != null && #lists.size(dataCtdt) > 0}">
+                                            <th:block th:each="item,index : ${dataCtdt}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${ctdtIds == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errCtdt"></div>
                                 </div>
                             </div>
                         </div>
-                        <!--                        //Lý thuyết-->
-                        <div class="flex my-5">
 
-                            <label class="font-medium mr-6">Lý thuyết</label>
-
-                            <div style="color: #007DC5"></div>
-                            <div class="ml-10 flex my-5">
-                                <label>Có
-                                    <input type="radio" name="theory" class=" mt-1 outline-none callType"
-                                           value="true" checked>
-                                </label>
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên môn</label>
+                                <div>
+                                    <select id="subjectId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="subjectId">
+                                        <option value="" hidden>Chọn môn</option>
+                                        <th:block th:each="item,index : ${mon}">
+                                            <option th:value="${item.id}" th:text="${item.name}"></option>
+                                        </th:block>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errMon"></div>
+                                </div>
                             </div>
 
-                            <div class="ml-10 flex my-5">
-                                <label>Không
-                                    <input type="radio" name="theory" class=" mt-1 outline-none callType"
-                                           value="false">
-                                </label>
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Mã môn</label>
+                                <div>
+                                    <input id="maMon" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="maMon"/>
+                                    <div class="text-sm text-red-600" id="errName"></div>
+                                </div>
                             </div>
                         </div>
 
-                        <!--                        //Thực hành-->
+                        <!--                        <div class="flex justify-between">-->
+                        <!--                            &lt;!&ndash;                        //Tên&ndash;&gt;-->
+                        <!--                            <div class="mr-12">-->
+                        <!--                                <label class="font-medium mr-28">Tên khóa</label>-->
+                        <!--                                <div>-->
+                        <!--                                    <select id="courseIds" class="border rounded-lg w-36 h-10" name="courseId">-->
+                        <!--                                        <option value="0" hidden>&#45;&#45;Chọn khóa&#45;&#45;</option>-->
+                        <!--                                        <th:block th:each="item,index : ${khoa}">-->
+                        <!--                                            <option th:value="${item.id}" th:text="${item.name}"-->
+                        <!--                                                    th:selected="${courseId == item.id ? true : false}"></option>-->
+                        <!--                                        </th:block>-->
+                        <!--                                    </select>-->
+                        <!--                                    <div class="text-sm text-red-600" id="errCourse"></div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+
+                        <!--                            <div class="mr-12">-->
+                        <!--                                <label class="font-medium mr-28">Tên ngành</label>-->
+                        <!--                                <div>-->
+                        <!--                                    <select id="majorIdss" class="border rounded-lg w-68 h-10" name="majorId"-->
+                        <!--                                            onchange="this.form.submit()">-->
+                        <!--                                        <option value="0" hidden>&#45;&#45;Chọn ngành&#45;&#45;</option>-->
+                        <!--                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">-->
+                        <!--                                            <th:block th:each="item,index : ${dataNganh}">-->
+                        <!--                                                <option th:value="${item.id}" th:text="${item.name}"-->
+                        <!--                                                        th:selected="${majorId == item.id ? true : false}"></option>-->
+                        <!--                                            </th:block>-->
+                        <!--                                        </th:bock>-->
+                        <!--                                    </select>-->
+                        <!--                                    <div class="text-sm text-red-600" id="errMajor"></div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        //Lý thuyết-->
                         <div class="flex my-5">
-                            <label class="font-medium mr-6">Thực hành</label>
+
+                            <label class="font-medium mr-6">Loại môn</label>
+
                             <div style="color: #007DC5"></div>
                             <div class="ml-10 flex my-5">
-                                <label>Có
-                                    <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
-                                           value="true" checked>
+                                <label>Lý thuyết
+                                    <input type="radio" name="type" class=" mt-1 outline-none callType"
+                                           value="1" checked>
                                 </label>
                             </div>
+
                             <div class="ml-10 flex my-5">
-                                <label>Không
-                                    <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"
-                                           value="false">
+                                <label>Thực hành
+                                    <input type="radio" name="type" class=" mt-1 outline-none callType"
+                                           value="2">
+                                </label>
+                            </div>
+
+                            <div class="ml-10 flex my-5">
+                                <label>Cả hai
+                                    <input type="radio" name="type" class=" mt-1 outline-none callType"
+                                           value="3">
                                 </label>
                             </div>
                         </div>
@@ -206,7 +236,7 @@
                         <div class="w-2/3">
                             <label class="font-medium mr-28">Số giờ</label>
                             <div>
-                                <input id="duration" type="number" name="duration" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                <input id="time" type="number" name="time" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
                                 <div class="text-sm text-red-600" id="errDuration"></div>
                             </div>
@@ -245,6 +275,22 @@
                 }
             })
 
+        })
+
+        //ajax lấy ctdt theo nganh
+        $('#majorId').change(function () {
+            var htmlCtdt = '<option value="0" hidden>--Chọn chương trình--</option>';
+
+            $.ajax({
+                url: "/getCtdt/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+                    $.each(e, function (idex, items) {
+                        htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#ctdtIds').html(htmlCtdt);
+                }
+            })
         })
 
         //ajax lấy ngành theo khóa

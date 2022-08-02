@@ -9,8 +9,16 @@
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-72  text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-32  text-white transition duration-300">
                 Thêm môn học
+            </button>
+
+            <button id="myBtn"
+                    class="content-left rounded font-bold w-72 h-14 mr-52  text-white transition duration-300">
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-mon-hoc-chuyen-nganh')} "
+                   href="/quan-ly-mon-hoc-chuyen-nganh" >
+                    Môn học thuộc chương trình đào tạo
+                </a>
             </button>
 <!--            <div class="mr-8 lg:flex text-center xl:text-base  ">-->
 <!--                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>-->
@@ -24,7 +32,7 @@
 <!--            </div>-->
             <form>
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-32">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-52 mr-24">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">

@@ -22,8 +22,8 @@ public class CtdtSubject extends AbstractBaseEntity {
     @Column(name = "ma_mon")
     private String maMon;
 
-    @Column(name = "exam_type")
-    private Integer examType;
+    @Column(name = "type")
+    private Integer type;
 
     @Column(name = "time")
     private Integer time;

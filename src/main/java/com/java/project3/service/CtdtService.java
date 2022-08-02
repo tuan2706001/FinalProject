@@ -67,16 +67,16 @@ public class CtdtService {
     }
 
 
-//    public ResponseDto findByCourseId(Long id) {
-//        ResponseDto responseDto = new ResponseDto();
-//        List<Major> major = majorRepository.findByCourseId(id);
-//        List<MajorDTO> majorDTOS = new ArrayList<>();
-//        for (var item : major) {
-//            majorDTOS.add(toMajorDto.getDestination(item));
-//        }
-//        responseDto.setObject(majorDTOS);
-//        return responseDto;
-//    }
+    public ResponseDto findByMajorId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Ctdt> ctdts = ctdtRepository.findByMajorId(id);
+        List<CtdtDTO> ctdtDTOS = new ArrayList<>();
+        for (var item : ctdts) {
+            ctdtDTOS.add(toCtdtDto.getDestination(item));
+        }
+        responseDto.setObject(ctdtDTOS);
+        return responseDto;
+    }
 
 //    public ResponseDto findBySubjectId(Long id) {
 //        ResponseDto responseDto = new ResponseDto();
