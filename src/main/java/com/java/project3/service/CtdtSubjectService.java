@@ -95,15 +95,13 @@ public class CtdtSubjectService {
         // entity -> dto
         List<CtdtSubjectDTO> ctdtSubjectDTOS = new ArrayList<>();
         for (var ctdtSubject : ctdtSubjects) {
-//            if (ctdtSubject.getMajorId() != null) {
-//                CtdtSubjectDTO ctdtSubjectDTO = toCtdtSubjectDto.getDestination(ctdtSubject);
-//                Major major = majorRepository.findById(ctdtSubjectDTO.getMajorId()).get();
-//                Course course = courseRepository.findById(major.getCourseId()).get();
-//                ctdtSubjectDTO.setCourseName(course.getName());
-//                ctdtSubjectDTOS.add(ctdtSubjectDTO);
-//            } else {
-            ctdtSubjectDTOS.add(toCtdtSubjectDto.getDestination(ctdtSubject));
-//            }
+            CtdtSubjectDTO ctdtSubjectDTO = toCtdtSubjectDto.getDestination(ctdtSubject);
+            Ctdt ctdt = ctdtRepository.findById(ctdtSubjectDTO.getCtdtId()).orElse(null);
+            Subject subject = subjectRepository.findById(ctdtSubjectDTO.getSubjectId()).orElse(null);
+            ctdtSubjectDTO.setCtdtName(ctdt.getName());
+            ctdtSubjectDTO.setSubjectName(subject.getName());
+            ctdtSubjectDTOS.add(ctdtSubjectDTO);
+//
         }
         responseDto.setObject(prepareResponseForSearch(ctdtSubjects.getTotalPages(), ctdtSubjects.getNumber(), ctdtSubjects.getTotalElements(), ctdtSubjectDTOS));
         return responseDto;

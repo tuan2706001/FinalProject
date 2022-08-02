@@ -61,15 +61,6 @@ public class CtdtSubjectController {
         model.addAttribute("mon", searchResDtoMon.getData());
         model.addAttribute("subjectId", subjectId);
 
-//        //get ctdt
-//        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
-//        searchReqDtoCtdt.setPageSize(100);
-//        searchReqDtoCtdt.setPageIndex(0);
-//        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
-//        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
-//        model.addAttribute("ctdt", searchResDtoCtdt.getData());
-//        model.addAttribute("ctdtId", ctdtId);
-
         //get nganh
         SearchReqDto searchReqDtoNganh = new SearchReqDto();
         searchReqDtoNganh.setPageSize(100);

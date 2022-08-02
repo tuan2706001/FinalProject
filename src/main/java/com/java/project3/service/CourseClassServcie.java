@@ -130,7 +130,6 @@ public class CourseClassServcie {
         List<CourseClassDTO> courseClassDTOS = new ArrayList<>();
         for (var courseClass : courseClasses) {
             CourseClassDTO courseClassDTO = toCourseClassDto.getDestination(courseClass);
-
             Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).orElse(null);
             Course course = courseRepository.findById(courseClassDTO.getCourseId()).orElse(null);
             courseClassDTO.setCourseName(course.getName());

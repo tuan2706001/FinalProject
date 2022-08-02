@@ -59,8 +59,8 @@
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.maMon}"></td>
-                <td th:text="${item.subjectId}"></td>
-                <td th:text="${item.ctdtId}"></td>
+                <td th:text="${item.subjectName}"></td>
+                <td th:text="${item.ctdtName}"></td>
                 <td th:text="${item.type}"></td>
                 <td th:text="${item.time}"></td>
                 <td>

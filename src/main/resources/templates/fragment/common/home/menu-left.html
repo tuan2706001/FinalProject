@@ -7,16 +7,16 @@
 <body>
     <div th:fragment="menuLeft" class="w-full min-h-full left-0 pt-10 top-0 px-1 rounded bg-gray-100" >
 
-        <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-10 xl:w-56 lg:h-10 lg:w-64 mb-10 mx-auto rounded-md w-full h-10 lg:rounded-lg flex items-center justify-between text-center">
-            <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold" name="search" value="">
-            <svg xmlns="http://www.w3.org/2000/svg" class="xl:h-6 xl:w-6 lg:w-5 lg:w-5 w-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-        </div>
+<!--        <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-10 xl:w-56 lg:h-10 lg:w-64 mb-10 mx-auto rounded-md w-full h-10 lg:rounded-lg flex items-center justify-between text-center">-->
+<!--            <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold" name="search" value="">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" class="xl:h-6 xl:w-6 lg:w-5 lg:w-5 w-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>-->
+<!--                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>-->
+<!--            </svg>-->
+<!--        </div>-->
 
         <a th:classappend="${#httpServletRequest.requestURI.contains('/trang-chu') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/trang-chu" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-6">
+           href="/trang-chu" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3">
             Trang chủ
         </a>
 
