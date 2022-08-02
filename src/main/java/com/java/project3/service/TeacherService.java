@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -96,7 +97,7 @@ public class TeacherService {
             teacherDTO.setSubjectIds(tearcherSubjectReposiotry.findSubjectByTeacher(teacher.getId()));
             List<Long> listSubejct = teacherDTO.getSubjectIds();
             for (Long subjectId : listSubejct) {
-                teacherDTO.setSubjectNames(subjectRepository.findNameBySubjectId(subjectId));
+                 teacherDTO.setSubjectNames(subjectRepository.findNameBySubjectId(subjectId));
             }
             teacherDTO.setSumSubject(tearcherSubjectReposiotry.countTeacherSubjectByTeacherId(teacher.getId()));
             teacherDTOS.add(teacherDTO);

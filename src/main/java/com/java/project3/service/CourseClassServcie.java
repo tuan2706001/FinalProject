@@ -131,8 +131,6 @@ public class CourseClassServcie {
         for (var courseClass : courseClasses) {
             CourseClassDTO courseClassDTO = toCourseClassDto.getDestination(courseClass);
 
-
-
             Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).orElse(null);
             Course course = courseRepository.findById(courseClassDTO.getCourseId()).orElse(null);
             courseClassDTO.setCourseName(course.getName());
@@ -144,7 +142,7 @@ public class CourseClassServcie {
         return responseDto;
     }
 
-    public ResponseDto searchCourseClassBy(Integer pageIndex, Integer pageSize, String search, Long courseId) {
+    public ResponseDto searchCourseClassBy(Integer pageIndex, Integer pageSize, String search, Long courseId, Long ctdtId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -156,14 +154,14 @@ public class CourseClassServcie {
         searchReqDto.setSorts(sort);
         String sql = "";
         if (search != null) {
-            sql += "S-name=L\"";
+            sql += "S-name=L\"" + search + "\"";
         }
         if (courseId != null) {
             sql += ",N-courseId=\"" + courseId + "\"";
         }
-//        if (ctdtId != null) {
-//            sql += ",N-ctdtId=\"" + ctdtId + "\"";
-//        }
+        if (ctdtId != null) {
+            sql += ",N-ctdtId=\"" + ctdtId + "\"";
+        }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);

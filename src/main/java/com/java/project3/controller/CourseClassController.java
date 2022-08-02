@@ -45,7 +45,7 @@ public class CourseClassController {
         }
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = courseClassServcie.searchCourseClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseId);
+        ResponseDto responseDto = courseClassServcie.searchCourseClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseId, ctdtId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -60,15 +60,15 @@ public class CourseClassController {
         SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
         model.addAttribute("khoa", searchResDtoKhoa.getData());
         model.addAttribute("courseId", courseId);
-//
-//        //get ctdt
-//        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
-//        searchReqDtoCtdt.setPageSize(100);
-//        searchReqDtoCtdt.setPageIndex(0);
-//        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
-//        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
-//        model.addAttribute("ctdt", searchResDtoCtdt.getData());
-//        model.addAttribute("ctdtId", ctdtId);
+
+        //get ctdt
+        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
+        searchReqDtoCtdt.setPageSize(100);
+        searchReqDtoCtdt.setPageIndex(0);
+        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
+        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
+        model.addAttribute("ctdt", searchResDtoCtdt.getData());
+        model.addAttribute("ctdtId", ctdtId);
 
 //        //dùng ajax lấu ngành theo khóa
 //        List<MajorDTO> majorDTOS = null;
