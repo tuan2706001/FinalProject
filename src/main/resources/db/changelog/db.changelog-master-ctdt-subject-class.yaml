@@ -18,5 +18,18 @@ databaseChangeLog:
                   name: name
                   type: NVARCHAR(255)
               - column:
+                  name: ma_lop
+                  type: NVARCHAR(255)
+              - column:
                   name: ctdt_subject_id
+                  type: bigint
+              - column:
+                  name: course_class_id
+                  type: bigint
+              - column:
+                  name: note
+                  type: NVARCHAR(255)
+
+              - column:
+                  name: teacher_id
                   type: bigint

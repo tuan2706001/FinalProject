@@ -3,6 +3,7 @@ package com.java.project3.service;
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
 import com.java.project3.dto.CourseClassDTO;
+import com.java.project3.dto.CtdtDTO;
 import com.java.project3.dto.MarkDTO;
 import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.base.ResponseDto;
@@ -69,6 +70,17 @@ public class CourseClassServcie {
             CourseClassDTO courseClassDTO = toCourseClassDto.getDestination(grade.get());
             responseDto.setObject(courseClassDTO);
         }
+        return responseDto;
+    }
+
+    public ResponseDto findByCtdtId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<CourseClass> courseClasses = courseClassRepository.findByCtdtId(id);
+        List<CourseClassDTO> courseClassDTOS = new ArrayList<>();
+        for (var item : courseClasses) {
+            courseClassDTOS.add(toCourseClassDto.getDestination(item));
+        }
+        responseDto.setObject(courseClassDTOS);
         return responseDto;
     }
 

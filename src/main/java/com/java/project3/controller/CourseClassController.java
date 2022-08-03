@@ -75,14 +75,14 @@ public class CourseClassController {
 //        model.addAttribute("ctdt", searchResDtoCtdt.getData());
 //        model.addAttribute("ctdtId", ctdtId);
 //
-//        //get nganh
-//        SearchReqDto searchReqDtoNganh = new SearchReqDto();
-//        searchReqDtoNganh.setPageSize(100);
-//        searchReqDtoNganh.setPageIndex(0);
-//        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
-//        SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
-//        model.addAttribute("nganh", searchResDtoNganh.getData());
-//        model.addAttribute("majorId", majorId);
+        //get nganh
+        SearchReqDto searchReqDtoNganh = new SearchReqDto();
+        searchReqDtoNganh.setPageSize(100);
+        searchReqDtoNganh.setPageIndex(0);
+        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
+        SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
+        model.addAttribute("nganh", searchResDtoNganh.getData());
+        model.addAttribute("majorId", majorId);
 
         //dùng ajax lấu ngành theo khóa
         List<CtdtDTO> ctdtDTOS = null;
@@ -93,7 +93,7 @@ public class CourseClassController {
 
             ResponseDto responseDto2 = ctdtService.findByMajorId(ctdtDTO.getMajorId());
             ctdtDTOS = (List<CtdtDTO>) responseDto2.getObject();
-            model.addAttribute("ctdtIds", ctdtId);
+            model.addAttribute("subjectIds", ctdtId);
 
         }
         model.addAttribute("dataCtdt", ctdtDTOS);

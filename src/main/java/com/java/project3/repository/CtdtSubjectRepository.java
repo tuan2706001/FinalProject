@@ -5,6 +5,9 @@ import com.java.project3.domain.CtdtSubject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 public interface CtdtSubjectRepository extends JpaRepository<CtdtSubject, Long>, JpaSpecificationExecutor<CtdtSubject> {
 
+    List<CtdtSubject> findByCtdtId(Long ctdtId);
 }

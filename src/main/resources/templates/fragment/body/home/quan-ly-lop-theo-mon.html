@@ -10,7 +10,7 @@
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn" class="content-left rounded font-bold w-44 h-9 mr-96  text-white transition duration-300">
-                Thêm hệ
+                Phân công giảng dạy
             </button>
             <form>
                 <div class="justify-self-end">
@@ -35,7 +35,11 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên hệ</th>
+                <th>Tên Lớp</th>
+                <th>Mã lớp</th>
+                <th>Môn học</th>
+                <th>Lớp học</th>
+                <th>Giảng viên</th>
                 <th>Sửa</th>
             </tr>
             </thead>
@@ -43,19 +47,23 @@
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
+                <td th:text="${item.maLop}"></td>
+                <td th:text="${item.ctdtSubjectName}"></td>
+                <td th:text="${item.courseClassName}"></td>
+                <td th:text="${item.teacherName}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-he/' + item.id}"
+                                    th:data-url="${'/quan-ly-lop-theo-mon/' + item.id}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
                                 <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                             </svg>
-                            <form action="/deleteCurriculum" th:method="DELETE">
+                            <form action="/deleteCtdtSubjectClass" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
                                     <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
@@ -66,7 +74,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="3">Không có dữ liệu</td>
+                <td colspan="6">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
@@ -78,32 +86,151 @@
             <!-- Modal content -->
             <div class="modal-content w-6/12 mx-auto my-10">
                 <div class="modal-header h-14 w-full flex justify-between items-center px-10">
-                    <div class="text-xl ">Thêm hệ</div>
+                    <div class="text-xl ">Phân công giảng dạy</div>
                     <button><span class="closeModal  transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createCurriculum" onsubmit="return checkValidate()">
+                <form method="POST" action="/createCtdtSubjectClass" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
-                        <div>
-                            <div>
-                                <label class="font-medium mr-4">Tên hệ</label>
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên Lớp</label>
                                 <div>
-                                    <input id="name" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="name"/>
+                                    <input id="name" type="text" name="name" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
                                     <div class="text-sm text-red-600" id="errName"></div>
                                 </div>
                             </div>
-                            <div class="flex justify-end mt-10">
-                                <div
-                                        onclick="closeModal()"
-                                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
-                                        ">Hủy
+                            <!--                        //Mã sinh viên-->
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Mã Lớp</label>
+                                <div>
+                                    <input id="maLop" type="text" name="maLop" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                                    <div class="text-sm text-red-600" id="errName"></div>
                                 </div>
-                                <button
-                                        class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
-                                        id="submit">Gửi
-                                </button>
                             </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên ngành</label>
+                                <div>
+                                    <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId"
+                                            >
+                                        <option value="" hidden>Chọn ngành</option>
+                                        <th:block th:each="item,index : ${nganh}">
+                                            <option th:value="${item.id}" th:text="${item.name}"
+                                                    th:selected="${majorId == item.id ? true : false}"></option>
+                                        </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errMon"></div>
+                                </div>
+                            </div>
+
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên chương trình</label>
+                                <div>
+                                    <select id="ctdtIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId"
+                                            >
+                                        <option value="" hidden>Chọn chương trình</option>
+                                        <th:bock th:if="${dataCtdt != null && #lists.size(dataCtdt) > 0}">
+                                            <th:block th:each="item,index : ${dataCtdt}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${ctdtIds == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên lớp chung</label>
+                                <div>
+                                    <select id="courseClassIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseClassId"
+                                           >
+                                        <option value="" hidden>Chọn lớp</option>
+                                        <th:bock th:if="${dataCourseClass != null && #lists.size(dataCourseClass) > 0}">
+                                            <th:block th:each="item,index : ${dataCourseClass}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${courseClassIds == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                </div>
+                            </div>
+
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên môn thuộc chương trình</label>
+                                <div>
+                                    <select id="subjectIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtSubjectId"
+                                           >
+                                        <option value="" hidden>Chọn môn</option>
+                                        <th:bock th:if="${dataSubject != null && #lists.size(dataSubject) > 0}">
+                                            <th:block th:each="item,index : ${dataSubject}">
+                                                <option th:value="${item.id}" th:text="${item.ctdtSubjectName}"
+                                                        th:selected="${subjectIds == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Ghi chú</label>
+                                <div>
+                                    <input id="note" type="text" name="note" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                                    <div class="text-sm text-red-600" id="errName"></div>
+                                </div>
+                            </div>
+
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên giảng viên</label>
+                                <div>
+                                    <select id="teacherIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="teacherId"
+                                            >
+                                        <option value="" hidden>Chọn giảng viên</option>
+                                        <th:bock th:if="${dataTeacher != null && #lists.size(dataTeacher) > 0}">
+                                            <th:block th:each="item,index : ${dataTeacher}">
+                                                <option th:value="${item.teacherId}" th:text="${item.teacherName}"
+                                                        th:selected="${teacherIds == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-10">
+                            <div
+                                    onclick="closeModal()"
+                                    class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                            </div>
+
+                            <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                                    id="submit">
+                                Gửi
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -126,6 +253,70 @@
                 }
             })
 
+        })
+
+        //ajax lấy ctdt theo nganh
+        $('#majorId').change(function () {
+            var htmlCtdt = '<option value="0" hidden>--Chọn chương trình--</option>';
+
+            $.ajax({
+                url: "/getCtdt/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+                    $.each(e, function (idex, items) {
+                        htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#ctdtIds').html(htmlCtdt);
+                }
+            })
+        })
+
+        //ajax lấy lớp chung theo ctdt
+        $('#ctdtIds').change(function () {
+            var htmlClass = '<option value="0" hidden>--Chọn lớp--</option>';
+
+            $.ajax({
+                url: "/getCourseClass/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+                    $.each(e, function (idex, items) {
+                        htmlClass += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#courseClassIds').html(htmlClass);
+                }
+            })
+        })
+
+        //ajax lấy môn theo ctdt
+        $('#ctdtIds').change(function () {
+            var htmlSubject = '<option value="0" hidden>--Chọn môn--</option>';
+
+            $.ajax({
+                url: "/getSubject/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+                    $.each(e, function (idex, items) {
+                        htmlSubject += '<option value="' + items.id + '">' + items.subjectName + '</option>';
+                    })
+                    $('#subjectIds').html(htmlSubject);
+                }
+            })
+        })
+
+        //ajax lấy môn theo ctdt
+        $('#subjectIds').change(function () {
+            var htmlTeacher = '<option value="0" hidden>--Chọn giảng viên--</option>';
+            // console.log()
+            $.ajax({
+                url: "/getTeacher/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+                    $.each(e, function (idex, items) {
+                        htmlTeacher += '<option value="' + items.teacherId + '">' + items.teacherName + '</option>';
+                    })
+                    $('#teacherIds').html(htmlTeacher);
+                }
+            })
         })
     </script>
 </div>

@@ -23,4 +23,16 @@ public class CtdtSubjectClass extends AbstractBaseEntity {
 
     @Column(name = "ctdt_subject_id")
     private Long ctdtSubjectId;
+
+    @Column(name = "course_class_id")
+    private Long courseClassId;
+
+    @Column(name = "ma_lop")
+    private String maLop;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "teacher_id")
+    private Long teacherId;
 }

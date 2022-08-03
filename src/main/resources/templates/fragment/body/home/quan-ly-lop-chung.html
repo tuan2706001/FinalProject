@@ -138,23 +138,61 @@
                                 </div>
                             </div>
 
+<!--                            <div class="w-2/3">-->
+<!--                                <label class="font-medium mr-10">Chương trình đào tạo</label>-->
+<!--                                <div>-->
+<!--                                    <select id="ctdtId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700-->
+<!--                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">-->
+<!--                                        <option value="" hidden>&#45;&#45;Chọn ngành&#45;&#45;</option>-->
+<!--                                        <th:bock th:if="${ctdt != null && #lists.size(ctdt) > 0}">-->
+<!--                                            <th:block th:each="item,index : ${ctdt}">-->
+<!--                                                <option th:value="${item.id}" th:text="${item.name}"-->
+<!--                                                        th:selected="${ctdtId == item.id ? true : false}"></option>-->
+<!--                                            </th:block>-->
+<!--                                        </th:bock>-->
+<!--                                    </select>-->
+<!--                                    <div class="text-sm text-red-600" id="errMajor"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                        </div>
+
+                        <div class="flex justify-between">
+                            <!--                        //Tên-->
                             <div class="w-2/3">
-                                <label class="font-medium mr-10">Chương trình đào tạo</label>
+                                <label class="font-medium mr-28">Tên ngành</label>
                                 <div>
-                                    <select id="ctdtId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">
-                                        <option value="" hidden>--Chọn ngành--</option>
-                                        <th:bock th:if="${ctdt != null && #lists.size(ctdt) > 0}">
-                                            <th:block th:each="item,index : ${ctdt}">
-                                                <option th:value="${item.id}" th:text="${item.name}"
-                                                        th:selected="${ctdtId == item.id ? true : false}"></option>
-                                            </th:block>
+                                    <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId"
+                                            onchange="this.form.submit()">
+                                        <option value="" hidden>Chọn ngành</option>
+                                        <th:block th:each="item,index : ${nganh}">
+                                            <option th:value="${item.id}" th:text="${item.name}"
+                                                    th:selected="${majorId == item.id ? true : false}"></option>
+                                        </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errMajor"></div>
+                                    <div class="text-sm text-red-600" id="errMon"></div>
                                 </div>
                             </div>
 
+                            <div class="w-2/3">
+                                <label class="font-medium mr-28">Tên chương trình</label>
+                                <div>
+                                    <select id="ctdtIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId"
+                                            onchange="this.form.submit()">
+                                        <option value="" hidden>Chọn chương trình</option>
+                                        <th:bock th:if="${dataCtdt != null && #lists.size(dataCtdt) > 0}">
+                                            <th:block th:each="item,index : ${dataCtdt}">
+                                                <option th:value="${item.id}" th:text="${item.name}"
+                                                        th:selected="${ctdtIds == item.id ? true : false}"></option>
+                                            </th:block>
+                                        </th:bock>
+                                    </select>
+                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <!--                        <div>-->
@@ -218,39 +256,38 @@
 
         })
 
-        // //ajax lấy ctdt theo nganh
-        // $('#majorId').change(function () {
-        //     var htmlMajor = '<option value="0" hidden>--Chọn ctdt--</option>';
+        //ajax lấy ctdt theo nganh
+        $('#majorId').change(function () {
+            var htmlCtdt = '<option value="0" hidden>--Chọn chương trình--</option>';
+
+            $.ajax({
+                url: "/getCtdt/" + $(this).val(),
+                // data: {courseId: $(this).val()},
+                success: function (e) {
+                    $.each(e, function (idex, items) {
+                        htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
+                    })
+                    $('#ctdtIds').html(htmlCtdt);
+                }
+            })
+        })
+
+        // //ajax lấy ngành theo khóa
+        // $('#courseIds').change(function () {
+        //     var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
         //
         //     $.ajax({
-        //         url: "/getCtdt/" + $(this).val(),
+        //         url: "/getMajor/" + $(this).val(),
         //         // data: {courseId: $(this).val()},
         //         success: function (e) {
         //
         //             $.each(e, function (idex, items) {
-        //                 htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
+        //                 htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
         //             })
-        //             $('#ctdtIds').html(htmlMajor);
+        //             $('#majorIdss').html(htmlMajor);
         //         }
         //     })
         // })
-
-        //ajax lấy ngành theo khóa
-        $('#courseIds').change(function () {
-            var htmlMajor = '<option value="0" hidden>--Chọn ngành--</option>';
-
-            $.ajax({
-                url: "/getMajor/" + $(this).val(),
-                // data: {courseId: $(this).val()},
-                success: function (e) {
-
-                    $.each(e, function (idex, items) {
-                        htmlMajor += '<option value="' + items.id + '">' + items.name + '</option>';
-                    })
-                    $('#majorIdss').html(htmlMajor);
-                }
-            })
-        })
 
     </script>
 </div>

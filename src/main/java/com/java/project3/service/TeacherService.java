@@ -2,8 +2,10 @@ package com.java.project3.service;
 
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.Teacher;
+import com.java.project3.domain.*;
+import com.java.project3.dto.CtdtSubjectDTO;
 import com.java.project3.dto.TeacherDTO;
+import com.java.project3.dto.TeacherSubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.SubjectRepository;
@@ -39,11 +41,15 @@ public class TeacherService {
 
     JMapper<TeacherDTO, Teacher> toTeacherDto;
     JMapper<Teacher, TeacherDTO> toTeacher;
+    JMapper<TeacherSubjectDTO, TeacherSubject> toTeacherSubjectDto;
+    JMapper<TeacherSubject, TeacherSubjectDTO> toTeacherSubject;
 
 
     public TeacherService() {
         this.toTeacherDto = new JMapper<>(TeacherDTO.class, Teacher.class);
         this.toTeacher = new JMapper<>(Teacher.class, TeacherDTO.class);
+        this.toTeacherSubjectDto = new JMapper<>(TeacherSubjectDTO.class, TeacherSubject.class);
+        this.toTeacherSubject = new JMapper<>(TeacherSubject.class, TeacherSubjectDTO.class);
     }
 
     public ResponseDto findById(Long id) {
@@ -53,6 +59,20 @@ public class TeacherService {
             TeacherDTO teacherDTO = toTeacherDto.getDestination(teacher.get());
             responseDto.setObject(teacherDTO);
         }
+        return responseDto;
+    }
+
+    public ResponseDto findByCtdtSubjectId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<TeacherSubject> teacherSubjects = tearcherSubjectReposiotry.findByCtdtSubjectId(id);
+        List<TeacherSubjectDTO> teacherSubjectDTOS = new ArrayList<>();
+        for (var item : teacherSubjects) {
+            TeacherSubjectDTO teacherSubjectDTO = toTeacherSubjectDto.getDestination(item);
+            Teacher teacher = teacherRepository.findById(teacherSubjectDTO.getTeacherId()).orElse(null);
+            teacherSubjectDTO.setTeacherName(teacher.getName());
+            teacherSubjectDTOS.add(teacherSubjectDTO);
+        }
+        responseDto.setObject(teacherSubjectDTOS);
         return responseDto;
     }
 

@@ -31,6 +31,7 @@ public class CtdtSubjectDTO {
 
     private String ctdtName;
 
+    @JMap
     private String subjectName;
 
 

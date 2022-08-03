@@ -11,7 +11,7 @@ import java.util.List;
 public interface CourseClassRepository extends JpaRepository<CourseClass, Long>, JpaSpecificationExecutor<CourseClass> {
 
 
-//    CourseClass findByMajorId(Long majorId);
+    List<CourseClass> findByCtdtId(Long ctdtId);
 
 //    @Query(value = "SELECT  s.* FROM #{#entityName} s WHERE s.major_id = :major_id", nativeQuery = true)
 //    List<CourseClass> search(@Param("major_id") Long majorId);

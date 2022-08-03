@@ -19,7 +19,7 @@ public class StudentController {
     @Autowired
     StudentService studentService;
     @Autowired
-    CourseClassServcie gradeServcie;
+    CourseClassServcie courseClassServcie;
 
     @GetMapping("quan-ly-sinh-vien")
     public String major(
@@ -45,7 +45,7 @@ public class StudentController {
         SearchReqDto searchReqDtoLop = new SearchReqDto();
         searchReqDtoLop.setPageSize(100);
         searchReqDtoLop.setPageIndex(0);
-        ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
+        ResponseDto responseDtolop = courseClassServcie.search(searchReqDtoLop);
         SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
         model.addAttribute("lop", searchResDtoLop.getData());
         model.addAttribute("gradeId", gradeId);
@@ -70,7 +70,7 @@ public class StudentController {
         SearchReqDto searchReqDtoLop = new SearchReqDto();
         searchReqDtoLop.setPageSize(100);
         searchReqDtoLop.setPageIndex(0);
-        ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
+        ResponseDto responseDtolop = courseClassServcie.search(searchReqDtoLop);
         SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
         model.addAttribute("lop", searchResDtoLop.getData());
 

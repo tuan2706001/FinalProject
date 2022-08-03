@@ -22,6 +22,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/db.changelog-master-ctdt-subject-class--student.yaml
   - include:
+      file: db/changelog/db.changelog-master-ctdt-subject-class.yaml
+  - include:
       file: db/changelog/db.changelog-master-teacher.yaml
   - include:
       file: db/changelog/db.changelog-master-teacher-subject.yaml

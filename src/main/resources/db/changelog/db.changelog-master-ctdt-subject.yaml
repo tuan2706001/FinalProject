@@ -29,3 +29,6 @@ databaseChangeLog:
               - column:
                   name: subject_id
                   type: bigint
+              - column:
+                  name: subject_name
+                  type: NVARCHAR(255)

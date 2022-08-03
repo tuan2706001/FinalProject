@@ -17,6 +17,10 @@ public class TeacherSubjectDTO {
     @JMap
     private Long teacherId;
 
+    private String teacherName;
+
     @JMap
     private Long subjectId;
+
+    private Long ctdtSubjectId;
 }

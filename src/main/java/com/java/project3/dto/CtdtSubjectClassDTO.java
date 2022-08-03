@@ -18,6 +18,24 @@ public class CtdtSubjectClassDTO {
     private String name;
 
     @JMap
+    private String maLop;
+
+    @JMap
     private Long ctdtSubjectId;
+
+    private String ctdtSubjectName;
+
+    @JMap
+    private Long courseClassId;
+
+    private String courseClassName;
+
+    @JMap
+    private String note;
+
+    @JMap
+    private Long teacherId;
+
+    private String teacherName;
 
 }
