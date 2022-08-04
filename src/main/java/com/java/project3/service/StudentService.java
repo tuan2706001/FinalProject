@@ -80,6 +80,17 @@ public class StudentService {
         return responseDto;
     }
 
+    public ResponseDto findByCscId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Student> students = studentRepository.findByCtdtSubjectClassId(id);
+        List<StudentDTO> studentDTOS = new ArrayList<>();
+        for (var item : students) {
+            studentDTOS.add(toStudentDto.getDestination(item));
+        }
+        responseDto.setObject(studentDTOS);
+        return responseDto;
+    }
+
     public ResponseDto create(StudentDTO studentDTO) {
         ResponseDto responseDto = new ResponseDto();
         Optional<CourseClass> courseClass = courseClassRepository.findById(studentDTO.getCourseClassId());

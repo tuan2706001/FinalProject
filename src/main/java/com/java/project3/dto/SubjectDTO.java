@@ -22,4 +22,6 @@ public class SubjectDTO {
     @JMap
     private String gioiThieu;
 
+    private Long ctdtSubjectClassId;
+
 }

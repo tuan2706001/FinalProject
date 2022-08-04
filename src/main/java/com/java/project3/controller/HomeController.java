@@ -5,6 +5,9 @@ import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
 //import com.java.project3.service.CourseClassServcie;
 //import com.java.project3.service.StudentService;
+import com.java.project3.service.CourseClassServcie;
+import com.java.project3.service.CourseServcice;
+import com.java.project3.service.StudentService;
 import com.java.project3.service.UserService;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("")
 public class HomeController {
-//    @Autowired
-//    StudentService studentService;
+    @Autowired
+    StudentService studentService;
     @Autowired
     UserService userService;
-//    @Autowired
-//    CourseClassServcie gradeServcie;
+    @Autowired
+    CourseClassServcie gradeServcie;
+    @Autowired
+    CourseServcice courseServcice;
 
     @GetMapping(value = {"","/trang-chu"})
     public String home(
@@ -36,21 +41,21 @@ public class HomeController {
         }
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-//        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId);
-//        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
-//        model.addAttribute("findAll", searchResDto.getData());
-//        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
+        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId);
+        SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
+        model.addAttribute("findAll", searchResDto.getData());
+        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
 
-//        long responseDto3 = gradeServcie.countAll();
-//        model.addAttribute("countAllCourse", responseDto3);
+        long responseDto3 = courseServcice.countAll();
+        model.addAttribute("countAllCourse", responseDto3);
 //
-//        long responseDto1 = gradeServcie.countAll();
-//        model.addAttribute("countAllGrade", responseDto1);
+        long responseDto1 = gradeServcie.countAll();
+        model.addAttribute("countAllGrade", responseDto1);
 //
-//        long responseDto2 = studentService.countAll();
-//        model.addAttribute("countAllStudent", responseDto2);
+        long responseDto2 = studentService.countAll();
+        model.addAttribute("countAllStudent", responseDto2);
 
         return "trang-chu";
     }

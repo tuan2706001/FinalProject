@@ -3,6 +3,7 @@ package com.java.project3.repository;
 import com.java.project3.domain.Major;
 import com.java.project3.domain.CtdtSubject;
 import com.java.project3.domain.Subject;
+import com.java.project3.domain.TeacherSubject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,8 +27,16 @@ public interface SubjectRepository extends JpaRepository<Subject, Long>, JpaSpec
     @Query(value = "select (name) from subject where id = :subjectId", nativeQuery = true)
     String findNameById(@Param("subjectId") Long subjectId);
 
-//    @Query(value = "select s.name from subject s " +
-//            "join ctdt_subject cs on cs.subject_id = s.id " +
-//            "where cs.ctdt_id = :ctdtId", nativeQuery = true)
+    @Query(value = "select * from subject s " +
+            "left join ctdt_subject cs on cs.subject_id = s.id " +
+            "left join ctdt_subject_class csc on csc.ctdt_subject_id = cs.id " +
+            "where csc.id = :ctdtSubjectClassId ", nativeQuery = true)
+    List<Subject> findByCtdtSubjectClassId(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
+
+    @Query(value = "select * from subject s " +
+            "left join ctdt_subject cs on cs.subject_id = s.id " +
+            "left join ctdt_subject_class csc on csc.ctdt_subject_id = cs.id " +
+            "where csc.id = :ctdtSubjectClassId ", nativeQuery = true)
+    Subject findByCtdtSubjectClassIdOne(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
 
 }

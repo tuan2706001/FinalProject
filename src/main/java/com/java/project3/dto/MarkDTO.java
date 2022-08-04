@@ -19,8 +19,14 @@ public class MarkDTO {
     @JMap
     private Long studentId;
 
+    private String studentName;
+
     @JMap
     private Long ctdtSubjectClassId;
+
+    private String ctdtSubjectClassName;
+
+    private String subjectName;
 
     @JMap
     private Integer theory1;

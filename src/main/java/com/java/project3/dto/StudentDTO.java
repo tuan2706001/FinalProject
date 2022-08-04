@@ -51,4 +51,6 @@ public class StudentDTO {
     @JMap
     private String courseClassName;
 
+    private Long ctdtSubjectClassId;
+
 }

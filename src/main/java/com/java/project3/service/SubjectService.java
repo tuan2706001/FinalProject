@@ -62,21 +62,16 @@ public class SubjectService {
     }
 
 
-//    public ResponseDto findByGradeId(Long id) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<CourseClass> grade = courseClassRepository.findById(id);
-//        List<CtdtSubject> ctdtSubjects = subjectRepository.findByMajorIdNull();
-//        List<CtdtSubject> subjectsses = subjectRepository.findByMajorId(grade.get().getMajorId());
-//        List<SubjectDTO> subjectDTOS = new ArrayList<>();
-//        for (var item : ctdtSubjects) {
-//            subjectDTOS.add(toSubjectDto.getDestination(item));
-//        }
-//        for (var item : subjectsses) {
-//            subjectDTOS.add(toSubjectDto.getDestination(item));
-//        }
-//        responseDto.setObject(subjectDTOS);
-//        return responseDto;
-//    }
+    public ResponseDto findByCscId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Subject> subjects = subjectRepository.findByCtdtSubjectClassId(id);
+        List<SubjectDTO> subjectDTOS = new ArrayList<>();
+        for (var item : subjects) {
+            subjectDTOS.add(toSubjectDto.getDestination(item));
+        }
+        responseDto.setObject(subjectDTOS);
+        return responseDto;
+    }
 
     public ResponseDto create(SubjectDTO subjectDTO) {
         ResponseDto responseDto = new ResponseDto();

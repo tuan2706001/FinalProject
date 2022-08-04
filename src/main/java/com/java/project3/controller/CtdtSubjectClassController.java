@@ -59,7 +59,7 @@ public class CtdtSubjectClassController {
         model.addAttribute("nganh", searchResDtoNganh.getData());
         model.addAttribute("majorId", majorId);
 
-        //dùng ajax lấu ngành theo khóa
+        //dùng ajax lấu ctdt theo ngành
         List<CtdtDTO> ctdtDTOS = null;
         if (majorId != null) {
             ResponseDto responseDto1 = ctdtService.findById(ctdtId);

@@ -4,6 +4,7 @@ import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
 import com.java.project3.dto.CtdtSubjectClassDTO;
 import com.java.project3.dto.CtdtSubjectDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CourseClassRepository;
