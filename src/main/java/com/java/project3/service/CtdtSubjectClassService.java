@@ -105,7 +105,7 @@ public class CtdtSubjectClassService {
         return responseDto;
     }
 
-    public ResponseDto searchCtdtSubjectClassBy(Integer pageIndex, Integer pageSize, String name) {
+    public ResponseDto searchCtdtSubjectClassBy(Integer pageIndex, Integer pageSize, String name, Long courseClassId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -118,6 +118,9 @@ public class CtdtSubjectClassService {
         String sql = "";
         if (name != null) {
             sql = "S-name=L\"" + name + "\"";
+        }
+        if (courseClassId != null) {
+            sql += ",N-courseClassId=\"" + courseClassId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

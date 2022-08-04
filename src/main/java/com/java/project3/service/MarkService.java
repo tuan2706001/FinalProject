@@ -96,7 +96,7 @@ public class MarkService {
 //    }
 
 
-    public ResponseDto findByGradeId(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long subjectId) {
+    public ResponseDto findByGradeId(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long ctdtSubjectClassId) {
         ResponseDto responseDto = new ResponseDto();
         Long id = gradeId;
         SearchReqDto searchReqDto = new SearchReqDto();
@@ -108,8 +108,8 @@ public class MarkService {
         if (seach != null) {
             sql += id + "S-studentName=L\"" + seach + "\"";
         }
-        if (subjectId != null) {
-            sql += id + "N-subjectId=\"" + subjectId + "\"";
+        if (ctdtSubjectClassId != null) {
+            sql += id + "N-ctdtSubjectClassId=\"" + ctdtSubjectClassId + "\"";
         }
 
         searchReqDto.setQuery(sql);

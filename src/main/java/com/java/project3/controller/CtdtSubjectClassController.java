@@ -43,7 +43,7 @@ public class CtdtSubjectClassController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = ctdtSubjectClassService.searchCtdtSubjectClassBy(page.getCurrentPage() - 1, page.getPageSize(), search);
+        ResponseDto responseDto = ctdtSubjectClassService.searchCtdtSubjectClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
