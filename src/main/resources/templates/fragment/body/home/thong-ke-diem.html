@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>-->
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -24,7 +25,7 @@
                 </div>
 
                 <div class="mr-8 ml-20 lg:flex xl:text-base ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Thống kê điểm theo lớp </div>
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Thống kê điểm theo lớp</div>
                 </div>
 
                 <div class="justify-self-end">
@@ -78,6 +79,32 @@
         </table>
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
     </div>
+
+<!--    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>-->
+
+<!--    <script>-->
+<!--        var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];-->
+<!--        var yValues = [100, 49, 44, 24, 50];-->
+<!--        var barColors = ["red", "green", "blue", "orange", "brown"];-->
+
+<!--        new Chart("myChart", {-->
+<!--            type: "bar",-->
+<!--            data: {-->
+<!--                labels: xValues,-->
+<!--                datasets: [{-->
+<!--                    backgroundColor: barColors,-->
+<!--                    data: yValues-->
+<!--                }]-->
+<!--            },-->
+<!--            options: {-->
+<!--                legend: {display: false},-->
+<!--                title: {-->
+<!--                    display: true,-->
+<!--                    text: "World Wine Production 2018"-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
 </div>
 </body>
 </html>

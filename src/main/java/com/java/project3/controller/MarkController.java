@@ -40,7 +40,7 @@ public class MarkController {
             @RequestParam(value = "classId", required = false) Long classId,
             @RequestParam(value = "subjectId", required = false) Long subjectId,
             @RequestParam(value = "studentId", required = false) Long studentId,
-            @RequestParam(value = "status", required = false) Short status,
+            @RequestParam(value = "status", required = false) Integer status,
             HttpServletResponse response
     ) {
         if (classId == null || classId == 0) {
@@ -129,58 +129,6 @@ public class MarkController {
         ResponseDto responseDto = markService.create(markDTO);
         return "redirect:/quan-ly-diem";
     }
-//
-//    @PostMapping("createMark")
-//    public String createMark(
-//            Model model,
-//            @ModelAttribute MarkDTO markDTO
-//    ) {
-//
-//        //dùng ajax lọc dánh sách sinh viên
-//        List<StudentDTO> studentDTOS = null;
-//        if (markDTO.getStudentId() != null) {
-//            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
-//            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
-//            model.addAttribute("gradeId", studentDTO.getGradeId());
-//
-//            //get lớp
-//            SearchReqDto searchReqDtoLop = new SearchReqDto();
-//            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
-//            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
-//            model.addAttribute("lop", searchResDtoLop.getData());
-//            model.addAttribute("gradeIds", markDTO.getGradeId());
-//
-//            ResponseDto responseDto2 = studentService.findByGradeId(studentDTO.getGradeId());
-//            studentDTOS = (List<StudentDTO>) responseDto2.getObject();
-//            model.addAttribute("studentIdss", markDTO.getStudentId());
-//
-//        }
-//        model.addAttribute("dataSv", studentDTOS);
-//
-//        //dùng ajax lọc dánh sách môn học
-//        List<SubjectDTO> subjectDTOS = null;
-//        if (markDTO.getSubjectId() != null) {
-//            ResponseDto responseDto1 = studentService.findById(markDTO.getStudentId());
-//            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
-//            model.addAttribute("gradeId", studentDTO.getGradeId());
-//
-//            //get lớp
-//            SearchReqDto searchReqDtoLop = new SearchReqDto();
-//            ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
-//            SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
-//            model.addAttribute("lop", searchResDtoLop.getData());
-//            model.addAttribute("gradeIdss", markDTO.getGradeId());
-//
-//            ResponseDto responseDto2 = subjectService.findByGradeId(studentDTO.getGradeId());
-//            subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();
-//            model.addAttribute("subjectIdss", markDTO.getSubjectId());
-//
-//        }
-//        model.addAttribute("dataMon", subjectDTOS);
-//
-//        ResponseDto responseDto = markService.create(markDTO);
-//        return "redirect:/quan-ly-diem";
-//    }
 
     @GetMapping("/quan-ly-diem/{id}")
     public String suaDien(

@@ -55,6 +55,12 @@ public class MarkService {
         Optional<Mark> mark = markRepository.findById(id);
         if (mark.isPresent()) {
             MarkDTO markDTO = toMarkDto.getDestination(mark.get());
+            Student student = studentRepository.findById(markDTO.getStudentId()).orElse(null);
+            CtdtSubjectClass ctdtSubjectClass = ctdtSubjectClassRepository.findById(markDTO.getCtdtSubjectClassId()).orElse(null);
+            Subject subject = subjectRepository.findByCtdtSubjectClassIdOne(markDTO.getCtdtSubjectClassId());
+            markDTO.setCtdtSubjectClassName(ctdtSubjectClass.getName());
+            markDTO.setStudentName(student.getFullName());
+            markDTO.setSubjectName(subject.getName());
             responseDto.setObject(markDTO);
         }
         return responseDto;
@@ -188,7 +194,7 @@ public class MarkService {
         return responseDto;
     }
 
-    public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search, Long gradeId, Short status, Long subjectId) {
+    public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search, Long gradeId, Integer status, Long subjectId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
