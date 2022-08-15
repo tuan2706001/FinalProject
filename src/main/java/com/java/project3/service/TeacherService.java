@@ -4,6 +4,7 @@ package com.java.project3.service;
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
 import com.java.project3.dto.CtdtSubjectDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.TeacherDTO;
 import com.java.project3.dto.TeacherSubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
@@ -73,6 +74,17 @@ public class TeacherService {
             teacherSubjectDTOS.add(teacherSubjectDTO);
         }
         responseDto.setObject(teacherSubjectDTOS);
+        return responseDto;
+    }
+
+    public ResponseDto findTeacherByCtdtSubjectId(Long ctdtSubjectId) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Teacher> teachers = teacherRepository.findTeacherByCtdtSubjectId(ctdtSubjectId);
+        List<TeacherDTO> teacherDTOS = new ArrayList<>();
+        for (var item : teachers) {
+            teacherDTOS.add(toTeacherDto.getDestination(item));
+        }
+        responseDto.setObject(teacherDTOS);
         return responseDto;
     }
 

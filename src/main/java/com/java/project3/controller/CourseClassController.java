@@ -84,7 +84,7 @@ public class CourseClassController {
         model.addAttribute("nganh", searchResDtoNganh.getData());
         model.addAttribute("majorId", majorId);
 
-        //dùng ajax lấu ngành theo khóa
+        //dùng ajax lấy ctdt theo ngành
         List<CtdtDTO> ctdtDTOS = null;
         if (majorId != null) {
             ResponseDto responseDto1 = ctdtService.findById(ctdtId);
@@ -101,15 +101,6 @@ public class CourseClassController {
 
         return "quan-ly-lop-chung";
     }
-
-//    @GetMapping("getCtdt/{id}")
-//    @ResponseBody
-//    public List<CtdtDTO> getCtdt(
-//            @PathVariable("id") Long id
-//    ) {
-//        ResponseDto responseDto = ctdtService.findByMajorId(id);
-//        return (List<CtdtDTO>) responseDto.getObject();
-//    }
 
     @PostMapping("createCourseClass")
     public String createCourseClass(

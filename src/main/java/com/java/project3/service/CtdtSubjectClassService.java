@@ -51,10 +51,16 @@ public class CtdtSubjectClassService {
     }
 
     public ResponseDto findById(Long id) {
-        ResponseDto responseDto = new ResponseDto();
+            ResponseDto responseDto = new ResponseDto();
         Optional<CtdtSubjectClass> ctdtSubjectClass = ctdtSubjectClassRepository.findById(id);
         if (ctdtSubjectClass.isPresent()) {
             CtdtSubjectClassDTO ctdtSubjectClassDTO = toCtdtSubjectClassDto.getDestination(ctdtSubjectClass.get());
+            CourseClass courseClass = courseClassRepository.findById(ctdtSubjectClassDTO.getCourseClassId()).orElse(null);
+            CtdtSubject ctdtSubject = ctdtSubjectRepository.findById(ctdtSubjectClassDTO.getCtdtSubjectId()).orElse(null);
+            Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
+            ctdtSubjectClassDTO.setTeacherName(teacher.getName());
+            ctdtSubjectClassDTO.setCourseClassName(courseClass.getName());
+            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubject.getSubjectName());
             responseDto.setObject(ctdtSubjectClassDTO);
         }
         return responseDto;

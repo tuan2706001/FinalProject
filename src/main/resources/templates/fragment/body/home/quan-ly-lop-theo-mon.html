@@ -57,7 +57,7 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-lop-theo-mon/' + item.id}"
+                                    th:data-url="${'/quan-ly-lop-theo-mon/' + item.id + '/' + item.ctdtSubjectId}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
@@ -303,7 +303,7 @@
             })
         })
 
-        //ajax lấy môn theo ctdt
+        //ajax lấy giảng viên theo ctdt
         $('#subjectIds').change(function () {
             var htmlTeacher = '<option value="0" hidden>--Chọn giảng viên--</option>';
             // console.log()

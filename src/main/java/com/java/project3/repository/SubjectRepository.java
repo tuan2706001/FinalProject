@@ -39,4 +39,5 @@ public interface SubjectRepository extends JpaRepository<Subject, Long>, JpaSpec
             "where csc.id = :ctdtSubjectClassId ", nativeQuery = true)
     Subject findByCtdtSubjectClassIdOne(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
 
+
 }

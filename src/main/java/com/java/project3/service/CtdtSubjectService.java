@@ -6,6 +6,7 @@ import com.java.project3.domain.CtdtSubject;
 import com.java.project3.dto.CtdtSubjectDTO;
 import com.java.project3.dto.MarkDTO;
 import com.java.project3.dto.CtdtSubjectDTO;
+import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.CtdtRepository;
@@ -43,10 +44,14 @@ public class CtdtSubjectService {
 
     JMapper<CtdtSubjectDTO, CtdtSubject> toCtdtSubjectDto;
     JMapper<CtdtSubject, CtdtSubjectDTO> toCtdtSubject;
+    JMapper<SubjectDTO, Subject> toSubjectDto;
+    JMapper<Subject, SubjectDTO> toSubject;
 
     public CtdtSubjectService() {
         this.toCtdtSubjectDto = new JMapper<>(CtdtSubjectDTO.class, CtdtSubject.class);
         this.toCtdtSubject = new JMapper<>(CtdtSubject.class, CtdtSubjectDTO.class);
+        this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
+        this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
     }
 
     public ResponseDto findById(Long id) {
