@@ -70,7 +70,7 @@ public class MarkController {
         ResponseDto responseDtolop = ctdtSubjectClassService.search(searchReqDtoLop);
         SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
         model.addAttribute("lop", searchResDtoLop.getData());
-        model.addAttribute("classId", classId);
+        model.addAttribute("courseClassIds", classId);
 
 
 
@@ -79,7 +79,7 @@ public class MarkController {
         if (classId != null) {
             ResponseDto responseDto1 = subjectService.findById(subjectId);
             SubjectDTO subjectDTO = (SubjectDTO) responseDto1.getObject();
-            model.addAttribute("classId", subjectDTO.getCtdtSubjectClassId());
+            model.addAttribute("courseClassIds", subjectDTO.getCtdtSubjectClassId());
 
             ResponseDto responseDto2 = subjectService.findByCscId(subjectDTO.getCtdtSubjectClassId());
             subjectDTOS = (List<SubjectDTO>) responseDto2.getObject();

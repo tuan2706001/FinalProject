@@ -70,7 +70,7 @@ public class CtdtSubjectClassController {
 
             ResponseDto responseDto2 = ctdtService.findByMajorId(ctdtDTO.getMajorId());
             ctdtDTOS = (List<CtdtDTO>) responseDto2.getObject();
-            model.addAttribute("ctdtIds", ctdtId);
+            model.addAttribute("ctdtId", ctdtId);
         }
         model.addAttribute("dataCtdt", ctdtDTOS);
 
@@ -79,7 +79,7 @@ public class CtdtSubjectClassController {
         if (ctdtId != null) {
             ResponseDto responseDto1 = courseClassServcie.findById(courseClassId);
             CourseClassDTO courseClassDTO = (CourseClassDTO) responseDto1.getObject();
-            model.addAttribute("ctdtIds", courseClassDTO.getCtdtId());
+            model.addAttribute("ctdtId", courseClassDTO.getCtdtId());
 
             ResponseDto responseDto2 = courseClassServcie.findByCtdtId(courseClassDTO.getCtdtId());
             courseClassDTOS = (List<CourseClassDTO>) responseDto2.getObject();

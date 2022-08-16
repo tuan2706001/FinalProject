@@ -8,19 +8,35 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#curriculumIdss').val() === ""){
+    if ($('#maLop').val() === ""){
         check = false
-        var id = "curriculumIdss"
-        var err = "errhe"
+        var id = "maLop"
+        var err = "errMaLop"
+        var mess = "Mã lớp không được để trống"
+        checkEmptyValidate(id, mess, err)
+    }
+
+    if ($('#curriculumIds').val() === ""){
+        check = false
+        var id = "curriculumIds"
+        var err = "errHe"
         var mess = "Hãy chọn hệ"
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#majorIdss').val() === ""){
+    if ($('#majorId').val() === ""){
         check = false
-        var id = "majorIdss"
+        var id = "majorId"
         var err = "errMajor"
         var mess = "Hãy chọn ngành"
+        checkEmptyValidate(id, mess, err)
+    }
+
+    if ($('#ctdtId').val() === ""){
+        check = false
+        var id = "ctdtId"
+        var err = "errCtdt"
+        var mess = "Hãy chọn chương trình"
         checkEmptyValidate(id, mess, err)
     }
 
@@ -112,10 +128,10 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#gradeIds').val() === ""){
+    if ($('#courseClassIds').val() === ""){
         check = false
-        var id = "gradeIds"
-        var err = "errGrade"
+        var id = "courseClassIds"
+        var err = "errClass"
         var mess = "Hãy chọn lớp"
         checkEmptyValidate(id, mess, err)
     }
@@ -137,19 +153,27 @@ function checkValidate(){
     //     checkEmptyValidate(id, mess, err)
     // }
 
-    if ($('#studentIdss').val() === ""){
+    if ($('#studentId').val() === ""){
         check = false
-        var id = "studentIdss"
+        var id = "studentId"
         var err = "errStudent"
         var mess = "Hãy chọn sinh viên"
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#subjectIdss').val() === ""){
+    if ($('#subjectIds').val() === ""){
         check = false
-        var id = "subjectIdss"
+        var id = "subjectIds"
         var err = "errSubject"
         var mess = "Hãy chọn môn học"
+        checkEmptyValidate(id, mess, err)
+    }
+
+    if ($('#teacherIds').val() === ""){
+        check = false
+        var id = "teacherIds"
+        var err = "errTeacher"
+        var mess = "Hãy chọn giảng viên"
         checkEmptyValidate(id, mess, err)
     }
 

@@ -143,7 +143,7 @@
                             <div class="w-2/3">
                                 <label class="font-medium mr-24">Môn</label>
                                 <div>
-                                    <select id="subjectId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                    <select id="subjectIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="subjectIds"
                                             style="width: 250px" multiple>
 <!--                                        <option value="0" hidden>&#45;&#45;Chọn môn&#45;&#45;</option>-->
@@ -196,7 +196,7 @@
 
         })
         $(document).ready(function () {
-            $('#subjectId').select2({
+            $('#subjectIds').select2({
                 placeholder: "Chọn môn",
                 allowClear: true
             });

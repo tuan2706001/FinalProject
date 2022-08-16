@@ -27,14 +27,14 @@ public class StudentController {
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "search", required = false) String search,
-            @RequestParam(value = "gradeId", required = false) Long gradeId
+            @RequestParam(value = "courseClassId", required = false) Long courseClassId
     ) {
-        if ( gradeId == null || gradeId == 0 ) {
-            gradeId = null;
+        if ( courseClassId == null || courseClassId == 0 ) {
+            courseClassId = null;
         }
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId);
+        ResponseDto responseDto = studentService.searchStudentBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -48,7 +48,7 @@ public class StudentController {
         ResponseDto responseDtolop = courseClassServcie.search(searchReqDtoLop);
         SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
         model.addAttribute("lop", searchResDtoLop.getData());
-        model.addAttribute("gradeId", gradeId);
+        model.addAttribute("courseClassIds", courseClassId);
 
         return "quan-ly-sinh-vien";
     }

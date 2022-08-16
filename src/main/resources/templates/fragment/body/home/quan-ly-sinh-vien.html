@@ -155,13 +155,13 @@
                             <div>
                                 <label class="font-medium mr-6">Lớp</label>
                                 <div class="font-medium mr-48 ml-4">
-                                    <select id="gradeIds" class="border rounded-lg w-56 h-10" name="courseClassId">
+                                    <select id="courseClassIds" class="border rounded-lg w-56 h-10" name="courseClassId">
                                         <option value="" hidden>Chọn Lớp</option>
                                         <th:block th:each="item,index : ${lop}">
                                             <option th:value="${item.id}" th:text="${item.name}"></option>
                                         </th:block>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errGrade"></div>
+                                    <div class="text-sm text-red-600" id="errClass"></div>
                                 </div>
                             </div>
 

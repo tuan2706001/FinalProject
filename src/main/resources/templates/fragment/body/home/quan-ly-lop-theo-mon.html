@@ -108,7 +108,7 @@
                                 <div>
                                     <input id="maLop" type="text" name="maLop" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
-                                    <div class="text-sm text-red-600" id="errName"></div>
+                                    <div class="text-sm text-red-600" id="errMaLop"></div>
                                 </div>
                             </div>
                         </div>
@@ -128,14 +128,14 @@
                                         </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errMon"></div>
+                                    <div class="text-sm text-red-600" id="errMajor"></div>
                                 </div>
                             </div>
 
                             <div class="w-2/3">
                                 <label class="font-medium mr-28">Tên chương trình</label>
                                 <div>
-                                    <select id="ctdtIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                    <select id="ctdtId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="ctdtId"
                                             >
                                         <option value="" hidden>Chọn chương trình</option>
@@ -167,7 +167,7 @@
                                             </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                    <div class="text-sm text-red-600" id="errClass"></div>
                                 </div>
                             </div>
 
@@ -185,7 +185,7 @@
                                             </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                    <div class="text-sm text-red-600" id="errSubject"></div>
                                 </div>
                             </div>
                         </div>
@@ -205,8 +205,7 @@
                                 <label class="font-medium mr-28">Tên giảng viên</label>
                                 <div>
                                     <select id="teacherIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="teacherId"
-                                            >
+                                leading-tight focus:outline-none focus:shadow-outline" name="teacherId">
                                         <option value="" hidden>Chọn giảng viên</option>
                                         <th:bock th:if="${dataTeacher != null && #lists.size(dataTeacher) > 0}">
                                             <th:block th:each="item,index : ${dataTeacher}">
@@ -215,7 +214,7 @@
                                             </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errCtdt"></div>
+                                    <div class="text-sm text-red-600" id="errTeacher"></div>
                                 </div>
                             </div>
                         </div>
@@ -266,13 +265,13 @@
                     $.each(e, function (idex, items) {
                         htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
                     })
-                    $('#ctdtIds').html(htmlCtdt);
+                    $('#ctdtId').html(htmlCtdt);
                 }
             })
         })
 
         //ajax lấy lớp chung theo ctdt
-        $('#ctdtIds').change(function () {
+        $('#ctdtId').change(function () {
             var htmlClass = '<option value="0" hidden>--Chọn lớp--</option>';
 
             $.ajax({
@@ -288,7 +287,7 @@
         })
 
         //ajax lấy môn theo ctdt
-        $('#ctdtIds').change(function () {
+        $('#ctdtId').change(function () {
             var htmlSubject = '<option value="0" hidden>--Chọn môn--</option>';
 
             $.ajax({

@@ -138,23 +138,6 @@
                                 </div>
                             </div>
 
-<!--                            <div class="w-2/3">-->
-<!--                                <label class="font-medium mr-10">Chương trình đào tạo</label>-->
-<!--                                <div>-->
-<!--                                    <select id="ctdtId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700-->
-<!--                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">-->
-<!--                                        <option value="" hidden>&#45;&#45;Chọn ngành&#45;&#45;</option>-->
-<!--                                        <th:bock th:if="${ctdt != null && #lists.size(ctdt) > 0}">-->
-<!--                                            <th:block th:each="item,index : ${ctdt}">-->
-<!--                                                <option th:value="${item.id}" th:text="${item.name}"-->
-<!--                                                        th:selected="${ctdtId == item.id ? true : false}"></option>-->
-<!--                                            </th:block>-->
-<!--                                        </th:bock>-->
-<!--                                    </select>-->
-<!--                                    <div class="text-sm text-red-600" id="errMajor"></div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
                         </div>
 
                         <div class="flex justify-between">
@@ -163,8 +146,7 @@
                                 <label class="font-medium mr-28">Tên ngành</label>
                                 <div>
                                     <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="majorId"
-                                            onchange="this.form.submit()">
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
                                         <option value="" hidden>Chọn ngành</option>
                                         <th:block th:each="item,index : ${nganh}">
                                             <option th:value="${item.id}" th:text="${item.name}"
@@ -172,7 +154,7 @@
                                         </th:block>
                                         </th:bock>
                                     </select>
-                                    <div class="text-sm text-red-600" id="errMon"></div>
+                                    <div class="text-sm text-red-600" id="errMajor"></div>
                                 </div>
                             </div>
 
