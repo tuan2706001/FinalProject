@@ -14,4 +14,8 @@ public interface CtdtSubjectRepository extends JpaRepository<CtdtSubject, Long>,
 
     List<CtdtSubject> findByCtdtId(Long ctdtId);
 
+    @Query(value = "select (name) from subject s " +
+            "join ctdt_subject cs on cs.subject_id = s.id where cs.id = :ctdtSubjectId", nativeQuery = true)
+    String findNameByCtdtSubjectId(@Param("ctdtSubjectId") Long ctdtSubjectId);
+
 }

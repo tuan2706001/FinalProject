@@ -1,8 +1,9 @@
 package com.java.project3.service;
 
 import com.googlecode.jmapper.JMapper;
-import com.java.project3.domain.*;
-import com.java.project3.dto.CourseClassDTO;
+import com.java.project3.domain.Curriculum;
+import com.java.project3.domain.Major;
+import com.java.project3.domain.Subject;
 import com.java.project3.dto.MajorDTO;
 import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.ResponseDto;
@@ -36,18 +37,12 @@ public class MajorService {
     MajorService majorService;
     @Autowired
     CourseRepository courseRepository;
-//    @Autowired
-//    CourseClassRepository courseClassRepository;
-//    @Autowired
-//    SubjectRepository subjectRepository;
     @Autowired
     CurriculumRepository curriculumRepository;
 
 
     JMapper<MajorDTO, Major> toMajorDto;
     JMapper<Major, MajorDTO> toMajor;
-//    JMapper<CourseClassDTO, CourseClass> toGradeDto;
-//    JMapper<CourseClass, CourseClassDTO> toGrade;
     JMapper<SubjectDTO, Subject> toSubjectDto;
     JMapper<Subject, SubjectDTO> toSubject;
 
@@ -55,8 +50,6 @@ public class MajorService {
     public MajorService() {
         this.toMajorDto = new JMapper<>(MajorDTO.class, Major.class);
         this.toMajor = new JMapper<>(Major.class, MajorDTO.class);
-//        this.toGradeDto = new JMapper<>(CourseClassDTO.class, CourseClass.class);
-//        this.toGrade = new JMapper<>(CourseClass.class, CourseClassDTO.class);
         this.toSubjectDto = new JMapper<>(SubjectDTO.class, Subject.class);
         this.toSubject = new JMapper<>(Subject.class, SubjectDTO.class);
     }
@@ -66,7 +59,8 @@ public class MajorService {
         Optional<Major> major = majorRepository.findById(id);
         if (major.isPresent()) {
             MajorDTO majorDTO = toMajorDto.getDestination(major.get());
-            majorDTO.getCurriculumId();
+            Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
+            majorDTO.setCurriculumName(curriculum.getName());
             responseDto.setObject(majorDTO);
         }
         return responseDto;
@@ -99,10 +93,10 @@ public class MajorService {
 
     public ResponseDto create(MajorDTO majorDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
+//        Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
         Major major = toMajor.getDestination(majorDTO);
         major.setId(genIdService.nextId());
-        major.setCurriculumName(curriculum.getName());
+//        major.setCurriculumName(curriculum.getName());
         Major result = majorRepository.save(major);
         var temp = toMajorDto.getDestination(result);
         responseDto.setObject(temp);
@@ -113,9 +107,9 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(majorDTO.getId());
         if (major.isPresent()) {
-            Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
+//            Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
             Major major1 = toMajor.getDestination(major.get(), majorDTO);
-            major1.setCurriculumName(curriculum.getName());
+//            major1.setCurriculumName(curriculum.getName());
             Major result = majorRepository.save(major1);
             MajorDTO majorDTO1 = toMajorDto.getDestination(result);
             responseDto.setObject(majorDTO1);
@@ -150,7 +144,10 @@ public class MajorService {
         // entity -> dto
         List<MajorDTO> majorDTOS = new ArrayList<>();
         for (var major : majors) {
-            majorDTOS.add(toMajorDto.getDestination(major));
+            MajorDTO majorDTO = toMajorDto.getDestination(major);
+            Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
+            majorDTO.setCurriculumName(curriculum.getName());
+            majorDTOS.add(majorDTO);
         }
         responseDto.setObject(prepareResponseForSearch(majors.getTotalPages(), majors.getNumber(), majors.getTotalElements(), majorDTOS));
         return responseDto;
@@ -184,10 +181,8 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(id);
         if (major.isPresent()) {
-
-                majorRepository.deleteById(id);
-                responseDto.setObject(id);
-
+            majorRepository.deleteById(id);
+            responseDto.setObject(id);
         }
         return responseDto;
     }

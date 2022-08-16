@@ -85,7 +85,7 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-lop-chung/' + item.id}"
+                                    th:data-url="${'/quan-ly-lop-chung/' + item.id + '/' + item.ctdtId}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
@@ -179,7 +179,7 @@
                             <div class="w-2/3">
                                 <label class="font-medium mr-28">Tên chương trình</label>
                                 <div>
-                                    <select id="ctdtIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                    <select id="ctdtId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="ctdtId"
                                             onchange="this.form.submit()">
                                         <option value="" hidden>Chọn chương trình</option>
@@ -194,23 +194,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!--                        <div>-->
-                        <!--                            <label class="font-medium mr-28">Chương trình đào tạo</label>-->
-                        <!--                            <div>-->
-                        <!--                                <select id="ctdtIdss" class="mb-4 shadow appearance-none border rounded w-7/12  py-2 px-3 text-gray-700-->
-                        <!--                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">-->
-                        <!--                                    <option value="" hidden>&#45;&#45;Chương trình đào tạo&#45;&#45;</option>-->
-                        <!--                                    <th:bock th:if="${dataCtdts != null && #lists.size(dataCtdts) > 0}">-->
-                        <!--                                        <th:block th:each="item,index : ${dataCtdt}">-->
-                        <!--                                            <option th:value="${item.id}" th:text="${item.name}"-->
-                        <!--                                                    th:selected="${ctdtId == item.id ? true : false}"></option>-->
-                        <!--                                        </th:block>-->
-                        <!--                                    </th:bock>-->
-                        <!--                                </select>-->
-                        <!--                                <div class="text-sm text-red-600" id="errMajor"></div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
 
                         <div>
                             <label class="font-medium mr-28">Tên lớp</label>
@@ -267,7 +250,7 @@
                     $.each(e, function (idex, items) {
                         htmlCtdt += '<option value="' + items.id + '">' + items.name + '</option>';
                     })
-                    $('#ctdtIds').html(htmlCtdt);
+                    $('#ctdtId').html(htmlCtdt);
                 }
             })
         })

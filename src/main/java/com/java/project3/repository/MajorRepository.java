@@ -22,4 +22,8 @@ public interface MajorRepository extends JpaRepository<Major, Long>, JpaSpecific
 //    Major findCourseId(@Param("course_id") Long courseId);
 //
 //    Long countByCourseId(Long courseId);
+
+    @Query(value = "select * from ctdt " +
+            "where id = :ctdtId", nativeQuery = true)
+    Major findMajorById(@Param("ctdtId") Long ctdtId);
 }

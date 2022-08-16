@@ -60,7 +60,7 @@ public class CtdtSubjectClassService {
             Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
             ctdtSubjectClassDTO.setTeacherName(teacher.getName());
             ctdtSubjectClassDTO.setCourseClassName(courseClass.getName());
-            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubject.getSubjectName());
+            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubjectRepository.findNameByCtdtSubjectId(ctdtSubject.getId()));
             responseDto.setObject(ctdtSubjectClassDTO);
         }
         return responseDto;
@@ -104,7 +104,7 @@ public class CtdtSubjectClassService {
             Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
             ctdtSubjectClassDTO.setTeacherName(teacher.getName());
             ctdtSubjectClassDTO.setCourseClassName(courseClass.getName());
-            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubject.getSubjectName());
+            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubjectRepository.findNameByCtdtSubjectId(ctdtSubject.getId()));
             ctdtSubjectClassDTOS.add(ctdtSubjectClassDTO);
         }
         responseDto.setObject(prepareResponseForSearch(ctdtSubjectClasses.getTotalPages(), ctdtSubjectClasses.getNumber(), ctdtSubjectClasses.getTotalElements(), ctdtSubjectClassDTOS));

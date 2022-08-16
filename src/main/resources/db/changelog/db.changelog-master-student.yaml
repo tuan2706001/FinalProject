@@ -41,6 +41,3 @@ databaseChangeLog:
               - column:
                   name: course_class_id
                   type: bigint
-              - column:
-                  name: course_class_name
-                  type: NVARCHAR(255)

@@ -22,7 +22,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long>, JpaSpec
 //    List<CtdtSubject> findByMajorIdNull();
 
     @Query(value = "select (name) from subject where id = :subjectId", nativeQuery = true)
-    List<String> findNameBySubjectId(@Param("subjectId") Long subjectId);
+    String findNameBySubjectId(@Param("subjectId") Long subjectId);
 
     @Query(value = "select (name) from subject where id = :subjectId", nativeQuery = true)
     String findNameById(@Param("subjectId") Long subjectId);
@@ -42,5 +42,10 @@ public interface SubjectRepository extends JpaRepository<Subject, Long>, JpaSpec
     @Query(value = "select (subject_id) from teacher_subject where teacher_id = :teacherId", nativeQuery = true)
     List<Long> findSubjectByTeacher(@Param("teacherId") Long teacherId);
 
+
+    @Query(value = "select * from subject s " +
+            "left join teacher_subject ts on ts.subject_id = s.id " +
+            "where ts.teacher_id = :teacherId ", nativeQuery = true)
+    List<Subject> findByTeacherId(@Param("teacherId") Long teacherId);
 
 }

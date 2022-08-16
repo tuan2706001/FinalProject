@@ -31,9 +31,6 @@ public class CtdtSubject extends AbstractBaseEntity {
     @Column(name = "subject_id")
     private Long subjectId;
 
-    @Column(name = "subject_name")
-    private String subjectName;
-
     @Column(name = "ctdt_id")
     private Long ctdtId;
 }

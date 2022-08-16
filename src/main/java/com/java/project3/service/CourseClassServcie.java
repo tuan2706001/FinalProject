@@ -68,6 +68,10 @@ public class CourseClassServcie {
         Optional<CourseClass> grade = courseClassRepository.findById(id);
         if (grade.isPresent()) {
             CourseClassDTO courseClassDTO = toCourseClassDto.getDestination(grade.get());
+            Course course = courseRepository.findById(courseClassDTO.getCourseId()).orElse(null);
+            Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).orElse(null);
+            courseClassDTO.setCourseName(course.getName());
+            courseClassDTO.setCtdtName(ctdt.getName());
             responseDto.setObject(courseClassDTO);
         }
         return responseDto;
@@ -86,12 +90,12 @@ public class CourseClassServcie {
 
     public ResponseDto create(CourseClassDTO courseClassDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<Ctdt> ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId());
-        Optional<Course> course = courseRepository.findById(courseClassDTO.getCourseId());
+//        Optional<Ctdt> ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId());
+//        Optional<Course> course = courseRepository.findById(courseClassDTO.getCourseId());
         CourseClass courseClass = toCourseClass.getDestination(courseClassDTO);
         courseClass.setId(genIdService.nextId());
-        courseClass.setCtdtName(ctdt.get().getName());
-        courseClass.setCourseName(course.get().getName());
+//        courseClass.setCtdtName(ctdt.get().getName());
+//        courseClass.setCourseName(course.get().getName());
         CourseClass result = courseClassRepository.save(courseClass);
         var temp = toCourseClassDto.getDestination(result);
         responseDto.setObject(temp);
@@ -102,11 +106,11 @@ public class CourseClassServcie {
         ResponseDto responseDto = new ResponseDto();
         Optional<CourseClass> courseClass = courseClassRepository.findById(courseClassDTO.getId());
         if (courseClass.isPresent()) {
-            Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).get();
-            Course course = courseRepository.findById(courseClassDTO.getCourseId()).get();
+//            Ctdt ctdt = ctdtRepository.findById(courseClassDTO.getCtdtId()).get();
+//            Course course = courseRepository.findById(courseClassDTO.getCourseId()).get();
             CourseClass courseClass1 = toCourseClass.getDestination(courseClass.get(), courseClassDTO);
-            courseClass1.setCtdtName(ctdt.getName());
-            courseClass1.setCourseName(course.getName());
+//            courseClass1.setCtdtName(ctdt.getName());
+//            courseClass1.setCourseName(course.getName());
             CourseClass result = courseClassRepository.save(courseClass1);
             CourseClassDTO courseClassDTO1 = toCourseClassDto.getDestination(result);
             responseDto.setObject(courseClassDTO1);

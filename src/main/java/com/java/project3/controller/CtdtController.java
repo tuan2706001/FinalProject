@@ -75,7 +75,7 @@ public class CtdtController {
         ResponseDto responseDtNganh = majorService.search(searchReqDtoNganh);
         SearchResDto searchResDtoNganh = (SearchResDto) responseDtNganh.getObject();
         model.addAttribute("nganhs", searchResDtoNganh.getData());
-        ResponseDto responseDto =  majorService.findById(id);
+        ResponseDto responseDto =  ctdtService.findById(id);
         model.addAttribute("data", responseDto.getObject());
         return "fragment/body/home/edit/edit-ctdt";
     }

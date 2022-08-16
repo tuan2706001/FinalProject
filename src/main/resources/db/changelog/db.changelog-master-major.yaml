@@ -20,6 +20,3 @@ databaseChangeLog:
               - column:
                   name: curriculum_id
                   type: bigint
-              - column:
-                  name: curriculum_name
-                  type: NVARCHAR(255)

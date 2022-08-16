@@ -13,4 +13,8 @@ public interface CtdtRepository extends JpaRepository<Ctdt, Long>, JpaSpecificat
 
         @Query(value = "select (name) from ctdt where id = :ctdtId", nativeQuery = true)
         String findNameByCtdtId(@Param("ctdtId") Long ctdtId);
+
+        @Query(value = "select (major_id) from ctdt " +
+                "where id = :ctdtId", nativeQuery = true)
+        Long findMajorById(@Param("ctdtId") Long ctdtId);
 }

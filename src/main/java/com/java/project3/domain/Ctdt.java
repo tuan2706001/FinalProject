@@ -23,7 +23,4 @@ public class Ctdt extends AbstractBaseEntity {
 
     @Column(name = "major_id")
     private Long majorId;
-
-    @Column(name = "major_name")
-    private String majorName;
 }

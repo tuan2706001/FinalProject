@@ -6,21 +6,34 @@
     </div>
     <div class="w-full p-5">
         <div class=" z-50">
-            <form th:method="PUT" action="/updateGrade" onsubmit="return checkEditValidate()">
+            <form th:method="PUT" action="/updateCourseClass" onsubmit="return checkEditValidate()">
                 <div class="modal-body p-10">
 
                     <div class="flex justify-between">
                         <div class="w-2/3">
-                            <label class="font-medium mr-28">Tên Ngành</label>
+                            <label class="font-medium mr-28">Tên khóa</label>
                             <div>
-                                <select  class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
-                                    <th:block th:each="item,index : ${nganh}">
+                                <select id="courseId"  class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="courseId">
+                                    <th:block th:each="item,index : ${khoa}">
                                         <option th:value="${item.id}" th:text="${item.name}"
-                                                th:selected="${data.majorId == item.id ? true : false}"></option>
+                                                th:selected="${data.courseId == item.id ? true : false}"></option>
                                     </th:block>
                                 </select>
-                                <input type="hidden" id="idNganh" name="majorId">
+                                <input type="hidden" id="id" name="majorId">
+                            </div>
+                        </div>
+                        <div class="w-2/3">
+                            <label class="font-medium mr-28">Tên chương trình</label>
+                            <div>
+                                <select id="ctdtId"  class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">
+                                    <th:block th:each="item,index : ${dataCtdt}">
+                                        <option th:value="${item.id}" th:text="${item.name}"
+                                                th:selected="${data.ctdtId == item.id ? true : false}"></option>
+                                    </th:block>
+                                </select>
+<!--                                <input type="hidden" id="idNganh" name="majorId">-->
                             </div>
                         </div>
                     </div>

@@ -20,6 +20,5 @@ public class CtdtDTO {
     @JMap
     private Long majorId;
 
-    @JMap
     private String majorName;
 }

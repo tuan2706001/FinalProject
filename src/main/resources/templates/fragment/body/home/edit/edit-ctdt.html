@@ -13,7 +13,7 @@
                     <label class="font-medium mr-28">Tên hệ</label>
                     <div>
                         <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="curriculumId">
+                                leading-tight focus:outline-none focus:shadow-outline" name="majorId">
                             <th:block th:each="item,index : ${nganhs}">
                                 <option th:value="${item.id}" th:text="${item.name}"
                                         th:selected="${data.majorId == item.id ? true : false}"></option>

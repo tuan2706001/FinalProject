@@ -61,6 +61,17 @@ public class SubjectService {
         return responseDto;
     }
 
+    public ResponseDto findByTeacherId(Long teacherId) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Subject> subjects = subjectRepository.findByTeacherId(teacherId);
+        List<SubjectDTO> subjectDTOS = new ArrayList<>();
+        for (var item : subjects) {
+            subjectDTOS.add(toSubjectDto.getDestination(item));
+        }
+        responseDto.setObject(subjectDTOS);
+        return responseDto;
+    }
+
 
     public ResponseDto findByCscId(Long id) {
         ResponseDto responseDto = new ResponseDto();

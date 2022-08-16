@@ -64,6 +64,8 @@ public class StudentService {
         Optional<Student> student = studentRepository.findById(id);
         if (student.isPresent()) {
             StudentDTO studentDTO = toStudentDto.getDestination(student.get());
+            CourseClass courseClass = courseClassRepository.findById(studentDTO.getCourseClassId()).orElse(null);
+            studentDTO.setCourseClassName(courseClass.getName());
             responseDto.setObject(studentDTO);
         }
         return responseDto;
@@ -93,12 +95,12 @@ public class StudentService {
 
     public ResponseDto create(StudentDTO studentDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Optional<CourseClass> courseClass = courseClassRepository.findById(studentDTO.getCourseClassId());
+//        Optional<CourseClass> courseClass = courseClassRepository.findById(studentDTO.getCourseClassId());
         Long checkEmail = studentRepository.countStudentByEmail(studentDTO.getEmail());
         if (checkEmail == 0) {
         Student student = toStudent.getDestination(studentDTO);
         student.setId(genIdService.nextId());
-        student.setCourseClassName(courseClass.get().getName());
+//        student.setCourseClassName(courseClass.get().getName());
         student.setPassword("123456");
         Student result = studentRepository.save(student);
         var temp = toStudentDto.getDestination(result);
@@ -125,10 +127,10 @@ public class StudentService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Student> student = studentRepository.findById(studentDTO.getId());
         if (student.isPresent()) {
-            CourseClass courseClass = courseClassRepository.findById(studentDTO.getCourseClassId()).get();
+//            CourseClass courseClass = courseClassRepository.findById(studentDTO.getCourseClassId()).get();
 
             Student student1 = toStudent.getDestination(student.get(), studentDTO);
-            student1.setCourseClassName(courseClass.getName());
+//            student1.setCourseClassName(courseClass.getName());
             Student result = studentRepository.save(student1);
             StudentDTO studentDTO1 = toStudentDto.getDestination(result);
             responseDto.setObject(studentDTO1);
@@ -154,7 +156,10 @@ public class StudentService {
         // entity -> dto
         List<StudentDTO> studentDTOS = new ArrayList<>();
         for (var student : students) {
-            studentDTOS.add(toStudentDto.getDestination(student));
+            StudentDTO studentDTO = toStudentDto.getDestination(student);
+            CourseClass courseClass = courseClassRepository.findById(studentDTO.getCourseClassId()).orElse(null);
+            studentDTO.setCourseClassName(courseClass.getName());
+            studentDTOS.add(studentDTO);
         }
         responseDto.setObject(prepareResponseForSearch(students.getTotalPages(), students.getNumber(), students.getTotalElements(), studentDTOS));
         return responseDto;

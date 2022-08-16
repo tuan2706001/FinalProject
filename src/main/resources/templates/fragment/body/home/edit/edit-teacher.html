@@ -1,0 +1,61 @@
+<!--<body>-->
+<div class="modal-content w-6/12 mx-auto my-10">
+    <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+        <div class="text-xl ">Sửa giảng viên</div>
+        <button><span class="closeModal transition duration-300"
+                      onclick="$('#modalEdit').css('display','none')">x</span></button>
+    </div>
+
+    <form th:method="PUT" action="/updateTeacher" onsubmit="return checkEditValidate()">
+        <div class="modal-body p-10">
+            <div>
+                <div>
+                    <label class="font-medium mr-4">Tên giảng viên</label>
+                    <div>
+                        <input id="editName" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="name"
+                               th:value="${data.name}"/>
+                        <input type="hidden" th:value="${data.id}" name="id">
+                        <div class="text-sm text-red-600" id="errEditName"></div>
+                    </div>
+                </div>
+
+                <div class="w-2/3">
+                    <label class="font-medium mr-24">Môn</label>
+                    <div>
+                        <select id="subjectIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="subjectIds"
+                                style="width: 250px" multiple>
+                            <th:block th:each="item,index : ${dataMon}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${data.subjectIds == item.id ? true : false}"></option>
+                            </th:block>
+                        </select>
+                        <div class="text-sm text-red-600" id="errSubject"></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-10">
+                    <div
+                            onclick="$('#modalEdit').css('display','none')"
+                            class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                    </div>
+                    <button
+                            class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                    >Gửi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#subjectId').select2({-->
+<!--            placeholder: "Chọn môn",-->
+<!--            allowClear: true-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->

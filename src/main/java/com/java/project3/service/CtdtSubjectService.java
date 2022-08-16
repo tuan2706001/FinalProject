@@ -59,6 +59,10 @@ public class CtdtSubjectService {
         Optional<CtdtSubject> ctdtSubject = ctdtSubjectRepository.findById(id);
         if (ctdtSubject.isPresent()) {
             CtdtSubjectDTO ctdtSubjectDTO = toCtdtSubjectDto.getDestination(ctdtSubject.get());
+            Ctdt ctdt = ctdtRepository.findById(ctdtSubjectDTO.getCtdtId()).orElse(null);
+            Subject subject = subjectRepository.findById(ctdtSubjectDTO.getSubjectId()).orElse(null);
+            ctdtSubjectDTO.setCtdtName(ctdt.getName());
+            ctdtSubjectDTO.setSubjectName(subject.getName());
             responseDto.setObject(ctdtSubjectDTO);
         }
         return responseDto;
@@ -84,10 +88,10 @@ public class CtdtSubjectService {
     public ResponseDto create(CtdtSubjectDTO ctdtSubjectDTO) {
         ResponseDto responseDto = new ResponseDto();
 //        Ctdt ctdt = ctdtRepository.findById(ctdtSubjectDTO.getCtdtId()).orElse(null);
-        Subject subject = subjectRepository.findById(ctdtSubjectDTO.getSubjectId()).orElse(null);
+//        Subject subject = subjectRepository.findById(ctdtSubjectDTO.getSubjectId()).orElse(null);
         CtdtSubject ctdtSubject = toCtdtSubject.getDestination(ctdtSubjectDTO);
         ctdtSubject.setId(genIdService.nextId());
-        ctdtSubject.setSubjectName(subject.getName());
+//        ctdtSubject.setSubjectName(subject.getName());
         CtdtSubject result = ctdtSubjectRepository.save(ctdtSubject);
         var temp = toCtdtSubjectDto.getDestination(result);
         responseDto.setObject(temp);
@@ -119,11 +123,10 @@ public class CtdtSubjectService {
         for (var ctdtSubject : ctdtSubjects) {
             CtdtSubjectDTO ctdtSubjectDTO = toCtdtSubjectDto.getDestination(ctdtSubject);
             Ctdt ctdt = ctdtRepository.findById(ctdtSubjectDTO.getCtdtId()).orElse(null);
-//            Subject subject = subjectRepository.findById(ctdtSubjectDTO.getSubjectId()).orElse(null);
+            Subject subject = subjectRepository.findById(ctdtSubjectDTO.getSubjectId()).orElse(null);
             ctdtSubjectDTO.setCtdtName(ctdt.getName());
-//            ctdtSubjectDTO.setSubjectName(subject.getName());
+            ctdtSubjectDTO.setSubjectName(subject.getName());
             ctdtSubjectDTOS.add(ctdtSubjectDTO);
-//
         }
         responseDto.setObject(prepareResponseForSearch(ctdtSubjects.getTotalPages(), ctdtSubjects.getNumber(), ctdtSubjects.getTotalElements(), ctdtSubjectDTOS));
         return responseDto;

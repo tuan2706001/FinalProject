@@ -21,13 +21,11 @@ public class CourseClassDTO {
     @JMap
     private Long ctdtId;
 
-    @JMap
     private String ctdtName;
 
     @JMap
     private Long courseId;
 
-    @JMap
     private String courseName;
 
     private Long sumStudent;

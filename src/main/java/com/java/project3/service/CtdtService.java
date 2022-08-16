@@ -60,7 +60,8 @@ public class CtdtService {
         Optional<Ctdt> ctdt = ctdtRepository.findById(id);
         if (ctdt.isPresent()) {
             CtdtDTO ctdtDTO = toCtdtDto.getDestination(ctdt.get());
-            ctdtDTO.getMajorId();
+            Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
+            ctdtDTO.setMajorName(major.getName());
             responseDto.setObject(ctdtDTO);
         }
         return responseDto;
@@ -93,10 +94,10 @@ public class CtdtService {
 
     public ResponseDto create(CtdtDTO ctdtDTO) {
         ResponseDto responseDto = new ResponseDto();
-        Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
+//        Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
         Ctdt ctdt = toCtdt.getDestination(ctdtDTO);
         ctdt.setId(genIdService.nextId());
-        ctdt.setMajorName(major.getName());
+//        ctdt.setMajorName(major.getName());
         Ctdt result = ctdtRepository.save(ctdt);
         var temp = toCtdtDto.getDestination(result);
         responseDto.setObject(temp);
@@ -107,9 +108,9 @@ public class CtdtService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Ctdt> ctdt = ctdtRepository.findById(ctdtDTO.getId());
         if (ctdt.isPresent()) {
-            Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
+//            Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
             Ctdt ctdt1 = toCtdt.getDestination(ctdt.get(), ctdtDTO);
-            ctdt1.setMajorName(major.getName());
+//            ctdt1.setMajorName(major.getName());
             Ctdt result = ctdtRepository.save(ctdt1);
             CtdtDTO ctdtDTO1 = toCtdtDto.getDestination(result);
             responseDto.setObject(ctdtDTO1);
@@ -144,9 +145,12 @@ public class CtdtService {
         // entity -> dto
         List<CtdtDTO> ctdtDTOS = new ArrayList<>();
         for (var ctdt : ctdts) {
-            ctdtDTOS.add(toCtdtDto.getDestination(ctdt));
+            CtdtDTO ctdtDTO = toCtdtDto.getDestination(ctdt);
+            Major major = majorRepository.findById(ctdtDTO.getMajorId()).orElse(null);
+            ctdtDTO.setMajorName(major.getName());
+            ctdtDTOS.add(ctdtDTO);
         }
-        responseDto.setObject(prepareResponseForSearch(ctdts.getTotalPages(), ctdts.getNumber(), ctdts.getTotalElements(), ctdts));
+        responseDto.setObject(prepareResponseForSearch(ctdts.getTotalPages(), ctdts.getNumber(), ctdts.getTotalElements(), ctdtDTOS));
         return responseDto;
     }
 

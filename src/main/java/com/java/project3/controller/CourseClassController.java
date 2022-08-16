@@ -1,12 +1,17 @@
 package com.java.project3.controller;
 
+import com.java.project3.domain.Ctdt;
+import com.java.project3.domain.Major;
 import com.java.project3.dto.CourseClassDTO;
 import com.java.project3.dto.CtdtDTO;
 import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.TeacherDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
+import com.java.project3.repository.CtdtRepository;
+import com.java.project3.repository.MajorRepository;
 import com.java.project3.service.CourseServcice;
 import com.java.project3.service.CourseClassServcie;
 import com.java.project3.service.CtdtService;
@@ -31,6 +36,10 @@ public class CourseClassController {
     CtdtService ctdtService;
     @Autowired
     MajorService majorService;
+    @Autowired
+    MajorRepository majorRepository;
+    @Autowired
+    CtdtRepository ctdtRepository;
 
     @GetMapping("quan-ly-lop-chung")
     public String courseClass(
@@ -65,15 +74,6 @@ public class CourseClassController {
         SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
         model.addAttribute("khoa", searchResDtoKhoa.getData());
         model.addAttribute("courseId", courseId);
-
-//        //get ctdt
-//        SearchReqDto searchReqDtoCtdt = new SearchReqDto();
-//        searchReqDtoCtdt.setPageSize(100);
-//        searchReqDtoCtdt.setPageIndex(0);
-//        ResponseDto responseDtoCtdt = ctdtService.search(searchReqDtoCtdt);
-//        SearchResDto searchResDtoCtdt = (SearchResDto) responseDtoCtdt.getObject();
-//        model.addAttribute("ctdt", searchResDtoCtdt.getData());
-//        model.addAttribute("ctdtId", ctdtId);
 //
         //get nganh
         SearchReqDto searchReqDtoNganh = new SearchReqDto();
@@ -93,7 +93,7 @@ public class CourseClassController {
 
             ResponseDto responseDto2 = ctdtService.findByMajorId(ctdtDTO.getMajorId());
             ctdtDTOS = (List<CtdtDTO>) responseDto2.getObject();
-            model.addAttribute("subjectIds", ctdtId);
+            model.addAttribute("ctdtId", ctdtId);
 
         }
         model.addAttribute("dataCtdt", ctdtDTOS);
@@ -107,61 +107,46 @@ public class CourseClassController {
             Model model,
             @ModelAttribute CourseClassDTO courseClassDTO
     ) {
-
-//        List<MajorDTO> majorDTOS = null;
-//        if (courseClassDTO.getCtdtId() != null) {
-//            ResponseDto responseDto1 = ct.findById(courseClassDTO.getMajorId());
-//            MajorDTO majorDTO = (MajorDTO) responseDto1.getObject();
-//            model.addAttribute("courseId", majorDTO.getCourseId());
-//
-//            //get khóa
-//            SearchReqDto searchReqDtoKhoa = new SearchReqDto();
-//            searchReqDtoKhoa.setPageSize(100);
-//            searchReqDtoKhoa.setPageIndex(0);
-//            ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
-//            SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
-//            model.addAttribute("khoa", searchResDtoKhoa.getData());
-//            model.addAttribute("courseIds", majorDTO.getCourseId());
-//
-//            ResponseDto responseDto2 = majorService.findByCourseId(majorDTO.getCourseId());
-//            majorDTOS = (List<MajorDTO>) responseDto2.getObject();
-//            model.addAttribute("majorIdss", courseClassDTO.getMajorId());
-//
-//        }
-//        model.addAttribute("dataNganhs", majorDTOS);
-
         ResponseDto responseDto = courseClassServcie.create(courseClassDTO);
         return "redirect:/quan-ly-lop-chung";
     }
 
-    @GetMapping("quan-ly-lop-chung/{id}")
+    @GetMapping("quan-ly-lop-chung/{id}/{ctdtId}")
     public String suaLop(
             @PathVariable("id") Long id,
+            @PathVariable("ctdtId") Long ctdtId,
             Model model
     ) {
+        ResponseDto responseDto = courseClassServcie.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+
+
         //get khóa
         SearchReqDto searchReqDtoKhoa = new SearchReqDto();
         searchReqDtoKhoa.setPageSize(100);
         searchReqDtoKhoa.setPageIndex(0);
         ResponseDto responseDtoKhoa = courseServcice.search(searchReqDtoKhoa);
         SearchResDto searchResDtoKhoa = (SearchResDto) responseDtoKhoa.getObject();
-        model.addAttribute("khoas", searchResDtoKhoa.getData());
+        model.addAttribute("khoa", searchResDtoKhoa.getData());
+        model.addAttribute("courseId", responseDto.getObject());
 
-        //get ngành
-        SearchReqDto searchReqDtoNganh = new SearchReqDto();
-        searchReqDtoNganh.setPageSize(100);
-        searchReqDtoNganh.setPageIndex(0);
-        ResponseDto responseDtoNganh = majorService.search(searchReqDtoNganh);
-        SearchResDto searchResDtoNganh = (SearchResDto) responseDtoNganh.getObject();
-        model.addAttribute("nganh", searchResDtoNganh.getData());
+        Ctdt ctdt = ctdtRepository.findById(ctdtId).orElse(null);
 
-        ResponseDto responseDto = courseClassServcie.findById(id);
-        model.addAttribute("data", responseDto.getObject());
-        return "fragment/body/home/edit/edit-grade";
+        //get mon
+        List<CtdtDTO> ctdtDTOS = null;
+        if (ctdt.getMajorId() != null) {
+            ResponseDto responseDtCtdt = ctdtService.findByMajorId(ctdt.getMajorId());
+            ctdtDTOS = (List<CtdtDTO>) responseDtCtdt.getObject();
+            model.addAttribute("ctdtId", ctdt.getMajorId());
+        }
+        model.addAttribute("dataCtdt", ctdtDTOS);
+
+
+        return "fragment/body/home/edit/edit-course-class";
     }
 
     @PutMapping("updateCourseClass")
-    public String updateGrade(
+    public String updateCourseClass(
             @ModelAttribute CourseClassDTO courseClassDTO
     ) {
         ResponseDto responseDto = courseClassServcie.update(courseClassDTO);
@@ -169,7 +154,7 @@ public class CourseClassController {
     }
 
     @DeleteMapping("deleteCourseClass")
-    public String deleteGrade(
+    public String deleteCourseClass(
             @RequestParam(name = "id") Long id
     ) {
         ResponseDto responseDto = courseClassServcie.delete(id);

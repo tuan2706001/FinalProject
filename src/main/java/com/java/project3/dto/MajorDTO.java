@@ -21,7 +21,6 @@ public class MajorDTO {
     @JMap
     private Long curriculumId;
 
-    @JMap
     private String curriculumName;
 
 }
