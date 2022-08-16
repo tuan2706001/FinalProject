@@ -1,6 +1,7 @@
 package com.java.project3.dto;
 
 import com.googlecode.jmapper.annotations.JMap;
+import com.java.project3.domain.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

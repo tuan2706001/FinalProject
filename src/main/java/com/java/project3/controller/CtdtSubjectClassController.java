@@ -162,31 +162,6 @@ public class CtdtSubjectClassController {
         ResponseDto responseDto =  ctdtSubjectClassService.findById(id);
         model.addAttribute("data", responseDto.getObject());
 
-//        //dùng ajax lấy môn theo ctdt
-//        List<CtdtSubjectDTO> ctdtSubjectDTOS = null;
-//        if (ctdtId != null) {
-//            ResponseDto responseDto1 = ctdtService.findById(ctdtId);
-//            CtdtSubjectDTO ctdtSubjectDTO = (CtdtSubjectDTO) responseDto1.getObject();
-//            model.addAttribute("ctdtIds", ctdtSubjectDTO.getCtdtId());
-//
-//            ResponseDto responseDto2 = ctdtSubjectService.findByCtdtId(ctdtSubjectDTO.getCtdtId());
-//            ctdtSubjectDTOS = (List<CtdtSubjectDTO>) responseDto2.getObject();
-//            model.addAttribute("subjectIds", ctdtId);
-//        }
-//        model.addAttribute("dataSubject", ctdtSubjectDTOS);
-        //dùng ajax lấy giáo viên theo subject
-//        List<TeacherSubjectDTO> teacherSubjectDTOS = null;
-//        if (ctdtSubjectId != null) {
-//            ResponseDto responseDto1 = ctdtSubjectService.findById(ctdtSubjectId);
-//            TeacherSubjectDTO teacherSubjectDTO = (TeacherSubjectDTO) responseDto1.getObject();
-////            model.addAttribute("ctdtSubjectIds", teacherSubjectDTO.getCtdtSubjectId());
-//
-//            ResponseDto responseDto2 = teacherService.findByCtdtSubjectId(teacherSubjectDTO.getCtdtSubjectId());
-//            teacherSubjectDTOS = (List<TeacherSubjectDTO>) responseDto2.getObject();
-//            model.addAttribute("teacherId", ctdtSubjectId);
-//        }
-//        model.addAttribute("dataTeacher", teacherSubjectDTOS);
-
         //get mon
         List<TeacherDTO> teacherDTOS = null;
         if (ctdtSubjectId != null) {
@@ -195,20 +170,6 @@ public class CtdtSubjectClassController {
             model.addAttribute("teacherId", ctdtSubjectId);
         }
         model.addAttribute("dataTeacher", teacherDTOS);
-
-//        //dùng ajax lấu ngành theo khóa
-//        List<CtdtDTO> ctdtDTOS = null;
-//        if (majorId != null) {
-//            ResponseDto responseDto1 = ctdtService.findById(ctdtId);
-//            CtdtDTO ctdtDTO = (CtdtDTO) responseDto1.getObject();
-//            model.addAttribute("majorId", ctdtDTO.getMajorId());
-//
-//            ResponseDto responseDto2 = ctdtService.findByMajorId(ctdtDTO.getMajorId());
-//            ctdtDTOS = (List<CtdtDTO>) responseDto2.getObject();
-//            model.addAttribute("subjectIds", ctdtId);
-//
-//        }
-//        model.addAttribute("dataCtdt", ctdtDTOS);
 
         return "fragment/body/home/edit/edit-ctdt-subject-class";
     }

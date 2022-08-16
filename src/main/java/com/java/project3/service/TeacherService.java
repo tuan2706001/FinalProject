@@ -124,14 +124,14 @@ public class TeacherService {
         // entity -> dto
         List<TeacherDTO> teacherDTOS = new ArrayList<>();
         for (var teacher : teachers) {
-//            teacherDTOS.add(toTeacherDto.getDestination(teacher));
             TeacherDTO teacherDTO = toTeacherDto.getDestination(teacher);
-            teacherDTO.setSubjectIds(tearcherSubjectReposiotry.findSubjectByTeacher(teacher.getId()));
+            teacherDTO.setSubjectIds(subjectRepository.findSubjectByTeacher(teacher.getId()));
+            teacherDTO.setSumSubject(tearcherSubjectReposiotry.countTeacherSubjectByTeacherId(teacher.getId()));
+
             List<Long> listSubejct = teacherDTO.getSubjectIds();
             for (Long subjectId : listSubejct) {
-                 teacherDTO.setSubjectNames(subjectRepository.findNameBySubjectId(subjectId));
+                teacherDTO.setSubjectNames(subjectRepository.findNameBySubjectId(subjectId));
             }
-            teacherDTO.setSumSubject(tearcherSubjectReposiotry.countTeacherSubjectByTeacherId(teacher.getId()));
             teacherDTOS.add(teacherDTO);
         }
         responseDto.setObject(prepareResponseForSearch(teachers.getTotalPages(), teachers.getNumber(), teachers.getTotalElements(), teacherDTOS));
