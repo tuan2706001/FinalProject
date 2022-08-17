@@ -23,7 +23,7 @@
                 <div class="w-2/3">
                     <label class="font-medium mr-24">Môn</label>
                     <div>
-                        <select id="subjectIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                        <select th:id="'subjectIds' + ${subject}" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="subjectIds"
                                 style="width: 250px" multiple>
                             <th:block th:each="item,index : ${dataMon}">
@@ -49,13 +49,19 @@
             </div>
         </div>
     </form>
+    <div th:text="${subject}">
+
+    </div>
+    <script th:inline='javascript'>
+        // let idSubject = [[${subject}]]
+        // console.log(idSubject)
+        $(document).ready(function () {
+            $('#subjectIds' + [[${subject}]]).select2({
+                placeholder: "Chọn môn",
+                allowClear: true
+            });
+        });
+    </script>
 </div>
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--        $('#subjectId').select2({-->
-<!--            placeholder: "Chọn môn",-->
-<!--            allowClear: true-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-<!--</body>-->
+
+

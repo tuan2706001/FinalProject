@@ -126,17 +126,17 @@ public class TeacherService {
         for (var teacher : teachers) {
             TeacherDTO teacherDTO = toTeacherDto.getDestination(teacher);
             teacherDTO.setSubjectIds(subjectRepository.findSubjectByTeacher(teacher.getId()));
+
             teacherDTO.setSumSubject(tearcherSubjectReposiotry.countTeacherSubjectByTeacherId(teacher.getId()));
 
             List<Long> listSubejct = teacherDTO.getSubjectIds();
-
-            for (Long subjectId : listSubejct) {
+//            for (Long subjectId : listSubejct) {
 //                teacherDTO.setSubjectNames(subjectRepository.findNameBySubjectId(subjectId));
                 List<String> subjectNames = listSubejct.stream().
-                        map(string -> subjectRepository.findNameBySubjectId(subjectId)).
+                        map(subjectId -> subjectRepository.findNameBySubjectId(subjectId)).
                         collect(Collectors.toList());
                 teacherDTO.setSubjectNames(subjectNames);
-            }
+//            }
             teacherDTOS.add(teacherDTO);
         }
         responseDto.setObject(prepareResponseForSearch(teachers.getTotalPages(), teachers.getNumber(), teachers.getTotalElements(), teacherDTOS));
