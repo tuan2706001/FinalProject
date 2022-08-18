@@ -38,4 +38,7 @@ public class CtdtSubjectClassDTO {
 
     private String teacherName;
 
+    @JMap
+    private Boolean lopThiXong;
+
 }

@@ -21,4 +21,7 @@ public class Course extends AbstractBaseEntity {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "nam_bat_dau")
+    private Integer namBatDau;
 }

@@ -19,6 +19,9 @@ public class MajorDTO {
     private String name;
 
     @JMap
+    private Integer soNamHoc;
+
+    @JMap
     private Long curriculumId;
 
     private String curriculumName;

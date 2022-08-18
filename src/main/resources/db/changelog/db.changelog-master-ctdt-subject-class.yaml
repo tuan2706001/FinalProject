@@ -29,7 +29,9 @@ databaseChangeLog:
               - column:
                   name: note
                   type: NVARCHAR(255)
-
               - column:
                   name: teacher_id
                   type: bigint
+              - column:
+                  name: lop_thi_xong
+                  type: boolean

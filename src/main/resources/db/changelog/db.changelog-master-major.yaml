@@ -18,5 +18,8 @@ databaseChangeLog:
                   name: name
                   type: NVARCHAR(255)
               - column:
+                  name: so_nam_hoc
+                  type: integer
+              - column:
                   name: curriculum_id
                   type: bigint

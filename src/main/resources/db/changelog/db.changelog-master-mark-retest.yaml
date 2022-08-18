@@ -1,0 +1,31 @@
+databaseChangeLog:
+
+  #Mark-retest
+  - changeSet:
+      id: mark-retest
+      author: dat
+      changes:
+        - createTable:
+            tableName: mark_retest
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: mark_retest_pkey
+              - column:
+                  name: student_id
+                  type: bigint
+              - column:
+                  name: ctdt_subject_class_id
+                  type: bigint
+              - column:
+                  name: retest_theory
+                  type: integer
+              - column:
+                  name: retest_skill
+                  type: integer
+              - column:
+                  name: status
+                  type: integer

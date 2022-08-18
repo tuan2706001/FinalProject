@@ -35,4 +35,7 @@ public class CtdtSubjectClass extends AbstractBaseEntity {
 
     @Column(name = "teacher_id")
     private Long teacherId;
+
+    @Column(name = "lop_thi_xong")
+    private Boolean lopThiXong;
 }

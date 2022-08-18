@@ -14,13 +14,15 @@ databaseChangeLog:
   - include:
       file: db/changelog/db.changelog-master-mark.yaml
   - include:
+      file: db/changelog/db.changelog-master-mark-retest.yaml
+  - include:
       file: db/changelog/db.changelog-master-subject.yaml
   - include:
       file: db/changelog/db.changelog-master-ctdt.yaml
   - include:
       file: db/changelog/db.changelog-master-curriculum.yaml
   - include:
-      file: db/changelog/db.changelog-master-ctdt-subject-class--student.yaml
+      file: db/changelog/db.changelog-master-ctdt-subject-class--student-retest.yaml
   - include:
       file: db/changelog/db.changelog-master-ctdt-subject-class.yaml
   - include:

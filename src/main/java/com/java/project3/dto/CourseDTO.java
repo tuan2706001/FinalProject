@@ -20,4 +20,7 @@ public class CourseDTO {
     @JMap
     private String name;
 
+    @JMap
+    private Integer namBatDau;
+
 }

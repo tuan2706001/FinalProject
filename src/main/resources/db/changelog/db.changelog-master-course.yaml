@@ -17,3 +17,6 @@ databaseChangeLog:
             - column:
                 name: name
                 type: NVARCHAR(255)
+            - column:
+                name: nam_bat_dau
+                type: integer

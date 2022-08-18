@@ -1,25 +1,22 @@
 databaseChangeLog:
 
-  #ctdt
+  #ctdt-subject-class--student-retest
   - changeSet:
-      id: ctdt
+      id: ctdt-subject-class--student-retest
       author: dat
       changes:
         - createTable:
-            tableName: ctdt
+            tableName: ctdt_subject_class__student_retest
             columns:
               - column:
                   name: id
                   type: bigint
                   constraints:
                     primaryKey: true
-                    primaryKeyName: ctdt_pkey
+                    primaryKeyName: ctdt_subject_class__student_retest_pkey
               - column:
-                  name: name
-                  type: NVARCHAR(255)
+                  name: student_id
+                  type: bigint
               - column:
-                  name: ma_chuong_trinh
-                  type: NVARCHAR(255)
-              - column:
-                  name: major_id
+                  name: ctdt_subject_class_id
                   type: bigint

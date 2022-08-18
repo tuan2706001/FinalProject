@@ -10,18 +10,13 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CtdtDTO {
+public class CtdtSubjectClassStudentRetestDTO {
     @JMap
     private Long id;
 
     @JMap
-    private String maChuongTrinh;
+    private Long ctdtSubjectClassId;
 
     @JMap
-    private String name;
-
-    @JMap
-    private Long majorId;
-
-    private String majorName;
+    private Long studentId;
 }
