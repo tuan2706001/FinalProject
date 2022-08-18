@@ -12,6 +12,7 @@ $('.closeModal').click(function (){
     $('#modalEdit').css('display','none')
     $('#modalShow').css('display','none')
     $(".modalViewSubject").hide()
+    $(".modalViewMess").hide()
     $('body,html').css('overflow','auto');
 })
 

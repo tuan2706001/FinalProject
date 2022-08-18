@@ -20,8 +20,8 @@
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
 
                     <select name="majorId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded">
+<!--                            onchange="this.form.submit()">-->
                         <option value="0" hidden>--Chọn ngành--</option>
                         <th:block th:each="item,index : ${nganh}">
                             <option th:value="${item.id}" th:text="${item.name}"

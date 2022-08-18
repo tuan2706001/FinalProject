@@ -174,7 +174,7 @@ public class CtdtService {
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
-        responseDto = ctdtService.search(searchReqDto);
+        responseDto = search(searchReqDto);
         return responseDto;
     }
 

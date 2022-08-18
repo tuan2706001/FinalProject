@@ -56,22 +56,12 @@
                                         th:text="${item.name}"></label> </label>
                                 <button><span class="closeModal  transition duration-300">&times;</span></button>
                             </div>
-<!--                            <div id="subjectIds" name="subjectIds">-->
-<!--                                <label th:each="item,index : ${dataMon}">-->
-<!--                                    <div th:value="${item.id}" th:text="${item.name}"-->
-<!--                                         th:selected="${data.subjectIds == item.id ? true : false}"></div>-->
-<!--                                </label>-->
-<!--                                &lt;!&ndash;                                        <div>Văn</div>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                        <div>Toán</div>&ndash;&gt;-->
-<!--                            </div>-->
                             <div class="modal-body p-10">
                                 <div>
                                     <div>
                                         <label th:each="items : ${item.subjectNames}">
                                             <div th:text="${items}"></div>
                                         </label>
-<!--                                        <div>Văn</div>-->
-<!--                                        <div>Toán</div>-->
                                     </div>
                                     <div class="flex justify-end mt-10">
                                         <div

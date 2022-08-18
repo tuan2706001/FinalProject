@@ -159,6 +159,14 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
+    if ($('#courseClassIds').val() === 0 ){
+        check = false
+        var id = "courseClassIds"
+        var err = "errClasss"
+        var mess = "Hãy chọn lớp"
+        checkEmptyValidate(id, mess, err)
+    }
+
 
     if ($('#duration').val() === ""){
         check = false

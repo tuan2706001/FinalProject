@@ -72,7 +72,6 @@ public class CurriculumService {
             Curriculum result = curriculumRepository.save(curriculum1);
             CurriculumDTO curriculumDTO1 = toCurriculumDto.getDestination(result);
             responseDto.setObject(curriculumDTO1);
-
         }
         return responseDto;
     }

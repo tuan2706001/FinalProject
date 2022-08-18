@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class CtdtSubjectClassController {
+public class ClassRetestController {
     @Autowired
     CtdtSubjectClassService ctdtSubjectClassService;
     @Autowired
@@ -31,21 +31,23 @@ public class CtdtSubjectClassController {
     CtdtSubjectService ctdtSubjectService;
     @Autowired
     SubjectService subjectService;
+    @Autowired
+    StudentService studentService;
 
-    @GetMapping("quan-ly-lop-theo-mon")
-    public String ctdtSubjectClass(
+    @GetMapping("quan-ly-lop-hoc-lai")
+    public String classRetest(
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "search", required = false) String search,
-            @RequestParam(value = "courseClassId", required = false) Long courseClassId,
             @RequestParam(value = "majorId", required = false) Long majorId,
+            @RequestParam(value = "courseClassId", required = false) Long courseClassId,
             @RequestParam(value = "ctdtId", required = false) Long ctdtId,
             @RequestParam(value = "ctdtSubjectId", required = false) Long ctdtSubjectId
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = ctdtSubjectClassService.searchCtdtSubjectClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseClassId);
+        ResponseDto responseDto = ctdtSubjectClassService.searchClassRetestBy(page.getCurrentPage() - 1, page.getPageSize(), search);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -74,18 +76,26 @@ public class CtdtSubjectClassController {
         }
         model.addAttribute("dataCtdt", ctdtDTOS);
 
-        //dùng ajax lấy lớp chung theo ctdt
-        List<CourseClassDTO> courseClassDTOS = null;
+        //dùng ajax lấy sinh viên theo ctdt
+        List<StudentDTO> studentDTOS = null;
         if (ctdtId != null) {
-            ResponseDto responseDto1 = courseClassServcie.findById(courseClassId);
-            CourseClassDTO courseClassDTO = (CourseClassDTO) responseDto1.getObject();
-            model.addAttribute("ctdtId", courseClassDTO.getCtdtId());
+            ResponseDto responseDto1 = ctdtService.findById(ctdtId);
+            StudentDTO studentDTO = (StudentDTO) responseDto1.getObject();
+            model.addAttribute("ctdtId", studentDTO.getCourseClassId());
 
-            ResponseDto responseDto2 = courseClassServcie.findByCtdtId(courseClassDTO.getCtdtId());
-            courseClassDTOS = (List<CourseClassDTO>) responseDto2.getObject();
-            model.addAttribute("courseClassIds", courseClassId);
+            ResponseDto responseDto2 = studentService.findByCtdtId(ctdtId);
+            studentDTOS = (List<StudentDTO>) responseDto2.getObject();
+            model.addAttribute("studentIds", ctdtId);
         }
-        model.addAttribute("dataCourseClass", courseClassDTOS);
+        model.addAttribute("dataStudent", studentDTOS);
+
+        //get student
+//        if (ctdtId != null) {
+//            ResponseDto responseDtoMon = studentService.findByCtdtId(ctdtId);
+//            SearchResDto searchResDtoMon = (SearchResDto) responseDtoMon.getObject();
+//            model.addAttribute("student", searchResDtoMon.getData());
+//            model.addAttribute("studentIds", ctdtId);
+//        }
 
         //dùng ajax lấy môn theo ctdt
         List<CtdtSubjectDTO> ctdtSubjectDTOS = null;
@@ -113,47 +123,28 @@ public class CtdtSubjectClassController {
         }
         model.addAttribute("dataTeacher", teacherSubjectDTOS);
 
-
-
-        return "quan-ly-lop-theo-mon";
+        return "quan-ly-lop-hoc-lai";
     }
 
-    @GetMapping("getCourseClass/{id}")
+    @GetMapping("getStudentRetest/{id}")
     @ResponseBody
-    public List<CourseClassDTO> getCourseClass(
+    public List<StudentDTO> getStudentRetest(
             @PathVariable("id") Long id
     ) {
-        ResponseDto responseDto = courseClassServcie.findByCtdtId(id);
-        return (List<CourseClassDTO>) responseDto.getObject();
+        ResponseDto responseDto = studentService.findByCtdtId(id);
+        return (List<StudentDTO>) responseDto.getObject();
     }
 
-    @GetMapping("getSubject/{id}")
-    @ResponseBody
-    public List<CtdtSubjectDTO> getSubject(
-            @PathVariable("id") Long id
-    ) {
-        ResponseDto responseDto = ctdtSubjectService.findByCtdtId(id);
-        return (List<CtdtSubjectDTO>) responseDto.getObject();
-    }
 
-    @GetMapping("getTeacher/{id}")
-    @ResponseBody
-    public List<TeacherSubjectDTO> getTeacher(
-            @PathVariable("id") Long id
-    ) {
-        ResponseDto responseDto = teacherService.findByCtdtSubjectId(id);
-        return (List<TeacherSubjectDTO>) responseDto.getObject();
-    }
-
-    @PostMapping("createCtdtSubjectClass")
+    @PostMapping("createClassRetest")
     public String createCtdtSubjectClass(
             @ModelAttribute CtdtSubjectClassDTO ctdtSubjectClassDTO
     ) {
-        ResponseDto responseDto = ctdtSubjectClassService.create(ctdtSubjectClassDTO);
-        return "redirect:/quan-ly-lop-theo-mon";
+        ResponseDto responseDto = ctdtSubjectClassService.createClassRetest(ctdtSubjectClassDTO);
+        return "redirect:/quan-ly-lop-hoc-lai";
     }
 
-    @GetMapping("quan-ly-lop-theo-mon/{id}/{ctdtSubjectId}")
+    @GetMapping("quan-ly-lop-hoc-lai/{id}/{ctdtSubjectId}")
     public  String suaCtdtSubejctClass (
             @PathVariable("id") Long id,
             @PathVariable("ctdtSubjectId") Long ctdtSubjectId,
@@ -174,27 +165,28 @@ public class CtdtSubjectClassController {
         return "fragment/body/home/edit/edit-ctdt-subject-class";
     }
 
-    @PutMapping("updateCtdtSubjectClass")
+    @PutMapping("updateClassRetest")
     public String updateCtdtSubjectClass(
             @ModelAttribute CtdtSubjectClassDTO ctdtSubjectClassDTO
     ) {
         ResponseDto responseDto = ctdtSubjectClassService.update(ctdtSubjectClassDTO);
-        return "redirect:/quan-ly-lop-theo-mon";
+        return "redirect:/quan-ly-lop-hoc-lai";
     }
 
-    @PutMapping("updateStatus/{id}")
-    public String updateStatus(
-            @PathVariable("id") Long id
-    ) {
-        ResponseDto responseDto = ctdtSubjectClassService.updateTrangThaiThi(id);
-        return "redirect:/quan-ly-lop-theo-mon";
-    }
+//    @PutMapping("updateStatus/{id}")
+//    public String updateStatus(
+//            @PathVariable("id") Long id
+//    ) {
+//        ResponseDto responseDto = ctdtSubjectClassService.updateTrangThaiThi(id);
+//        return "redirect:/quan-ly-lop-hoc-lai";
+//    }
 
-    @DeleteMapping("deleteCtdtSubjectClass")
+    @DeleteMapping("deleteClassRetest")
     public String deleteCtdtSubjectClass(
             @RequestParam(name = "id") Long id
     ) {
         ResponseDto responseDto = ctdtSubjectClassService.delete(id);
-        return "redirect:/quan-ly-lop-theo-mon";
+        return "redirect:/quan-ly-lop-hoc-lai";
     }
+
 }

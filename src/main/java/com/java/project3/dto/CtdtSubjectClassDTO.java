@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -40,5 +42,15 @@ public class CtdtSubjectClassDTO {
 
     @JMap
     private Boolean lopThiXong;
+
+    private List<Long> studentIds;
+
+    private List<String> studentNames;
+
+//    private Long studentId;
+//
+//    private String studentName;
+
+    private Long sumStudent;
 
 }

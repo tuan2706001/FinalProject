@@ -93,10 +93,8 @@ public class MajorService {
 
     public ResponseDto create(MajorDTO majorDTO) {
         ResponseDto responseDto = new ResponseDto();
-//        Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
         Major major = toMajor.getDestination(majorDTO);
         major.setId(genIdService.nextId());
-//        major.setCurriculumName(curriculum.getName());
         Major result = majorRepository.save(major);
         var temp = toMajorDto.getDestination(result);
         responseDto.setObject(temp);
@@ -107,30 +105,10 @@ public class MajorService {
         ResponseDto responseDto = new ResponseDto();
         Optional<Major> major = majorRepository.findById(majorDTO.getId());
         if (major.isPresent()) {
-//            Curriculum curriculum = curriculumRepository.findById(majorDTO.getCurriculumId()).orElse(null);
             Major major1 = toMajor.getDestination(major.get(), majorDTO);
-//            major1.setCurriculumName(curriculum.getName());
             Major result = majorRepository.save(major1);
             MajorDTO majorDTO1 = toMajorDto.getDestination(result);
             responseDto.setObject(majorDTO1);
-
-//            //update lại tên ngành trong lớp
-//            List<CourseClass> courseClasses = courseClassRepository.search(majorDTO.getId());
-//            List<CourseClassDTO> courseClassDTOS = new ArrayList<>();
-//            for (var item : courseClasses) {
-//                courseClassDTOS.add(toGradeDto.getDestination(item));
-//                item.setMajorName(major1.getName());
-//                courseClassRepository.save(item);
-//            }
-//
-//            //update lại tên ngành trong môn
-//            List<CtdtSubject> ctdtSubjects = subjectRepository.findByMajorId(majorDTO.getId());
-//            List<SubjectDTO> subjectDTOS = new ArrayList<>();
-//            for (var item : ctdtSubjects) {
-//                subjectDTOS.add(toSubjectDto.getDestination(item));
-//                item.setMajorName(major1.getName());
-//                subjectRepository.save(item);
-//            }
         }
         return responseDto;
     }
@@ -173,7 +151,7 @@ public class MajorService {
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
-        responseDto = majorService.search(searchReqDto);
+        responseDto = search(searchReqDto);
         return responseDto;
     }
 

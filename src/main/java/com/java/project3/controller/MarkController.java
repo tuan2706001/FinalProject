@@ -59,11 +59,9 @@ public class MarkController {
         model.addAttribute("page", page);
         model.addAttribute("search", search);
         model.addAttribute("status", status);
-//        model.addAttribute("gradeId", gradeId);
-//        model.addAttribute("subjectId", subjectId);
 
 
-        //get lớp
+        //get lớp theo môn
         SearchReqDto searchReqDtoLop = new SearchReqDto();
         searchReqDtoLop.setPageSize(100);
         searchReqDtoLop.setPageIndex(0);
@@ -73,8 +71,7 @@ public class MarkController {
         model.addAttribute("courseClassIds", classId);
 
 
-
-        //dùng ajax lấu ngành theo khóa
+        //dùng ajax lấu môn theo lớp môn
         List<SubjectDTO> subjectDTOS = null;
         if (classId != null) {
             ResponseDto responseDto1 = subjectService.findById(subjectId);
@@ -87,7 +84,7 @@ public class MarkController {
         }
         model.addAttribute("dataSubject", subjectDTOS);
 
-        //dùng ajax lấu ngành theo khóa
+        //dùng ajax lấu sinh viên theo lớp môn
         List<StudentDTO> studentDTOS = null;
         if (classId != null) {
             ResponseDto responseDto1 = studentService.findById(studentId);
