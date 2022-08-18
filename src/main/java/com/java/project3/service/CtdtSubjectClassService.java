@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -38,6 +39,8 @@ public class CtdtSubjectClassService {
     TeacherRepository teacherRepository;
     @Autowired
     CtdtSubjectClassStudentRetestRepository ctdtSubjectClassStudentRetestRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
 
     JMapper<CtdtSubjectClassDTO, CtdtSubjectClass> toCtdtSubjectClassDto;
@@ -159,6 +162,13 @@ public class CtdtSubjectClassService {
             Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
             ctdtSubjectClassDTO.setTeacherName(teacher.getName());
             ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubjectRepository.findNameByCtdtSubjectId(ctdtSubject.getId()));
+            ctdtSubjectClassDTO.setStudentIds(studentRepository.findStudentByCtdtSubjectClassId(ctdtSubjectClass.getId()));
+            List<Long> listStudent = ctdtSubjectClassDTO.getStudentIds();
+            List<String> studentNames = listStudent.stream().
+                    map(studentId -> studentRepository.findNameByStudentId(studentId)).
+                    collect(Collectors.toList());
+            ctdtSubjectClassDTO.setStudentNames(studentNames);
+            ctdtSubjectClassDTO.setSumStudent(ctdtSubjectClassStudentRetestRepository.countCtdtSubjectClassStudentRetestByCtdtSubjectClassId(ctdtSubjectClass.getId()));
             ctdtSubjectClassDTOS.add(ctdtSubjectClassDTO);
         }
         responseDto.setObject(prepareResponseForSearch(ctdtSubjectClasses.getTotalPages(), ctdtSubjectClasses.getNumber(), ctdtSubjectClasses.getTotalElements(), ctdtSubjectClassDTOS));

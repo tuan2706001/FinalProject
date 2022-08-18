@@ -18,4 +18,9 @@ public interface CtdtSubjectClassStudentRetestRepository extends JpaRepository<C
             nativeQuery = true
     )
     void addStudentClassRetest(@Param("id") Long id, @Param("studentId") Long studentId, @Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
+
+//    Long countCtdtSubjectClassStudentRetestByCtdtSubjectClassId(Long ctdtSubjectClassId);
+
+    @Query(value = " select count(*) from ctdt_subject_class__student_retest where ctdt_subject_class_id = :ctdtSubjectClassId ", nativeQuery = true)
+    Long countCtdtSubjectClassStudentRetestByCtdtSubjectClassId(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
 }

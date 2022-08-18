@@ -33,4 +33,10 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
             "left join mark m on m.student_id = s.id " +
             "where c.id = :ctdtId and (m.theory2 < 5 or m.skill2 < 5)", nativeQuery = true)
     List<Student> findByCtdtId(@Param("ctdtId") Long ctdtId);
+
+    @Query(value = "select (student_id) from ctdt_subject_class__student_retest where ctdt_subject_class_id = :ctdtSubjectClassId", nativeQuery = true)
+    List<Long> findStudentByCtdtSubjectClassId(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
+
+    @Query(value = "select (full_name) from student where id = :studentId", nativeQuery = true)
+    String findNameByStudentId(@Param("studentId") Long studentId);
 }

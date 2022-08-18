@@ -130,13 +130,10 @@ public class TeacherService {
             teacherDTO.setSumSubject(tearcherSubjectReposiotry.countTeacherSubjectByTeacherId(teacher.getId()));
 
             List<Long> listSubejct = teacherDTO.getSubjectIds();
-//            for (Long subjectId : listSubejct) {
-//                teacherDTO.setSubjectNames(subjectRepository.findNameBySubjectId(subjectId));
                 List<String> subjectNames = listSubejct.stream().
                         map(subjectId -> subjectRepository.findNameBySubjectId(subjectId)).
                         collect(Collectors.toList());
                 teacherDTO.setSubjectNames(subjectNames);
-//            }
             teacherDTOS.add(teacherDTO);
         }
         responseDto.setObject(prepareResponseForSearch(teachers.getTotalPages(), teachers.getNumber(), teachers.getTotalElements(), teacherDTOS));

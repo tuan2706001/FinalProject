@@ -53,7 +53,39 @@
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.maLop}"></td>
                 <td th:text="${item.ctdtSubjectName}"></td>
-                <td th:text="${item.courseClassName}"></td>
+                <td>
+                    <div id="modalShow" class="modal pt-20 z-50 modalViewStudent">
+                        <!-- Modal content -->
+
+                        <div class="modal-content w-6/12 mx-auto my-10">
+                            <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+                                <label class="text-xl ">Danh sách sinh viên thi lại lớp: <label
+                                        th:text="${item.name}"></label> </label>
+                                <button><span class="closeModal  transition duration-300">&times;</span></button>
+                            </div>
+                            <div class="modal-body p-10">
+                                <div>
+                                    <div>
+                                        <label th:each="items : ${item.studentNames}">
+                                            <div th:text="${items}"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex justify-end mt-10">
+                                        <div
+                                                onclick="closeModal()"
+                                                class="closeModal flex justify-center items-center cursor-pointer
+                                                    w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="showStudent"><span th:text="${item.sumStudent}"></span></button>
+                    </div>
+                </td>
                 <td th:text="${item.teacherName}"></td>
                 <td>
                     <div th:if="${!item.lopThiXong}" id="modalShow" class="modal pt-20 z-50 modalViewMess">
@@ -295,6 +327,11 @@
         </div>
     </section>
     <script>
+        $('.showStudent').click(function (){
+            $(this).parent().parent().find(".modalViewStudent").show()
+            // $('#modalShow').css('display','block')
+            $('body,html').css('overflow','hidden');
+        })
         $('.showMess').click(function () {
             $(this).parent().parent().find(".modalViewMess").show()
             // $('#modalShow').css('display','block')
