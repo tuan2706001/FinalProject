@@ -55,14 +55,16 @@
                 <th>STT</th>
                 <th>Tên hệ</th>
                 <th>Tên ngành</th>
+                <th>Số năm học</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.curriculumName}"></td>
                 <td th:text="${item.name}"></td>
+                <td th:text="${item.curriculumName}"></td>
+                <td th:text="${item.soNamHoc}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -78,7 +80,8 @@
                             <form action="/deleteMajor" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
                                 </button>
                             </form>
                         </div>
@@ -86,7 +89,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="4">Không có dữ liệu</td>
+                <td colspan="5">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
@@ -104,24 +107,35 @@
                 <form method="POST" action="/createMajor" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
                         <div>
-                            <div class="w-2/3">
-                                <label class="font-medium mr-28">Tên hệ</label>
-                                <div>
-                                    <select id="curriculumIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                            <div class="flex justify-between">
+                                <div class="w-2/3">
+                                    <label class="font-medium mr-28">Tên hệ</label>
+                                    <div>
+                                        <select id="curriculumIds" class="shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="curriculumId">
-                                        <option value="" hidden>Chọn hệ</option>
-                                        <th:block th:each="item,index : ${he}">
-                                            <option th:value="${item.id}" th:text="${item.name}"></option>
-                                        </th:block>
-                                    </select>
-                                    <div class="text-sm text-red-600" id="errHe"></div>
+                                            <option value="" hidden>Chọn hệ</option>
+                                            <th:block th:each="item,index : ${he}">
+                                                <option th:value="${item.id}" th:text="${item.name}"></option>
+                                            </th:block>
+                                        </select>
+                                        <div class="text-sm text-red-600" id="errHe"></div>
+                                    </div>
+                                </div>
+
+                                <div class="w-1/3">
+                                    <label class="font-medium mr-28">Số năm học</label>
+                                    <div>
+                                        <input id="soNamHoc" type="number" name="soNamHoc" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                                        <div class="text-sm text-red-600" id="errSoNamHoc"></div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div>
                                 <label class="font-medium mr-4">Tên Ngành</label>
                                 <div>
-                                    <input id="name" class="mb-4 shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
+                                    <input id="name" class=" shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="name"/>
                                     <div class="text-sm text-red-600" id="errName"></div>
                                 </div>

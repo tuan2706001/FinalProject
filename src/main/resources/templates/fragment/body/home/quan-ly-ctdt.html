@@ -12,8 +12,8 @@
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <button id="myBtn"
-                    class="justify-self-start rounded font-bold w-44 h12 mr-40 text-white transition duration-300">
-                Thêm chương trình đào tạo
+                    class="justify-self-start rounded font-bold w-44 h-9 mr-40 text-white transition duration-300">
+                Thêm chương trình
             </button>
             <form class="flex">
                 <div class="mr-36 lg:flex text-center xl:text-base">
@@ -53,16 +53,18 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Tên ngành</th>
+                <th>Mã chương trình</th>
                 <th>Tên chương trình đào tạo</th>
+                <th>Tên ngành</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.majorName}"></td>
+                <td th:text="${item.maChuongTrinh}"></td>
                 <td th:text="${item.name}"></td>
+                <td th:text="${item.majorName}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -78,7 +80,8 @@
                             <form action="/deleteCtdt" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" class="pr-3"/>
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
+                                         class="pr-3"/>
                                 </button>
                             </form>
                         </div>
@@ -86,7 +89,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="4">Không có dữ liệu</td>
+                <td colspan="5">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
@@ -104,17 +107,27 @@
                 <form method="POST" action="/createCtdt" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
                         <div>
-                            <div class="w-2/3">
-                                <label class="font-medium mr-28">Tên ngành</label>
-                                <div>
-                                    <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                            <div class="flex justify-between">
+                                <div class="w-2/3">
+                                    <label class="font-medium mr-28">Tên ngành</label>
+                                    <div>
+                                        <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="majorId">
-                                        <option value="" hidden>Chọn ngành</option>
-                                        <th:block th:each="item,index : ${nganh}">
-                                            <option th:value="${item.id}" th:text="${item.name}"></option>
-                                        </th:block>
-                                    </select>
-                                    <div class="text-sm text-red-600" id="errMajor"></div>
+                                            <option value="" hidden>Chọn ngành</option>
+                                            <th:block th:each="item,index : ${nganh}">
+                                                <option th:value="${item.id}" th:text="${item.name}"></option>
+                                            </th:block>
+                                        </select>
+                                        <div class="text-sm text-red-600" id="errMajor"></div>
+                                    </div>
+                                </div>
+                                <div class="w-1/3">
+                                    <label class="font-medium mr-20">Mã chương trình</label>
+                                    <div>
+                                        <input id="maChuongTrinh" type="text" name="maChuongTrinh" class=" shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"/>
+                                        <div class="text-sm text-red-600" id="errMaChuongTrinh"></div>
+                                    </div>
                                 </div>
                             </div>
 

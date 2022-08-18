@@ -16,6 +16,29 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
+    if ($('#soNamHoc').val() === ""){
+        check = false
+        var id = "soNamHoc"
+        var err = "errSoNamHoc"
+        var mess = "Số năm học không được để trống"
+        checkEmptyValidate(id, mess, err)
+    }
+    if ($('#namBatDau').val() === ""){
+        check = false
+        var id = "namBatDau"
+        var err = "errNamBatDau"
+        var mess = "Năm bắt đầu không được để trống"
+        checkEmptyValidate(id, mess, err)
+    }
+
+    if ($('#maChuongTrinh').val() === ""){
+        check = false
+        var id = "maChuongTrinh"
+        var err = "errMaChuongTrinh"
+        var mess = "Mã chương trình không được để trống"
+        checkEmptyValidate(id, mess, err)
+    }
+
     if ($('#curriculumIds').val() === ""){
         check = false
         var id = "curriculumIds"

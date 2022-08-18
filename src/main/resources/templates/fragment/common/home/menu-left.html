@@ -80,15 +80,14 @@
             Quản lý lớp chung
         </a>
 
+        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-mon-hoc') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+           href="/quan-ly-mon-hoc" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
+            Quản lý môn học
+        </a>
 
         <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-giao-vien') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
            href="/quan-ly-giao-vien" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
             Quản lý giáo viên
-        </a>
-
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-theo-mon') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-lop-theo-mon" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Phân công giảng dạy
         </a>
 
         <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-sinh-vien') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
@@ -96,9 +95,9 @@
             Quản lý sinh viên
         </a>
 
-        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-mon-hoc') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
-           href="/quan-ly-mon-hoc" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
-            Quản lý môn học
+        <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-theo-mon') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"
+           href="/quan-ly-lop-theo-mon" class="shadow-xl w-full font-bold hover:bg-gray-400 rounded-lg text-white transition duration-300 h-12 flex items-center pl-3 mt-3">
+            Phân công giảng dạy
         </a>
 
         <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem') ? 'bg-gradient-to-r from-indigo-900' : 'bg-blue-400 '}"

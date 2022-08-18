@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-mon-hoc-chuyen-nganh" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-mon-thuoc-chuong-trinh" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
@@ -61,7 +61,7 @@
                 <td th:text="${item.maMon}"></td>
                 <td th:text="${item.subjectName}"></td>
                 <td th:text="${item.ctdtName}"></td>
-                <td th:text="${item.type}"></td>
+                <td th:text="${item.type}  == 1 ? 'Lý thuyết' : (${item.type} == 2 ? 'Thực hành' : 'Cả 2')"></td>
                 <td th:text="${item.time}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
@@ -69,7 +69,7 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-mon-hoc-chuyen-nganh/' + item.id}"
+                                    th:data-url="${'/quan-ly-mon-thuoc-chuong-trinh/' + item.id + '/' + item.ctdtId}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
@@ -170,40 +170,6 @@
                             </div>
                         </div>
 
-                        <!--                        <div class="flex justify-between">-->
-                        <!--                            &lt;!&ndash;                        //Tên&ndash;&gt;-->
-                        <!--                            <div class="mr-12">-->
-                        <!--                                <label class="font-medium mr-28">Tên khóa</label>-->
-                        <!--                                <div>-->
-                        <!--                                    <select id="courseIds" class="border rounded-lg w-36 h-10" name="courseId">-->
-                        <!--                                        <option value="0" hidden>&#45;&#45;Chọn khóa&#45;&#45;</option>-->
-                        <!--                                        <th:block th:each="item,index : ${khoa}">-->
-                        <!--                                            <option th:value="${item.id}" th:text="${item.name}"-->
-                        <!--                                                    th:selected="${courseId == item.id ? true : false}"></option>-->
-                        <!--                                        </th:block>-->
-                        <!--                                    </select>-->
-                        <!--                                    <div class="text-sm text-red-600" id="errCourse"></div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="mr-12">-->
-                        <!--                                <label class="font-medium mr-28">Tên ngành</label>-->
-                        <!--                                <div>-->
-                        <!--                                    <select id="majorIdss" class="border rounded-lg w-68 h-10" name="majorId"-->
-                        <!--                                            onchange="this.form.submit()">-->
-                        <!--                                        <option value="0" hidden>&#45;&#45;Chọn ngành&#45;&#45;</option>-->
-                        <!--                                        <th:bock th:if="${dataNganhs != null && #lists.size(dataNganhs) > 0}">-->
-                        <!--                                            <th:block th:each="item,index : ${dataNganh}">-->
-                        <!--                                                <option th:value="${item.id}" th:text="${item.name}"-->
-                        <!--                                                        th:selected="${majorId == item.id ? true : false}"></option>-->
-                        <!--                                            </th:block>-->
-                        <!--                                        </th:bock>-->
-                        <!--                                    </select>-->
-                        <!--                                    <div class="text-sm text-red-600" id="errMajor"></div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                        <!--                        //Lý thuyết-->
                         <div class="flex my-5">
 
                             <label class="font-medium mr-6">Loại môn</label>

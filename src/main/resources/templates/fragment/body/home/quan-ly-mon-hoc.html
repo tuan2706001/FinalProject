@@ -15,8 +15,8 @@
 
             <button id="myBtn"
                     class="content-left rounded font-bold w-72 h-14 mr-52  text-white transition duration-300">
-                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-mon-hoc-chuyen-nganh')} "
-                   href="/quan-ly-mon-hoc-chuyen-nganh" >
+                <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-mon-thuoc-chuong-trinh')} "
+                   href="/quan-ly-mon-thuoc-chuong-trinh" >
                     Môn học thuộc chương trình đào tạo
                 </a>
             </button>
@@ -64,9 +64,6 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.gioiThieu}"></td>
-<!--                <td th:text="${item.theory} == true ? 'có' : 'không'"></td>-->
-<!--                <td th:text="${item.skill} == true ? 'có' : 'không'"></td>-->
-<!--                <td th:text="${item.duration}"></td>-->
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -120,56 +117,7 @@
                                     <div class="text-sm text-red-600" id="errName"></div>
                                 </div>
                             </div>
-
-<!--                            <div class="w-4/12">-->
-<!--                                <label class="font-medium mr-28">Loại môn</label>-->
-<!--                                <div>-->
-<!--                                    <select id="type" class="border rounded-lg w-48 h-10" name="type">-->
-<!--                                        <option name="type">Đại cương</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </div>
-                        <!--                        //Lý thuyết-->
-<!--                        <div class="flex my-5">-->
-
-<!--                            <label class="font-medium mr-6">Lý thuyết</label>-->
-
-<!--                            <div style="color: #007DC5"></div>-->
-<!--                            <div class="ml-10 flex my-5">-->
-<!--                                <label>Có-->
-<!--                                    <input type="radio" name="theory" class=" mt-1 outline-none callType"-->
-<!--                                           value="true" checked>-->
-<!--                                </label>-->
-<!--                            </div>-->
-
-<!--                            <div class="ml-10 flex my-5">-->
-<!--                                <label>Không-->
-<!--                                    <input type="radio" name="theory" class=" mt-1 outline-none callType"-->
-<!--                                           value="false">-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-                        <!--                        //Thực hành-->
-<!--                        <div class="flex my-5">-->
-<!--                            <label class="font-medium mr-6">Thực hành</label>-->
-<!--                            <div style="color: #007DC5"></div>-->
-<!--                            <div class="ml-10 flex my-5">-->
-<!--                                <label>Có-->
-<!--                                    <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"-->
-<!--                                           value="true" checked>-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                            <div class="ml-10 flex my-5">-->
-<!--                                <label>Không-->
-<!--                                    <input type="radio" name="skill" class="mr-3 mt-1 outline-none callType"-->
-<!--                                           value="false">-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-                        <!--                        //Số giờ-->
 
                         <div class="mt-3">
                             <label class="font-medium mr-4">Giới thiệu</label>

@@ -9,25 +9,36 @@
     <form th:method="PUT" action="/updateCtdt" onsubmit="return checkEditValidate()">
         <div class="modal-body p-10">
             <div>
-                <div class="w-2/3">
-                    <label class="font-medium mr-28">Tên hệ</label>
-                    <div>
-                        <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                <div class="flex justify-between">
+                    <div class="w-2/3">
+                        <label class="font-medium mr-28">Tên hệ</label>
+                        <div>
+                            <select id="majorId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline" name="majorId">
-                            <th:block th:each="item,index : ${nganhs}">
-                                <option th:value="${item.id}" th:text="${item.name}"
-                                        th:selected="${data.majorId == item.id ? true : false}"></option>
-                            </th:block>
-                        </select>
-                        <div class="text-sm text-red-600" id="errHe"></div>
+                                <th:block th:each="item,index : ${nganhs}">
+                                    <option th:value="${item.id}" th:text="${item.name}"
+                                            th:selected="${data.majorId == item.id ? true : false}"></option>
+                                </th:block>
+                            </select>
+                            <div class="text-sm text-red-600" id="errHe"></div>
+                        </div>
+                    </div>
+                    <div class="w-1/3">
+                        <label class="font-medium mr-20">Mã chương trình</label>
+                        <div>
+                            <input id="maChuongTrinh" type="text" name="maChuongTrinh" class=" shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.maChuongTrinh}"/>
+                            <div class="text-sm text-red-600" id="errMaChuongTrinh"></div>
+                        </div>
                     </div>
                 </div>
 
                 <div>
                     <label class="font-medium mr-4">Tên chương trình đào tạo</label>
                     <div>
-                        <input id="editName"  class="mb-4 shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="name" th:value="${data.name}"/>
+                        <input id="editName" class="mb-4 shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="name"
+                               th:value="${data.name}"/>
                         <input type="hidden" th:value="${data.id}" name="id">
                         <div class="text-sm text-red-600" id="errEditName"></div>
                     </div>

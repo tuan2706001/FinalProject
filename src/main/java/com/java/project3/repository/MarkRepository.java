@@ -31,9 +31,11 @@ public interface MarkRepository extends JpaRepository<Mark, Long>, JpaSpecificat
 //
 //    List<Mark> findByStudentId(Long studentId);
 //
-//    @Query(value = "SELECT  u.* FROM #{#entityName} u WHERE u.grade_id = :grade_id AND (lower(REPLACE(u.student_name,' ','')) like lower(CONCAT('%', (REPLACE(:search,' ','')),'%')) )" , nativeQuery = true)
+//    @Query(value = "SELECT * FROM mark WHERE status =  AND (lower(REPLACE(u.student_name,' ','')) like lower(CONCAT('%', (REPLACE(:search,' ','')),'%')) )" , nativeQuery = true)
 //    Page<Mark> thongKeDiemTheoLop(@Param("grade_id") Long gradeId,
 //                                  @Param("search") String search,
 //                                  Pageable pageable);
+
+
 
 }

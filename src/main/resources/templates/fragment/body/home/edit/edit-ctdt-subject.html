@@ -1,0 +1,107 @@
+<div class="modal-content w-5/12 mx-auto my-10">
+    <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+        <div class="text-xl ">Sửa môn thuộc chương trình</div>
+        <button><span class="closeModal transition duration-300"
+                      onclick="$('#modalEdit').css('display','none')">x</span></button>
+    </div>
+
+    <form th:method="PUT" action="/updateCtdtSubject" onsubmit="return checkEditValidate()">
+        <div class="modal-body p-10">
+
+            <div class="flex justify-between">
+                <div class="w-8/12">
+                    <label class="font-medium mr-28">Tên chương trình</label>
+                    <div>
+                        <select id="ctdtId"  class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="ctdtId">
+                            <th:block th:each="item,index : ${dataCtdt}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${data.ctdtId == item.id ? true : false}"></option>
+                            </th:block>
+                        </select>
+                        <!--                                <input type="hidden" id="idNganh" name="majorId">-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <!--                        //Tên-->
+                <div class="w-2/3">
+                    <label class="font-medium mr-28">Tên môn</label>
+                    <div>
+                        <select id="subjectId" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="subjectId">
+                            <option value="" hidden>Chọn môn</option>
+                            <th:block th:each="item,index : ${mon}">
+                                <option th:value="${item.id}" th:text="${item.name}"
+                                        th:selected="${data.subjectId == item.id ? true : false}"></option>
+                            </th:block>
+                            <input type="hidden" th:value="${data.id}" name="id">
+                        </select>
+                        <div class="text-sm text-red-600" id="errMon"></div>
+                    </div>
+                </div>
+
+                <div class="w-2/3">
+                    <label class="font-medium mr-28">Mã môn</label>
+                    <div>
+                        <input id="maMon" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" name="maMon"
+                               th:value="${data.maMon}"/>
+                        <div class="text-sm text-red-600" id="errMaMon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex my-5">
+
+                <label class="font-medium mr-6">Loại môn</label>
+
+                <div style="color: #007DC5"></div>
+                <div class="ml-10 flex my-5">
+                    <label th:text="${data.type}  == 1 ? 'Lý thuyết' : (${data.type} == 2 ? 'Thực hành' : 'Cả thực hành và lý thuyết')">
+                        <input type="radio" name="type" class=" mt-1 outline-none callType"
+                               th:checked="${data.type}">
+                    </label>
+                </div>
+
+<!--                <div class="ml-10 flex my-5">-->
+<!--                    <label>Thực hành-->
+<!--                        <input type="radio" name="type" class=" mt-1 outline-none callType"-->
+<!--                               th:value="2" th:checked="${data.type == 1 ? true : false }">-->
+<!--                    </label>-->
+<!--                </div>-->
+
+<!--                <div class="ml-10 flex my-5">-->
+<!--                    <label>Cả hai-->
+<!--                        <input type="radio" name="type" class=" mt-1 outline-none callType"-->
+<!--                               th:value="3" th:checked="${data.type == 1 ? true : false }">-->
+<!--                    </label>-->
+<!--                </div>-->
+            </div>
+            <!--                        //Số giờ-->
+
+            <div class="w-2/3">
+                <label class="font-medium mr-28">Số giờ</label>
+                <div>
+                    <input id="time" type="number" name="time" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.time}"/>
+                    <div class="text-sm text-red-600" id="errDuration"></div>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-10">
+                <div
+                        onclick="$('#modalEdit').css('display','none')"
+                        class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                </div>
+
+                <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                        id="submit">
+                    Gửi
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

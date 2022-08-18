@@ -194,6 +194,28 @@ public class MarkService {
         return responseDto;
     }
 
+    public ResponseDto searchThongKe(SearchReqDto reqDto) {
+        ResponseDto responseDto = new ResponseDto();
+        // Dùng hàm search (hero)
+        PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
+                by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
+        Page<Mark> marks = markRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
+        // entity -> dto
+        List<MarkDTO> markDTOS = new ArrayList<>();
+        for (var mark : marks) {
+            MarkDTO markDTO = toMarkDto.getDestination(mark);
+            Student student = studentRepository.findById(markDTO.getStudentId()).orElse(null);
+            CtdtSubjectClass ctdtSubjectClass = ctdtSubjectClassRepository.findById(markDTO.getCtdtSubjectClassId()).orElse(null);
+            Subject subject = subjectRepository.findByCtdtSubjectClassIdOne(markDTO.getCtdtSubjectClassId());
+            markDTO.setCtdtSubjectClassName(ctdtSubjectClass.getName());
+            markDTO.setStudentName(student.getFullName());
+            markDTO.setSubjectName(subject.getName());
+            markDTOS.add(markDTO);
+        }
+        responseDto.setObject(prepareResponseForSearch(marks.getTotalPages(), marks.getNumber(), marks.getTotalElements(), markDTOS));
+        return responseDto;
+    }
+
     public ResponseDto searchMarkBy(Integer pageIndex, Integer pageSize, String search, Long gradeId, Integer status, Long subjectId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();

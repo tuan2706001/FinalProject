@@ -1,13 +1,13 @@
 package com.java.project3.controller;
 
-import com.java.project3.domain.CtdtSubject;
+import com.java.project3.domain.Ctdt;
 import com.java.project3.dto.CtdtDTO;
 import com.java.project3.dto.CtdtSubjectDTO;
-import com.java.project3.dto.SubjectDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.dto.base.SearchResDto;
+import com.java.project3.repository.CtdtRepository;
 import com.java.project3.service.CtdtService;
 import com.java.project3.service.CtdtSubjectService;
 import com.java.project3.service.MajorService;
@@ -31,8 +31,10 @@ public class CtdtSubjectController {
     CtdtService ctdtService;
     @Autowired
     MajorService majorService;
+    @Autowired
+    CtdtRepository ctdtRepository;
 
-    @GetMapping("quan-ly-mon-hoc-chuyen-nganh")
+    @GetMapping("quan-ly-mon-thuoc-chuong-trinh")
     public String major(
             Model model,
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
@@ -84,7 +86,7 @@ public class CtdtSubjectController {
         }
         model.addAttribute("dataCtdt", ctdtDTOS);
 
-        return "quan-ly-mon-hoc-chuyen-nganh";
+        return "quan-ly-mon-thuoc-chuong-trinh";
     }
 
     @GetMapping("getCtdt/{id}")
@@ -101,7 +103,40 @@ public class CtdtSubjectController {
             @ModelAttribute CtdtSubjectDTO ctdtSubjectDTO
     ) {
         ResponseDto responseDto = ctdtSubjectService.create(ctdtSubjectDTO);
-        return "redirect:/quan-ly-mon-hoc-chuyen-nganh";
+        return "redirect:/quan-ly-mon-thuoc-chuong-trinh";
+    }
+
+    @GetMapping("quan-ly-mon-thuoc-chuong-trinh/{id}/{ctdtId}")
+    public  String suaMonChuyenNganh (
+            @PathVariable("id") Long id,
+            @PathVariable("ctdtId") Long ctdtId,
+            Model model
+    ) {
+        ResponseDto responseDto =  ctdtSubjectService.findById(id);
+        model.addAttribute("data", responseDto.getObject());
+
+        //get subject
+        SearchReqDto searchReqDtoMon = new SearchReqDto();
+        searchReqDtoMon.setPageSize(100);
+        searchReqDtoMon.setPageIndex(0);
+        ResponseDto responseDtoMon = subjectService.search(searchReqDtoMon);
+        SearchResDto searchResDtoMon = (SearchResDto) responseDtoMon.getObject();
+        model.addAttribute("mon", searchResDtoMon.getData());
+        model.addAttribute("subjectId", responseDto.getObject());
+
+        Ctdt ctdt = ctdtRepository.findById(ctdtId).orElse(null);
+
+        //get mon
+        List<CtdtDTO> ctdtDTOS = null;
+        if (ctdt.getMajorId() != null) {
+            ResponseDto responseDtCtdt = ctdtService.findByMajorId(ctdt.getMajorId());
+            ctdtDTOS = (List<CtdtDTO>) responseDtCtdt.getObject();
+            model.addAttribute("ctdtId", ctdt.getMajorId());
+        }
+        model.addAttribute("dataCtdt", ctdtDTOS);
+
+
+        return "fragment/body/home/edit/edit-ctdt-subject";
     }
 
     @PutMapping("updateCtdtSubject")
@@ -109,14 +144,15 @@ public class CtdtSubjectController {
             @ModelAttribute CtdtSubjectDTO ctdtSubjectDTO
     ) {
         ResponseDto responseDto = ctdtSubjectService.update(ctdtSubjectDTO);
-        return "redirect:/quan-ly-mon-hoc-chuyen-nganh";
+        return "redirect:/quan-ly-mon-thuoc-chuong-trinh";
     }
+
 
     @DeleteMapping("deleteCtdtSubject")
     public String deleteSubjectDetail(
             @RequestParam(name = "id") Long id
     ) {
         ResponseDto responseDto = ctdtSubjectService.delete(id);
-        return "redirect:/quan-ly-mon-hoc-chuyen-nganh";
+        return "redirect:/quan-ly-mon-thuoc-chuong-trinh";
     }
 }
