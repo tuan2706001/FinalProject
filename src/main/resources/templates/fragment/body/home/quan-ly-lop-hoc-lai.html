@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="flex justify-end mt-10">
                                         <div>
-                                            <form th:action="'/updateStatus/' + ${item.id}" th:method="PUT">
+                                            <form th:action="'/updateStatusClassRetest/' + ${item.id}" th:method="PUT">
                                                 <button id="myBtn"
                                                         class="content-left rounded font-bold w-32 h-10 mr-40 text-white transition duration-300">
                                                     Xác nhận
@@ -123,7 +123,6 @@
                         </div>
                     </div>
                     <div>
-
                         <button id="myBtn" th:if="${!item.lopThiXong}"
                                 class="content-left rounded font-bold w-28 h-6  text-white transition duration-300 showMess">
                             Chưa thi
@@ -147,7 +146,7 @@
                                     style="fill: rgba(0, 0, 0, 1);">
                                 <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                             </svg>
-                            <form action="/deleteCtdtSubjectClass" th:method="DELETE">
+                            <form action="/deleteClassRetest" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
                                     <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
@@ -159,7 +158,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="7">Không có dữ liệu</td>
+                <td colspan="8">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
@@ -242,7 +241,7 @@
                                 <label class="font-medium mr-28">Sinh viên</label>
                                 <div>
                                     <select id="studentIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" name="studentIds"
+                                leading-tight focus:outline-none focus:shadow-outline" style="width: 300px" name="studentIds" multiple
                                     >
                                         <option value="" hidden>Chọn sinh viên</option>
                                         <th:bock th:if="${dataStudent != null && #lists.size(dataStudent) > 0}">
@@ -327,17 +326,16 @@
         </div>
     </section>
     <script>
-        $('.showStudent').click(function (){
+        $('.showStudent').click(function () {
             $(this).parent().parent().find(".modalViewStudent").show()
             // $('#modalShow').css('display','block')
-            $('body,html').css('overflow','hidden');
+            $('body,html').css('overflow', 'hidden');
         })
         $('.showMess').click(function () {
             $(this).parent().parent().find(".modalViewMess").show()
             // $('#modalShow').css('display','block')
             $('body,html').css('overflow', 'hidden');
         })
-
 
         $('.edit').click(function () {
             $.ajax({
@@ -351,7 +349,12 @@
 
         })
 
-
+        $(document).ready(function () {
+            $('#studentIds').select2({
+                placeholder: "Chọn Sinh viên",
+                allowClear: true
+            });
+        });
 
         //ajax lấy ctdt theo nganh
         $('#majorId').change(function () {
@@ -372,13 +375,6 @@
         //ajax lấy lớp chung theo ctdt
         $('#ctdtId').change(function () {
             var htmlStudent = '';
-
-            $(document).ready(function () {
-                $('#studentIds').select2({
-                    placeholder: "Chọn Sinh viên",
-                    allowClear: true
-                });
-            });
             $.ajax({
                 url: "/getStudentRetest/" + $(this).val(),
                 // data: {courseId: $(this).val()},
@@ -387,8 +383,10 @@
                         htmlStudent += '<option value="' + items.id + '">' + items.fullName + '</option>';
                     })
                     $('#studentIds').html(htmlStudent);
+
                 }
             })
+
         })
 
         //ajax lấy môn theo ctdt

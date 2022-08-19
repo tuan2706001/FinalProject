@@ -151,7 +151,8 @@ function checkValidate(){
         checkEmptyValidate(id, mess, err)
     }
 
-    if ($('#courseClassIds').val() === ""){
+    // console.log( $('#courseClassIds').val() !== '0')
+    if ($('#courseClassIds').val() === "" || Number($('#courseClassIds').val()) === 0){
         check = false
         var id = "courseClassIds"
         var err = "errClass"

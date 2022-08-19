@@ -190,6 +190,14 @@ public class CtdtSubjectClassController {
         return "redirect:/quan-ly-lop-theo-mon";
     }
 
+    @PutMapping("updateStatusClassRetest/{id}")
+    public String updateStatusClassRetest(
+            @PathVariable("id") Long id
+    ) {
+        ResponseDto responseDto = ctdtSubjectClassService.updateTrangThaiThi(id);
+        return "redirect:/quan-ly-lop-hoc-lai";
+    }
+
     @DeleteMapping("deleteCtdtSubjectClass")
     public String deleteCtdtSubjectClass(
             @RequestParam(name = "id") Long id

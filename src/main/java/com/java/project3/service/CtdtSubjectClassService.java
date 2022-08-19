@@ -73,8 +73,8 @@ public class CtdtSubjectClassService {
         CtdtSubjectClass ctdtSubjectClass = toCtdtSubjectClass.getDestination(ctdtSubjectClassDTO);
         ctdtSubjectClass.setId(genIdService.nextId());
         ctdtSubjectClass.setLopThiXong(false);
-        if (ctdtSubjectClass.getCtdtSubjectId() == 0) {
-            ctdtSubjectClass.setCtdtSubjectId(null);
+        if (ctdtSubjectClass.getCourseClassId() == 0) {
+            ctdtSubjectClass.setCourseClassId(null);
         }
         CtdtSubjectClass result = ctdtSubjectClassRepository.save(ctdtSubjectClass);
         var temp = toCtdtSubjectClassDto.getDestination(result);

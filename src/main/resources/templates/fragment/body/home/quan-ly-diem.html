@@ -135,64 +135,64 @@
 
 <!--        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>-->
 
-        <div class="mt-16">
-            <label class="text-center ml-96 text-black text-2xl">Bảng điểm học lại</label>
-            <table class="w-full tableRounded mt-4 ">
-                <thead>
-                <tr class=" text-white" style="background: #4A96CA">
-                    <th>STT</th>
-                    <th>Lớp</th>
-                    <th>Sinh viên</th>
-                    <th>Môn</th>
-                    <th>Lý thuyết 1</th>
-                    <th>Thực hành 1</th>
-                    <th>Lý thuyết 2</th>
-                    <th>Thực hành 2</th>
-                    <th>Kết quả</th>
-                    <th>Sửa</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item,index : ${findAll}">
-                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                    <td th:text="${item.ctdtSubjectClassName}"></td>
-                    <td th:text="${item.studentName}"></td>
-                    <td th:text="${item.subjectName}"></td>
-                    <td th:text="${item.theory1}"></td>
-                    <td th:text="${item.skill1}"></td>
-                    <td th:text="${item.theory2}"></td>
-                    <td th:text="${item.skill2}"></td>
-                    <td th:text="${item.status} == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>
-                    <td>
-                        <div class=" rounded-full relative menu2 flex justify-center items-center">
-                            <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
+<!--        <div class="mt-16">-->
+<!--            <label class="text-center ml-96 text-black text-2xl">Bảng điểm học lại</label>-->
+<!--            <table class="w-full tableRounded mt-4 ">-->
+<!--                <thead>-->
+<!--                <tr class=" text-white" style="background: #4A96CA">-->
+<!--                    <th>STT</th>-->
+<!--                    <th>Lớp</th>-->
+<!--                    <th>Sinh viên</th>-->
+<!--                    <th>Môn</th>-->
+<!--                    <th>Lý thuyết 1</th>-->
+<!--                    <th>Thực hành 1</th>-->
+<!--                    <th>Lý thuyết 2</th>-->
+<!--                    <th>Thực hành 2</th>-->
+<!--                    <th>Kết quả</th>-->
+<!--                    <th>Sửa</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="item,index : ${findAll}">-->
+<!--                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>-->
+<!--                    <td th:text="${item.ctdtSubjectClassName}"></td>-->
+<!--                    <td th:text="${item.studentName}"></td>-->
+<!--                    <td th:text="${item.subjectName}"></td>-->
+<!--                    <td th:text="${item.theory1}"></td>-->
+<!--                    <td th:text="${item.skill1}"></td>-->
+<!--                    <td th:text="${item.theory2}"></td>-->
+<!--                    <td th:text="${item.skill2}"></td>-->
+<!--                    <td th:text="${item.status} == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>-->
+<!--                    <td>-->
+<!--                        <div class=" rounded-full relative menu2 flex justify-center items-center">-->
+<!--                            <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>-->
 
-                            <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
-                                <svg
-                                        th:data-url="${'/quan-ly-diem/' + item.id}"
-                                        xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
-                                        viewBox="0 0 24 24"
-                                        style="fill: rgba(0, 0, 0, 1);">
-                                    <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
-                                </svg>
-                                <form action="/deleteMark" th:method="DELETE">
-                                    <input type="hidden" name="id" th:value="${item.id}">
-                                    <button type="submit">
-                                        <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
-                                             class="pr-3"/>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(findAll)}">
-                    <td colspan="10">Không có dữ liệu</td>
-                </tr>
-                </tbody>
-                </tbody>
-            </table>
-        </div>
+<!--                            <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">-->
+<!--                                <svg-->
+<!--                                        th:data-url="${'/quan-ly-diem/' + item.id}"-->
+<!--                                        xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"-->
+<!--                                        viewBox="0 0 24 24"-->
+<!--                                        style="fill: rgba(0, 0, 0, 1);">-->
+<!--                                    <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>-->
+<!--                                </svg>-->
+<!--                                <form action="/deleteMark" th:method="DELETE">-->
+<!--                                    <input type="hidden" name="id" th:value="${item.id}">-->
+<!--                                    <button type="submit">-->
+<!--                                        <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"-->
+<!--                                             class="pr-3"/>-->
+<!--                                    </button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr th:if="${#lists.isEmpty(findAll)}">-->
+<!--                    <td colspan="10">Không có dữ liệu</td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
 
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
 
