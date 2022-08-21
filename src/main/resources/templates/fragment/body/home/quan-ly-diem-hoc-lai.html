@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-diem" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-diem-hoc-lai" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
@@ -84,10 +84,8 @@
                 <th>Lớp</th>
                 <th>Sinh viên</th>
                 <th>Môn</th>
-                <th>Lý thuyết 1</th>
-                <th>Thực hành 1</th>
-                <th>Lý thuyết 2</th>
-                <th>Thực hành 2</th>
+                <th>Lý thuyết </th>
+                <th>Thực hành </th>
                 <th>Kết quả</th>
                 <th>Sửa</th>
             </tr>
@@ -98,10 +96,8 @@
                 <td th:text="${item.ctdtSubjectClassName}"></td>
                 <td th:text="${item.studentName}"></td>
                 <td th:text="${item.subjectName}"></td>
-                <td th:text="${item.theory1}"></td>
-                <td th:text="${item.skill1}"></td>
-                <td th:text="${item.theory2}"></td>
-                <td th:text="${item.skill2}"></td>
+                <td th:text="${item.retestTheory}"></td>
+                <td th:text="${item.retestSkill}"></td>
                 <td th:text="${item.status} == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
@@ -109,13 +105,13 @@
 
                         <div class="w-20 absolute right-22 top-8 menu2Child flex bg-blue-300 z-20 rounded-md">
                             <svg
-                                    th:data-url="${'/quan-ly-diem/' + item.id}"
+                                    th:data-url="${'/quan-ly-diem-hoc-lai/' + item.id}"
                                     xmlns="http://www.w3.org/2000/svg" class="mx-auto edit" width="24" height="24"
                                     viewBox="0 0 24 24"
                                     style="fill: rgba(0, 0, 0, 1);">
                                 <path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path>
                             </svg>
-                            <form action="/deleteMark" th:method="DELETE">
+                            <form action="/deleteMarkRetest" th:method="DELETE">
                                 <input type="hidden" name="id" th:value="${item.id}">
                                 <button type="submit">
                                     <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png"
@@ -136,10 +132,10 @@
         <div class="flex justify-between mb-5">
             <div>
                 <button id="myBtn"
-                        class="content-left rounded font-bold w-48 h-9 mr-32 mt-6  text-white transition duration-300">
-                    <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem-hoc-lai')} "
-                       href="/quan-ly-diem-hoc-lai">
-                        Danh sách điểm học lại
+                        class="content-left rounded font-bold w-20 h-9 mr-32 mt-6  text-white transition duration-300">
+                    <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem')} "
+                       href="/quan-ly-diem">
+                        Quay lại
                     </a>
                 </button>
             </div>
@@ -156,7 +152,7 @@
                     <button><span class="closeModal transition duration-300">&times;</span></button>
                 </div>
 
-                <form method="POST" action="/createMark" onsubmit="return checkValidate()">
+                <form method="POST" action="/createMarkRetest" onsubmit="return checkValidate()">
                     <div class="modal-body p-10">
 
                         <div class="flex justify-between mb-5">
@@ -214,18 +210,18 @@
                         </div>
 
                         <div class="w-2/3 mb-5">
-                            <label class="font-medium mr-28">Điểm lý thuyết 1</label>
+                            <label class="font-medium mr-28">Điểm học lại lý thuyết</label>
                             <div>
-                                <input max="10" id="theory1" type="number" name="theory1" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                <input max="10" id="retestTheory" type="number" name="retestTheory" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
                                 <div class="text-sm text-red-600" id="errTheory1"></div>
                             </div>
                         </div>
 
                         <div class="w-2/3 mb-5">
-                            <label class="font-medium mr-28">Điểm thực hành 1</label>
+                            <label class="font-medium mr-28">Điểm học lại thực hành</label>
                             <div>
-                                <input max="10" id="skill1" type="number" name="skill1" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                <input max="10" id="retestSkill" type="number" name="retestSkill" class="mb-1 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
                                 <div class="text-sm text-red-600" id="errSkill1"></div>
                             </div>
@@ -274,7 +270,7 @@
             var htmlStudent = '<option value="0" hidden>--Chọn sinh viên--</option>';
 
             $.ajax({
-                url: "/getStudent/" + $(this).val(),
+                url: "/getStudentHocLai/" + $(this).val(),
                 success: function (e) {
 
                     $.each(e, function (idex, items) {

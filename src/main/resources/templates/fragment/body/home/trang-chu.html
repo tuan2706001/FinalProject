@@ -57,15 +57,15 @@
                     <div class="white-box">
                         <div class="d-md-flex mb-3">
                             <h3 class="box-title mb-0">Top sinh viên xuất sắc</h3>
-                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                <select class="form-select shadow-none row border-top">
-                                    <option>March 2021</option>
-                                    <option>April 2021</option>
-                                    <option>May 2021</option>
-                                    <option>June 2021</option>
-                                    <option>July 2021</option>
-                                </select>
-                            </div>
+<!--                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">-->
+<!--                                <select class="form-select shadow-none row border-top">-->
+<!--                                    <option>March 2021</option>-->
+<!--                                    <option>April 2021</option>-->
+<!--                                    <option>May 2021</option>-->
+<!--                                    <option>June 2021</option>-->
+<!--                                    <option>July 2021</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
                         </div>
                         <div class="table-responsive">
                             <table class="table no-wrap">
@@ -82,7 +82,7 @@
                                 <tr th:each="item,index : ${findAll}">
                                     <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                                     <td th:text="${item.fullName}" class="txt-oflo"></td>
-                                    <td th:text="${item.gradeName}">SALE</td>
+                                    <td th:text="${item.courseClassName}"></td>
                                     <td th:text="${item.birthday}" class="txt-oflo"></td>
                                     <td th:text="${item.gender} == 1 ? Nam : Nữ"><span class="text-success"></span></td>
                                 </tr>

@@ -102,7 +102,7 @@ public class MarkService {
 //    }
 
 
-    public ResponseDto findByGradeId(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long ctdtSubjectClassId) {
+    public ResponseDto findByMark(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long ctdtSubjectClassId) {
         ResponseDto responseDto = new ResponseDto();
         Long id = gradeId;
         SearchReqDto searchReqDto = new SearchReqDto();
@@ -125,18 +125,6 @@ public class MarkService {
         responseDto = search(searchReqDto);
         return responseDto;
     }
-
-//    public ResponseDto findBySubjectIdd (Long subjectId) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<CtdtSubject> subject = subjectRepository.findById(subjectId);
-//        List<Mark> marks = markRepository.findByGradeIdAndSubjectId(gradeId, subjectId);
-//        List<MarkDTO> markDTOS = new ArrayList<>();
-//        for (var item : marks) {
-//            markDTOS.add(toMarkDto.getDestination(item));
-//        }
-//        responseDto.setObject(markDTOS);
-//        return  responseDto;
-//    }
 
     public ResponseDto create(MarkDTO markDTO) {
         ResponseDto responseDto = new ResponseDto();
@@ -182,6 +170,7 @@ public class MarkService {
         List<MarkDTO> markDTOS = new ArrayList<>();
         for (var mark : marks) {
             MarkDTO markDTO = toMarkDto.getDestination(mark);
+
             Student student = studentRepository.findById(markDTO.getStudentId()).orElse(null);
             CtdtSubjectClass ctdtSubjectClass = ctdtSubjectClassRepository.findById(markDTO.getCtdtSubjectClassId()).orElse(null);
             Subject subject = subjectRepository.findByCtdtSubjectClassIdOne(markDTO.getCtdtSubjectClassId());

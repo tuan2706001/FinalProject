@@ -163,7 +163,19 @@
             </tbody>
         </table>
 
-        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
+        <div class="flex justify-between mb-5">
+            <div>
+                <button id="myBtn"
+                        class="content-left rounded font-bold w-20 h-9 mr-32 mt-6  text-white transition duration-300">
+                    <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-theo-mon')} "
+                       href="/quan-ly-lop-theo-mon">
+                        Quay lại
+                    </a>
+                </button>
+            </div>
+
+            <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
+        </div>
 
         <div id="modalCreate" class="modal pt-20 z-50">
 
@@ -241,7 +253,8 @@
                                 <label class="font-medium mr-28">Sinh viên</label>
                                 <div>
                                     <select id="studentIds" class="mb-4 shadow appearance-none border rounded w-11/12  py-2 px-3 text-gray-700
-                                leading-tight focus:outline-none focus:shadow-outline" style="width: 300px" name="studentIds" multiple
+                                leading-tight focus:outline-none focus:shadow-outline" style="width: 300px"
+                                            name="studentIds" multiple
                                     >
                                         <option value="" hidden>Chọn sinh viên</option>
                                         <th:bock th:if="${dataStudent != null && #lists.size(dataStudent) > 0}">

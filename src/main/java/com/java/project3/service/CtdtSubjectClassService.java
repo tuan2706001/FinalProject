@@ -120,6 +120,26 @@ public class CtdtSubjectClassService {
         return responseDto;
     }
 
+    public ResponseDto danhSachLopHocLai(SearchReqDto reqDto) {
+        ResponseDto responseDto = new ResponseDto();
+        // Dùng hàm search (hero)
+        PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
+                by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
+        Page<CtdtSubjectClass> ctdtSubjectClasses = ctdtSubjectClassRepository.dsLopHocLai(pageRequest);
+        // entity -> dto
+        List<CtdtSubjectClassDTO> ctdtSubjectClassDTOS = new ArrayList<>();
+        for (var ctdtSubjectClass : ctdtSubjectClasses) {
+            CtdtSubjectClassDTO ctdtSubjectClassDTO = toCtdtSubjectClassDto.getDestination(ctdtSubjectClass);
+            CtdtSubject ctdtSubject = ctdtSubjectRepository.findById(ctdtSubjectClassDTO.getCtdtSubjectId()).orElse(null);
+            Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
+            ctdtSubjectClassDTO.setTeacherName(teacher.getName());
+            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubjectRepository.findNameByCtdtSubjectId(ctdtSubject.getId()));
+            ctdtSubjectClassDTOS.add(ctdtSubjectClassDTO);
+        }
+        responseDto.setObject(prepareResponseForSearch(ctdtSubjectClasses.getTotalPages(), ctdtSubjectClasses.getNumber(), ctdtSubjectClasses.getTotalElements(), ctdtSubjectClassDTOS));
+        return responseDto;
+    }
+
     public ResponseDto search(SearchReqDto reqDto) {
         ResponseDto responseDto = new ResponseDto();
         // Dùng hàm search (hero)
@@ -158,6 +178,33 @@ public class CtdtSubjectClassService {
             if (ctdtSubjectClassDTO.getCourseClassId() != null) {
                 continue;
             }
+            CtdtSubject ctdtSubject = ctdtSubjectRepository.findById(ctdtSubjectClassDTO.getCtdtSubjectId()).orElse(null);
+            Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
+            ctdtSubjectClassDTO.setTeacherName(teacher.getName());
+            ctdtSubjectClassDTO.setCtdtSubjectName(ctdtSubjectRepository.findNameByCtdtSubjectId(ctdtSubject.getId()));
+            ctdtSubjectClassDTO.setStudentIds(studentRepository.findStudentByCtdtSubjectClassId(ctdtSubjectClass.getId()));
+            List<Long> listStudent = ctdtSubjectClassDTO.getStudentIds();
+            List<String> studentNames = listStudent.stream().
+                    map(studentId -> studentRepository.findNameByStudentId(studentId)).
+                    collect(Collectors.toList());
+            ctdtSubjectClassDTO.setStudentNames(studentNames);
+            ctdtSubjectClassDTO.setSumStudent(ctdtSubjectClassStudentRetestRepository.countCtdtSubjectClassStudentRetestByCtdtSubjectClassId(ctdtSubjectClass.getId()));
+            ctdtSubjectClassDTOS.add(ctdtSubjectClassDTO);
+        }
+        responseDto.setObject(prepareResponseForSearch(ctdtSubjectClasses.getTotalPages(), ctdtSubjectClasses.getNumber(), ctdtSubjectClasses.getTotalElements(), ctdtSubjectClassDTOS));
+        return responseDto;
+    }
+
+    public ResponseDto searchClassThongKe(SearchReqDto reqDto, Long courseClassId) {
+        ResponseDto responseDto = new ResponseDto();
+        // Dùng hàm search (hero)
+        PageRequest pageRequest = PageRequest.of(reqDto.getPageIndex(), reqDto.getPageSize(),
+                by(getOrders(reqDto.getSorts(), DEFAULT_PROP)));
+        Page<CtdtSubjectClass> ctdtSubjectClasses = ctdtSubjectClassRepository.dsThongKeLop(courseClassId, pageRequest);
+        // entity -> dto
+        List<CtdtSubjectClassDTO> ctdtSubjectClassDTOS = new ArrayList<>();
+        for (var ctdtSubjectClass : ctdtSubjectClasses) {
+            CtdtSubjectClassDTO ctdtSubjectClassDTO = toCtdtSubjectClassDto.getDestination(ctdtSubjectClass);
             CtdtSubject ctdtSubject = ctdtSubjectRepository.findById(ctdtSubjectClassDTO.getCtdtSubjectId()).orElse(null);
             Teacher teacher = teacherRepository.findById(ctdtSubjectClassDTO.getTeacherId()).orElse(null);
             ctdtSubjectClassDTO.setTeacherName(teacher.getName());
@@ -217,6 +264,30 @@ public class CtdtSubjectClassService {
         searchReqDto.setPageSize(pageSize);
         searchReqDto.setPageIndex(pageIndex);
         responseDto = searchClassRetest(searchReqDto);
+        return responseDto;
+    }
+
+    public ResponseDto searchClassThongKeBy(Integer pageIndex, Integer pageSize, String name, Long courseClassId) {
+        ResponseDto responseDto = new ResponseDto();
+        SearchReqDto searchReqDto = new SearchReqDto();
+        com.java.project3.dto.base.Page
+                page = PageUltil.setDefault(pageIndex, pageSize);
+        searchReqDto.setPageIndex(page.getCurrentPage() - 1);
+        searchReqDto.setPageSize(page.getPageSize());
+        List<String> sort = new ArrayList<>();
+        sort.add("id");
+        searchReqDto.setSorts(sort);
+        String sql = "";
+        if (name != null) {
+            sql = "S-name=L\"" + name + "\"";
+        }
+        if (courseClassId != null) {
+            sql += ",N-courseClassId=\"" + courseClassId + "\"";
+        }
+        searchReqDto.setQuery(sql);
+        searchReqDto.setPageSize(pageSize);
+        searchReqDto.setPageIndex(pageIndex);
+        responseDto = searchClassThongKe(searchReqDto, courseClassId);
         return responseDto;
     }
 

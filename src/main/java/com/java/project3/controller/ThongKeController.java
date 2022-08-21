@@ -72,7 +72,7 @@ public class ThongKeController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = ctdtSubjectClassService.searchCtdtSubjectClassBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseClassId);
+        ResponseDto responseDto = ctdtSubjectClassService.searchClassThongKeBy(page.getCurrentPage() - 1, page.getPageSize(), search, courseClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
@@ -95,7 +95,7 @@ public class ThongKeController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = markService.findByGradeId(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, ctdtSubjectClassId);
+        ResponseDto responseDto = markService.findByMark(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, ctdtSubjectClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);

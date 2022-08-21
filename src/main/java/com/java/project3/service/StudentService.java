@@ -93,6 +93,17 @@ public class StudentService {
         return responseDto;
     }
 
+    public ResponseDto findByCscRetestId(Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        List<Student> students = studentRepository.findByCtdtSubjectClassRetestId(id);
+        List<StudentDTO> studentDTOS = new ArrayList<>();
+        for (var item : students) {
+            studentDTOS.add(toStudentDto.getDestination(item));
+        }
+        responseDto.setObject(studentDTOS);
+        return responseDto;
+    }
+
     public ResponseDto findByCtdtId(Long id) {
         ResponseDto responseDto = new ResponseDto();
         List<Student> students = studentRepository.findByCtdtId(id);

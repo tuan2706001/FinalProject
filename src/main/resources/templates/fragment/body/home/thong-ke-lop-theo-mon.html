@@ -63,8 +63,8 @@
 <!--                <td colspan="3">Không có dữ liệu</td>-->
 <!--            </tr>-->
 <!--            </tbody>-->
-            <th:tbody th:each="item,index : ${findAll}">
-                <tr class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
+            <tbody >
+                <th:tr th:each="item,index : ${findAll}" class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                     <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
 
                     <td>
@@ -73,11 +73,11 @@
                     <td>
                         <a th:href="${url + item.id}" th:text="${item.ctdtSubjectName}"></a>
                     </td>
-                </tr>
+                </th:tr>
                 <tr th:if="${#lists.isEmpty(findAll)}">
-                    <td colspan="2">Không có dữ liệu</td>
+                    <td colspan="3">Không có dữ liệu</td>
                 </tr>
-            </th:tbody>
+            </tbody>
         </table>
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
     </div>
