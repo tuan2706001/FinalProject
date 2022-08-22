@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>-->
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="thong-ke-diem" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+<div th:fragment="thong-ke-diem" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
 
@@ -51,24 +51,28 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
-                <th>Môn</th>
                 <th>Tên sinh viên</th>
+                <th>Mã sinh viên</th>
                 <th>Lý thuyết 1</th>
                 <th>Thực hành 1</th>
                 <th>Lý thuyết 2</th>
                 <th>Thực hành 2</th>
+                <th>Học lại Lý thuyết</th>
+                <th>Học lạiThực hành </th>
                 <th>Kết quả</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.subjectName}"></td>
                 <td th:text="${item.studentName}"></td>
+                <td th:text="${item.studentCode}"></td>
                 <td th:text="${item.theory1}"></td>
                 <td th:text="${item.skill1}"></td>
                 <td th:text="${item.theory2}"></td>
                 <td th:text="${item.skill2}"></td>
+                <td th:text="${item.retestTheory}"></td>
+                <td th:text="${item.retestSkill}"></td>
                 <td th:text="${item.status}  == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
@@ -79,32 +83,45 @@
         </table>
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
     </div>
+    <div class="mr-8 ml-20 lg:flex xl:text-base ">
+        <div class="lg:mt-1 text-base mt-4 mr-1 text-xl text-center w-full">Thống kê điểm theo lớp</div>
+    </div>
 
-<!--    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <canvas id="myChart" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px"></canvas>
+    <script>
+        var xValues = ["Qua môn", "Thi lại", "Học lại"];
+        var yValues = [25, 5, 2];
+        var barColors = ["blue", "yellow","red"];
 
-<!--    <script>-->
-<!--        var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];-->
-<!--        var yValues = [100, 49, 44, 24, 50];-->
-<!--        var barColors = ["red", "green", "blue", "orange", "brown"];-->
-
-<!--        new Chart("myChart", {-->
-<!--            type: "bar",-->
-<!--            data: {-->
-<!--                labels: xValues,-->
-<!--                datasets: [{-->
-<!--                    backgroundColor: barColors,-->
-<!--                    data: yValues-->
-<!--                }]-->
-<!--            },-->
-<!--            options: {-->
-<!--                legend: {display: false},-->
-<!--                title: {-->
-<!--                    display: true,-->
-<!--                    text: "World Wine Production 2018"-->
-<!--                }-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "World Wine Production 2018"
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            min: 0, // minimum value
+                            max: 30 // maximum value
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 </div>
 </body>
 </html>

@@ -39,6 +39,8 @@ public class MarkService {
     CourseClassRepository courseClassRepository;
     @Autowired
     CtdtSubjectClassRepository ctdtSubjectClassRepository;
+    @Autowired
+    MarkRetestRepository markRetestRepository;
 
 
     JMapper<MarkDTO, Mark> toMarkDto;
@@ -65,41 +67,6 @@ public class MarkService {
         }
         return responseDto;
     }
-
-//    public ResponseDto findBySubjectId(Long subjectId) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<CtdtSubject> subject = subjectRepository.findById(subjectId);
-//        List<Mark> marks = markRepository.findBySubjectId(subject.get().getId());
-//        List<MarkDTO> markDTOS = new ArrayList<>();
-//        for (var item : marks) {
-//            markDTOS.add(toMarkDto.getDestination(item));
-//        }
-//        responseDto.setObject(markDTOS);
-//        return responseDto;
-//    }
-
-//    public ResponseDto findByGradeId(Long gradeId) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Optional<CourseClass> grade = courseClassRepository.findById(gradeId);
-//        Mark marks = markRepository.findByGradeId(grade.get().getId());
-////        List<MarkDTO> markDTOS = new ArrayList<>();
-////        for (var item : marks) {
-//            MarkDTO markDTO = toMarkDto.getDestination(marks);
-////        }
-//        responseDto.setObject(markDTO);
-//        return responseDto;
-//    }
-
-//    public ResponseDto findByGradeAndSubject(Long gradeId, Long subjectId) {
-//        ResponseDto responseDto = new ResponseDto();
-//        List<Mark> marks = markRepository.findByGradeIdAndSubjectId(gradeId, subjectId);
-//        List<MarkDTO> markDTOS = new ArrayList<>();
-//        for (var item : marks) {
-//            markDTOS.add(toMarkDto.getDestination(item));
-//        }
-//        responseDto.setObject(markDTOS);
-//        return responseDto;
-//    }
 
 
     public ResponseDto findByMark(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long ctdtSubjectClassId) {
@@ -174,9 +141,23 @@ public class MarkService {
             Student student = studentRepository.findById(markDTO.getStudentId()).orElse(null);
             CtdtSubjectClass ctdtSubjectClass = ctdtSubjectClassRepository.findById(markDTO.getCtdtSubjectClassId()).orElse(null);
             Subject subject = subjectRepository.findByCtdtSubjectClassIdOne(markDTO.getCtdtSubjectClassId());
+            MarkRetest markRetest = markRetestRepository.findByStudentIdAndSubjectId(student.getId(), subject.getId());
             markDTO.setCtdtSubjectClassName(ctdtSubjectClass.getName());
             markDTO.setStudentName(student.getFullName());
+            markDTO.setStudentCode(student.getStudentCode());
             markDTO.setSubjectName(subject.getName());
+            if (markRetest == null) {
+                markDTO.setRetestTheory(null);
+                markDTO.setRetestSkill(null);
+            } else {
+                markDTO.setRetestTheory(markRetest.getRetestTheory());
+                markDTO.setRetestSkill(markRetest.getRetestSkill());
+                if (markRetest.getRetestTheory() < 5 || markRetest.getRetestSkill() < 5 ) {
+                    markDTO.setStatus(3);
+                } else if (markRetest.getRetestTheory() >= 5 && markRetest.getRetestSkill() >= 5) {
+                    markDTO.setStatus(1);
+                }
+            }
             markDTOS.add(markDTO);
         }
         responseDto.setObject(prepareResponseForSearch(marks.getTotalPages(), marks.getNumber(), marks.getTotalElements(), markDTOS));

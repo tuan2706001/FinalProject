@@ -21,6 +21,8 @@ public class MarkDTO {
 
     private String studentName;
 
+    private String studentCode;
+
     @JMap
     private Long ctdtSubjectClassId;
 
@@ -40,6 +42,9 @@ public class MarkDTO {
     @JMap
     private Integer skill2;
 
+    private Integer retestTheory;
+
+    private Integer retestSkill;
     @JMap
     private Integer status;
 
