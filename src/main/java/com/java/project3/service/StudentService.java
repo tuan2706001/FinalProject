@@ -86,8 +86,13 @@ public class StudentService {
         ResponseDto responseDto = new ResponseDto();
         List<Student> students = studentRepository.findByCtdtSubjectClassId(id);
         List<StudentDTO> studentDTOS = new ArrayList<>();
-        for (var item : students) {
-            studentDTOS.add(toStudentDto.getDestination(item));
+        for (var student : students) {
+            StudentDTO studentDTO = toStudentDto.getDestination(student);
+            Student student1 = studentRepository.findByCtdtSubjectClassIdAndStudentIdMarkIsNull(id, student.getId());
+            if (student1 != null) {
+                continue;
+            }
+            studentDTOS.add(studentDTO);
         }
         responseDto.setObject(studentDTOS);
         return responseDto;
@@ -97,8 +102,13 @@ public class StudentService {
         ResponseDto responseDto = new ResponseDto();
         List<Student> students = studentRepository.findByCtdtSubjectClassRetestId(id);
         List<StudentDTO> studentDTOS = new ArrayList<>();
-        for (var item : students) {
-            studentDTOS.add(toStudentDto.getDestination(item));
+        for (var student : students) {
+            StudentDTO studentDTO = toStudentDto.getDestination(student);
+            Student student1 = studentRepository.findByCtdtSubjectClassRetestIdAndMarkIsNull(id, student.getId());
+            if (student1 != null) {
+                continue;
+            }
+            studentDTOS.add(studentDTO);
         }
         responseDto.setObject(studentDTOS);
         return responseDto;

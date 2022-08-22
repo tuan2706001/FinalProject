@@ -65,7 +65,7 @@
 <!--            </tbody>-->
             <tbody >
                 <th:tr th:each="item,index : ${findAll}" class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
-                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
+                    <td th:href="${url + item.id}" th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
 
                     <td>
                         <a th:href="${url + item.id}" th:text="${item.name}"></a>

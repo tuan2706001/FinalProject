@@ -24,15 +24,31 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
             "left join course_class cc on cc.id = s.course_class_id " +
             "left join ctdt_subject_class csc on csc.course_class_id = cc.id " +
             "left join mark m on m.student_id = s.id " +
-            "where csc.id = :ctdtSubjectClassId and m.student_id is null ", nativeQuery = true)
+            "where csc.id = :ctdtSubjectClassId", nativeQuery = true)
     List<Student> findByCtdtSubjectClassId(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
+
+    @Query(value = "select distinct s.* from student s " +
+            "left join course_class cc on cc.id = s.course_class_id " +
+            "left join ctdt_subject_class csc on csc.course_class_id = cc.id " +
+            "left join mark m on m.student_id = s.id " +
+            "where m.ctdt_subject_class_id = :ctdtSubjectClassId and m.student_id = :studentId ", nativeQuery = true)
+    Student findByCtdtSubjectClassIdAndStudentIdMarkIsNull(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId,
+                                                           @Param("studentId") Long studentId);
 
     @Query(value = "select * from student s " +
             "left join ctdt_subject_class__student_retest cscsr on s.id = cscsr.student_id " +
             "left join ctdt_subject_class csc on csc.id = cscsr.ctdt_subject_class_id " +
             "left join mark_retest mr on mr.student_id = cscsr.student_id " +
-            "where csc.id = :ctdtSubjectClassId and mr.student_id is null ", nativeQuery = true)
+            "where csc.id = :ctdtSubjectClassId", nativeQuery = true)
     List<Student> findByCtdtSubjectClassRetestId(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId);
+
+    @Query(value = "select * from student s " +
+            "left join ctdt_subject_class__student_retest cscsr on s.id = cscsr.student_id " +
+            "left join ctdt_subject_class csc on csc.id = cscsr.ctdt_subject_class_id " +
+            "left join mark_retest mr on mr.student_id = cscsr.student_id " +
+            "where mr.ctdt_subject_class_id = :ctdtSubjectClassId and mr.student_id = :studentId ", nativeQuery = true)
+    Student findByCtdtSubjectClassRetestIdAndMarkIsNull(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId,
+                                                              @Param("studentId") Long studentId);
 
     @Query(value = "select s.* from student s " +
             "left join course_class cc on cc.id = s.course_class_id " +
