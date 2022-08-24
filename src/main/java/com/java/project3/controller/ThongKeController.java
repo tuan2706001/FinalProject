@@ -97,11 +97,11 @@ public class ThongKeController {
             @PathVariable(value = "ctdtSubjectClassId") Long ctdtSubjectClassId
     ) {
         Page page = new Page();
-        page = PageUltil.setDefault(currentPage, pageSize);
+        page = PageUltil.setDefault(currentPage, 20);
         ResponseDto responseDto = thongKeSevice.findByMark(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, ctdtSubjectClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
-        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
+        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), 20);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
 

@@ -133,6 +133,20 @@ public class MarkService {
                     mark1.setStatus((int) 3);
                 }
             }
+            else if (mark1.getTheory1() >= 5 && mark1.getSkill1() < 5) {
+                if (mark1.getSkill2() >= 5) {
+                    mark1.setStatus((int) 1);
+                } else {
+                    mark1.setStatus((int) 3);
+                }
+            }
+            else if (mark1.getTheory1() < 5 && mark1.getSkill1() >= 5) {
+                if (mark1.getTheory2() >= 5) {
+                    mark1.setStatus((int) 1);
+                } else {
+                    mark1.setStatus((int) 3);
+                }
+            }
             Mark result = markRepository.save(mark1);
             MarkDTO markDTO1 = toMarkDto.getDestination(result);
             responseDto.setObject(markDTO1);

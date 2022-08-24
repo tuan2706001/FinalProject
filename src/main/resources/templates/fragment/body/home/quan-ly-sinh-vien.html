@@ -15,7 +15,7 @@
                 Thêm sinh viên
             </button>
             <form class="flex">
-                <div class="mr-8 lg:flex text-center xl:text-base  ">
+                <div class="mr-8 lg:flex text-center xl:text-base">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Lớp</div>
                     <select name="courseClassId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
@@ -23,7 +23,7 @@
                         <option value="0" hidden>--Chọn lớp--</option>
                         <th:block th:each="item,index : ${lop}">
                             <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${courseClassId == item.id ? true : false}"></option>
+                                    th:selected="${courseClassIds == item.id ? true : false}"></option>
                         </th:block>
                     </select>
                 </div>
@@ -144,7 +144,7 @@
                         <div>
                             <label class="font-medium mr-28">Số điện thoại</label>
                             <div>
-                                <input id="phone" type="text" name="phone" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                                <input id="phone" type="number" name="phone" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                 leading-tight focus:outline-none focus:shadow-outline"/>
                                 <div class="text-sm text-red-600" id="errPhone"></div>
                             </div>

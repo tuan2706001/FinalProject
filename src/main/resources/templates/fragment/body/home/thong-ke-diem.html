@@ -25,7 +25,9 @@
                 </div>
 
                 <div class="mr-8 ml-20 lg:flex xl:text-base ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Thống kê điểm theo lớp</div>
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-xl">Thống kê điểm theo lớp
+<!--                        <label th:text="${item.ctdtSubjectClassName}"></label>-->
+                    </div>
                 </div>
 
                 <div class="justify-self-end">
@@ -79,7 +81,6 @@
                 <td colspan="9">Không có dữ liệu</td>
             </tr>
             </tbody>
-            </tbody>
         </table>
         <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
     </div>
@@ -89,14 +90,14 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <canvas id="myChart1" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px; margin-bottom: 20px"></canvas>
-    <canvas id="myChart" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px; margin-bottom: 20px"></canvas>
-    <canvas id="myChar2" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px;"></canvas>
-<!--    [[${findAll.sumQuaMon}]]-->
+    <canvas id="myChar2" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px; margin-bottom: 20px"></canvas>
+    <canvas id="myChar3" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px;"></canvas>
+
     <script>
         var sumQuaMon = [[${findAll.sumQuaMon}]]
         var sumThiLai = [[${findAll.sumThiLai}]]
         var sumHocLai = [[${findAll.sumHocLai}]]
-        // console.log(123,x)
+
         var xValues = ["Qua môn", "Thi lại", "Học lại"];
         var yValues = [sumQuaMon , sumThiLai, sumHocLai];
         var barColors = ["blue", "yellow","red"];
@@ -114,7 +115,39 @@
                 legend: {display: false},
                 title: {
                     display: true,
-                    text: "World Wine Production 2018"
+                    text: "Biểu đồ kết quả thi"
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            min: 0, // minimum value
+                            max: 30 // maximum value
+                        }
+                    }]
+                }
+            }
+        });
+
+        var xValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+        var yValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        var barColors = ["#ff0000", "#ff6666","#ff8c1a", "#ffcc00", "#ffff00", "#ccff66", "#66ff66", "#00ffcc", "#00ccff", "#0066ff" ];
+
+        new Chart("myChar2", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "Biểu đồ phổ điểm Lý Thuyết"
                 },
                 scales: {
                     yAxes: [{
@@ -134,7 +167,7 @@
         var yValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         var barColors = ["#ff0000", "#ff6666","#ff8c1a", "#ffcc00", "#ffff00", "#ccff66", "#66ff66", "#00ffcc", "#00ccff", "#0066ff" ];
 
-        new Chart("myChart", {
+        new Chart("myChar3", {
             type: "bar",
             data: {
                 labels: xValues,
@@ -147,7 +180,7 @@
                 legend: {display: false},
                 title: {
                     display: true,
-                    text: "World Wine Production 2018"
+                    text: "Biểu đồ phổ điểm Thực Hành"
                 },
                 scales: {
                     yAxes: [{
@@ -162,6 +195,9 @@
             }
         });
     </script>
+    <div class="mr-8 ml-20 lg:flex xl:text-base ">
+        <div class="lg:mt-1 text-base mb-10 mr-1 text-xl text-center w-full">Điểm thi</div>
+    </div>
 </div>
 </body>
 </html>

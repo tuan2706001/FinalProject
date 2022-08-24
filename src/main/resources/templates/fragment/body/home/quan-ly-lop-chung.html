@@ -64,9 +64,9 @@
             <thead>
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
+                <th>Tên lớp</th>
                 <th>tên khóa</th>
                 <th>Tên chương trình đào tạo</th>
-                <th>Tên lớp</th>
                 <th>Số sinh viên</th>
                 <th>Sửa</th>
             </tr>
@@ -74,9 +74,9 @@
             <tbody>
             <tr th:each="item,index : ${findAll}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
+                <td th:text="${item.name}"></td>
                 <td th:text="${item.courseName}"></td>
                 <td th:text="${item.ctdtName}"></td>
-                <td th:text="${item.name}"></td>
                 <td th:text="${item.sumStudent} == null ? 0 : ${item.sumStudent}"></td>
                 <td>
 

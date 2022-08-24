@@ -197,7 +197,7 @@ public class StudentService {
         return responseDto;
     }
 
-    public ResponseDto searchStudentBy(Integer pageIndex, Integer pageSize, String search, Long gradeId) {
+    public ResponseDto searchStudentBy(Integer pageIndex, Integer pageSize, String search, Long courseClassId) {
         ResponseDto responseDto = new ResponseDto();
         SearchReqDto searchReqDto = new SearchReqDto();
         com.java.project3.dto.base.Page
@@ -211,8 +211,8 @@ public class StudentService {
         if (search != null) {
             sql += "S-fullName=L\"" + search + "\", OR-S-studentCode=L\"" + search + "\"";
         }
-        if (gradeId != null) {
-            sql += ",N-gradeId=\"" + gradeId + "\"";
+        if (courseClassId != null) {
+            sql += ",N-courseClassId=\"" + courseClassId + "\"";
         }
         searchReqDto.setQuery(sql);
         searchReqDto.setPageSize(pageSize);

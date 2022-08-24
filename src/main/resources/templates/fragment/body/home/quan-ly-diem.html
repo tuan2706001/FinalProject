@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-diem" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-diem" style="min-height: 800px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
@@ -136,7 +136,7 @@
         <div class="flex justify-between mb-5">
             <div>
                 <button id="myBtn"
-                        class="content-left rounded font-bold w-48 h-9 mr-32 mt-6  text-white transition duration-300">
+                        class="content-left rounded font-bold w-48 h-9 mr-32 mt-6 mb-20 text-white transition duration-300">
                     <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem-hoc-lai')} "
                        href="/quan-ly-diem-hoc-lai">
                         Danh sách điểm học lại

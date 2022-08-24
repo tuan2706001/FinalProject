@@ -51,11 +51,11 @@ public class MarkController {
         }
 
         Page page = new Page();
-        page = PageUltil.setDefault(currentPage, pageSize);
+        page = PageUltil.setDefault(currentPage, 20);
         ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search , classId, status, subjectId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
-        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
+        page = PageUltil.format(currentPage, searchResDto.getTotalPages(), 20);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
         model.addAttribute("status", status);

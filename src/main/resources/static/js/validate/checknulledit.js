@@ -1,33 +1,33 @@
 function checkEditValidate() {
     var check = true;
 
-    if ($('.theory2').val() === ""){
-        check = false
-        var id = "theory2"
-        var err = "errTheory2"
-        var mess = "Hãy nhập điểm"
-        checkEmptyValidateEdit(id, mess, err)
-        check = false
-    } else {
-        if ($('.theory1').val() >= 5) {
+    // if ($('.theory2').val() === ""){
+    //     check = false
+    //     var id = "theory2"
+    //     var err = "errTheory2"
+    //     var mess = "Hãy nhập điểm"
+    //     checkEmptyValidateEdit(id, mess, err)
+    //     check = false
+    // } else {
+        if ($('.theory2').val() !== "" && $('.theory1').val() >= 5) {
             $('#errTheory2').html('Đầu điểm đã đủ không thể nhập thêm')
             check = false
         }
-    }
+    // }
 
-    if ($('.skill2').val() === ""){
-        check = false
-        var id = "skill2"
-        var err = "errSkill2"
-        var mess = "Hãy nhập điểm"
-        checkEmptyValidateEdit(id, mess, err)
-        check = false
-    } else {
-        if ($('.skill1').val() >= 5) {
+    // if ($('.skill2').val() === ""){
+    //     check = false
+    //     var id = "skill2"
+    //     var err = "errSkill2"
+    //     var mess = "Hãy nhập điểm"
+    //     checkEmptyValidateEdit(id, mess, err)
+    //     check = false
+    // } else {
+        if ($('.skill2').val() !== "" &&$('.skill1').val() >= 5) {
             $('#errSkill2').html('Đầu điểm đã đủ không thể nhập thêm')
             check = false
         }
-    }
+    // }
 
     if ($('#editName').val() === ""){
         check = false
