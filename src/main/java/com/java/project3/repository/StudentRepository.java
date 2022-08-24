@@ -50,7 +50,7 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
     Student findByCtdtSubjectClassRetestIdAndMarkIsNull(@Param("ctdtSubjectClassId") Long ctdtSubjectClassId,
                                                               @Param("studentId") Long studentId);
 
-    @Query(value = "select s.* from student s " +
+    @Query(value = "select distinct s.* from student s " +
             "left join course_class cc on cc.id = s.course_class_id " +
             "left join ctdt c on c.id = cc.ctdt_id " +
             "left join mark m on m.student_id = s.id " +

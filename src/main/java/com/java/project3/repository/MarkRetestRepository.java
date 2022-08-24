@@ -14,7 +14,7 @@ public interface MarkRetestRepository extends JpaRepository<MarkRetest, Long>, J
             "    left join ctdt_subject_class csc on csc.id = mr.ctdt_subject_class_id " +
             "    left join ctdt_subject cs on cs.id = csc.ctdt_subject_id " +
             "    left join subject s on cs.subject_id = s.id " +
-            "where mr.student_id = :studentId and s.id = :subjectId", nativeQuery = true)
+            "where mr.student_id = :studentId and s.id = :subjectId and csc.lop_thi_xong = true", nativeQuery = true)
     MarkRetest findByStudentIdAndSubjectId(@Param("studentId") Long studentId,
                                            @Param("subjectId") Long subjectId);
 }

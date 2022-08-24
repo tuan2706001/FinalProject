@@ -63,7 +63,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll.markDTOS}">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.studentName}"></td>
                 <td th:text="${item.studentCode}"></td>
@@ -88,11 +88,51 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <canvas id="myChart" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px"></canvas>
+    <canvas id="myChart1" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px; margin-bottom: 20px"></canvas>
+    <canvas id="myChart" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px; margin-bottom: 20px"></canvas>
+    <canvas id="myChar2" class="mt-10 w-full mx-auto" style="width:150%;max-width:900px;"></canvas>
+<!--    [[${findAll.sumQuaMon}]]-->
     <script>
+        var sumQuaMon = [[${findAll.sumQuaMon}]]
+        var sumThiLai = [[${findAll.sumThiLai}]]
+        var sumHocLai = [[${findAll.sumHocLai}]]
+        // console.log(123,x)
         var xValues = ["Qua môn", "Thi lại", "Học lại"];
-        var yValues = [25, 5, 2];
+        var yValues = [sumQuaMon , sumThiLai, sumHocLai];
         var barColors = ["blue", "yellow","red"];
+
+        new Chart("myChart1", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "World Wine Production 2018"
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            min: 0, // minimum value
+                            max: 30 // maximum value
+                        }
+                    }]
+                }
+            }
+        });
+
+
+        var xValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+        var yValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        var barColors = ["#ff0000", "#ff6666","#ff8c1a", "#ffcc00", "#ffff00", "#ccff66", "#66ff66", "#00ffcc", "#00ccff", "#0066ff" ];
 
         new Chart("myChart", {
             type: "bar",

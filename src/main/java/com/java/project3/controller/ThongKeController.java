@@ -1,6 +1,7 @@
 package com.java.project3.controller;
 
 import com.java.project3.dto.MajorDTO;
+import com.java.project3.dto.StudentDTO;
 import com.java.project3.dto.base.Page;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
@@ -33,6 +34,8 @@ public class ThongKeController {
     MarkService markService;
     @Autowired
     CtdtSubjectClassService ctdtSubjectClassService;
+    @Autowired
+    ThongKeSevice thongKeSevice;
 
     @GetMapping("thong-ke")
     public String thongKe(
@@ -95,41 +98,23 @@ public class ThongKeController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, pageSize);
-        ResponseDto responseDto = markService.findByMark(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, ctdtSubjectClassId);
+        ResponseDto responseDto = thongKeSevice.findByMark(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, ctdtSubjectClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), pageSize);
         model.addAttribute("page", page);
         model.addAttribute("search", search);
 
-//        //get lớp
-//        SearchReqDto searchReqDtoLop = new SearchReqDto();
-//        searchReqDtoLop.setPageSize(100);
-//        searchReqDtoLop.setPageIndex(0);
-//        ResponseDto responseDtolop = gradeServcie.search(searchReqDtoLop);
-//        SearchResDto searchResDtoLop = (SearchResDto) responseDtolop.getObject();
-//        model.addAttribute("lop", searchResDtoLop.getData());
-//        model.addAttribute("gradeId", gradeId);
-//
-//        //get sinh vien
-//        SearchReqDto searchReqDtoSinhVien = new SearchReqDto();
-//        searchReqDtoSinhVien.setPageSize(100);
-//        searchReqDtoSinhVien.setPageIndex(0);
-//        ResponseDto responseDtoSinhVien = studentService.search(searchReqDtoLop);
-//        SearchResDto searchResDtoSinhVien = (SearchResDto) responseDtoSinhVien.getObject();
-//        model.addAttribute("student", searchResDtoSinhVien.getData());
-//        model.addAttribute("studentId", studentId);
-//
-//        //get mon hoc
-//        SearchReqDto searchReqDtoMon = new SearchReqDto();
-//        searchReqDtoMon.setPageSize(100);
-//        searchReqDtoMon.setPageIndex(0);
-//        ResponseDto responseDtoMon = subjectService.search(searchReqDtoMon);
-//        SearchResDto searchResDtoMon = (SearchResDto) responseDtoMon.getObject();
-//        model.addAttribute("mon", searchResDtoMon.getData());
-//        model.addAttribute("subjectId", subjectId);
-
         return "/thong-ke-diem";
+    }
+
+    @GetMapping("getThongSoBieuDo/{ctdtSubjectClassId}")
+    @ResponseBody
+    public List<StudentDTO> getStudent(
+            @PathVariable("id") Long id
+    ) {
+        ResponseDto responseDto = studentService.findByCscId(id);
+        return (List<StudentDTO>) responseDto.getObject();
     }
 
 

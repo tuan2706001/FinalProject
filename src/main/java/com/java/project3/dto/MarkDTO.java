@@ -45,7 +45,16 @@ public class MarkDTO {
     private Integer retestTheory;
 
     private Integer retestSkill;
+
     @JMap
     private Integer status;
+
+//    private ThongSoThongKeDTO thongSoThongKeDTO;
+
+//    private Integer sumQuaMon;
+//
+//    private Integer sumThiLai;
+//
+//    private Integer sumHocLai;
 
 }

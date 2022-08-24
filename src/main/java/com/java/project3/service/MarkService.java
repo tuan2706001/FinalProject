@@ -4,6 +4,8 @@ package com.java.project3.service;
 import com.googlecode.jmapper.JMapper;
 import com.java.project3.domain.*;
 import com.java.project3.dto.MarkDTO;
+import com.java.project3.dto.SubjectDTO;
+import com.java.project3.dto.ThongSoThongKeDTO;
 import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchReqDto;
 import com.java.project3.repository.*;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.java.project3.constant.Constants.DEFAULT_PROP;
 import static com.java.project3.utils.SearchUtil.*;
@@ -67,6 +70,16 @@ public class MarkService {
         }
         return responseDto;
     }
+
+//    public ResponseDto thongSoThongkeByCscId(Long cscId) {
+//        ResponseDto responseDto = new ResponseDto();
+//        ThongSoThongKeDTO thongSoThongKeDTO = new ThongSoThongKeDTO();
+//        thongSoThongKeDTO.setSumQuaMon();
+//        thongSoThongKeDTO.setSumThiLai();
+//        thongSoThongKeDTO.setSumHocLai();
+//        responseDto.setObject(thongSoThongKeDTO);
+//        return responseDto;
+//    }
 
 
     public ResponseDto findByMark(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long ctdtSubjectClassId) {
@@ -135,6 +148,7 @@ public class MarkService {
         Page<Mark> marks = markRepository.findAll(createSpec(reqDto.getQuery()), pageRequest);
         // entity -> dto
         List<MarkDTO> markDTOS = new ArrayList<>();
+
         for (var mark : marks) {
             MarkDTO markDTO = toMarkDto.getDestination(mark);
 
@@ -160,6 +174,22 @@ public class MarkService {
             }
             markDTOS.add(markDTO);
         }
+//        ThongSoThongKeDTO thongSoThongKeDTO = new ThongSoThongKeDTO();
+//        for (var thongKe : markDTOS) {
+//            if (thongKe.getStatus() == 1) {
+//                    thongSoThongKeDTO.setSumQuaMon(thongSoThongKeDTO.getSumQuaMon()+1);
+//            }
+//            if (thongKe.getStatus() == 2) {
+//                    thongSoThongKeDTO.setSumThiLai(thongSoThongKeDTO.getSumThiLai()+1);
+//            }
+//            if (thongKe.getStatus() == 3) {
+//                    thongSoThongKeDTO.setSumHocLai(thongSoThongKeDTO.getSumHocLai()+1);
+//            }
+//        }
+//        markDTOS.stream().map(markDTO -> {
+//                markDTO.setThongSoThongKeDTO(thongSoThongKeDTO);
+//            return markDTO;
+//        }).collect(Collectors.toList());
         responseDto.setObject(prepareResponseForSearch(marks.getTotalPages(), marks.getNumber(), marks.getTotalElements(), markDTOS));
         return responseDto;
     }
