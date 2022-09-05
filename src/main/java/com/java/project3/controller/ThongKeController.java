@@ -98,7 +98,7 @@ public class ThongKeController {
     ) {
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, 20);
-        ResponseDto responseDto = thongKeSevice.findByMark(page.getCurrentPage() - 1, page.getPageSize(), search, gradeId, ctdtSubjectClassId);
+        ResponseDto responseDto = thongKeSevice.findByMark(page.getCurrentPage() - 1, page.getPageSize(), search, ctdtSubjectClassId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), 20);

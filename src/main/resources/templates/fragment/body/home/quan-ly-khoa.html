@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<div th:fragment="quan-ly-khoa" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-khoa" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
@@ -43,9 +43,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll}" class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
+<!--                <td th:text="${item.name}"></td>-->
+                <td><a th:text="${item.name}" th:href="${'/quan-ly-lop-chung?courseId=' + item.id}"></a></td>
                 <td th:text="${item.namBatDau}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">

@@ -107,21 +107,20 @@ public class ThongKeSevice {
         return responseDto;
     }
 
-    public ResponseDto findByMark(Integer pageIndex, Integer pageSize, String seach, Long gradeId, Long ctdtSubjectClassId) {
+    public ResponseDto findByMark(Integer pageIndex, Integer pageSize, String seach, Long ctdtSubjectClassId) {
         ResponseDto responseDto = new ResponseDto();
-        Long id = gradeId;
         SearchReqDto searchReqDto = new SearchReqDto();
         List<String> sort = new ArrayList<>();
         sort.add("id");
         searchReqDto.setSorts(sort);
         searchReqDto.setQuery("");
         String sql = "";
-        if (seach != null) {
-            sql += id + "S-studentName=L\"" + seach + "\"";
-        }
-        if (ctdtSubjectClassId != null) {
-            sql += id + "N-ctdtSubjectClassId=\"" + ctdtSubjectClassId + "\"";
-        }
+//        if (seach != null) {
+//            sql += id + "S-studentName=L\"" + seach + "\"";
+//        }
+//        if (ctdtSubjectClassId != null) {
+//            sql += id + "N-ctdtSubjectClassId=\"" + ctdtSubjectClassId + "\"";
+//        }
 
         searchReqDto.setQuery(sql);
         com.java.project3.dto.base.Page page = PageUltil.setDefault(pageIndex, pageSize);

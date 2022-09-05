@@ -8,7 +8,7 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<div th:fragment="quan-ly-ctdt" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-ctdt" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <button id="myBtn"
@@ -20,8 +20,8 @@
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ngành</div>
 
                     <select name="majorId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded">
-<!--                            onchange="this.form.submit()">-->
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                            onchange="this.form.submit()">
                         <option value="0" hidden>--Chọn ngành--</option>
                         <th:block th:each="item,index : ${nganh}">
                             <option th:value="${item.id}" th:text="${item.name}"
@@ -54,16 +54,17 @@
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
                 <th>Mã chương trình</th>
-                <th>Tên ngành</th>
                 <th>Tên chương trình đào tạo</th>
+                <th>Tên ngành</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll}" class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.maChuongTrinh}"></td>
-                <td th:text="${item.name}"></td>
+<!--                <td th:text="${item.name}"></td>-->
+                <td><a th:text="${item.name}" th:href="${'/quan-ly-lop-chung?ctdtId=' + item.id}"></a></td>
                 <td th:text="${item.majorName}"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">

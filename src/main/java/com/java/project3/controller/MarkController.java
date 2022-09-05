@@ -37,14 +37,15 @@ public class MarkController {
             @RequestParam(value = "currentPage", required = false) Integer currentPage,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "ctdtSubjectClassId", required = false) Long ctdtSubjectClassId,
             @RequestParam(value = "classId", required = false) Long classId,
             @RequestParam(value = "subjectId", required = false) Long subjectId,
             @RequestParam(value = "studentId", required = false) Long studentId,
             @RequestParam(value = "status", required = false) Integer status,
             HttpServletResponse response
     ) {
-        if (classId == null || classId == 0) {
-            classId = null;
+        if (ctdtSubjectClassId == null || ctdtSubjectClassId == 0) {
+            ctdtSubjectClassId = null;
         }
         if (subjectId == null || subjectId == 0) {
             subjectId = null;
@@ -52,7 +53,7 @@ public class MarkController {
 
         Page page = new Page();
         page = PageUltil.setDefault(currentPage, 20);
-        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search , classId, status, subjectId);
+        ResponseDto responseDto = markService.searchMarkBy(page.getCurrentPage() - 1, page.getPageSize(), search , ctdtSubjectClassId, status, subjectId);
         SearchResDto searchResDto = (SearchResDto) responseDto.getObject();
         model.addAttribute("findAll", searchResDto.getData());
         page = PageUltil.format(currentPage, searchResDto.getTotalPages(), 20);

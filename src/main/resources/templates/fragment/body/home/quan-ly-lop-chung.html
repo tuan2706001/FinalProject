@@ -5,16 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-lop-chung" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-lop-chung" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-16 text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-40 text-white transition duration-300">
                 Thêm lớp
             </button>
             <form class="flex">
 
-                <div class="mr-10 lg:flex text-center xl:text-base">
+                <div class="mr-20 lg:flex text-center xl:text-base">
                     <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Khóa</div>
                     <select name="courseId"
                             class="xl:text-sm lg:text-xs text-base border border-gray-500  xl:h-8 xl:w-28 lg:h-7 lg:w-16 h-8 w-20 rounded"
@@ -27,21 +27,21 @@
                     </select>
                 </div>
 
-                <div class="mr-10 lg:flex text-center xl:text-base">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ctdt</div>
-                    <select name="ctdtId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500  xl:h-8 xl:w-28 lg:h-7 lg:w-16 h-8 w-20 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn Chương trình--</option>
-                        <th:block th:each="item,index : ${ctdt}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${ctdtId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
+<!--                <div class="mr-10 lg:flex text-center xl:text-base">-->
+<!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Ctdt</div>-->
+<!--                    <select name="ctdtId"-->
+<!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500  xl:h-8 xl:w-28 lg:h-7 lg:w-16 h-8 w-20 rounded"-->
+<!--                            onchange="this.form.submit()">-->
+<!--                        <option value="0" hidden>&#45;&#45;Chọn Chương trình&#45;&#45;</option>-->
+<!--                        <th:block th:each="item,index : ${ctdt}">-->
+<!--                            <option th:value="${item.id}" th:text="${item.name}"-->
+<!--                                    th:selected="${ctdtId == item.id ? true : false}"></option>-->
+<!--                        </th:block>-->
+<!--                    </select>-->
+<!--                </div>-->
 
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-14 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                th:value="${search}">
@@ -72,14 +72,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll}" class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.name}"></td>
+<!--                <td th:text="${item.name}"></td>-->
+                <td><a th:text="${item.name}" th:href="${'/quan-ly-sinh-vien?courseClassId=' + item.id}"></a></td>
                 <td th:text="${item.courseName}"></td>
                 <td th:text="${item.ctdtName}"></td>
-                <td th:text="${item.sumStudent} == null ? 0 : ${item.sumStudent}"></td>
+                <td><a th:text="${item.sumStudent} == null ? 0 : ${item.sumStudent}" class="text-blue-600" th:href="${'/quan-ly-sinh-vien?courseClassId=' + item.id}"></a></td>
                 <td>
-
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
 

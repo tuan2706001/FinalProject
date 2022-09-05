@@ -1,0 +1,141 @@
+<div class="modal-content w-6/12 mx-auto my-10">
+    <div class="modal-header h-14 w-full flex justify-between items-center px-10">
+        <div class="text-xl ">Sửa điểm</div>
+        <button><span class="closeModal transition duration-300"
+                      onclick="$('#modalEdit').css('display','none')">x</span></button>
+    </div>
+
+    <form th:method="PUT" action="/updateMark" onsubmit="return checkEditValidate()">
+        <div class="modal-body p-10">
+
+            <div class="flex justify-between mb-5">
+                <div class="w-2/3 mr-24">
+                    <label class="font-medium mr-28">Tên lớp</label>
+                    <div>
+                        <input type="text" name="ctdtSubjectClassName" class="mb-4 shadow appearance-none border rounded w-full mr-24 py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline"
+                               th:value="${data.ctdtSubjectClassName}" readonly/>
+                    </div>
+                </div>
+
+                <div class="w-2/3">
+                    <label class="font-medium mr-28">Tên sinh viên</label>
+                    <div>
+                        <input type="text" name="studentName" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.studentName}"
+                               readonly/>
+                        <input type="hidden" th:value="${data.id}" name="id">
+                        <input type="hidden" th:value="${data.status}" name="status">
+                        <input type="hidden" th:value="${data.studentId}" name="studentId">
+                        <input type="hidden" th:value="${data.ctdtSubjectClassId}" name="ctdtSubjectClassId">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <div class="w-2/3 mb-1 mr-24">
+                    <label class="font-medium mr-28">Môn học</label>
+                    <div>
+                        <input type="text" name="subjectName" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.subjectName}"
+                               readonly/>
+                    </div>
+                </div>
+
+                <div class="w-2/3 mb-1">
+                    <label class="font-medium mr-28">Kết quả đã đạt</label>
+                    <div>
+                        <input type="text" name="status" class="mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.status}"
+                               readonly/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+
+                <div class="w-2/3 mr-12">
+                    <label class="font-medium mr-28">Điểm lý thuyết 1</label>
+                    <div>
+                        <input id="theory1" type="number" name="theory1" class="theory1 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" readonly
+                               th:value="${data.theory1}"/>
+                    </div>
+                </div>
+
+                <div class="w-2/3 ml-12">
+                    <label class="font-medium mr-28">Điểm thực hành 1</label>
+                    <div>
+                        <input id="skill1" type="number" name="skill1" class=" skill1 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" readonly
+                               th:value="${data.skill1}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+
+                <div class="w-2/3 mr-12">
+                    <label class="font-medium mr-28">Điểm lý thuyết 2</label>
+                    <div>
+                        <input max="10" id="theory2" type="number" name="theory2" class="theory2 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.theory2}"/>
+                        <div class="text-sm text-red-600" id="errTheory2"></div>
+                    </div>
+                </div>
+
+                <div class="w-2/3 ml-12">
+                    <label class="font-medium mr-28">Điểm thực hành 2</label>
+                    <div>
+                        <input max="10" id="skill2" type="number" name="skill2" class="skill2 mb-4 shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none focus:shadow-outline" th:value="${data.skill2}"/>
+                        <div class="text-sm text-red-600" id="errSkill2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-10">
+                <div  id="notifications"
+                      onclick="$('#modalEdit').css('display','none')"
+                      class="closeModal flex justify-center items-center cursor-pointer w-28 rounded h-10 border border-black mr-5 hover:bg-gray-200 transition duration-300
+                                        ">Hủy
+                </div>
+
+                <button class="w-28 rounded h-10 border border-black text-white btnSubmit transition duration-300"
+                        id="submit">
+                    Gửi
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<style>
+    #notifications {
+        cursor: pointer;
+        position: fixed;
+        right: 0px;
+        z-index: 9999;
+        bottom: 0px;
+        margin-bottom: 22px;
+        margin-right: 15px;
+        max-width: 300px;
+    }
+</style>
+
+<script>
+    $( document ).ready(function() {
+        Notify("Can't Touch This");
+        Notify("Stop! Hammer time", null, null, 'danger');
+
+        Notify("I told you homeboy (You can't touch this)",
+            function () {
+                alert("clicked notification")
+            },
+            function () {
+                alert("clicked x")
+            },
+            'success'
+        );
+
+    });
+</script>

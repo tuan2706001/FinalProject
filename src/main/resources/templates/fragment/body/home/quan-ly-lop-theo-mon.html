@@ -6,7 +6,8 @@
 </head>
 
 <body>
-<div th:fragment="quan-ly-lop-theo-mon" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-lop-theo-mon" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
+
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
@@ -17,7 +18,7 @@
             <button id="myBtn"
                     class="content-left rounded font-bold w-48 h-9 mr-32  text-white transition duration-300">
                 <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-lop-hoc-lai')} "
-                   href="/quan-ly-lop-hoc-lai" >
+                   href="/quan-ly-lop-hoc-lai">
                     Danh sách lớp học lại
                 </a>
             </button>
@@ -50,18 +51,26 @@
                 <th>Môn học</th>
                 <th>Lớp học</th>
                 <th>Giảng viên</th>
+                <th>Xem điểm</th>
                 <th>Trạng thái</th>
                 <th>Sửa</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll}"
+                class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.maLop}"></td>
                 <td th:text="${item.ctdtSubjectName}"></td>
                 <td th:text="${item.courseClassName}"></td>
                 <td th:text="${item.teacherName}"></td>
+                <td>
+                    <a th:href="${'/quan-ly-diem?ctdtSubjectClassId=' + item.id}">
+                        <img class="mx-auto"
+                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABXElEQVRIie2UQUtCQRSFP8JdUta2HkFCj/6ERH+lWvkLWtR/cWkIbsRACCTbuMhFCzcmLdxWoFItX4s5L+fNG/W1MFp44MJwz7mHmXtnBtb479gFykADGAFfipFyZWl+jRxwCUyBaElMpc1lNd8HupZBCzgDQmBTESrXsnRd1S7EATBUwTNQyrChEjBQzVAeXuSBvoT3QMHiAqAGTBR1nSLGNtBWbV9eKVQk6DmCAHgj3ft3cfYGe+IqrvmJiE+g6HA1cQ1gD9PnpnI3jrYoj0ieP+goee052UScPcBAubFHfyWuA7DhkJGnYBF8etcTmLXoAzh0uLq4JuYUAXCrXNXRHmEeYqpFMBvyI+auxwgxA3WH/EqybVvAE3OGDMlr2sZcvRgBZqBjRdUx3wEeWHJNIfnQBmR7aKfACxkeWgzfV3EOHGtnea0vgDtLl+mriLHSz87Gyr7rNf4O31JZhMjSyXpfAAAAAElFTkSuQmCC">
+                    </a>
+                </td>
                 <td>
                     <!--                    <button id="myBtn" class="content-left rounded font-bold w-20 h-6  text-white transition duration-300">-->
                     <!--                        Chưa thi-->
@@ -304,6 +313,7 @@
              class="hidden fixed pt-20 top-0 left-0 w-full h-full bg-opacity-50 bg-gray-900 overflow-y-scroll">
         </div>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"></script>
     <script>
         $('.showMess').click(function () {
             $(this).parent().parent().find(".modalViewMess").show()

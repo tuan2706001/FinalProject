@@ -5,60 +5,70 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-diem" style="min-height: 800px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-diem" style="min-height: 800px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-24  text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-16  text-white transition duration-300">
                 Thêm điểm
             </button>
+
+            <div>
+                <button id="myBtn"
+                        class="content-left rounded font-bold w-48 mr-32 h-9 text-white transition duration-300">
+                    <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem-hoc-lai')} "
+                       href="/quan-ly-diem-hoc-lai">
+                        Danh sách điểm học lại
+                    </a>
+                </button>
+            </div>
             <form class="flex">
-                <div class="mr-2 lg:flex text-center xl:text-base  ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+                <!--                <div class="mr-2 lg:flex text-center xl:text-base  ">-->
+                <!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>-->
 
-                    <select name="courseClassId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn lớp--</option>
-                        <th:block th:each="item,index : ${lop}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${courseClassId == item.id ? true : false}"></option>
-                        </th:block>
-                    </select>
-                </div>
+                <!--                    <select name="courseClassId"-->
+                <!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"-->
+                <!--                            onchange="this.form.submit()">-->
+                <!--                        <option value="0" hidden>&#45;&#45;Chọn lớp&#45;&#45;</option>-->
+                <!--                        <th:block th:each="item,index : ${lop}">-->
+                <!--                            <option th:value="${item.id}" th:text="${item.name}"-->
+                <!--                                    th:selected="${courseClassId == item.id ? true : false}"></option>-->
+                <!--                        </th:block>-->
+                <!--                    </select>-->
+                <!--                </div>-->
 
-                <div class="mr-8 lg:flex text-center xl:text-base  ">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
-                    <select name="ctdtSubjectId"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn môn--</option>
-                        <!--                        <th:bock th:if="${dataMons != null && #lists.size(dataMons) > 0}">-->
-                        <th:block th:each="item,index : ${mon}">
-                            <option th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${ctdtSubjectId == item.id ? true : false}"></option>
-                        </th:block>
-                        <!--                        </th:bock>-->
-                    </select>
-                </div>
+                <!--                <div class="mr-8 lg:flex text-center xl:text-base  ">-->
+                <!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>-->
+                <!--                    <select name="ctdtSubjectId"-->
+                <!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-24 h-8 w-32 rounded"-->
+                <!--                            onchange="this.form.submit()">-->
+                <!--                        <option value="0" hidden>&#45;&#45;Chọn môn&#45;&#45;</option>-->
+                <!--                        &lt;!&ndash;                        <th:bock th:if="${dataMons != null && #lists.size(dataMons) > 0}">&ndash;&gt;-->
+                <!--                        <th:block th:each="item,index : ${mon}">-->
+                <!--                            <option th:value="${item.id}" th:text="${item.name}"-->
+                <!--                                    th:selected="${ctdtSubjectId == item.id ? true : false}"></option>-->
+                <!--                        </th:block>-->
+                <!--                        &lt;!&ndash;                        </th:bock>&ndash;&gt;-->
+                <!--                    </select>-->
+                <!--                </div>-->
 
-                <div class="mr-2 lg:flex text-center xl:text-base ml-36">
-                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+                <!--                <div class="mr-2 lg:flex text-center xl:text-base ml-36">-->
+                <!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>-->
 
-                    <select name="status"
-                            id="status"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-48 h-8 w-52 rounded"
-                            onchange="this.form.submit()">
-                        <option value="0" hidden>--Chọn kết quả--</option>
-                        <option th:value="1" th:selected="${status} == 1 ? true : false">Qua môn</option>
-                        <option th:value="2" th:selected="${status} == 2 ? true : false">Thi lại</option>
-                        <option th:value="3" th:selected="${status} == 3 ? true : false">Học lại</option>
-                        </th:block>
-                    </select>
-                </div>
+                <!--                    <select name="status"-->
+                <!--                            id="status"-->
+                <!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-40 lg:h-7 lg:w-48 h-8 w-52 rounded"-->
+                <!--                            onchange="this.form.submit()">-->
+                <!--                        <option value="0" hidden>&#45;&#45;Chọn kết quả&#45;&#45;</option>-->
+                <!--                        <option th:value="1" th:selected="${status} == 1 ? true : false">Qua môn</option>-->
+                <!--                        <option th:value="2" th:selected="${status} == 2 ? true : false">Thi lại</option>-->
+                <!--                        <option th:value="3" th:selected="${status} == 3 ? true : false">Học lại</option>-->
+                <!--                        </th:block>-->
+                <!--                    </select>-->
+                <!--                </div>-->
 
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-10 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
                                id="search"
@@ -93,16 +103,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll}"
+                class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                <td th:text="${item.ctdtSubjectClassName}"></td>
-                <td th:text="${item.studentName}"></td>
-                <td th:text="${item.subjectName}"></td>
-                <td th:text="${item.theory1}"></td>
-                <td th:text="${item.skill1}"></td>
-                <td th:text="${item.theory2}"></td>
-                <td th:text="${item.skill2}"></td>
-                <td th:text="${item.status} == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"></td>
+                <td th:text="${item.ctdtSubjectClassName}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.studentName}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.subjectName}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.theory1}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.skill1}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.theory2}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.skill2}"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
+                <td th:text="${item.status} == 1 ? 'Qua môn' : (${item.status} == 2 ? 'Thi lại' : 'Học lại')"
+                    th:classappend="${item.status} == 1 ? 'text-blue-600' : (${item.status} == 2 ? 'text-yellow-400' : 'text-red-600')"></td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -133,19 +152,7 @@
             </tbody>
         </table>
 
-        <div class="flex justify-between mb-5">
-            <div>
-                <button id="myBtn"
-                        class="content-left rounded font-bold w-48 h-9 mr-32 mt-6 mb-20 text-white transition duration-300">
-                    <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem-hoc-lai')} "
-                       href="/quan-ly-diem-hoc-lai">
-                        Danh sách điểm học lại
-                    </a>
-                </button>
-            </div>
-
-            <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
-        </div>
+        <div th:replace="~{fragment/common/home/phan-pages :: page}"></div>
 
         <div id="modalCreate" class="modal pt-20 z-50">
 

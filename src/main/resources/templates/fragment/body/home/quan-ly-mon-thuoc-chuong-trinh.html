@@ -5,24 +5,24 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="quan-ly-mon-thuoc-chuong-trinh" style="min-height: 600px; background: #e6e6e6" class="w-12/12 mx-auto pt-10">
+<div th:fragment="quan-ly-mon-thuoc-chuong-trinh" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
         <div class="flex justify-center mt-10">
             <button id="myBtn"
-                    class="content-left rounded font-bold w-44 h-9 mr-24  text-white transition duration-300">
+                    class="content-left rounded font-bold w-44 h-9 mr-96  text-white transition duration-300">
                 Thêm môn học
             </button>
-            <div class="mr-8 lg:flex text-center xl:text-base  ">
-                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>
-                <form action="/quan-ly-mon-hoc">
-                    <select onchange="this.form.submit()" name="type"
-                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">
-                        <option value="Đại cương" class="text-bold justify-center">Đại cương</option>
-                        <option value="Chuyên ngành" class="text-bold justify-center" selected="selected">Chuyên ngành
-                        </option>
-                    </select>
-                </form>
-            </div>
+<!--            <div class="mr-8 lg:flex text-center xl:text-base  ">-->
+<!--                <div class="lg:mt-1 text-base mt-4 mr-1 text-bold">Loại môn học</div>-->
+<!--                <form action="/quan-ly-mon-hoc">-->
+<!--                    <select onchange="this.form.submit()" name="type"-->
+<!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded">-->
+<!--                        <option value="Đại cương" class="text-bold justify-center">Đại cương</option>-->
+<!--                        <option value="Chuyên ngành" class="text-bold justify-center" selected="selected">Chuyên ngành-->
+<!--                        </option>-->
+<!--                    </select>-->
+<!--                </form>-->
+<!--            </div>-->
             <form>
                 <div class="justify-self-end">
                     <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-12">
@@ -56,7 +56,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item,index : ${findAll}">
+            <tr th:each="item,index : ${findAll}" class="trTable bg-white lg:hover:bg-gray-200 lg:table-row flex-row flex-wrap lg:flex-no-wrap">
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
                 <td th:text="${item.maMon}"></td>
                 <td th:text="${item.subjectName}"></td>
