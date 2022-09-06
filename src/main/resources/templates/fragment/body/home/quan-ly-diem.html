@@ -15,7 +15,7 @@
 
             <div>
                 <button id="myBtn"
-                        class="content-left rounded font-bold w-48 mr-32 h-9 text-white transition duration-300">
+                        class="content-left rounded font-bold w-48 mr-20 h-9 text-white transition duration-300">
                     <a th:classappend="${#httpServletRequest.requestURI.contains('/quan-ly-diem-hoc-lai')} "
                        href="/quan-ly-diem-hoc-lai">
                         Danh sách điểm học lại
@@ -23,19 +23,18 @@
                 </button>
             </div>
             <form class="flex">
-                <!--                <div class="mr-2 lg:flex text-center xl:text-base  ">-->
-                <!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>-->
-
-                <!--                    <select name="courseClassId"-->
-                <!--                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"-->
-                <!--                            onchange="this.form.submit()">-->
-                <!--                        <option value="0" hidden>&#45;&#45;Chọn lớp&#45;&#45;</option>-->
-                <!--                        <th:block th:each="item,index : ${lop}">-->
-                <!--                            <option th:value="${item.id}" th:text="${item.name}"-->
-                <!--                                    th:selected="${courseClassId == item.id ? true : false}"></option>-->
-                <!--                        </th:block>-->
-                <!--                    </select>-->
-                <!--                </div>-->
+                <div class="mr-2 lg:flex text-center xl:text-base  ">
+                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>
+                    <select name="ctdtSubjectClassId"
+                            class="xl:text-sm lg:text-xs text-base border border-gray-500 pl-3 xl:h-8 xl:w-32 lg:h-7 lg:w-24 h-8 w-32 rounded"
+                            onchange="this.form.submit()">
+                        <option value="0" hidden>--Chọn lớp--</option>
+                        <th:block th:each="item,index : ${lop}">
+                            <option th:value="${item.id}" th:text="${item.name}"
+                                    th:selected="${ctdtSubjectClassId == item.id ? true : false}"></option>
+                        </th:block>
+                    </select>
+                </div>
 
                 <!--                <div class="mr-8 lg:flex text-center xl:text-base  ">-->
                 <!--                    <div class="lg:mt-1 text-base mt-4 mr-1 text-bold"></div>-->
@@ -68,10 +67,9 @@
                 <!--                </div>-->
 
                 <div class="justify-self-end">
-                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-96 mr-6">
+                    <div class="relative border border-gray-500 bg-white xl:rounded-xl xl:h-8 xl:w-48 lg:h-7 lg:w-64 mb-5 rounded-md w-full h-7 lg:rounded-lg flex ml-72 mr-6">
                         <input type="search" placeholder="Tìm kiếm" class="w-5/6 ml-1 pl-3 outline-none font-bold"
                                name="search"
-                               id="search"
                                th:value="${search}">
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" class="xl:h-6 xl:w-6 lg:w-5 lg:w-5 w-6 w-6"

@@ -164,4 +164,9 @@ public class MajorService {
         }
         return responseDto;
     }
+
+    public long countAll() {
+        long count = majorRepository.count();
+        return count;
+    }
 }

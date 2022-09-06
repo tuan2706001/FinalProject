@@ -56,6 +56,7 @@
                 <th>Tên ngành</th>
                 <th>Tên hệ</th>
                 <th>Số năm học</th>
+                <th>Xem chương trình</th>
                 <th>Sửa</th>
             </tr>
             </thead>
@@ -66,6 +67,12 @@
                 <td><a th:text="${item.name}" th:href="${'/quan-ly-ctdt?majorId=' + item.id}"></a></td>
                 <td th:text="${item.curriculumName}"></td>
                 <td th:text="${item.soNamHoc}"></td>
+                <td>
+                    <a th:href="${'/quan-ly-ctdt?majorId=' + item.id}">
+                        <img class="mx-auto"
+                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABXElEQVRIie2UQUtCQRSFP8JdUta2HkFCj/6ERH+lWvkLWtR/cWkIbsRACCTbuMhFCzcmLdxWoFItX4s5L+fNG/W1MFp44MJwz7mHmXtnBtb479gFykADGAFfipFyZWl+jRxwCUyBaElMpc1lNd8HupZBCzgDQmBTESrXsnRd1S7EATBUwTNQyrChEjBQzVAeXuSBvoT3QMHiAqAGTBR1nSLGNtBWbV9eKVQk6DmCAHgj3ft3cfYGe+IqrvmJiE+g6HA1cQ1gD9PnpnI3jrYoj0ieP+goee052UScPcBAubFHfyWuA7DhkJGnYBF8etcTmLXoAzh0uLq4JuYUAXCrXNXRHmEeYqpFMBvyI+auxwgxA3WH/EqybVvAE3OGDMlr2sZcvRgBZqBjRdUx3wEeWHJNIfnQBmR7aKfACxkeWgzfV3EOHGtnea0vgDtLl+mriLHSz87Gyr7rNf4O31JZhMjSyXpfAAAAAElFTkSuQmCC">
+                    </a>
+                </td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -90,7 +97,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="5">Không có dữ liệu</td>
+                <td colspan="6">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>

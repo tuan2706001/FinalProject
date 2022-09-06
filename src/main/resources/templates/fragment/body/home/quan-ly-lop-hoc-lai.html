@@ -8,6 +8,9 @@
 <body>
 <div th:fragment="quan-ly-lop-hoc-lai" style="min-height: 600px" class="w-12/12 mx-auto pt-10">
     <div class="w-11/12 mx-auto">
+        <div class="mr-8 ml-20 lg:flex xl:text-base ">
+            <div class=" text-base text-xl text-center w-full">Quản lý điểm học lại</div>
+        </div>
         <div class="flex justify-center mt-10">
             <button id="myBtn"
                     class="content-left rounded font-bold w-48 h-9 mr-96  text-white transition duration-300">
@@ -43,6 +46,7 @@
                 <th>Môn học</th>
                 <th>Sinh viên</th>
                 <th>Giảng viên</th>
+                <th>Xem điểm</th>
                 <th>Trạng thái</th>
                 <th>Sửa</th>
             </tr>
@@ -87,6 +91,12 @@
                     </div>
                 </td>
                 <td th:text="${item.teacherName}"></td>
+                <td>
+                    <a th:href="${'/quan-ly-diem-hoc-lai?ctdtSubjectClassId=' + item.id}">
+                        <img class="mx-auto"
+                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABXElEQVRIie2UQUtCQRSFP8JdUta2HkFCj/6ERH+lWvkLWtR/cWkIbsRACCTbuMhFCzcmLdxWoFItX4s5L+fNG/W1MFp44MJwz7mHmXtnBtb479gFykADGAFfipFyZWl+jRxwCUyBaElMpc1lNd8HupZBCzgDQmBTESrXsnRd1S7EATBUwTNQyrChEjBQzVAeXuSBvoT3QMHiAqAGTBR1nSLGNtBWbV9eKVQk6DmCAHgj3ft3cfYGe+IqrvmJiE+g6HA1cQ1gD9PnpnI3jrYoj0ieP+goee052UScPcBAubFHfyWuA7DhkJGnYBF8etcTmLXoAzh0uLq4JuYUAXCrXNXRHmEeYqpFMBvyI+auxwgxA3WH/EqybVvAE3OGDMlr2sZcvRgBZqBjRdUx3wEeWHJNIfnQBmR7aKfACxkeWgzfV3EOHGtnea0vgDtLl+mriLHSz87Gyr7rNf4O31JZhMjSyXpfAAAAAElFTkSuQmCC">
+                    </a>
+                </td>
                 <td>
                     <div th:if="${!item.lopThiXong}" id="modalShow" class="modal pt-20 z-50 modalViewMess">
                         <!-- Modal content -->

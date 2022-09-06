@@ -212,4 +212,9 @@ public class SubjectService {
         }
         return responseDto;
     }
+
+    public long countAll() {
+        long count = subjectRepository.count();
+        return count;
+    }
 }

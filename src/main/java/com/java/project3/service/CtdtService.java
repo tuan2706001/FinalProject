@@ -189,4 +189,9 @@ public class CtdtService {
         }
         return responseDto;
     }
+
+    public long countAll() {
+        long count = ctdtRepository.count();
+        return count;
+    }
 }

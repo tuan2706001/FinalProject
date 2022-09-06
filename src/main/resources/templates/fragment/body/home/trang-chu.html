@@ -22,6 +22,38 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-12">
                     <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số hệ </h3>
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li class="mx-auto"><span class="counter text-info" th:text="${countAllCurriculum}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số ngành</h3>
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li class="mx-auto">
+                                <span class="counter text-purple" th:text="${countAllMajor}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số sinh chương trình</h3>
+                        <ul class="list-inline two-part  align-items-center mb-0">
+                            <li class="mx-auto">
+                                <span class="counter text-success" th:text="${countAllCtdt}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
                         <h3 class="box-title">Tổng số khóa </h3>
                         <ul class="list-inline two-part d-flex align-items-center mb-0">
                             <li class="mx-auto"><span class="counter text-info" th:text="${countAllCourse}"></span>
@@ -51,50 +83,82 @@
                 </div>
             </div>
 
-
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="white-box">
-                        <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Top sinh viên xuất sắc</h3>
-<!--                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">-->
-<!--                                <select class="form-select shadow-none row border-top">-->
-<!--                                    <option>March 2021</option>-->
-<!--                                    <option>April 2021</option>-->
-<!--                                    <option>May 2021</option>-->
-<!--                                    <option>June 2021</option>-->
-<!--                                    <option>July 2021</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table no-wrap">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">STT</th>
-                                    <th class="border-top-0">Họ và tên</th>
-                                    <th class="border-top-0">Lớp</th>
-                                    <th class="border-top-0">Ngày sinh</th>
-                                    <th class="border-top-0">Giới tính</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="item,index : ${findAll}">
-                                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
-                                    <td th:text="${item.fullName}" class="txt-oflo"></td>
-                                    <td th:text="${item.courseClassName}"></td>
-                                    <td th:text="${item.birthday}" class="txt-oflo"></td>
-                                    <td th:text="${item.gender} == 1 ? Nam : Nữ"><span class="text-success"></span></td>
-                                </tr>
-                                <tr th:if="${#lists.isEmpty(findAll)}">
-                                    <td colspan="6">Không có dữ liệu</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số môn </h3>
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li class="mx-auto"><span class="counter text-info" th:text="${countAllSubject}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số giáo viên</h3>
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li class="mx-auto">
+                                <span class="counter text-purple" th:text="${countAllTeacher}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Tổng số lớp phân công</h3>
+                        <ul class="list-inline two-part  align-items-center mb-0">
+                            <li class="mx-auto">
+                                <span class="counter text-success" th:text="${countAllCtdtSubjectClass}"></span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
+
+
+<!--            <div class="row">-->
+<!--                <div class="col-md-12 col-lg-12 col-sm-12">-->
+<!--                    <div class="white-box">-->
+<!--                        <div class="d-md-flex mb-3">-->
+<!--                            <h3 class="box-title mb-0">Top sinh viên xuất sắc</h3>-->
+<!--&lt;!&ndash;                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <select class="form-select shadow-none row border-top">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option>March 2021</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option>April 2021</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option>May 2021</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option>June 2021</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option>July 2021</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="table-responsive">-->
+<!--                            <table class="table no-wrap">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th class="border-top-0">STT</th>-->
+<!--                                    <th class="border-top-0">Họ và tên</th>-->
+<!--                                    <th class="border-top-0">Lớp</th>-->
+<!--                                    <th class="border-top-0">Ngày sinh</th>-->
+<!--                                    <th class="border-top-0">Giới tính</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr th:each="item,index : ${findAll}">-->
+<!--                                    <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>-->
+<!--                                    <td th:text="${item.fullName}" class="txt-oflo"></td>-->
+<!--                                    <td th:text="${item.courseClassName}"></td>-->
+<!--                                    <td th:text="${item.birthday}" class="txt-oflo"></td>-->
+<!--                                    <td th:text="${item.gender} == 1 ? Nam : Nữ"><span class="text-success"></span></td>-->
+<!--                                </tr>-->
+<!--                                <tr th:if="${#lists.isEmpty(findAll)}">-->
+<!--                                    <td colspan="6">Không có dữ liệu</td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

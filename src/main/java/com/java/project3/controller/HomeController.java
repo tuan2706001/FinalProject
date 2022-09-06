@@ -5,10 +5,7 @@ import com.java.project3.dto.base.ResponseDto;
 import com.java.project3.dto.base.SearchResDto;
 //import com.java.project3.service.CourseClassServcie;
 //import com.java.project3.service.StudentService;
-import com.java.project3.service.CourseClassServcie;
-import com.java.project3.service.CourseServcice;
-import com.java.project3.service.StudentService;
-import com.java.project3.service.UserService;
+import com.java.project3.service.*;
 import com.java.project3.utils.PageUltil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +23,18 @@ public class HomeController {
     CourseClassServcie gradeServcie;
     @Autowired
     CourseServcice courseServcice;
+    @Autowired
+    CurriculumService curriculumService;
+    @Autowired
+    MajorService majorService;
+    @Autowired
+    CtdtService ctdtService;
+    @Autowired
+    CtdtSubjectClassService ctdtSubjectClassService;
+    @Autowired
+    TeacherService teacherService;
+    @Autowired
+    SubjectService subjectService;
 
     @GetMapping(value = {"","/trang-chu"})
     public String home(
@@ -48,14 +57,33 @@ public class HomeController {
         model.addAttribute("page", page);
         model.addAttribute("search", search);
 
-        long responseDto3 = courseServcice.countAll();
-        model.addAttribute("countAllCourse", responseDto3);
-//
+
         long responseDto1 = gradeServcie.countAll();
         model.addAttribute("countAllGrade", responseDto1);
-//
+
         long responseDto2 = studentService.countAll();
         model.addAttribute("countAllStudent", responseDto2);
+
+        long responseDto3 = courseServcice.countAll();
+        model.addAttribute("countAllCourse", responseDto3);
+
+        long responseDto4 = curriculumService.countAll();
+        model.addAttribute("countAllCurriculum", responseDto4);
+
+        long responseDto5 = majorService.countAll();
+        model.addAttribute("countAllMajor", responseDto5);
+
+        long responseDto6 = ctdtService.countAll();
+        model.addAttribute("countAllCtdt", responseDto6);
+
+        long responseDto7 = studentService.countAll();
+        model.addAttribute("countAllSubject", responseDto7);
+
+        long responseDto8 = teacherService.countAll();
+        model.addAttribute("countAllTeacher", responseDto8);
+
+        long responseDto9 = ctdtSubjectClassService.countAll();
+        model.addAttribute("countAllCtdtSubjectClass", responseDto9);
 
         return "trang-chu";
     }

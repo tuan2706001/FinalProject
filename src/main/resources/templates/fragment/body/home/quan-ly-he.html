@@ -39,6 +39,7 @@
             <tr class=" text-white " style="background: #4A96CA">
                 <th>STT</th>
                 <th>Tên hệ</th>
+                <th>Xem ngành</th>
                 <th>Sửa</th>
             </tr>
             </thead>
@@ -47,6 +48,12 @@
                 <td th:text="${(page.currentPage -1)*page.pageSize+(index.count)}"></td>
 <!--                <td th:text="${item.name}"></td>-->
                 <td><a th:text="${item.name}" th:href="${'/quan-ly-nganh?curriculumId=' + item.id}"></a></td>
+                <td>
+                    <a th:href="${'/quan-ly-nganh?curriculumId=' + item.id}">
+                        <img class="mx-auto"
+                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABXElEQVRIie2UQUtCQRSFP8JdUta2HkFCj/6ERH+lWvkLWtR/cWkIbsRACCTbuMhFCzcmLdxWoFItX4s5L+fNG/W1MFp44MJwz7mHmXtnBtb479gFykADGAFfipFyZWl+jRxwCUyBaElMpc1lNd8HupZBCzgDQmBTESrXsnRd1S7EATBUwTNQyrChEjBQzVAeXuSBvoT3QMHiAqAGTBR1nSLGNtBWbV9eKVQk6DmCAHgj3ft3cfYGe+IqrvmJiE+g6HA1cQ1gD9PnpnI3jrYoj0ieP+goee052UScPcBAubFHfyWuA7DhkJGnYBF8etcTmLXoAzh0uLq4JuYUAXCrXNXRHmEeYqpFMBvyI+auxwgxA3WH/EqybVvAE3OGDMlr2sZcvRgBZqBjRdUx3wEeWHJNIfnQBmR7aKfACxkeWgzfV3EOHGtnea0vgDtLl+mriLHSz87Gyr7rNf4O31JZhMjSyXpfAAAAAElFTkSuQmCC">
+                    </a>
+                </td>
                 <td>
                     <div class=" rounded-full relative menu2 flex justify-center items-center">
                         <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-setting-essentials-tanah-basah-basic-outline-tanah-basah.png"/>
@@ -70,7 +77,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(findAll)}">
-                <td colspan="3">Không có dữ liệu</td>
+                <td colspan="4">Không có dữ liệu</td>
             </tr>
             </tbody>
         </table>
